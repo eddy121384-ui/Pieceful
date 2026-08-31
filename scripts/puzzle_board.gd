@@ -1,5 +1,5 @@
-extends Node2D
 class_name PuzzleBoard
+extends Node2D
 
 signal progress_changed(solved_count: int, total_count: int)
 signal completed
