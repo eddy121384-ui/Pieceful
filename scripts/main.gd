@@ -1,6 +1,6 @@
 extends Node
 
-@onready var board: Node2D = $PuzzleBoard
+@onready var board: PuzzleBoard = $PuzzleBoard
 
 var status_label: Label
 var completion_panel: PanelContainer
