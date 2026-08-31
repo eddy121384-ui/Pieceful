@@ -1,5 +1,5 @@
-extends RefCounted
 class_name PuzzleDefinition
+extends RefCounted
 
 var texture: Texture2D
 var columns: int
