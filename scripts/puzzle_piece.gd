@@ -1,5 +1,5 @@
-extends Area2D
 class_name PuzzlePiece
+extends Area2D
 
 signal released(piece)
 signal picked(piece)
