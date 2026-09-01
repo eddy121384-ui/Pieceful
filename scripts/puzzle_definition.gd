@@ -1,13 +1,15 @@
 class_name PuzzleDefinition
 extends RefCounted
 
+const CutPatternGeneratorScript = preload("res://scripts/cut_pattern_generator.gd")
+
 var texture: Texture2D
 var columns: int
 var rows: int
 var board_rect: Rect2
 var piece_size: Vector2
 var source_cell_size: Vector2
-var edges: Array[Dictionary] = []
+var cut_pattern
 
 
 func _init(
@@ -23,7 +25,12 @@ func _init(
 	board_rect = p_board_rect
 	piece_size = board_rect.size / Vector2(float(columns), float(rows))
 	source_cell_size = texture.get_size() / Vector2(float(columns), float(rows))
-	_build_edges(p_seed)
+	cut_pattern = CutPatternGeneratorScript.new(
+		columns,
+		rows,
+		board_rect.size,
+		p_seed
+	)
 
 
 func piece_count() -> int:
@@ -52,33 +59,5 @@ func source_origin_for(index: int) -> Vector2:
 	)
 
 
-func edges_for(index: int) -> Dictionary:
-	return edges[index]
-
-
-func _build_edges(seed_value: int) -> void:
-	edges.clear()
-	for _index in range(piece_count()):
-		edges.append({
-			"top": 0,
-			"right": 0,
-			"bottom": 0,
-			"left": 0,
-		})
-
-	var rng := RandomNumberGenerator.new()
-	rng.seed = seed_value
-
-	for row in range(rows):
-		for column in range(columns):
-			var index := row * columns + column
-
-			if column < columns - 1:
-				var horizontal_sign := 1 if rng.randi_range(0, 1) == 0 else -1
-				edges[index]["right"] = horizontal_sign
-				edges[index + 1]["left"] = -horizontal_sign
-
-			if row < rows - 1:
-				var vertical_sign := 1 if rng.randi_range(0, 1) == 0 else -1
-				edges[index]["bottom"] = vertical_sign
-				edges[index + columns]["top"] = -vertical_sign
+func outline_for(index: int) -> PackedVector2Array:
+	return cut_pattern.outline_for(row_for(index), column_for(index))
