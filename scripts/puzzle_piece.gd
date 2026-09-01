@@ -163,7 +163,7 @@ func _build_uvs() -> PackedVector2Array:
 
 func _build_outline() -> PackedVector2Array:
 	var result := PackedVector2Array()
-	var amplitude := min(piece_size.x, piece_size.y) * 0.20
+	var amplitude: float = minf(piece_size.x, piece_size.y) * 0.20
 
 	var top_left := Vector2.ZERO
 	var top_right := Vector2(piece_size.x, 0.0)
