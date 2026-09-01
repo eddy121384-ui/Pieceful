@@ -4,14 +4,17 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 #
-# V12 keeps V9-V11's global C2 ribbon construction and rounded taller caps,
-# but moves tab/blank polarity out of per-edge RNG. The board first receives a
-# shared polarity layout, then geometry is drawn from that topology. Interior
-# pieces are guaranteed to have at least one tab and at least one blank; 2/2 is
-# the base pattern and controlled flips introduce some 1/3 and 3/1 variety.
+# V13 keeps V9-V11's global C2 ribbon construction and rounded taller caps.
+# V12 introduced a board-level tab/blank topology, but treated 0-tab / 4-tab
+# interior pieces as illegal. Real commercial puzzles do use those silhouettes,
+# so V13 changes topology from a hard constraint to a weighted distribution:
+# 2/2 remains most likely, 1/3 and 3/1 are common secondary shapes, and 0/4 or
+# 4/0 are rare but explicitly allowed.
 
-const GENERATOR_VERSION := 12
-const TEMPLATE_NAME := "classic_cardboard_v12_constrained_topology"
+const GENERATOR_VERSION := 13
+const TEMPLATE_NAME := "classic_cardboard_v13_weighted_topology"
+const EXTREME_TOPOLOGY_WEIGHT := 0.10
+const ONE_THREE_TOPOLOGY_WEIGHT := 0.72
 
 var columns: int
 var rows: int
@@ -73,7 +76,14 @@ func generate_pattern_dict(
 			"seed": seed,
 			"template": TEMPLATE_NAME,
 			"construction": "global_natural_cubic_c2",
-			"topology_rule": "interior_1_to_3_tabs",
+			"topology_rule": "weighted_mix_with_rare_extremes",
+			"topology_weights": {
+				"zero_tabs": EXTREME_TOPOLOGY_WEIGHT,
+				"one_tab": ONE_THREE_TOPOLOGY_WEIGHT,
+				"two_tabs": 1.0,
+				"three_tabs": ONE_THREE_TOPOLOGY_WEIGHT,
+				"four_tabs": EXTREME_TOPOLOGY_WEIGHT,
+			},
 			"topology_distribution": _topology_distribution(),
 			"curated": false,
 		},
@@ -124,8 +134,8 @@ func _build_edge_polarities() -> void:
 	for index in range(vertical_polarities.size()):
 		vertical_polarities[index] = 0
 
-	# Start from a deterministic checker orientation. Every true interior piece
-	# begins at exactly 2 tabs / 2 blanks.
+	# A checker orientation gives a calm 2-tab / 2-blank starting point. The
+	# weighted randomizer then perturbs it; extremes are possible, not forbidden.
 	for boundary_row in range(1, rows):
 		for column in range(columns):
 			horizontal_polarities[boundary_row * columns + column] = (
@@ -142,8 +152,8 @@ func _build_edge_polarities() -> void:
 
 
 func _randomize_edge_polarities() -> void:
-	# Use a dedicated RNG so topology variation does not consume the geometry RNG
-	# stream. This makes later cap/ribbon tuning easier to compare seed-for-seed.
+	# Keep topology RNG independent from geometry RNG so visual tuning remains
+	# seed-comparable across generator revisions.
 	var topology_rng := RandomNumberGenerator.new()
 	topology_rng.seed = seed + 104729
 
@@ -153,51 +163,73 @@ func _randomize_edge_polarities() -> void:
 	if total_internal_edges <= 0:
 		return
 
-	# A modest number of valid flips keeps 2/2 dominant while admitting some
-	# 1/3 and 3/1 pieces. Any flip that would create 0/4 or 4/0 on an interior
-	# piece is rejected.
-	var target_successes: int = maxi(1, int(round(float(total_internal_edges) * 0.24)))
-	var max_attempts: int = maxi(16, total_internal_edges * 10)
+	# Unique accepted flips make the checker base less repetitive. Acceptance is
+	# weighted by the resulting interior-piece silhouettes instead of rejecting
+	# 0/4 or 4/0 outright. This makes extremes genuinely possible but uncommon.
+	var target_successes: int = maxi(1, int(round(float(total_internal_edges) * 0.28)))
+	var max_attempts: int = maxi(32, total_internal_edges * 14)
 	var successes := 0
+	var touched := {}
 
 	for _attempt in range(max_attempts):
 		if successes >= target_successes:
 			break
 
 		var pick: int = topology_rng.randi_range(0, total_internal_edges - 1)
+		if touched.has(pick):
+			continue
+
 		if pick < horizontal_count:
-			var boundary_row: int = 1 + pick / columns
+			var boundary_row: int = 1 + int(pick / columns)
 			var column: int = pick % columns
 			var index: int = boundary_row * columns + column
 			var old_sign: int = horizontal_polarities[index]
 			horizontal_polarities[index] = -old_sign
 
-			if _piece_topology_is_valid(boundary_row - 1, column) and _piece_topology_is_valid(boundary_row, column):
+			var acceptance: float = (
+				_piece_topology_weight(boundary_row - 1, column)
+				* _piece_topology_weight(boundary_row, column)
+			)
+			if topology_rng.randf() <= acceptance:
+				touched[pick] = true
 				successes += 1
 			else:
 				horizontal_polarities[index] = old_sign
 		else:
 			var vertical_pick: int = pick - horizontal_count
-			var row: int = vertical_pick / maxi(columns - 1, 1)
-			var boundary_column: int = 1 + vertical_pick % maxi(columns - 1, 1)
+			var inner_columns: int = maxi(columns - 1, 1)
+			var row: int = int(vertical_pick / inner_columns)
+			var boundary_column: int = 1 + vertical_pick % inner_columns
 			var index: int = row * (columns + 1) + boundary_column
 			var old_sign: int = vertical_polarities[index]
 			vertical_polarities[index] = -old_sign
 
-			if _piece_topology_is_valid(row, boundary_column - 1) and _piece_topology_is_valid(row, boundary_column):
+			var acceptance: float = (
+				_piece_topology_weight(row, boundary_column - 1)
+				* _piece_topology_weight(row, boundary_column)
+			)
+			if topology_rng.randf() <= acceptance:
+				touched[pick] = true
 				successes += 1
 			else:
 				vertical_polarities[index] = old_sign
 
 
-func _piece_topology_is_valid(row: int, column: int) -> bool:
-	# The commercial-style constraint is intended for true four-sided interior
-	# pieces. Border pieces have one or two flat sides and are not forced into the
-	# same 1..3 count.
+func _piece_topology_weight(row: int, column: int) -> float:
+	# Border pieces have flat sides, so the 0..4 interior-tab distribution does
+	# not describe them cleanly; do not bias a candidate flip because of them.
 	if row <= 0 or row >= rows - 1 or column <= 0 or column >= columns - 1:
-		return true
-	var tabs: int = _piece_tab_count(row, column)
-	return tabs >= 1 and tabs <= 3
+		return 1.0
+
+	match _piece_tab_count(row, column):
+		0, 4:
+			return EXTREME_TOPOLOGY_WEIGHT
+		1, 3:
+			return ONE_THREE_TOPOLOGY_WEIGHT
+		2:
+			return 1.0
+		_:
+			return 0.0
 
 
 func _piece_tab_count(row: int, column: int) -> int:
@@ -225,11 +257,11 @@ func _piece_tab_count(row: int, column: int) -> int:
 
 func _topology_distribution() -> Dictionary:
 	var distribution := {
+		"zero_tabs": 0,
 		"one_tab": 0,
 		"two_tabs": 0,
 		"three_tabs": 0,
 		"four_tabs": 0,
-		"zero_tabs": 0,
 	}
 
 	for row in range(1, rows - 1):
@@ -386,6 +418,7 @@ func _make_cell_guides(
 		length * 0.88
 	)
 
+	# Taller rounded crown inherited from V11.
 	var local_guides := PackedVector2Array([
 		Vector2(left_gate * 0.44, 0.0),
 		Vector2(left_gate * 0.76, -left_dip * 0.04),
