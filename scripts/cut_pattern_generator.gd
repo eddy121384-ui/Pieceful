@@ -4,8 +4,8 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 
-const GENERATOR_VERSION := 5
-const TEMPLATE_NAME := "classic_cardboard_v5_standard_organic"
+const GENERATOR_VERSION := 6
+const TEMPLATE_NAME := "classic_cardboard_v6_smooth_ribbon"
 
 var columns: int
 var rows: int
@@ -55,7 +55,7 @@ func generate_pattern_dict(
 		"aspect_ratio_class": aspect_ratio_class,
 		"style": "classic_ribbon",
 		"curve": {
-			"type": "catmull_rom",
+			"type": "cubic_bezier_chain",
 			"version": 1,
 			"samples_per_span": 8,
 		},
@@ -82,11 +82,11 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	# Commercial ribbon dies still read as a grid, but their intersections are
-	# not CAD-perfect. V5 deliberately lets the whole piece body breathe a bit
-	# instead of putting all variation into the knob itself.
-	var jitter_x: float = cell_size.x * 0.055
-	var jitter_y: float = cell_size.y * 0.055
+	# Mature ribbon-cut puzzles are not a perfect CAD lattice, but the drift is
+	# restrained. The visible character should come from the flowing ribbons,
+	# not from violently displaced intersections.
+	var jitter_x: float = cell_size.x * 0.032
+	var jitter_y: float = cell_size.y * 0.032
 
 	for row in range(rows + 1):
 		for column in range(columns + 1):
@@ -108,11 +108,14 @@ func _build_horizontal_segments() -> void:
 
 	for boundary_row in range(rows + 1):
 		for column in range(columns):
+			var internal := boundary_row > 0 and boundary_row < rows
 			horizontal_segments.append(
 				_make_segment(
 					_grid_point(boundary_row, column),
 					_grid_point(boundary_row, column + 1),
-					boundary_row > 0 and boundary_row < rows
+					internal,
+					_horizontal_grid_tangent(boundary_row, column),
+					_horizontal_grid_tangent(boundary_row, column + 1)
 				)
 			)
 
@@ -122,11 +125,14 @@ func _build_vertical_segments() -> void:
 
 	for row in range(rows):
 		for boundary_column in range(columns + 1):
+			var internal := boundary_column > 0 and boundary_column < columns
 			vertical_segments.append(
 				_make_segment(
 					_grid_point(row, boundary_column),
 					_grid_point(row + 1, boundary_column),
-					boundary_column > 0 and boundary_column < columns
+					internal,
+					_vertical_grid_tangent(row, boundary_column),
+					_vertical_grid_tangent(row + 1, boundary_column)
 				)
 			)
 
@@ -134,7 +140,9 @@ func _build_vertical_segments() -> void:
 func _make_segment(
 	start: Vector2,
 	finish: Vector2,
-	internal: bool
+	internal: bool,
+	start_direction: Vector2,
+	finish_direction: Vector2
 ) -> PackedVector2Array:
 	if not internal:
 		return PackedVector2Array([start, finish])
@@ -153,7 +161,6 @@ func _make_segment(
 	var center_ratio: float = float(character["center_ratio"])
 	var center: float = center_ratio * length
 	var depth: float = float(character["depth"])
-
 	var shoulder_left: float = float(character["shoulder_left"])
 	var shoulder_right: float = float(character["shoulder_right"])
 	var neck_left: float = float(character["neck_left"])
@@ -164,64 +171,61 @@ func _make_segment(
 	var left_dip: float = float(character["left_dip"])
 	var right_dip: float = float(character["right_dip"])
 
-	# A small whole-edge bow is important: without it the piece body reads as
-	# a rectangle with a knob glued onto the middle. Two low-frequency terms
-	# keep endpoints exact while giving the ribbon a subtle manufactured sway.
-	var baseline_bend: float = min_cell * rng.randf_range(-0.035, 0.035)
-	var baseline_wave: float = min_cell * rng.randf_range(-0.012, 0.012)
+	# A whole ribbon should flow gently through the grid. These amplitudes are
+	# deliberately lower than V5: continuity now comes from Bézier tangents,
+	# not from visible sine-wave wobble.
+	var baseline_bend: float = min_cell * rng.randf_range(-0.018, 0.018)
+	var baseline_wave: float = min_cell * rng.randf_range(-0.005, 0.005)
 
-	# V5 target: mature commercial jigsaw grammar.
-	# baseline -> rounded shoulder -> narrow neck -> round mushroom cap ->
-	# narrow neck -> rounded shoulder -> baseline.
-	# The cap is pronounced, but asymmetry is intentionally restrained.
-	var anchors := PackedVector2Array([
+	# Semantic knots describe one continuous manufactured cut rather than a
+	# straight line with a separate knob glued into it. The neck-to-cap x
+	# reversal creates the classic mushroom overhang while the cubic chain keeps
+	# direction continuous through every semantic transition.
+	var local_knots := PackedVector2Array([
 		Vector2(0.0, 0.0),
-		Vector2(center - shoulder_left, 0.0),
-		Vector2(center - shoulder_left * 0.80, -left_dip * 0.25),
-		Vector2(center - shoulder_left * 0.62, -left_dip),
-		Vector2(center - neck_left * 1.45, -left_dip * 0.65),
-		Vector2(center - neck_left, 0.060 * depth),
-		Vector2(center - neck_left * 0.94, 0.270 * depth),
-		Vector2(center - head_left * 0.96, 0.540 * depth),
-		Vector2(center - head_left, 0.700 * depth),
-		Vector2(center - head_left * 0.82, 0.860 * depth),
-		Vector2(center - head_left * 0.48, 0.990 * depth),
-		Vector2(center + peak_shift, 1.055 * depth),
-		Vector2(center + head_right * 0.48, 1.000 * depth),
-		Vector2(center + head_right * 0.82, 0.870 * depth),
-		Vector2(center + head_right, 0.700 * depth),
-		Vector2(center + head_right * 0.96, 0.540 * depth),
-		Vector2(center + neck_right * 0.94, 0.270 * depth),
-		Vector2(center + neck_right, 0.060 * depth),
-		Vector2(center + neck_right * 1.45, -right_dip * 0.65),
-		Vector2(center + shoulder_right * 0.62, -right_dip),
-		Vector2(center + shoulder_right * 0.80, -right_dip * 0.25),
-		Vector2(center + shoulder_right, 0.0),
+		Vector2(center - shoulder_left * 1.12, 0.0),
+		Vector2(center - shoulder_left, -left_dip * 0.15),
+		Vector2(center - (head_left + neck_left) * 0.56, -left_dip),
+		Vector2(center - neck_left, 0.150 * depth),
+		Vector2(center - head_left, 0.585 * depth),
+		Vector2(center - head_left * 0.55, 0.940 * depth),
+		Vector2(center + peak_shift, 1.045 * depth),
+		Vector2(center + head_right * 0.55, 0.940 * depth),
+		Vector2(center + head_right, 0.585 * depth),
+		Vector2(center + neck_right, 0.150 * depth),
+		Vector2(center + (head_right + neck_right) * 0.56, -right_dip),
+		Vector2(center + shoulder_right, -right_dip * 0.15),
+		Vector2(center + shoulder_right * 1.12, 0.0),
 		Vector2(length, 0.0),
 	])
 
-	var result := PackedVector2Array()
-	for local_point in anchors:
+	var world_knots := PackedVector2Array()
+	for local_point in local_knots:
 		var x_ratio: float = clampf(local_point.x / length, 0.0, 1.0)
 		var body_offset: float = (
 			baseline_bend * sin(PI * x_ratio)
 			+ baseline_wave * sin(TAU * x_ratio)
 		)
-		var normal_offset: float = body_offset + local_point.y * tab_sign
-		result.append(
+		world_knots.append(
 			start
 			+ tangent * local_point.x
-			+ normal * normal_offset
+			+ normal * (body_offset + local_point.y * tab_sign)
 		)
 
-	result[0] = start
-	result[result.size() - 1] = finish
+	world_knots[0] = start
+	world_knots[world_knots.size() - 1] = finish
+
+	var result := _bezier_chain_from_knots(
+		world_knots,
+		start_direction,
+		finish_direction
+	)
 
 	var neck_width: float = neck_left + neck_right
 	var head_width: float = head_left + head_right
 	segment_metrics.append({
 		"neck_width_ratio": neck_width / length,
-		"depth_ratio": depth * 1.055 / min_cell,
+		"depth_ratio": depth * 1.045 / min_cell,
 		"center_ratio": center_ratio,
 		"head_to_neck_ratio": head_width / maxf(neck_width, 0.000001),
 		"archetype": character["archetype"],
@@ -231,8 +235,8 @@ func _make_segment(
 
 
 func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
-	# V5 deliberately narrows the family. Most cuts are the standard profile;
-	# broad and compact are close cousins rather than radically different tabs.
+	# V6 is intentionally disciplined: roughly 70% standard cuts and two close
+	# relatives. Randomness changes proportion, not the underlying grammar.
 	var roll: float = rng.randf()
 	var archetype := "standard_round"
 	var depth_multiplier := 1.0
@@ -240,37 +244,37 @@ func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
 	var neck_multiplier := 1.0
 	var shoulder_multiplier := 1.0
 
-	if roll < 0.20:
+	if roll < 0.16:
 		archetype = "broad_round"
-		depth_multiplier = 0.96
-		head_multiplier = 1.06
-		neck_multiplier = 0.98
+		depth_multiplier = 0.97
+		head_multiplier = 1.05
+		neck_multiplier = 1.00
 		shoulder_multiplier = 1.02
-	elif roll < 0.35:
+	elif roll < 0.30:
 		archetype = "compact_round"
 		depth_multiplier = 1.02
 		head_multiplier = 0.96
-		neck_multiplier = 0.96
-		shoulder_multiplier = 0.94
+		neck_multiplier = 0.97
+		shoulder_multiplier = 0.96
 
-	var center_ratio: float = rng.randf_range(0.455, 0.545)
-	var depth_ratio: float = rng.randf_range(0.235, 0.270) * depth_multiplier
+	var center_ratio: float = rng.randf_range(0.465, 0.535)
+	var depth_ratio: float = rng.randf_range(0.220, 0.248) * depth_multiplier
 
-	var shoulder_left: float = rng.randf_range(0.250, 0.300) * length * shoulder_multiplier
-	var shoulder_right: float = rng.randf_range(0.250, 0.300) * length * shoulder_multiplier
-	var neck_left: float = rng.randf_range(0.060, 0.075) * length * neck_multiplier
-	var neck_right: float = rng.randf_range(0.060, 0.075) * length * neck_multiplier
-	var head_left: float = rng.randf_range(0.150, 0.175) * length * head_multiplier
-	var head_right: float = rng.randf_range(0.150, 0.175) * length * head_multiplier
+	var shoulder_left: float = rng.randf_range(0.250, 0.290) * length * shoulder_multiplier
+	var shoulder_right: float = rng.randf_range(0.250, 0.290) * length * shoulder_multiplier
+	var neck_left: float = rng.randf_range(0.066, 0.078) * length * neck_multiplier
+	var neck_right: float = rng.randf_range(0.066, 0.078) * length * neck_multiplier
+	var head_left: float = rng.randf_range(0.145, 0.164) * length * head_multiplier
+	var head_right: float = rng.randf_range(0.145, 0.164) * length * head_multiplier
 
-	# Small independent differences prevent copy-paste symmetry while keeping
-	# the profile recognisably standard across the whole die.
-	shoulder_left *= rng.randf_range(0.97, 1.03)
-	shoulder_right *= rng.randf_range(0.97, 1.03)
-	neck_left *= rng.randf_range(0.97, 1.03)
-	neck_right *= rng.randf_range(0.97, 1.03)
-	head_left *= rng.randf_range(0.97, 1.03)
-	head_right *= rng.randf_range(0.97, 1.03)
+	# Very small independent variation avoids mirrored icons without destroying
+	# the strong family resemblance of a commercial die sheet.
+	shoulder_left *= rng.randf_range(0.985, 1.015)
+	shoulder_right *= rng.randf_range(0.985, 1.015)
+	neck_left *= rng.randf_range(0.985, 1.015)
+	neck_right *= rng.randf_range(0.985, 1.015)
+	head_left *= rng.randf_range(0.985, 1.015)
+	head_right *= rng.randf_range(0.985, 1.015)
 
 	var depth: float = min_cell * depth_ratio
 
@@ -284,10 +288,86 @@ func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
 		"neck_right": neck_right,
 		"head_left": head_left,
 		"head_right": head_right,
-		"peak_shift": rng.randf_range(-0.012, 0.012) * length,
-		"left_dip": rng.randf_range(0.025, 0.055) * depth,
-		"right_dip": rng.randf_range(0.025, 0.055) * depth,
+		"peak_shift": rng.randf_range(-0.008, 0.008) * length,
+		"left_dip": rng.randf_range(0.030, 0.050) * depth,
+		"right_dip": rng.randf_range(0.030, 0.050) * depth,
 	}
+
+
+func _bezier_chain_from_knots(
+	knots: PackedVector2Array,
+	start_direction: Vector2,
+	finish_direction: Vector2
+) -> PackedVector2Array:
+	if knots.size() < 2:
+		return knots
+
+	var tangents := PackedVector2Array()
+	for index in range(knots.size()):
+		var tangent_vector := Vector2.ZERO
+
+		if index == 0:
+			var first_length: float = (knots[1] - knots[0]).length()
+			tangent_vector = start_direction.normalized() * first_length
+		elif index == knots.size() - 1:
+			var last_length: float = (knots[index] - knots[index - 1]).length()
+			tangent_vector = finish_direction.normalized() * last_length
+		else:
+			var before := knots[index] - knots[index - 1]
+			var after := knots[index + 1] - knots[index]
+			var through := knots[index + 1] - knots[index - 1]
+			if through.length() > 0.000001:
+				var tangent_length: float = minf(before.length(), after.length()) * 1.05
+				tangent_vector = through.normalized() * tangent_length
+
+		tangents.append(tangent_vector)
+
+	var result := PackedVector2Array([knots[0]])
+	for index in range(knots.size() - 1):
+		var span_length: float = (knots[index + 1] - knots[index]).length()
+		var outgoing := tangents[index]
+		var incoming := tangents[index + 1]
+
+		# Clamp handles per span. Shared knot tangents still point in exactly the
+		# same direction, preserving C1 continuity without overshooting tight necks.
+		if outgoing.length() > span_length * 1.20:
+			outgoing = outgoing.normalized() * span_length * 1.20
+		if incoming.length() > span_length * 1.20:
+			incoming = incoming.normalized() * span_length * 1.20
+
+		result.append(knots[index] + outgoing / 3.0)
+		result.append(knots[index + 1] - incoming / 3.0)
+		result.append(knots[index + 1])
+
+	return result
+
+
+func _horizontal_grid_tangent(boundary_row: int, column: int) -> Vector2:
+	if column <= 0:
+		return (_grid_point(boundary_row, 1) - _grid_point(boundary_row, 0)).normalized()
+	if column >= columns:
+		return (
+			_grid_point(boundary_row, columns)
+			- _grid_point(boundary_row, columns - 1)
+		).normalized()
+	return (
+		_grid_point(boundary_row, column + 1)
+		- _grid_point(boundary_row, column - 1)
+	).normalized()
+
+
+func _vertical_grid_tangent(row: int, boundary_column: int) -> Vector2:
+	if row <= 0:
+		return (_grid_point(1, boundary_column) - _grid_point(0, boundary_column)).normalized()
+	if row >= rows:
+		return (
+			_grid_point(rows, boundary_column)
+			- _grid_point(rows - 1, boundary_column)
+		).normalized()
+	return (
+		_grid_point(row + 1, boundary_column)
+		- _grid_point(row - 1, boundary_column)
+	).normalized()
 
 
 func _serialize_segments(segments: Array) -> Array:
