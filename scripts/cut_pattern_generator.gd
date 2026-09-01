@@ -4,15 +4,14 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 #
-# V9 changes the construction model: each complete horizontal / vertical
-# ribbon is designed as one global C2-continuous natural cubic spline. The
-# resulting spline is then split back into per-cell cubic Bezier chains for the
-# existing CutPattern asset format. This prevents the visual "short segment"
-# rhythm where a line is smooth at a junction but suddenly changes curvature
-# again on the way into a tab / blank.
+# V10 preserves V9's construction model: each complete horizontal / vertical
+# ribbon is designed as one global C2-continuous natural cubic spline and then
+# split back into per-cell cubic Bezier chains for the CutPattern asset format.
+# This iteration changes only the classic tab / blank cap language: the head is
+# sampled as a broad rounded crown instead of a sparse neck-side-peak diamond.
 
-const GENERATOR_VERSION := 9
-const TEMPLATE_NAME := "classic_cardboard_v9_global_c2_ribbons"
+const GENERATOR_VERSION := 10
+const TEMPLATE_NAME := "classic_cardboard_v10_round_caps"
 
 var columns: int
 var rows: int
@@ -91,8 +90,8 @@ func _build_grid_points() -> void:
 	grid_points.clear()
 
 	# Keep a recognisable ribbon lattice, but avoid CAD-perfect crosses.
-	# V9 gets most of its organic quality from the global ribbon spline rather
-	# than from aggressively displaced intersections.
+	# Most organic quality comes from the global ribbon spline rather than from
+	# aggressively displaced intersections.
 	var jitter_x: float = cell_size.x * 0.034
 	var jitter_y: float = cell_size.y * 0.034
 
@@ -178,8 +177,6 @@ func _build_global_ribbon(junctions: PackedVector2Array) -> Array:
 
 
 func _make_ribbon_profile(min_cell: float) -> Dictionary:
-	# One low-frequency profile is shared by the whole ribbon. This is the key
-	# difference from V8: neighbouring cells no longer invent independent bows.
 	return {
 		"amplitude": min_cell * rng.randf_range(0.010, 0.020),
 		"phase": rng.randf_range(0.0, 1.0),
@@ -230,23 +227,29 @@ func _make_cell_guides(
 		length * 0.88
 	)
 
-	# The semantic points still describe a classic mushroom tab, but they are
-	# only GUIDE points. A single natural cubic is later solved through the
-	# entire row / column, so shoulder -> neck -> cap -> shoulder does not get a
-	# fresh tangent calculation at every small transition.
+	# Broad rounded crown: cheek -> widest side -> upper cheek -> crown -> broad top.
+	# More cap guides and a flatter top height progression remove the V9 diamond feel.
 	var local_guides := PackedVector2Array([
 		Vector2(left_gate * 0.44, 0.0),
 		Vector2(left_gate * 0.76, -left_dip * 0.04),
 		Vector2(left_gate, -left_dip * 0.14),
 		Vector2(center - shoulder_left, -left_dip * 0.34),
 		Vector2(center - (head_left + neck_left) * 0.58, -left_dip),
-		Vector2(center - neck_left, 0.145 * depth),
-		Vector2(center - head_left, 0.590 * depth),
-		Vector2(center - head_left * 0.52, 0.930 * depth),
-		Vector2(center + peak_shift, 1.040 * depth),
-		Vector2(center + head_right * 0.52, 0.930 * depth),
-		Vector2(center + head_right, 0.590 * depth),
-		Vector2(center + neck_right, 0.145 * depth),
+		Vector2(center - neck_left, 0.135 * depth),
+		Vector2(center - head_left * 0.91, 0.455 * depth),
+		Vector2(center - head_left, 0.655 * depth),
+		Vector2(center - head_left * 0.91, 0.815 * depth),
+		Vector2(center - head_left * 0.70, 0.935 * depth),
+		Vector2(center - head_left * 0.42, 1.010 * depth),
+		Vector2(center - head_left * 0.17 + peak_shift * 0.35, 1.045 * depth),
+		Vector2(center + peak_shift, 1.055 * depth),
+		Vector2(center + head_right * 0.17 + peak_shift * 0.35, 1.045 * depth),
+		Vector2(center + head_right * 0.42, 1.010 * depth),
+		Vector2(center + head_right * 0.70, 0.935 * depth),
+		Vector2(center + head_right * 0.91, 0.815 * depth),
+		Vector2(center + head_right, 0.655 * depth),
+		Vector2(center + head_right * 0.91, 0.455 * depth),
+		Vector2(center + neck_right, 0.135 * depth),
 		Vector2(center + (head_right + neck_right) * 0.58, -right_dip),
 		Vector2(center + shoulder_right, -right_dip * 0.34),
 		Vector2(right_gate, -right_dip * 0.14),
@@ -271,7 +274,7 @@ func _make_cell_guides(
 	var head_width: float = head_left + head_right
 	segment_metrics.append({
 		"neck_width_ratio": neck_width / length,
-		"depth_ratio": depth * 1.040 / min_cell,
+		"depth_ratio": depth * 1.055 / min_cell,
 		"center_ratio": center_ratio,
 		"head_to_neck_ratio": head_width / maxf(neck_width, 0.000001),
 		"archetype": character["archetype"],
@@ -292,8 +295,6 @@ func _ribbon_offset(profile: Dictionary, global_ratio: float) -> float:
 
 
 func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
-	# Preserve the disciplined commercial family while changing only the curve
-	# construction model. Most edges remain the standard profile.
 	var roll: float = rng.randf()
 	var archetype := "standard_round"
 	var depth_multiplier := 1.0
@@ -303,32 +304,32 @@ func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
 
 	if roll < 0.16:
 		archetype = "broad_round"
-		depth_multiplier = 0.97
-		head_multiplier = 1.05
+		depth_multiplier = 0.98
+		head_multiplier = 1.045
 		shoulder_multiplier = 1.02
 	elif roll < 0.30:
 		archetype = "compact_round"
-		depth_multiplier = 1.02
-		head_multiplier = 0.96
-		neck_multiplier = 0.97
-		shoulder_multiplier = 0.96
+		depth_multiplier = 1.015
+		head_multiplier = 0.975
+		neck_multiplier = 0.98
+		shoulder_multiplier = 0.97
 
-	var center_ratio: float = rng.randf_range(0.465, 0.535)
-	var depth_ratio: float = rng.randf_range(0.220, 0.248) * depth_multiplier
+	var center_ratio: float = rng.randf_range(0.468, 0.532)
+	var depth_ratio: float = rng.randf_range(0.222, 0.250) * depth_multiplier
 
-	var shoulder_left: float = rng.randf_range(0.250, 0.290) * length * shoulder_multiplier
-	var shoulder_right: float = rng.randf_range(0.250, 0.290) * length * shoulder_multiplier
-	var neck_left: float = rng.randf_range(0.066, 0.078) * length * neck_multiplier
-	var neck_right: float = rng.randf_range(0.066, 0.078) * length * neck_multiplier
-	var head_left: float = rng.randf_range(0.145, 0.164) * length * head_multiplier
-	var head_right: float = rng.randf_range(0.145, 0.164) * length * head_multiplier
+	var shoulder_left: float = rng.randf_range(0.252, 0.292) * length * shoulder_multiplier
+	var shoulder_right: float = rng.randf_range(0.252, 0.292) * length * shoulder_multiplier
+	var neck_left: float = rng.randf_range(0.062, 0.073) * length * neck_multiplier
+	var neck_right: float = rng.randf_range(0.062, 0.073) * length * neck_multiplier
+	var head_left: float = rng.randf_range(0.154, 0.176) * length * head_multiplier
+	var head_right: float = rng.randf_range(0.154, 0.176) * length * head_multiplier
 
-	shoulder_left *= rng.randf_range(0.988, 1.012)
-	shoulder_right *= rng.randf_range(0.988, 1.012)
-	neck_left *= rng.randf_range(0.988, 1.012)
-	neck_right *= rng.randf_range(0.988, 1.012)
-	head_left *= rng.randf_range(0.988, 1.012)
-	head_right *= rng.randf_range(0.988, 1.012)
+	shoulder_left *= rng.randf_range(0.990, 1.010)
+	shoulder_right *= rng.randf_range(0.990, 1.010)
+	neck_left *= rng.randf_range(0.990, 1.010)
+	neck_right *= rng.randf_range(0.990, 1.010)
+	head_left *= rng.randf_range(0.990, 1.010)
+	head_right *= rng.randf_range(0.990, 1.010)
 
 	var depth: float = min_cell * depth_ratio
 
@@ -342,9 +343,9 @@ func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
 		"neck_right": neck_right,
 		"head_left": head_left,
 		"head_right": head_right,
-		"peak_shift": rng.randf_range(-0.007, 0.007) * length,
-		"left_dip": rng.randf_range(0.028, 0.046) * depth,
-		"right_dip": rng.randf_range(0.028, 0.046) * depth,
+		"peak_shift": rng.randf_range(-0.005, 0.005) * length,
+		"left_dip": rng.randf_range(0.026, 0.043) * depth,
+		"right_dip": rng.randf_range(0.026, 0.043) * depth,
 	}
 
 
