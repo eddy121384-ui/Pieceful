@@ -1,7 +1,7 @@
 class_name PuzzleDefinition
 extends RefCounted
 
-const CutPatternGeneratorScript = preload("res://scripts/cut_pattern_generator.gd")
+const CutPatternAssetScript = preload("res://scripts/cut_pattern_asset.gd")
 
 var texture: Texture2D
 var columns: int
@@ -9,28 +9,23 @@ var rows: int
 var board_rect: Rect2
 var piece_size: Vector2
 var source_cell_size: Vector2
-var cut_pattern
+var cut_pattern: CutPatternAsset
 
 
 func _init(
 	p_texture: Texture2D,
-	p_columns: int,
-	p_rows: int,
 	p_board_rect: Rect2,
-	p_seed: int = 424242
+	p_cut_pattern_path: String
 ) -> void:
 	texture = p_texture
-	columns = p_columns
-	rows = p_rows
 	board_rect = p_board_rect
+	cut_pattern = CutPatternAssetScript.load_json(p_cut_pattern_path)
+	assert(cut_pattern != null, "Failed to load CutPattern: %s" % p_cut_pattern_path)
+
+	columns = cut_pattern.columns
+	rows = cut_pattern.rows
 	piece_size = board_rect.size / Vector2(float(columns), float(rows))
 	source_cell_size = texture.get_size() / Vector2(float(columns), float(rows))
-	cut_pattern = CutPatternGeneratorScript.new(
-		columns,
-		rows,
-		board_rect.size,
-		p_seed
-	)
 
 
 func piece_count() -> int:
@@ -60,4 +55,8 @@ func source_origin_for(index: int) -> Vector2:
 
 
 func outline_for(index: int) -> PackedVector2Array:
-	return cut_pattern.outline_for(row_for(index), column_for(index))
+	return cut_pattern.outline_for(
+		row_for(index),
+		column_for(index),
+		board_rect.size
+	)

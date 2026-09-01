@@ -7,6 +7,7 @@ signal completed
 const PuzzleDefinitionScript = preload("res://scripts/puzzle_definition.gd")
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
 const DEMO_TEXTURE: Texture2D = preload("res://assets/demo_garden.svg")
+const CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
 
 var board_rect := Rect2(Vector2(340.0, 105.0), Vector2(600.0, 375.0))
 var definition
@@ -23,10 +24,8 @@ func start_new_game() -> void:
 
 	definition = PuzzleDefinitionScript.new(
 		DEMO_TEXTURE,
-		4,
-		3,
 		board_rect,
-		424242
+		CUT_PATTERN_PATH
 	)
 
 	_build_board_visuals()

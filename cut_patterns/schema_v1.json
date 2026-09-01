@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "piecepace.cut-pattern.v1",
+  "title": "Piecepace CutPattern v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern_id",
+    "version",
+    "columns",
+    "rows",
+    "aspect_ratio",
+    "aspect_ratio_class",
+    "style",
+    "curve",
+    "intersections",
+    "horizontal_segments",
+    "vertical_segments"
+  ],
+  "properties": {
+    "pattern_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "columns": {"type": "integer", "minimum": 1},
+    "rows": {"type": "integer", "minimum": 1},
+    "aspect_ratio": {"type": "number", "exclusiveMinimum": 0},
+    "aspect_ratio_class": {"type": "string", "minLength": 1},
+    "style": {"const": "classic_ribbon"},
+    "curve": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "version", "samples_per_span"],
+      "properties": {
+        "type": {"const": "catmull_rom"},
+        "version": {"const": 1},
+        "samples_per_span": {"type": "integer", "minimum": 1, "maximum": 12}
+      }
+    },
+    "authoring": {"type": "object", "additionalProperties": true},
+    "intersections": {"type": "array", "items": {"$ref": "#/$defs/point"}},
+    "horizontal_segments": {"type": "array", "items": {"$ref": "#/$defs/segment"}},
+    "vertical_segments": {"type": "array", "items": {"$ref": "#/$defs/segment"}},
+    "validation_metadata": {"type": "object", "additionalProperties": true}
+  },
+  "$defs": {
+    "point": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "segment": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/point"}
+    }
+  }
+}
