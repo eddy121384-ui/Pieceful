@@ -4,8 +4,8 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 
-const GENERATOR_VERSION := 6
-const TEMPLATE_NAME := "classic_cardboard_v6_smooth_ribbon"
+const GENERATOR_VERSION := 7
+const TEMPLATE_NAME := "classic_cardboard_v7_fluid_ribbon"
 
 var columns: int
 var rows: int
@@ -57,7 +57,7 @@ func generate_pattern_dict(
 		"curve": {
 			"type": "cubic_bezier_chain",
 			"version": 1,
-			"samples_per_span": 8,
+			"samples_per_span": 10,
 		},
 		"authoring": {
 			"generator_version": GENERATOR_VERSION,
@@ -82,11 +82,11 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	# Mature ribbon-cut puzzles are not a perfect CAD lattice, but the drift is
-	# restrained. The visible character should come from the flowing ribbons,
-	# not from violently displaced intersections.
-	var jitter_x: float = cell_size.x * 0.032
-	var jitter_y: float = cell_size.y * 0.032
+	# Keep the lattice recognisable, but give neighbouring junctions enough
+	# displacement for the continuous ribbon tangent field to produce visible
+	# broad curves rather than near-straight CAD spans.
+	var jitter_x: float = cell_size.x * 0.038
+	var jitter_y: float = cell_size.y * 0.038
 
 	for row in range(rows + 1):
 		for column in range(columns + 1):
@@ -171,11 +171,10 @@ func _make_segment(
 	var left_dip: float = float(character["left_dip"])
 	var right_dip: float = float(character["right_dip"])
 
-	# A whole ribbon should flow gently through the grid. These amplitudes are
-	# deliberately lower than V5: continuity now comes from Bézier tangents,
-	# not from visible sine-wave wobble.
-	var baseline_bend: float = min_cell * rng.randf_range(-0.018, 0.018)
-	var baseline_wave: float = min_cell * rng.randf_range(-0.005, 0.005)
+	# V7 increases the broad bow while keeping the high-frequency wave tiny.
+	# The visual target is a confident flowing steel-rule ribbon, not wobble.
+	var baseline_bend: float = min_cell * rng.randf_range(-0.030, 0.030)
+	var baseline_wave: float = min_cell * rng.randf_range(-0.004, 0.004)
 
 	# Semantic knots describe one continuous manufactured cut rather than a
 	# straight line with a separate knob glued into it. The neck-to-cap x
@@ -235,8 +234,8 @@ func _make_segment(
 
 
 func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
-	# V6 is intentionally disciplined: roughly 70% standard cuts and two close
-	# relatives. Randomness changes proportion, not the underlying grammar.
+	# V7 intentionally preserves the V6 tab family. This iteration isolates
+	# ribbon curvature so visual review can attribute changes cleanly.
 	var roll: float = rng.randf()
 	var archetype := "standard_round"
 	var depth_multiplier := 1.0
@@ -308,16 +307,16 @@ func _bezier_chain_from_knots(
 
 		if index == 0:
 			var first_length: float = (knots[1] - knots[0]).length()
-			tangent_vector = start_direction.normalized() * first_length
+			tangent_vector = start_direction.normalized() * first_length * 1.15
 		elif index == knots.size() - 1:
 			var last_length: float = (knots[index] - knots[index - 1]).length()
-			tangent_vector = finish_direction.normalized() * last_length
+			tangent_vector = finish_direction.normalized() * last_length * 1.15
 		else:
 			var before := knots[index] - knots[index - 1]
 			var after := knots[index + 1] - knots[index]
 			var through := knots[index + 1] - knots[index - 1]
 			if through.length() > 0.000001:
-				var tangent_length: float = minf(before.length(), after.length()) * 1.05
+				var tangent_length: float = minf(before.length(), after.length()) * 1.18
 				tangent_vector = through.normalized() * tangent_length
 
 		tangents.append(tangent_vector)
@@ -328,12 +327,12 @@ func _bezier_chain_from_knots(
 		var outgoing := tangents[index]
 		var incoming := tangents[index + 1]
 
-		# Clamp handles per span. Shared knot tangents still point in exactly the
-		# same direction, preserving C1 continuity without overshooting tight necks.
-		if outgoing.length() > span_length * 1.20:
-			outgoing = outgoing.normalized() * span_length * 1.20
-		if incoming.length() > span_length * 1.20:
-			incoming = incoming.normalized() * span_length * 1.20
+		# Longer handles make the ribbon carry curvature through transitions.
+		# Direction remains shared at joins, so the extra curvature stays smooth.
+		if outgoing.length() > span_length * 1.35:
+			outgoing = outgoing.normalized() * span_length * 1.35
+		if incoming.length() > span_length * 1.35:
+			incoming = incoming.normalized() * span_length * 1.35
 
 		result.append(knots[index] + outgoing / 3.0)
 		result.append(knots[index + 1] - incoming / 3.0)
