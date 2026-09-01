@@ -5,6 +5,7 @@ const MAX_DEPTH_RATIO := 0.34
 const MIN_PROFILE_WIDTH_RATIO := 0.18
 const MIN_CORNER_CLEARANCE_RATIO := 0.14
 const MIN_PIECE_AREA_RATIO := 0.35
+const MIN_TANGENT_DOT := 0.998
 
 
 func validate(pattern: CutPatternAsset) -> Dictionary:
@@ -20,6 +21,8 @@ func validate(pattern: CutPatternAsset) -> Dictionary:
 	var min_cell: float = minf(cell_size.x, cell_size.y)
 
 	_validate_shared_junctions(pattern, errors)
+	if str(pattern.curve.get("type", "")) == "cubic_bezier_chain":
+		_validate_bezier_continuity(pattern, errors)
 	_validate_segments(pattern, design_size, min_cell, errors, warnings)
 	_validate_pieces(pattern, design_size, cell_size, errors)
 
@@ -54,6 +57,96 @@ func _validate_shared_junctions(pattern: CutPatternAsset, errors: Array[String])
 				var v_up: PackedVector2Array = pattern.vertical_segments[(row - 1) * (pattern.columns + 1) + column]
 				if not v_up[v_up.size() - 1].is_equal_approx(expected):
 					errors.append("Vertical segment end misses intersection (%d,%d)." % [row, column])
+
+
+func _validate_bezier_continuity(pattern: CutPatternAsset, errors: Array[String]) -> void:
+	for boundary_row in range(1, pattern.rows):
+		for column in range(pattern.columns):
+			var segment: PackedVector2Array = pattern.horizontal_segments[
+				boundary_row * pattern.columns + column
+			]
+			_validate_bezier_chain_tangents(
+				segment,
+				"H[%d][%d]" % [boundary_row, column],
+				errors
+			)
+
+		for junction_column in range(1, pattern.columns):
+			var left: PackedVector2Array = pattern.horizontal_segments[
+				boundary_row * pattern.columns + junction_column - 1
+			]
+			var right: PackedVector2Array = pattern.horizontal_segments[
+				boundary_row * pattern.columns + junction_column
+			]
+			_validate_shared_bezier_tangent(
+				left,
+				right,
+				"Horizontal ribbon junction (%d,%d)" % [boundary_row, junction_column],
+				errors
+			)
+
+	for boundary_column in range(1, pattern.columns):
+		for row in range(pattern.rows):
+			var segment: PackedVector2Array = pattern.vertical_segments[
+				row * (pattern.columns + 1) + boundary_column
+			]
+			_validate_bezier_chain_tangents(
+				segment,
+				"V[%d][%d]" % [row, boundary_column],
+				errors
+			)
+
+		for junction_row in range(1, pattern.rows):
+			var above: PackedVector2Array = pattern.vertical_segments[
+				(junction_row - 1) * (pattern.columns + 1) + boundary_column
+			]
+			var below: PackedVector2Array = pattern.vertical_segments[
+				junction_row * (pattern.columns + 1) + boundary_column
+			]
+			_validate_shared_bezier_tangent(
+				above,
+				below,
+				"Vertical ribbon junction (%d,%d)" % [junction_row, boundary_column],
+				errors
+			)
+
+
+func _validate_bezier_chain_tangents(
+	controls: PackedVector2Array,
+	label: String,
+	errors: Array[String]
+) -> void:
+	if controls.size() <= 4:
+		return
+
+	var join_index := 3
+	while join_index + 1 < controls.size():
+		var incoming := controls[join_index] - controls[join_index - 1]
+		var outgoing := controls[join_index + 1] - controls[join_index]
+		if not _tangents_match(incoming, outgoing):
+			errors.append("%s has a tangent kink at Bézier join %d." % [label, join_index])
+		join_index += 3
+
+
+func _validate_shared_bezier_tangent(
+	first: PackedVector2Array,
+	second: PackedVector2Array,
+	label: String,
+	errors: Array[String]
+) -> void:
+	if first.size() < 4 or second.size() < 4:
+		return
+
+	var incoming := first[first.size() - 1] - first[first.size() - 2]
+	var outgoing := second[1] - second[0]
+	if not _tangents_match(incoming, outgoing):
+		errors.append("%s is not tangent-continuous." % label)
+
+
+func _tangents_match(incoming: Vector2, outgoing: Vector2) -> bool:
+	if incoming.length() <= 0.000001 or outgoing.length() <= 0.000001:
+		return false
+	return incoming.normalized().dot(outgoing.normalized()) >= MIN_TANGENT_DOT
 
 
 func _validate_segments(
