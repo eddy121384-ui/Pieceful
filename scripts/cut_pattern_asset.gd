@@ -61,7 +61,9 @@ func is_structurally_valid() -> bool:
 		return false
 	if style != "classic_ribbon":
 		return false
-	if str(curve.get("type", "")) != "catmull_rom":
+
+	var curve_type := str(curve.get("type", ""))
+	if curve_type != "catmull_rom" and curve_type != "cubic_bezier_chain":
 		return false
 	if int(curve.get("version", 0)) != 1:
 		return false
@@ -75,10 +77,10 @@ func is_structurally_valid() -> bool:
 		return false
 
 	for segment in horizontal_segments:
-		if segment.size() < 2:
+		if not _segment_structure_is_valid(segment, curve_type):
 			return false
 	for segment in vertical_segments:
-		if segment.size() < 2:
+		if not _segment_structure_is_valid(segment, curve_type):
 			return false
 
 	return true
@@ -136,10 +138,40 @@ func _render_segment(
 	if scaled.size() <= 2:
 		return scaled
 
-	return _sample_catmull_rom(
-		scaled,
-		int(curve.get("samples_per_span", 4))
-	)
+	var samples_per_span := int(curve.get("samples_per_span", 4))
+	var curve_type := str(curve.get("type", "catmull_rom"))
+	if curve_type == "cubic_bezier_chain":
+		return _sample_cubic_bezier_chain(scaled, samples_per_span)
+
+	return _sample_catmull_rom(scaled, samples_per_span)
+
+
+func _sample_cubic_bezier_chain(
+	controls: PackedVector2Array,
+	samples_per_span: int
+) -> PackedVector2Array:
+	var result := PackedVector2Array([controls[0]])
+	var index := 0
+
+	while index + 3 < controls.size():
+		var p0 := controls[index]
+		var p1 := controls[index + 1]
+		var p2 := controls[index + 2]
+		var p3 := controls[index + 3]
+
+		for sample in range(1, samples_per_span + 1):
+			var t: float = float(sample) / float(samples_per_span)
+			var one_minus_t: float = 1.0 - t
+			result.append(
+				one_minus_t * one_minus_t * one_minus_t * p0
+				+ 3.0 * one_minus_t * one_minus_t * t * p1
+				+ 3.0 * one_minus_t * t * t * p2
+				+ t * t * t * p3
+			)
+
+		index += 3
+
+	return result
 
 
 func _sample_catmull_rom(
@@ -190,6 +222,17 @@ func _append_segment(
 			if not outline.is_empty() and index == 0:
 				continue
 			outline.append(segment[index] - nominal_origin)
+
+
+static func _segment_structure_is_valid(
+	segment: PackedVector2Array,
+	curve_type: String
+) -> bool:
+	if segment.size() < 2:
+		return false
+	if curve_type == "cubic_bezier_chain" and segment.size() > 2:
+		return segment.size() >= 4 and (segment.size() - 1) % 3 == 0
+	return true
 
 
 static func _decode_segments(raw_segments: Array) -> Array:
