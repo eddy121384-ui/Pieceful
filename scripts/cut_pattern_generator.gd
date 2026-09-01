@@ -4,14 +4,14 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 #
-# V10 preserves V9's construction model: each complete horizontal / vertical
+# V11 preserves V9's construction model: each complete horizontal / vertical
 # ribbon is designed as one global C2-continuous natural cubic spline and then
 # split back into per-cell cubic Bezier chains for the CutPattern asset format.
-# This iteration changes only the classic tab / blank cap language: the head is
-# sampled as a broad rounded crown instead of a sparse neck-side-peak diamond.
+# V10 rounded the cap; V11 lifts the whole rounded crown together so the
+# mushroom reads taller without bringing back a pointed diamond silhouette.
 
-const GENERATOR_VERSION := 10
-const TEMPLATE_NAME := "classic_cardboard_v10_round_caps"
+const GENERATOR_VERSION := 11
+const TEMPLATE_NAME := "classic_cardboard_v11_taller_round_caps"
 
 var columns: int
 var rows: int
@@ -227,8 +227,9 @@ func _make_cell_guides(
 		length * 0.88
 	)
 
-	# Broad rounded crown: cheek -> widest side -> upper cheek -> crown -> broad top.
-	# More cap guides and a flatter top height progression remove the V9 diamond feel.
+	# Taller rounded crown. Lift cheek, upper-cheek, crown, and broad-top levels
+	# together instead of only lifting the centre peak; that preserves the V10
+	# round cap while adding the requested mushroom height.
 	var local_guides := PackedVector2Array([
 		Vector2(left_gate * 0.44, 0.0),
 		Vector2(left_gate * 0.76, -left_dip * 0.04),
@@ -236,19 +237,19 @@ func _make_cell_guides(
 		Vector2(center - shoulder_left, -left_dip * 0.34),
 		Vector2(center - (head_left + neck_left) * 0.58, -left_dip),
 		Vector2(center - neck_left, 0.135 * depth),
-		Vector2(center - head_left * 0.91, 0.455 * depth),
-		Vector2(center - head_left, 0.655 * depth),
-		Vector2(center - head_left * 0.91, 0.815 * depth),
-		Vector2(center - head_left * 0.70, 0.935 * depth),
-		Vector2(center - head_left * 0.42, 1.010 * depth),
-		Vector2(center - head_left * 0.17 + peak_shift * 0.35, 1.045 * depth),
-		Vector2(center + peak_shift, 1.055 * depth),
-		Vector2(center + head_right * 0.17 + peak_shift * 0.35, 1.045 * depth),
-		Vector2(center + head_right * 0.42, 1.010 * depth),
-		Vector2(center + head_right * 0.70, 0.935 * depth),
-		Vector2(center + head_right * 0.91, 0.815 * depth),
-		Vector2(center + head_right, 0.655 * depth),
-		Vector2(center + head_right * 0.91, 0.455 * depth),
+		Vector2(center - head_left * 0.91, 0.480 * depth),
+		Vector2(center - head_left, 0.690 * depth),
+		Vector2(center - head_left * 0.91, 0.855 * depth),
+		Vector2(center - head_left * 0.70, 0.990 * depth),
+		Vector2(center - head_left * 0.42, 1.075 * depth),
+		Vector2(center - head_left * 0.17 + peak_shift * 0.35, 1.120 * depth),
+		Vector2(center + peak_shift, 1.135 * depth),
+		Vector2(center + head_right * 0.17 + peak_shift * 0.35, 1.120 * depth),
+		Vector2(center + head_right * 0.42, 1.075 * depth),
+		Vector2(center + head_right * 0.70, 0.990 * depth),
+		Vector2(center + head_right * 0.91, 0.855 * depth),
+		Vector2(center + head_right, 0.690 * depth),
+		Vector2(center + head_right * 0.91, 0.480 * depth),
 		Vector2(center + neck_right, 0.135 * depth),
 		Vector2(center + (head_right + neck_right) * 0.58, -right_dip),
 		Vector2(center + shoulder_right, -right_dip * 0.34),
@@ -274,7 +275,7 @@ func _make_cell_guides(
 	var head_width: float = head_left + head_right
 	segment_metrics.append({
 		"neck_width_ratio": neck_width / length,
-		"depth_ratio": depth * 1.055 / min_cell,
+		"depth_ratio": depth * 1.135 / min_cell,
 		"center_ratio": center_ratio,
 		"head_to_neck_ratio": head_width / maxf(neck_width, 0.000001),
 		"archetype": character["archetype"],
