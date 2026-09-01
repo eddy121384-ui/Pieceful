@@ -30,9 +30,11 @@
       "additionalProperties": false,
       "required": ["type", "version", "samples_per_span"],
       "properties": {
-        "type": {"const": "catmull_rom"},
+        "type": {
+          "enum": ["catmull_rom", "cubic_bezier_chain"]
+        },
         "version": {"const": 1},
-        "samples_per_span": {"type": "integer", "minimum": 1, "maximum": 12}
+        "samples_per_span": {"type": "integer", "minimum": 1, "maximum": 16}
       }
     },
     "authoring": {"type": "object", "additionalProperties": true},
