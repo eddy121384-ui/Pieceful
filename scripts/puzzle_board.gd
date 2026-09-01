@@ -103,7 +103,7 @@ func _build_pieces() -> void:
 			definition.piece_size,
 			definition.source_origin_for(index),
 			definition.source_cell_size,
-			definition.edges_for(index),
+			definition.outline_for(index),
 			starts[index]
 		)
 		piece.z_index = z_counter + index
