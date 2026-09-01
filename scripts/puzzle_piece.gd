@@ -10,7 +10,6 @@ var piece_size: Vector2
 var source_origin: Vector2
 var source_cell_size: Vector2
 var source_texture: Texture2D
-var edge_data: Dictionary
 
 var solved := false
 var dragging := false
@@ -28,7 +27,7 @@ func configure(
 	p_piece_size: Vector2,
 	p_source_origin: Vector2,
 	p_source_cell_size: Vector2,
-	p_edges: Dictionary,
+	p_outline: PackedVector2Array,
 	p_start_position: Vector2
 ) -> void:
 	piece_index = p_index
@@ -37,10 +36,9 @@ func configure(
 	piece_size = p_piece_size
 	source_origin = p_source_origin
 	source_cell_size = p_source_cell_size
-	edge_data = p_edges
 	position = p_start_position
 
-	polygon_points = _build_outline()
+	polygon_points = p_outline
 	uv_points = _build_uvs()
 	_build_visuals()
 	input_pickable = true
@@ -119,8 +117,8 @@ func _build_visuals() -> void:
 	var shadow := Polygon2D.new()
 	shadow.name = "Shadow"
 	shadow.polygon = polygon_points
-	shadow.color = Color(0.0, 0.0, 0.0, 0.28)
-	shadow.position = Vector2(5.0, 7.0)
+	shadow.color = Color(0.0, 0.0, 0.0, 0.26)
+	shadow.position = Vector2(4.0, 6.0)
 	shadow.z_index = -1
 	add_child(shadow)
 
@@ -137,8 +135,8 @@ func _build_visuals() -> void:
 	var outline_points := polygon_points.duplicate()
 	outline_points.append(polygon_points[0])
 	outline.points = outline_points
-	outline.width = 2.0
-	outline.default_color = Color(1.0, 1.0, 1.0, 0.78)
+	outline.width = 1.35
+	outline.default_color = Color(1.0, 1.0, 1.0, 0.66)
 	outline.antialiased = true
 	add_child(outline)
 
@@ -157,77 +155,5 @@ func _build_uvs() -> PackedVector2Array:
 
 	for point in polygon_points:
 		result.append(source_origin + point * display_to_source)
-
-	return result
-
-
-func _build_outline() -> PackedVector2Array:
-	var result := PackedVector2Array()
-	var amplitude: float = minf(piece_size.x, piece_size.y) * 0.20
-
-	var top_left := Vector2.ZERO
-	var top_right := Vector2(piece_size.x, 0.0)
-	var bottom_right := piece_size
-	var bottom_left := Vector2(0.0, piece_size.y)
-
-	result.append(top_left)
-	result.append_array(_edge_points(
-		top_left,
-		top_right,
-		Vector2.UP,
-		int(edge_data["top"]),
-		amplitude
-	))
-	result.append_array(_edge_points(
-		top_right,
-		bottom_right,
-		Vector2.RIGHT,
-		int(edge_data["right"]),
-		amplitude
-	))
-	result.append_array(_edge_points(
-		bottom_right,
-		bottom_left,
-		Vector2.DOWN,
-		int(edge_data["bottom"]),
-		amplitude
-	))
-	result.append_array(_edge_points(
-		bottom_left,
-		top_left,
-		Vector2.LEFT,
-		int(edge_data["left"]),
-		amplitude
-	))
-
-	return result
-
-
-func _edge_points(
-	start: Vector2,
-	finish: Vector2,
-	outward: Vector2,
-	edge_value: int,
-	amplitude: float
-) -> PackedVector2Array:
-	var result := PackedVector2Array()
-
-	if edge_value == 0:
-		result.append(finish)
-		return result
-
-	var delta := finish - start
-	var normal := outward * float(edge_value)
-
-	result.append(start + delta * 0.30)
-	result.append(start + delta * 0.36)
-	result.append(start + delta * 0.40 + normal * amplitude * 0.32)
-	result.append(start + delta * 0.44 + normal * amplitude * 0.78)
-	result.append(start + delta * 0.50 + normal * amplitude)
-	result.append(start + delta * 0.56 + normal * amplitude * 0.78)
-	result.append(start + delta * 0.60 + normal * amplitude * 0.32)
-	result.append(start + delta * 0.64)
-	result.append(start + delta * 0.70)
-	result.append(finish)
 
 	return result
