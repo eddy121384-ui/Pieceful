@@ -4,8 +4,8 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 
-const GENERATOR_VERSION := 4
-const TEMPLATE_NAME := "classic_cardboard_v4_mushroom"
+const GENERATOR_VERSION := 5
+const TEMPLATE_NAME := "classic_cardboard_v5_standard_organic"
 
 var columns: int
 var rows: int
@@ -57,7 +57,7 @@ func generate_pattern_dict(
 		"curve": {
 			"type": "catmull_rom",
 			"version": 1,
-			"samples_per_span": 6,
+			"samples_per_span": 8,
 		},
 		"authoring": {
 			"generator_version": GENERATOR_VERSION,
@@ -82,10 +82,11 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	# Keep the ribbon lattice readable. V4 moves the organic character into
-	# the cut profile rather than warping the whole grid.
-	var jitter_x: float = cell_size.x * 0.012
-	var jitter_y: float = cell_size.y * 0.012
+	# Commercial ribbon dies still read as a grid, but their intersections are
+	# not CAD-perfect. V5 deliberately lets the whole piece body breathe a bit
+	# instead of putting all variation into the knob itself.
+	var jitter_x: float = cell_size.x * 0.055
+	var jitter_y: float = cell_size.y * 0.055
 
 	for row in range(rows + 1):
 		for column in range(columns + 1):
@@ -152,7 +153,6 @@ func _make_segment(
 	var center_ratio: float = float(character["center_ratio"])
 	var center: float = center_ratio * length
 	var depth: float = float(character["depth"])
-	var baseline_bend: float = min_cell * rng.randf_range(-0.004, 0.004)
 
 	var shoulder_left: float = float(character["shoulder_left"])
 	var shoulder_right: float = float(character["shoulder_right"])
@@ -163,36 +163,39 @@ func _make_segment(
 	var peak_shift: float = float(character["peak_shift"])
 	var left_dip: float = float(character["left_dip"])
 	var right_dip: float = float(character["right_dip"])
-	var left_neck_height: float = float(character["left_neck_height"])
-	var right_neck_height: float = float(character["right_neck_height"])
-	var left_cap_height: float = float(character["left_cap_height"])
-	var right_cap_height: float = float(character["right_cap_height"])
 
-	# V4 target: commercial classic cardboard.
-	# Long baseline -> soft inward shoulder -> visibly narrow neck ->
-	# wide rounded mushroom cap -> narrow neck -> soft shoulder -> baseline.
-	# Left and right are independently varied so the cut reads as a real die,
-	# not a mirrored mathematical icon.
+	# A small whole-edge bow is important: without it the piece body reads as
+	# a rectangle with a knob glued onto the middle. Two low-frequency terms
+	# keep endpoints exact while giving the ribbon a subtle manufactured sway.
+	var baseline_bend: float = min_cell * rng.randf_range(-0.035, 0.035)
+	var baseline_wave: float = min_cell * rng.randf_range(-0.012, 0.012)
+
+	# V5 target: mature commercial jigsaw grammar.
+	# baseline -> rounded shoulder -> narrow neck -> round mushroom cap ->
+	# narrow neck -> rounded shoulder -> baseline.
+	# The cap is pronounced, but asymmetry is intentionally restrained.
 	var anchors := PackedVector2Array([
 		Vector2(0.0, 0.0),
 		Vector2(center - shoulder_left, 0.0),
-		Vector2(center - shoulder_left * 0.82, 0.0),
-		Vector2(center - shoulder_left * 0.67, -left_dip),
-		Vector2(center - (head_left + neck_left) * 0.50, -left_dip * 0.80),
-		Vector2(center - neck_left, left_neck_height),
-		Vector2(center - head_left * 0.95, 0.43 * depth),
-		Vector2(center - head_left, 0.62 * depth),
-		Vector2(center - head_left * 0.80, 0.85 * depth),
-		Vector2(center - head_left * 0.42, left_cap_height),
-		Vector2(center + peak_shift, 1.08 * depth),
-		Vector2(center + head_right * 0.42, right_cap_height),
-		Vector2(center + head_right * 0.80, 0.85 * depth),
-		Vector2(center + head_right, 0.62 * depth),
-		Vector2(center + head_right * 0.95, 0.43 * depth),
-		Vector2(center + neck_right, right_neck_height),
-		Vector2(center + (head_right + neck_right) * 0.50, -right_dip * 0.80),
-		Vector2(center + shoulder_right * 0.67, -right_dip),
-		Vector2(center + shoulder_right * 0.82, 0.0),
+		Vector2(center - shoulder_left * 0.80, -left_dip * 0.25),
+		Vector2(center - shoulder_left * 0.62, -left_dip),
+		Vector2(center - neck_left * 1.45, -left_dip * 0.65),
+		Vector2(center - neck_left, 0.060 * depth),
+		Vector2(center - neck_left * 0.94, 0.270 * depth),
+		Vector2(center - head_left * 0.96, 0.540 * depth),
+		Vector2(center - head_left, 0.700 * depth),
+		Vector2(center - head_left * 0.82, 0.860 * depth),
+		Vector2(center - head_left * 0.48, 0.990 * depth),
+		Vector2(center + peak_shift, 1.055 * depth),
+		Vector2(center + head_right * 0.48, 1.000 * depth),
+		Vector2(center + head_right * 0.82, 0.870 * depth),
+		Vector2(center + head_right, 0.700 * depth),
+		Vector2(center + head_right * 0.96, 0.540 * depth),
+		Vector2(center + neck_right * 0.94, 0.270 * depth),
+		Vector2(center + neck_right, 0.060 * depth),
+		Vector2(center + neck_right * 1.45, -right_dip * 0.65),
+		Vector2(center + shoulder_right * 0.62, -right_dip),
+		Vector2(center + shoulder_right * 0.80, -right_dip * 0.25),
 		Vector2(center + shoulder_right, 0.0),
 		Vector2(length, 0.0),
 	])
@@ -200,8 +203,11 @@ func _make_segment(
 	var result := PackedVector2Array()
 	for local_point in anchors:
 		var x_ratio: float = clampf(local_point.x / length, 0.0, 1.0)
-		var bend: float = baseline_bend * sin(PI * x_ratio)
-		var normal_offset: float = bend + local_point.y * tab_sign
+		var body_offset: float = (
+			baseline_bend * sin(PI * x_ratio)
+			+ baseline_wave * sin(TAU * x_ratio)
+		)
+		var normal_offset: float = body_offset + local_point.y * tab_sign
 		result.append(
 			start
 			+ tangent * local_point.x
@@ -215,7 +221,7 @@ func _make_segment(
 	var head_width: float = head_left + head_right
 	segment_metrics.append({
 		"neck_width_ratio": neck_width / length,
-		"depth_ratio": depth * 1.08 / min_cell,
+		"depth_ratio": depth * 1.055 / min_cell,
 		"center_ratio": center_ratio,
 		"head_to_neck_ratio": head_width / maxf(neck_width, 0.000001),
 		"archetype": character["archetype"],
@@ -225,53 +231,46 @@ func _make_segment(
 
 
 func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
-	# Four close relatives of the same commercial-cardboard grammar.
-	# Differences are proportional only; topology never changes.
+	# V5 deliberately narrows the family. Most cuts are the standard profile;
+	# broad and compact are close cousins rather than radically different tabs.
 	var roll: float = rng.randf()
-	var archetype := "mushroom_standard"
+	var archetype := "standard_round"
 	var depth_multiplier := 1.0
 	var head_multiplier := 1.0
 	var neck_multiplier := 1.0
 	var shoulder_multiplier := 1.0
 
-	if roll < 0.24:
-		archetype = "mushroom_broad"
+	if roll < 0.20:
+		archetype = "broad_round"
 		depth_multiplier = 0.96
-		head_multiplier = 1.08
+		head_multiplier = 1.06
 		neck_multiplier = 0.98
-		shoulder_multiplier = 1.04
-	elif roll < 0.42:
-		archetype = "mushroom_tall"
-		depth_multiplier = 1.07
+		shoulder_multiplier = 1.02
+	elif roll < 0.35:
+		archetype = "compact_round"
+		depth_multiplier = 1.02
 		head_multiplier = 0.96
 		neck_multiplier = 0.96
-		shoulder_multiplier = 0.98
-	elif roll < 0.56:
-		archetype = "mushroom_compact"
-		depth_multiplier = 1.01
-		head_multiplier = 1.02
-		neck_multiplier = 0.92
-		shoulder_multiplier = 0.93
+		shoulder_multiplier = 0.94
 
-	var center_ratio: float = rng.randf_range(0.44, 0.56)
-	var depth_ratio: float = rng.randf_range(0.240, 0.285) * depth_multiplier
-	depth_ratio = minf(depth_ratio, 0.305)
+	var center_ratio: float = rng.randf_range(0.455, 0.545)
+	var depth_ratio: float = rng.randf_range(0.235, 0.270) * depth_multiplier
 
-	var shoulder_left: float = rng.randf_range(0.270, 0.330) * length * shoulder_multiplier
-	var shoulder_right: float = rng.randf_range(0.270, 0.330) * length * shoulder_multiplier
-	var neck_left: float = rng.randf_range(0.065, 0.085) * length * neck_multiplier
-	var neck_right: float = rng.randf_range(0.065, 0.085) * length * neck_multiplier
-	var head_left: float = rng.randf_range(0.170, 0.205) * length * head_multiplier
-	var head_right: float = rng.randf_range(0.170, 0.205) * length * head_multiplier
+	var shoulder_left: float = rng.randf_range(0.250, 0.300) * length * shoulder_multiplier
+	var shoulder_right: float = rng.randf_range(0.250, 0.300) * length * shoulder_multiplier
+	var neck_left: float = rng.randf_range(0.060, 0.075) * length * neck_multiplier
+	var neck_right: float = rng.randf_range(0.060, 0.075) * length * neck_multiplier
+	var head_left: float = rng.randf_range(0.150, 0.175) * length * head_multiplier
+	var head_right: float = rng.randf_range(0.150, 0.175) * length * head_multiplier
 
-	# Mild independent organic variation: enough to break mirror symmetry, not
-	# enough to leave the classic die-cut family.
+	# Small independent differences prevent copy-paste symmetry while keeping
+	# the profile recognisably standard across the whole die.
 	shoulder_left *= rng.randf_range(0.97, 1.03)
 	shoulder_right *= rng.randf_range(0.97, 1.03)
-	neck_left *= rng.randf_range(0.96, 1.04)
-	neck_right *= rng.randf_range(0.96, 1.04)
-	head_left *= rng.randf_range(0.96, 1.04)
-	head_right *= rng.randf_range(0.96, 1.04)
+	neck_left *= rng.randf_range(0.97, 1.03)
+	neck_right *= rng.randf_range(0.97, 1.03)
+	head_left *= rng.randf_range(0.97, 1.03)
+	head_right *= rng.randf_range(0.97, 1.03)
 
 	var depth: float = min_cell * depth_ratio
 
@@ -285,13 +284,9 @@ func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
 		"neck_right": neck_right,
 		"head_left": head_left,
 		"head_right": head_right,
-		"peak_shift": rng.randf_range(-0.020, 0.020) * length,
-		"left_dip": rng.randf_range(0.060, 0.100) * depth,
-		"right_dip": rng.randf_range(0.060, 0.100) * depth,
-		"left_neck_height": rng.randf_range(0.120, 0.180) * depth,
-		"right_neck_height": rng.randf_range(0.120, 0.180) * depth,
-		"left_cap_height": rng.randf_range(0.980, 1.040) * depth,
-		"right_cap_height": rng.randf_range(0.980, 1.040) * depth,
+		"peak_shift": rng.randf_range(-0.012, 0.012) * length,
+		"left_dip": rng.randf_range(0.025, 0.055) * depth,
+		"right_dip": rng.randf_range(0.025, 0.055) * depth,
 	}
 
 
