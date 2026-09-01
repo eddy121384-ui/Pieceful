@@ -119,7 +119,9 @@ func _generate_candidate() -> void:
 	var validator = CutPatternValidatorScript.new()
 	current_validation = validator.validate(current_pattern)
 
-	seed_label.text = "4 × 3 · seed %d · classic_cardboard_v2" % seed
+	var authoring: Dictionary = current_dict.get("authoring", {})
+	var template_name := str(authoring.get("template", "unknown_template"))
+	seed_label.text = "4 × 3 · seed %d · %s" % [seed, template_name]
 	if bool(current_validation["valid"]):
 		validation_label.text = "VALID · %d warning(s)" % current_validation["warnings"].size()
 		approve_button.disabled = false
