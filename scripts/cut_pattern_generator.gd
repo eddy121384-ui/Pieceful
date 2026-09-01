@@ -4,8 +4,8 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 
-const GENERATOR_VERSION := 3
-const TEMPLATE_NAME := "classic_cardboard_v3_organic"
+const GENERATOR_VERSION := 4
+const TEMPLATE_NAME := "classic_cardboard_v4_mushroom"
 
 var columns: int
 var rows: int
@@ -57,7 +57,7 @@ func generate_pattern_dict(
 		"curve": {
 			"type": "catmull_rom",
 			"version": 1,
-			"samples_per_span": 4,
+			"samples_per_span": 6,
 		},
 		"authoring": {
 			"generator_version": GENERATOR_VERSION,
@@ -74,6 +74,7 @@ func generate_pattern_dict(
 			"max_knob_depth_ratio": _metric_max("depth_ratio"),
 			"min_knob_center_ratio": _metric_min("center_ratio"),
 			"max_knob_center_ratio": _metric_max("center_ratio"),
+			"max_head_to_neck_ratio": _metric_max("head_to_neck_ratio"),
 		},
 	}
 
@@ -81,10 +82,10 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	# Keep the ribbon lattice obvious, but avoid CAD-perfect intersections.
-	# The amount is intentionally tiny; personality belongs in the cuts.
-	var jitter_x: float = cell_size.x * 0.014
-	var jitter_y: float = cell_size.y * 0.014
+	# Keep the ribbon lattice readable. V4 moves the organic character into
+	# the cut profile rather than warping the whole grid.
+	var jitter_x: float = cell_size.x * 0.012
+	var jitter_y: float = cell_size.y * 0.012
 
 	for row in range(rows + 1):
 		for column in range(columns + 1):
@@ -151,7 +152,7 @@ func _make_segment(
 	var center_ratio: float = float(character["center_ratio"])
 	var center: float = center_ratio * length
 	var depth: float = float(character["depth"])
-	var baseline_bend: float = min_cell * rng.randf_range(-0.007, 0.007)
+	var baseline_bend: float = min_cell * rng.randf_range(-0.004, 0.004)
 
 	var shoulder_left: float = float(character["shoulder_left"])
 	var shoulder_right: float = float(character["shoulder_right"])
@@ -162,25 +163,36 @@ func _make_segment(
 	var peak_shift: float = float(character["peak_shift"])
 	var left_dip: float = float(character["left_dip"])
 	var right_dip: float = float(character["right_dip"])
+	var left_neck_height: float = float(character["left_neck_height"])
+	var right_neck_height: float = float(character["right_neck_height"])
+	var left_cap_height: float = float(character["left_cap_height"])
+	var right_cap_height: float = float(character["right_cap_height"])
 
-	# V3 intentionally avoids mirror symmetry. The two shoulders, necks and
-	# lobes are independently varied inside a classic cardboard grammar.
-	# This creates the slightly hand-designed character visible in real dies
-	# without turning the puzzle into a random-cut / whimsy puzzle.
+	# V4 target: commercial classic cardboard.
+	# Long baseline -> soft inward shoulder -> visibly narrow neck ->
+	# wide rounded mushroom cap -> narrow neck -> soft shoulder -> baseline.
+	# Left and right are independently varied so the cut reads as a real die,
+	# not a mirrored mathematical icon.
 	var anchors := PackedVector2Array([
 		Vector2(0.0, 0.0),
 		Vector2(center - shoulder_left, 0.0),
-		Vector2(center - shoulder_left * 0.82, -left_dip),
-		Vector2(center - neck_left * 1.34, -0.045 * depth),
-		Vector2(center - neck_left, 0.170 * depth),
-		Vector2(center - head_left, 0.520 * depth),
-		Vector2(center - head_left * 0.82, 0.810 * depth),
-		Vector2(center + peak_shift, 1.035 * depth),
-		Vector2(center + head_right * 0.82, 0.820 * depth),
-		Vector2(center + head_right, 0.535 * depth),
-		Vector2(center + neck_right, 0.175 * depth),
-		Vector2(center + neck_right * 1.34, -0.040 * depth),
-		Vector2(center + shoulder_right * 0.82, -right_dip),
+		Vector2(center - shoulder_left * 0.82, 0.0),
+		Vector2(center - shoulder_left * 0.67, -left_dip),
+		Vector2(center - (head_left + neck_left) * 0.50, -left_dip * 0.80),
+		Vector2(center - neck_left, left_neck_height),
+		Vector2(center - head_left * 0.95, 0.43 * depth),
+		Vector2(center - head_left, 0.62 * depth),
+		Vector2(center - head_left * 0.80, 0.85 * depth),
+		Vector2(center - head_left * 0.42, left_cap_height),
+		Vector2(center + peak_shift, 1.08 * depth),
+		Vector2(center + head_right * 0.42, right_cap_height),
+		Vector2(center + head_right * 0.80, 0.85 * depth),
+		Vector2(center + head_right, 0.62 * depth),
+		Vector2(center + head_right * 0.95, 0.43 * depth),
+		Vector2(center + neck_right, right_neck_height),
+		Vector2(center + (head_right + neck_right) * 0.50, -right_dip * 0.80),
+		Vector2(center + shoulder_right * 0.67, -right_dip),
+		Vector2(center + shoulder_right * 0.82, 0.0),
 		Vector2(center + shoulder_right, 0.0),
 		Vector2(length, 0.0),
 	])
@@ -199,10 +211,13 @@ func _make_segment(
 	result[0] = start
 	result[result.size() - 1] = finish
 
+	var neck_width: float = neck_left + neck_right
+	var head_width: float = head_left + head_right
 	segment_metrics.append({
-		"neck_width_ratio": (neck_left + neck_right) / length,
-		"depth_ratio": depth * 1.035 / min_cell,
+		"neck_width_ratio": neck_width / length,
+		"depth_ratio": depth * 1.08 / min_cell,
 		"center_ratio": center_ratio,
+		"head_to_neck_ratio": head_width / maxf(neck_width, 0.000001),
 		"archetype": character["archetype"],
 	})
 
@@ -210,66 +225,73 @@ func _make_segment(
 
 
 func _pick_edge_character(length: float, min_cell: float) -> Dictionary:
-	# Weighted family selection. All families are recognisably classic ribbon
-	# cuts; they differ in proportion rather than in basic topology.
+	# Four close relatives of the same commercial-cardboard grammar.
+	# Differences are proportional only; topology never changes.
 	var roll: float = rng.randf()
-	var archetype := "round_standard"
-	var depth_ratio := rng.randf_range(0.215, 0.238)
-	var center_ratio := rng.randf_range(0.435, 0.565)
-	var shoulder_range := Vector2(0.255, 0.315)
-	var neck_range := Vector2(0.085, 0.112)
-	var head_range := Vector2(0.142, 0.176)
+	var archetype := "mushroom_standard"
+	var depth_multiplier := 1.0
+	var head_multiplier := 1.0
+	var neck_multiplier := 1.0
+	var shoulder_multiplier := 1.0
 
 	if roll < 0.24:
-		archetype = "broad_round"
-		depth_ratio = rng.randf_range(0.205, 0.228)
-		center_ratio = rng.randf_range(0.445, 0.555)
-		shoulder_range = Vector2(0.275, 0.335)
-		neck_range = Vector2(0.095, 0.120)
-		head_range = Vector2(0.158, 0.190)
+		archetype = "mushroom_broad"
+		depth_multiplier = 0.96
+		head_multiplier = 1.08
+		neck_multiplier = 0.98
+		shoulder_multiplier = 1.04
 	elif roll < 0.42:
-		archetype = "tall_offset"
-		depth_ratio = rng.randf_range(0.232, 0.252)
-		center_ratio = rng.randf_range(0.410, 0.590)
-		shoulder_range = Vector2(0.245, 0.305)
-		neck_range = Vector2(0.080, 0.105)
-		head_range = Vector2(0.138, 0.168)
+		archetype = "mushroom_tall"
+		depth_multiplier = 1.07
+		head_multiplier = 0.96
+		neck_multiplier = 0.96
+		shoulder_multiplier = 0.98
 	elif roll < 0.56:
-		archetype = "compact_round"
-		depth_ratio = rng.randf_range(0.210, 0.232)
-		center_ratio = rng.randf_range(0.425, 0.575)
-		shoulder_range = Vector2(0.235, 0.285)
-		neck_range = Vector2(0.082, 0.108)
-		head_range = Vector2(0.145, 0.174)
+		archetype = "mushroom_compact"
+		depth_multiplier = 1.01
+		head_multiplier = 1.02
+		neck_multiplier = 0.92
+		shoulder_multiplier = 0.93
 
-	var shoulder_left: float = rng.randf_range(shoulder_range.x, shoulder_range.y) * length
-	var shoulder_right: float = rng.randf_range(shoulder_range.x, shoulder_range.y) * length
-	var neck_left: float = rng.randf_range(neck_range.x, neck_range.y) * length
-	var neck_right: float = rng.randf_range(neck_range.x, neck_range.y) * length
-	var head_left: float = rng.randf_range(head_range.x, head_range.y) * length
-	var head_right: float = rng.randf_range(head_range.x, head_range.y) * length
+	var center_ratio: float = rng.randf_range(0.44, 0.56)
+	var depth_ratio: float = rng.randf_range(0.240, 0.285) * depth_multiplier
+	depth_ratio = minf(depth_ratio, 0.305)
 
-	# Apply a mild correlated lean so asymmetry feels intentional rather than
-	# noisy. One side becomes slightly longer while the opposite side tightens.
-	var lean: float = rng.randf_range(-0.055, 0.055)
-	shoulder_left *= 1.0 + lean
-	shoulder_right *= 1.0 - lean
-	head_left *= 1.0 + lean * 0.55
-	head_right *= 1.0 - lean * 0.55
+	var shoulder_left: float = rng.randf_range(0.270, 0.330) * length * shoulder_multiplier
+	var shoulder_right: float = rng.randf_range(0.270, 0.330) * length * shoulder_multiplier
+	var neck_left: float = rng.randf_range(0.065, 0.085) * length * neck_multiplier
+	var neck_right: float = rng.randf_range(0.065, 0.085) * length * neck_multiplier
+	var head_left: float = rng.randf_range(0.170, 0.205) * length * head_multiplier
+	var head_right: float = rng.randf_range(0.170, 0.205) * length * head_multiplier
+
+	# Mild independent organic variation: enough to break mirror symmetry, not
+	# enough to leave the classic die-cut family.
+	shoulder_left *= rng.randf_range(0.97, 1.03)
+	shoulder_right *= rng.randf_range(0.97, 1.03)
+	neck_left *= rng.randf_range(0.96, 1.04)
+	neck_right *= rng.randf_range(0.96, 1.04)
+	head_left *= rng.randf_range(0.96, 1.04)
+	head_right *= rng.randf_range(0.96, 1.04)
+
+	var depth: float = min_cell * depth_ratio
 
 	return {
 		"archetype": archetype,
 		"center_ratio": center_ratio,
-		"depth": min_cell * depth_ratio,
+		"depth": depth,
 		"shoulder_left": shoulder_left,
 		"shoulder_right": shoulder_right,
 		"neck_left": neck_left,
 		"neck_right": neck_right,
 		"head_left": head_left,
 		"head_right": head_right,
-		"peak_shift": rng.randf_range(-0.030, 0.030) * length,
-		"left_dip": min_cell * rng.randf_range(0.020, 0.038),
-		"right_dip": min_cell * rng.randf_range(0.020, 0.038),
+		"peak_shift": rng.randf_range(-0.020, 0.020) * length,
+		"left_dip": rng.randf_range(0.060, 0.100) * depth,
+		"right_dip": rng.randf_range(0.060, 0.100) * depth,
+		"left_neck_height": rng.randf_range(0.120, 0.180) * depth,
+		"right_neck_height": rng.randf_range(0.120, 0.180) * depth,
+		"left_cap_height": rng.randf_range(0.980, 1.040) * depth,
+		"right_cap_height": rng.randf_range(0.980, 1.040) * depth,
 	}
 
 
