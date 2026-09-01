@@ -1,7 +1,7 @@
 class_name CutPatternValidator
 extends RefCounted
 
-const MAX_DEPTH_RATIO := 0.28
+const MAX_DEPTH_RATIO := 0.34
 const MIN_PROFILE_WIDTH_RATIO := 0.18
 const MIN_CORNER_CLEARANCE_RATIO := 0.14
 const MIN_PIECE_AREA_RATIO := 0.35
