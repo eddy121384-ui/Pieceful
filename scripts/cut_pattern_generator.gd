@@ -4,14 +4,14 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 #
-# V11 preserves V9's construction model: each complete horizontal / vertical
-# ribbon is designed as one global C2-continuous natural cubic spline and then
-# split back into per-cell cubic Bezier chains for the CutPattern asset format.
-# V10 rounded the cap; V11 lifts the whole rounded crown together so the
-# mushroom reads taller without bringing back a pointed diamond silhouette.
+# V12 keeps V9-V11's global C2 ribbon construction and rounded taller caps,
+# but moves tab/blank polarity out of per-edge RNG. The board first receives a
+# shared polarity layout, then geometry is drawn from that topology. Interior
+# pieces are guaranteed to have at least one tab and at least one blank; 2/2 is
+# the base pattern and controlled flips introduce some 1/3 and 3/1 variety.
 
-const GENERATOR_VERSION := 11
-const TEMPLATE_NAME := "classic_cardboard_v11_taller_round_caps"
+const GENERATOR_VERSION := 12
+const TEMPLATE_NAME := "classic_cardboard_v12_constrained_topology"
 
 var columns: int
 var rows: int
@@ -24,6 +24,8 @@ var grid_points: Array[Vector2] = []
 var horizontal_segments: Array = []
 var vertical_segments: Array = []
 var segment_metrics: Array[Dictionary] = []
+var horizontal_polarities := PackedInt32Array()
+var vertical_polarities := PackedInt32Array()
 
 var rng := RandomNumberGenerator.new()
 
@@ -43,6 +45,7 @@ func _init(
 	rng.seed = seed
 
 	_build_grid_points()
+	_build_edge_polarities()
 	_build_horizontal_segments()
 	_build_vertical_segments()
 
@@ -70,6 +73,8 @@ func generate_pattern_dict(
 			"seed": seed,
 			"template": TEMPLATE_NAME,
 			"construction": "global_natural_cubic_c2",
+			"topology_rule": "interior_1_to_3_tabs",
+			"topology_distribution": _topology_distribution(),
 			"curated": false,
 		},
 		"intersections": _serialize_points(grid_points),
@@ -89,9 +94,6 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	# Keep a recognisable ribbon lattice, but avoid CAD-perfect crosses.
-	# Most organic quality comes from the global ribbon spline rather than from
-	# aggressively displaced intersections.
 	var jitter_x: float = cell_size.x * 0.034
 	var jitter_y: float = cell_size.y * 0.034
 
@@ -110,6 +112,152 @@ func _build_grid_points() -> void:
 			grid_points.append(point)
 
 
+func _build_edge_polarities() -> void:
+	# Canonical sign semantics:
+	# H +1 bulges downward => tab for the piece above, blank for the piece below.
+	# V +1 bulges left     => blank for the piece left, tab for the piece right.
+	# Outer edges remain 0 / flat.
+	horizontal_polarities.resize((rows + 1) * columns)
+	vertical_polarities.resize(rows * (columns + 1))
+	for index in range(horizontal_polarities.size()):
+		horizontal_polarities[index] = 0
+	for index in range(vertical_polarities.size()):
+		vertical_polarities[index] = 0
+
+	# Start from a deterministic checker orientation. Every true interior piece
+	# begins at exactly 2 tabs / 2 blanks.
+	for boundary_row in range(1, rows):
+		for column in range(columns):
+			horizontal_polarities[boundary_row * columns + column] = (
+				1 if (boundary_row + column) % 2 == 0 else -1
+			)
+
+	for row in range(rows):
+		for boundary_column in range(1, columns):
+			vertical_polarities[row * (columns + 1) + boundary_column] = (
+				1 if (row + boundary_column) % 2 == 0 else -1
+			)
+
+	_randomize_edge_polarities()
+
+
+func _randomize_edge_polarities() -> void:
+	# Use a dedicated RNG so topology variation does not consume the geometry RNG
+	# stream. This makes later cap/ribbon tuning easier to compare seed-for-seed.
+	var topology_rng := RandomNumberGenerator.new()
+	topology_rng.seed = seed + 104729
+
+	var horizontal_count: int = maxi(0, rows - 1) * columns
+	var vertical_count: int = rows * maxi(0, columns - 1)
+	var total_internal_edges: int = horizontal_count + vertical_count
+	if total_internal_edges <= 0:
+		return
+
+	# A modest number of valid flips keeps 2/2 dominant while admitting some
+	# 1/3 and 3/1 pieces. Any flip that would create 0/4 or 4/0 on an interior
+	# piece is rejected.
+	var target_successes: int = maxi(1, int(round(float(total_internal_edges) * 0.24)))
+	var max_attempts: int = maxi(16, total_internal_edges * 10)
+	var successes := 0
+
+	for _attempt in range(max_attempts):
+		if successes >= target_successes:
+			break
+
+		var pick: int = topology_rng.randi_range(0, total_internal_edges - 1)
+		if pick < horizontal_count:
+			var boundary_row: int = 1 + pick / columns
+			var column: int = pick % columns
+			var index: int = boundary_row * columns + column
+			var old_sign: int = horizontal_polarities[index]
+			horizontal_polarities[index] = -old_sign
+
+			if _piece_topology_is_valid(boundary_row - 1, column) and _piece_topology_is_valid(boundary_row, column):
+				successes += 1
+			else:
+				horizontal_polarities[index] = old_sign
+		else:
+			var vertical_pick: int = pick - horizontal_count
+			var row: int = vertical_pick / maxi(columns - 1, 1)
+			var boundary_column: int = 1 + vertical_pick % maxi(columns - 1, 1)
+			var index: int = row * (columns + 1) + boundary_column
+			var old_sign: int = vertical_polarities[index]
+			vertical_polarities[index] = -old_sign
+
+			if _piece_topology_is_valid(row, boundary_column - 1) and _piece_topology_is_valid(row, boundary_column):
+				successes += 1
+			else:
+				vertical_polarities[index] = old_sign
+
+
+func _piece_topology_is_valid(row: int, column: int) -> bool:
+	# The commercial-style constraint is intended for true four-sided interior
+	# pieces. Border pieces have one or two flat sides and are not forced into the
+	# same 1..3 count.
+	if row <= 0 or row >= rows - 1 or column <= 0 or column >= columns - 1:
+		return true
+	var tabs: int = _piece_tab_count(row, column)
+	return tabs >= 1 and tabs <= 3
+
+
+func _piece_tab_count(row: int, column: int) -> int:
+	var tabs := 0
+
+	if row > 0:
+		# Piece is below the canonical horizontal cut.
+		if horizontal_polarities[row * columns + column] < 0:
+			tabs += 1
+	if row < rows - 1:
+		# Piece is above the canonical horizontal cut.
+		if horizontal_polarities[(row + 1) * columns + column] > 0:
+			tabs += 1
+	if column > 0:
+		# Piece is right of the canonical vertical cut.
+		if vertical_polarities[row * (columns + 1) + column] > 0:
+			tabs += 1
+	if column < columns - 1:
+		# Piece is left of the canonical vertical cut.
+		if vertical_polarities[row * (columns + 1) + column + 1] < 0:
+			tabs += 1
+
+	return tabs
+
+
+func _topology_distribution() -> Dictionary:
+	var distribution := {
+		"one_tab": 0,
+		"two_tabs": 0,
+		"three_tabs": 0,
+		"four_tabs": 0,
+		"zero_tabs": 0,
+	}
+
+	for row in range(1, rows - 1):
+		for column in range(1, columns - 1):
+			var tabs: int = _piece_tab_count(row, column)
+			match tabs:
+				0:
+					distribution["zero_tabs"] += 1
+				1:
+					distribution["one_tab"] += 1
+				2:
+					distribution["two_tabs"] += 1
+				3:
+					distribution["three_tabs"] += 1
+				4:
+					distribution["four_tabs"] += 1
+
+	return distribution
+
+
+func _horizontal_polarity(boundary_row: int, column: int) -> int:
+	return horizontal_polarities[boundary_row * columns + column]
+
+
+func _vertical_polarity(row: int, boundary_column: int) -> int:
+	return vertical_polarities[row * (columns + 1) + boundary_column]
+
+
 func _build_horizontal_segments() -> void:
 	horizontal_segments.clear()
 
@@ -125,7 +273,10 @@ func _build_horizontal_segments() -> void:
 				)
 			continue
 
-		var ribbon_segments := _build_global_ribbon(junctions)
+		var polarities := PackedInt32Array()
+		for column in range(columns):
+			polarities.append(_horizontal_polarity(boundary_row, column))
+		var ribbon_segments := _build_global_ribbon(junctions, polarities)
 		for segment in ribbon_segments:
 			horizontal_segments.append(segment)
 
@@ -147,12 +298,18 @@ func _build_vertical_segments() -> void:
 				])
 			continue
 
-		var ribbon_segments := _build_global_ribbon(junctions)
+		var polarities := PackedInt32Array()
+		for row in range(rows):
+			polarities.append(_vertical_polarity(row, boundary_column))
+		var ribbon_segments := _build_global_ribbon(junctions, polarities)
 		for row in range(rows):
 			vertical_segments[row * (columns + 1) + boundary_column] = ribbon_segments[row]
 
 
-func _build_global_ribbon(junctions: PackedVector2Array) -> Array:
+func _build_global_ribbon(
+	junctions: PackedVector2Array,
+	polarities: PackedInt32Array
+) -> Array:
 	var cell_count: int = junctions.size() - 1
 	var min_cell: float = minf(cell_size.x, cell_size.y)
 	var profile := _make_ribbon_profile(min_cell)
@@ -162,12 +319,14 @@ func _build_global_ribbon(junctions: PackedVector2Array) -> Array:
 
 	for cell_index in range(cell_count):
 		var range_start: int = guides.size() - 1
+		var tab_sign: float = float(polarities[cell_index])
 		var interior := _make_cell_guides(
 			junctions[cell_index],
 			junctions[cell_index + 1],
 			cell_index,
 			cell_count,
-			profile
+			profile,
+			tab_sign
 		)
 		guides.append_array(interior)
 		guides.append(junctions[cell_index + 1])
@@ -190,7 +349,8 @@ func _make_cell_guides(
 	finish: Vector2,
 	cell_index: int,
 	cell_count: int,
-	ribbon_profile: Dictionary
+	ribbon_profile: Dictionary,
+	tab_sign: float
 ) -> PackedVector2Array:
 	var delta := finish - start
 	var length: float = delta.length()
@@ -202,7 +362,6 @@ func _make_cell_guides(
 	var min_cell: float = minf(cell_size.x, cell_size.y)
 	var character := _pick_edge_character(length, min_cell)
 
-	var tab_sign: float = 1.0 if rng.randi_range(0, 1) == 0 else -1.0
 	var center_ratio: float = float(character["center_ratio"])
 	var center: float = center_ratio * length
 	var depth: float = float(character["depth"])
@@ -227,9 +386,6 @@ func _make_cell_guides(
 		length * 0.88
 	)
 
-	# Taller rounded crown. Lift cheek, upper-cheek, crown, and broad-top levels
-	# together instead of only lifting the centre peak; that preserves the V10
-	# round cap while adding the requested mushroom height.
 	var local_guides := PackedVector2Array([
 		Vector2(left_gate * 0.44, 0.0),
 		Vector2(left_gate * 0.76, -left_dip * 0.04),
