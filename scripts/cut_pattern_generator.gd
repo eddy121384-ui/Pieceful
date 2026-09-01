@@ -4,8 +4,8 @@ extends RefCounted
 # Developer authoring generator only.
 # Runtime gameplay loads approved CutPattern JSON assets instead.
 
-const GENERATOR_VERSION := 1
-const TEMPLATE_NAME := "classic_cardboard_v1"
+const GENERATOR_VERSION := 2
+const TEMPLATE_NAME := "classic_cardboard_v2"
 
 var columns: int
 var rows: int
@@ -81,8 +81,10 @@ func generate_pattern_dict(
 func _build_grid_points() -> void:
 	grid_points.clear()
 
-	var jitter_x: float = cell_size.x * 0.015
-	var jitter_y: float = cell_size.y * 0.015
+	# Keep the ribbon grid obvious. Real die sheets are not perfectly square,
+	# but the intersection drift is small compared with the piece dimensions.
+	var jitter_x: float = cell_size.x * 0.018
+	var jitter_y: float = cell_size.y * 0.018
 
 	for row in range(rows + 1):
 		for column in range(columns + 1):
@@ -144,33 +146,46 @@ func _make_segment(
 	var normal := Vector2(-tangent.y, tangent.x)
 	var min_cell: float = minf(cell_size.x, cell_size.y)
 
+	# V2 deliberately uses one strong classic cardboard grammar.
+	# Variation changes character slightly; it does not invent a new shape.
 	var tab_sign: float = 1.0 if rng.randi_range(0, 1) == 0 else -1.0
-	var center_ratio: float = rng.randf_range(0.47, 0.53)
+	var center_ratio: float = rng.randf_range(0.46, 0.54)
 	var center: float = center_ratio * length
-	var shape_scale: float = rng.randf_range(0.96, 1.04)
-	var asymmetry: float = rng.randf_range(-0.025, 0.025)
-	var depth_ratio: float = rng.randf_range(0.102, 0.120)
+	var shape_scale: float = rng.randf_range(0.97, 1.03)
+	var asymmetry: float = rng.randf_range(-0.020, 0.020)
+	var depth_ratio: float = rng.randf_range(0.178, 0.202)
 	var depth: float = min_cell * depth_ratio
-	var baseline_bend: float = min_cell * rng.randf_range(-0.004, 0.004)
+	var baseline_bend: float = min_cell * rng.randf_range(-0.006, 0.006)
 
 	var left_scale: float = 1.0 + asymmetry
 	var right_scale: float = 1.0 - asymmetry
 
+	# The silhouette is intentionally built as:
+	# long baseline -> soft inward shoulder -> broad neck -> round cap
+	# -> broad neck -> soft inward shoulder -> long baseline.
+	# This is much closer to a stamped cardboard jigsaw than the shallow U-slot
+	# profile used by classic_cardboard_v1.
 	var anchors := PackedVector2Array([
 		Vector2(0.0, 0.0),
-		Vector2(center - 0.250 * shape_scale * length * left_scale, 0.0),
-		Vector2(center - 0.190 * shape_scale * length * left_scale, 0.0),
-		Vector2(center - 0.145 * shape_scale * length * left_scale, -0.055 * depth),
-		Vector2(center - 0.112 * shape_scale * length * left_scale, 0.280 * depth),
-		Vector2(center - 0.128 * shape_scale * length * left_scale, 0.670 * depth),
-		Vector2(center - 0.075 * shape_scale * length * left_scale, 0.940 * depth),
-		Vector2(center, depth),
-		Vector2(center + 0.075 * shape_scale * length * right_scale, 0.940 * depth),
-		Vector2(center + 0.128 * shape_scale * length * right_scale, 0.670 * depth),
-		Vector2(center + 0.112 * shape_scale * length * right_scale, 0.280 * depth),
-		Vector2(center + 0.145 * shape_scale * length * right_scale, -0.055 * depth),
-		Vector2(center + 0.190 * shape_scale * length * right_scale, 0.0),
-		Vector2(center + 0.250 * shape_scale * length * right_scale, 0.0),
+		Vector2(center - 0.310 * shape_scale * length * left_scale, 0.0),
+		Vector2(center - 0.255 * shape_scale * length * left_scale, 0.0),
+		Vector2(center - 0.215 * shape_scale * length * left_scale, -0.080 * depth),
+		Vector2(center - 0.165 * shape_scale * length * left_scale, -0.100 * depth),
+		Vector2(center - 0.125 * shape_scale * length * left_scale, 0.050 * depth),
+		Vector2(center - 0.115 * shape_scale * length * left_scale, 0.280 * depth),
+		Vector2(center - 0.165 * shape_scale * length * left_scale, 0.580 * depth),
+		Vector2(center - 0.145 * shape_scale * length * left_scale, 0.820 * depth),
+		Vector2(center - 0.085 * shape_scale * length * left_scale, 1.000 * depth),
+		Vector2(center, 1.060 * depth),
+		Vector2(center + 0.085 * shape_scale * length * right_scale, 1.000 * depth),
+		Vector2(center + 0.145 * shape_scale * length * right_scale, 0.820 * depth),
+		Vector2(center + 0.165 * shape_scale * length * right_scale, 0.580 * depth),
+		Vector2(center + 0.115 * shape_scale * length * right_scale, 0.280 * depth),
+		Vector2(center + 0.125 * shape_scale * length * right_scale, 0.050 * depth),
+		Vector2(center + 0.165 * shape_scale * length * right_scale, -0.100 * depth),
+		Vector2(center + 0.215 * shape_scale * length * right_scale, -0.080 * depth),
+		Vector2(center + 0.255 * shape_scale * length * right_scale, 0.0),
+		Vector2(center + 0.310 * shape_scale * length * right_scale, 0.0),
 		Vector2(length, 0.0),
 	])
 
@@ -189,8 +204,8 @@ func _make_segment(
 	result[result.size() - 1] = finish
 
 	segment_metrics.append({
-		"neck_width_ratio": 2.0 * 0.112 * shape_scale,
-		"depth_ratio": depth_ratio,
+		"neck_width_ratio": 2.0 * 0.115 * shape_scale,
+		"depth_ratio": depth_ratio * 1.060,
 		"center_ratio": center_ratio,
 	})
 
