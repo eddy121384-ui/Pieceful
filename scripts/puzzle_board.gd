@@ -123,7 +123,7 @@ func _on_piece_released(piece) -> void:
 	if piece.solved:
 		return
 
-	var snap_radius: float = min(definition.piece_size.x, definition.piece_size.y) * 0.18
+	var snap_radius: float = minf(definition.piece_size.x, definition.piece_size.y) * 0.18
 	if piece.position.distance_to(piece.target_position) <= snap_radius:
 		piece.snap_to_target()
 		solved_count += 1
