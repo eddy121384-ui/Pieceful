@@ -74,41 +74,87 @@ func _build_style_controls(layer: CanvasLayer) -> void:
 	transition_fairness_slider = slider_setup["slider"]
 	transition_fairness_value = slider_setup["value_label"]
 
-	var copy_button := Button.new()
-	copy_button.text = "Copy Settings"
-	copy_button.position = Vector2(24.0, 632.0)
-	copy_button.size = Vector2(145.0, 34.0)
-	copy_button.pressed.connect(_copy_settings)
-	layer.add_child(copy_button)
-
-	var paste_button := Button.new()
-	paste_button.text = "Paste Settings"
-	paste_button.position = Vector2(179.0, 632.0)
-	paste_button.size = Vector2(145.0, 34.0)
-	paste_button.pressed.connect(_paste_settings)
-	layer.add_child(paste_button)
-
 	var reset_button := Button.new()
 	reset_button.text = "Reset Shape"
-	reset_button.position = Vector2(24.0, 674.0)
+	reset_button.position = Vector2(24.0, 632.0)
 	reset_button.size = Vector2(300.0, 34.0)
 	reset_button.pressed.connect(_reset_style)
 	layer.add_child(reset_button)
 
 
 func _build_curation_controls(layer: CanvasLayer) -> void:
-	super(layer)
+	# V16 owns this panel so the frequently used copy/paste controls stay inside
+	# the visible 1280x720 viewport instead of being clipped at the bottom edge.
+	var stats_title := Label.new()
+	stats_title.text = "Interior topology"
+	stats_title.position = Vector2(944.0, 88.0)
+	stats_title.add_theme_font_size_override("font_size", 16)
+	layer.add_child(stats_title)
+
+	topology_label = Label.new()
+	topology_label.position = Vector2(944.0, 116.0)
+	topology_label.size = Vector2(310.0, 116.0)
+	topology_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	topology_label.add_theme_font_size_override("font_size", 13)
+	layer.add_child(topology_label)
+
+	var copy_button := Button.new()
+	copy_button.text = "Copy Settings"
+	copy_button.position = Vector2(944.0, 242.0)
+	copy_button.size = Vector2(150.0, 36.0)
+	copy_button.pressed.connect(_copy_settings)
+	layer.add_child(copy_button)
+
+	var paste_button := Button.new()
+	paste_button.text = "Paste Settings"
+	paste_button.position = Vector2(1104.0, 242.0)
+	paste_button.size = Vector2(150.0, 36.0)
+	paste_button.pressed.connect(_paste_settings)
+	layer.add_child(paste_button)
+
+	var id_caption := Label.new()
+	id_caption.text = "Approved pattern ID"
+	id_caption.position = Vector2(944.0, 292.0)
+	layer.add_child(id_caption)
+
+	pattern_id_edit = LineEdit.new()
+	pattern_id_edit.text = "Classic_036_candidate"
+	pattern_id_edit.position = Vector2(944.0, 314.0)
+	pattern_id_edit.size = Vector2(310.0, 38.0)
+	layer.add_child(pattern_id_edit)
 
 	validate_button = Button.new()
 	validate_button.text = "Validate Candidate"
-	validate_button.position = Vector2(944.0, 340.0)
+	validate_button.position = Vector2(944.0, 364.0)
 	validate_button.size = Vector2(310.0, 38.0)
 	validate_button.pressed.connect(_run_full_validation)
 	layer.add_child(validate_button)
 
-	approve_button.position = Vector2(944.0, 386.0)
-	validation_label.position = Vector2(944.0, 434.0)
-	validation_label.size = Vector2(310.0, 72.0)
+	approve_button = Button.new()
+	approve_button.text = "Approve JSON"
+	approve_button.position = Vector2(944.0, 410.0)
+	approve_button.size = Vector2(310.0, 40.0)
+	approve_button.pressed.connect(_approve_current)
+	approve_button.disabled = true
+	layer.add_child(approve_button)
+
+	validation_label = Label.new()
+	validation_label.position = Vector2(944.0, 462.0)
+	validation_label.size = Vector2(310.0, 62.0)
+	validation_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	layer.add_child(validation_label)
+
+	var note := Label.new()
+	note.text = (
+		"Live Preview is intentionally unvalidated for speed. Use Validate Candidate "
+		+ "before approval. Difficulty targets are approximate.\n\n"
+		+ "12-piece remains a runtime regression asset, not a player-facing difficulty."
+	)
+	note.position = Vector2(944.0, 536.0)
+	note.size = Vector2(310.0, 150.0)
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.add_theme_font_size_override("font_size", 12)
+	layer.add_child(note)
 
 
 func _update_slider_labels() -> void:
