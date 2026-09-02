@@ -15,8 +15,18 @@ const TRANSITION_FAIRNESS_MIN := 0.00
 const TRANSITION_FAIRNESS_MAX := 1.00
 const FAIRING_SAMPLES := 5
 
-var transition_length := 1.00
-var transition_fairness := 0.90
+# Visual baseline selected in Die Lab on the 6x6 / 36-piece / seed 424242
+# reference candidate. These are authoring defaults, not an approved die asset.
+const DEFAULT_TAB_DEPTH := 0.96
+const DEFAULT_CROWN_ROUNDNESS := 0.93
+const DEFAULT_TAB_ASYMMETRY := 1.00
+const DEFAULT_SHOULDER_BLEND := 1.16
+const DEFAULT_RIBBON_CURVATURE := 0.60
+const DEFAULT_TRANSITION_LENGTH := 0.57
+const DEFAULT_TRANSITION_FAIRNESS := 0.69
+
+var transition_length := DEFAULT_TRANSITION_LENGTH
+var transition_fairness := DEFAULT_TRANSITION_FAIRNESS
 
 
 func _init(
@@ -26,17 +36,32 @@ func _init(
 	p_seed: int,
 	p_style_params: Dictionary = {}
 ) -> void:
+	# V15 owns five of the seven style parameters. Inject V16's selected visual
+	# baseline only when callers omit a value, so explicit Die Lab settings still
+	# win and V15's historical defaults remain untouched.
+	var style_params := p_style_params.duplicate()
+	if not style_params.has("mushroom_height"):
+		style_params["mushroom_height"] = DEFAULT_TAB_DEPTH
+	if not style_params.has("mushroom_roundness"):
+		style_params["mushroom_roundness"] = DEFAULT_CROWN_ROUNDNESS
+	if not style_params.has("mushroom_asymmetry"):
+		style_params["mushroom_asymmetry"] = DEFAULT_TAB_ASYMMETRY
+	if not style_params.has("shoulder_blend"):
+		style_params["shoulder_blend"] = DEFAULT_SHOULDER_BLEND
+	if not style_params.has("ribbon_curvature"):
+		style_params["ribbon_curvature"] = DEFAULT_RIBBON_CURVATURE
+
 	transition_length = clampf(
-		float(p_style_params.get("transition_length", 1.00)),
+		float(style_params.get("transition_length", DEFAULT_TRANSITION_LENGTH)),
 		TRANSITION_LENGTH_MIN,
 		TRANSITION_LENGTH_MAX
 	)
 	transition_fairness = clampf(
-		float(p_style_params.get("transition_fairness", 0.90)),
+		float(style_params.get("transition_fairness", DEFAULT_TRANSITION_FAIRNESS)),
 		TRANSITION_FAIRNESS_MIN,
 		TRANSITION_FAIRNESS_MAX
 	)
-	super(p_columns, p_rows, p_aspect_ratio, p_seed, p_style_params)
+	super(p_columns, p_rows, p_aspect_ratio, p_seed, style_params)
 
 
 func _fairing_value(t: float) -> float:
