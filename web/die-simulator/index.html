@@ -159,7 +159,7 @@ function searchLayout(aspect,target,enforce){
   for(let rows=2;rows<=64;rows++)for(let cols=2;cols<=64;cols++){
     const pieces=rows*cols;if(pieces<minCount||pieces>maxCount)continue;
     const cellAspect=aspect*rows/cols;if(enforce&&(cellAspect<.82||cellAspect>1.22))continue;
-    const ce=Math.log(pieces/target), ae=Math.log(cellAspect);let score=5*ce*ce+3*ae*ae;
+    const ce=Math.log(pieces/target),ae=Math.log(cellAspect);let score=5*ce*ce+3*ae*ae;
     if(aspect>=1&&cols<rows)score+=.001;else if(aspect<1&&rows<cols)score+=.001;
     score+=Math.abs(pieces-target)/target*.0001;
     if(score<bestScore){bestScore=score;best={cols,rows,pieces,cellAspect,score}}
@@ -241,7 +241,7 @@ $('random').onclick=()=>{$('seed').value=Math.floor(Math.random()*900000000)+100
 $('aspect').onchange=syncLayoutInputs;$('difficulty').onchange=syncLayoutInputs;$('customAspect').onchange=generate;$('customTarget').onchange=generate;$('seed').onchange=generate;
 ['height','round','asym','blend','curve','translen','fairness'].forEach(id=>$(id).addEventListener('input',sync));
 $('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('asym').value=.35;$('blend').value=1;$('curve').value=1;$('translen').value=1;$('fairness').value=.90;sync()};
-$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · target ${c.target} · aspect ${c.aspect.toFixed(4)} · grid ${c.cols}x${c.rows} · seed ${$('seed').value} · height ${(+$('#height').value).toFixed(2)} · round ${(+$('#round').value).toFixed(2)} · asym ${(+$('#asym').value).toFixed(2)} · blend ${(+$('#blend').value).toFixed(2)} · curve ${(+$('#curve').value).toFixed(2)} · translen ${(+$('#translen').value).toFixed(2)} · fairness ${(+$('#fairness').value).toFixed(2)}`;try{await navigator.clipboard.writeText(txt);showToast('Copied settings')}catch{showToast(txt)}};
+$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · target ${c.target} · aspect ${c.aspect.toFixed(4)} · grid ${c.cols}x${c.rows} · seed ${$('seed').value} · height ${(+$('height').value).toFixed(2)} · round ${(+$('round').value).toFixed(2)} · asym ${(+$('asym').value).toFixed(2)} · blend ${(+$('blend').value).toFixed(2)} · curve ${(+$('curve').value).toFixed(2)} · translen ${(+$('translen').value).toFixed(2)} · fairness ${(+$('fairness').value).toFixed(2)}`;try{await navigator.clipboard.writeText(txt);showToast('Copied settings')}catch{showToast(txt)}};
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1500)}
 syncOutputs();syncLayoutInputs();
 })();
