@@ -46,7 +46,7 @@
 <body>
 <div class="app">
   <header>
-    <div><h1>Piecepace · Die Lab</h1><div class="sub">手機版刀模模擬器 · V16 transition fairing</div></div>
+    <div><h1>Piecepace · Die Lab</h1><div class="sub">手機版刀模模擬器 · V16 visual baseline candidate</div></div>
     <div class="version" id="templateName">36 · 6×6</div>
   </header>
 
@@ -103,27 +103,27 @@
 
     <div class="sectiontitle">Tab / Ribbon Shape</div>
     <label>Tab Depth / 凸榫深度
-      <div class="sliderline"><input id="height" type="range" min="0.88" max="1.22" step="0.01" value="1.00"><output id="heightOut">1.00×</output></div>
+      <div class="sliderline"><input id="height" type="range" min="0.88" max="1.22" step="0.01" value="0.96"><output id="heightOut">0.96×</output></div>
     </label>
     <label>Crown Width / Roundness
-      <div class="sliderline"><input id="round" type="range" min="0.90" max="1.14" step="0.01" value="1.00"><output id="roundOut">1.00×</output></div>
+      <div class="sliderline"><input id="round" type="range" min="0.90" max="1.14" step="0.01" value="0.93"><output id="roundOut">0.93×</output></div>
     </label>
     <label>Tab Asymmetry / 凸榫不對稱
-      <div class="sliderline"><input id="asym" type="range" min="0.00" max="1.00" step="0.01" value="0.35"><output id="asymOut">0.35</output></div>
+      <div class="sliderline"><input id="asym" type="range" min="0.00" max="1.00" step="0.01" value="1.00"><output id="asymOut">1.00</output></div>
     </label>
     <label>Shoulder Blend / 肩部延伸
-      <div class="sliderline"><input id="blend" type="range" min="0.70" max="1.40" step="0.01" value="1.00"><output id="blendOut">1.00×</output></div>
+      <div class="sliderline"><input id="blend" type="range" min="0.70" max="1.40" step="0.01" value="1.16"><output id="blendOut">1.16×</output></div>
     </label>
     <label>Ribbon Curvature / 主刀線曲率
-      <div class="sliderline"><input id="curve" type="range" min="0.60" max="1.70" step="0.05" value="1.00"><output id="curveOut">1.00×</output></div>
+      <div class="sliderline"><input id="curve" type="range" min="0.60" max="1.70" step="0.05" value="0.60"><output id="curveOut">0.60×</output></div>
     </label>
 
     <div class="sectiontitle">V16 Transition Fairing</div>
     <label>Transition Length / 過渡長度
-      <div class="sliderline"><input id="translen" type="range" min="0.55" max="1.00" step="0.01" value="1.00"><output id="translenOut">1.00</output></div>
+      <div class="sliderline"><input id="translen" type="range" min="0.55" max="1.00" step="0.01" value="0.57"><output id="translenOut">0.57</output></div>
     </label>
     <label>Transition Fairness / 過渡滑順度
-      <div class="sliderline"><input id="fairness" type="range" min="0.00" max="1.00" step="0.01" value="0.90"><output id="fairnessOut">0.90</output></div>
+      <div class="sliderline"><input id="fairness" type="range" min="0.00" max="1.00" step="0.01" value="0.69"><output id="fairnessOut">0.69</output></div>
     </label>
 
     <div class="buttons">
@@ -134,7 +134,7 @@
       <button id="copy" class="secondary">Copy Settings</button>
       <button id="reset" class="secondary">Reset Shape</button>
     </div>
-    <div class="foot">V16 手機版保留 shared-edge topology、global natural-cubic ribbon 與 V16 fairing 的同一套設計邏輯。瀏覽器 RNG 與 Godot RNG 不同，所以相同 seed 不保證逐點相同；Copy Settings 會帶 target、aspect、grid、七個造型參數，可貼回 Godot Die Lab。~1000 片在手機上可能需要多一點生成時間。</div>
+    <div class="foot">V16 手機版保留 shared-edge topology、global natural-cubic ribbon 與 V16 fairing 的同一套設計邏輯。Reset Shape 會回到目前的 visual baseline candidate；瀏覽器 RNG 與 Godot RNG 不同，所以相同 seed 不保證逐點相同。~1000 片在手機上可能需要多一點生成時間。</div>
   </section>
 </div>
 <div class="toast" id="toast">Copied</div>
@@ -240,7 +240,7 @@ $('next').onclick=()=>{$('seed').value=(+$('seed').value||1)+1;generate()};
 $('random').onclick=()=>{$('seed').value=Math.floor(Math.random()*900000000)+100000000;generate()};
 $('aspect').onchange=syncLayoutInputs;$('difficulty').onchange=syncLayoutInputs;$('customAspect').onchange=generate;$('customTarget').onchange=generate;$('seed').onchange=generate;
 ['height','round','asym','blend','curve','translen','fairness'].forEach(id=>$(id).addEventListener('input',sync));
-$('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('asym').value=.35;$('blend').value=1;$('curve').value=1;$('translen').value=1;$('fairness').value=.90;sync()};
+$('reset').onclick=()=>{$('height').value=.96;$('round').value=.93;$('asym').value=1;$('blend').value=1.16;$('curve').value=.60;$('translen').value=.57;$('fairness').value=.69;sync()};
 $('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · target ${c.target} · aspect ${c.aspect.toFixed(4)} · grid ${c.cols}x${c.rows} · seed ${$('seed').value} · height ${(+$('height').value).toFixed(2)} · round ${(+$('round').value).toFixed(2)} · asym ${(+$('asym').value).toFixed(2)} · blend ${(+$('blend').value).toFixed(2)} · curve ${(+$('curve').value).toFixed(2)} · translen ${(+$('translen').value).toFixed(2)} · fairness ${(+$('fairness').value).toFixed(2)}`;try{await navigator.clipboard.writeText(txt);showToast('Copied settings')}catch{showToast(txt)}};
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1500)}
 syncOutputs();syncLayoutInputs();
