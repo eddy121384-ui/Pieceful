@@ -6,6 +6,7 @@ var transition_length_slider: HSlider
 var transition_fairness_slider: HSlider
 var transition_length_value: Label
 var transition_fairness_value: Label
+var validate_button: Button
 
 
 func _build_ui() -> void:
@@ -19,7 +20,7 @@ func _build_ui() -> void:
 	layer.add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "V16 transition fairing · dynamic layout resolver"
+	subtitle.text = "V16 transition fairing · fast live preview"
 	subtitle.position = Vector2(25.0, 46.0)
 	subtitle.add_theme_font_size_override("font_size", 12)
 	layer.add_child(subtitle)
@@ -95,6 +96,21 @@ func _build_style_controls(layer: CanvasLayer) -> void:
 	layer.add_child(reset_button)
 
 
+func _build_curation_controls(layer: CanvasLayer) -> void:
+	super(layer)
+
+	validate_button = Button.new()
+	validate_button.text = "Validate Candidate"
+	validate_button.position = Vector2(944.0, 340.0)
+	validate_button.size = Vector2(310.0, 38.0)
+	validate_button.pressed.connect(_run_full_validation)
+	layer.add_child(validate_button)
+
+	approve_button.position = Vector2(944.0, 386.0)
+	validation_label.position = Vector2(944.0, 434.0)
+	validation_label.size = Vector2(310.0, 72.0)
+
+
 func _update_slider_labels() -> void:
 	super()
 	if transition_length_value == null:
@@ -115,6 +131,7 @@ func _generate_candidate() -> void:
 		style_debounce.stop()
 	seed_edit.text = str(seed)
 
+	var preview_started_us := Time.get_ticks_usec()
 	var generator = CutPatternGeneratorV16Script.new(
 		current_columns,
 		current_rows,
@@ -144,8 +161,19 @@ func _generate_candidate() -> void:
 	current_dict["authoring"] = authoring
 	current_pattern = CutPatternAssetScript.from_dict(current_dict)
 
-	var validator = CutPatternValidatorScript.new()
-	current_validation = validator.validate(current_pattern)
+	# Live preview deliberately stops here. Full validation is production-grade
+	# work and can be much more expensive than geometry regeneration, especially
+	# for large layouts. Any geometry/style change invalidates the previous audit.
+	current_validation = {}
+	approve_button.disabled = true
+	if validate_button != null:
+		validate_button.disabled = false
+
+	var preview_ms := int((Time.get_ticks_usec() - preview_started_us) / 1000)
+	var cache_state := "HIT" if bool(generator.topology_cache_hit) else "MISS"
+	validation_label.text = (
+		"LIVE PREVIEW · %d ms\nTopology cache %s · not validated"
+	) % [preview_ms, cache_state]
 
 	var template_name := str(authoring.get("template", "unknown_template"))
 	seed_label.text = "%d × %d · %d pieces · seed %d · %s" % [
@@ -156,21 +184,34 @@ func _generate_candidate() -> void:
 		template_name,
 	]
 	_update_topology_label(authoring)
+	queue_redraw()
+
+
+func _run_full_validation() -> void:
+	if current_pattern == null:
+		return
+
+	validate_button.disabled = true
+	approve_button.disabled = true
+	var validation_started_us := Time.get_ticks_usec()
+	var validator = CutPatternValidatorScript.new()
+	current_validation = validator.validate(current_pattern)
+	var validation_ms := int((Time.get_ticks_usec() - validation_started_us) / 1000)
 
 	if bool(current_validation["valid"]):
-		validation_label.text = (
-			"VALID · %d warning(s)\n"
-			+ "V16 fairing · target %d. Approve only when you want to freeze this die."
-		) % [
+		validation_label.text = "VALID · %d ms · %d warning(s)" % [
+			validation_ms,
 			current_validation["warnings"].size(),
-			current_target_piece_count,
 		]
 		approve_button.disabled = false
 	else:
-		validation_label.text = "INVALID · %d error(s)\nDo not approve this candidate." % current_validation["errors"].size()
+		validation_label.text = "INVALID · %d ms · %d error(s)" % [
+			validation_ms,
+			current_validation["errors"].size(),
+		]
 		approve_button.disabled = true
 
-	queue_redraw()
+	validate_button.disabled = false
 
 
 func _settings_string() -> String:
