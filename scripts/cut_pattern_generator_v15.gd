@@ -1,8 +1,10 @@
-extends "res://scripts/cut_pattern_generator_v14.gd"
+extends "res://scripts/cut_pattern_generator_v14_cached.gd"
 
 # V15 turns the visually tuned Die Lab controls into first-class authoring
 # parameters while preserving V14 topology optimization and the V9/V11 global
-# C2 ribbon construction. Runtime still consumes approved CutPattern JSON only.
+# C2 ribbon construction. The cached V14 shim reuses deterministic topology
+# during live style tuning without changing V14's scoring/output semantics.
+# Runtime still consumes approved CutPattern JSON only.
 
 const V15_GENERATOR_VERSION := 15
 const V15_TEMPLATE_NAME := "classic_cardboard_v15_parametric_die_lab"
