@@ -79,6 +79,9 @@
     <label>蘑菇左右不對稱度
       <div class="sliderline"><input id="asym" type="range" min="0.00" max="1.00" step="0.01" value="0.35"><output id="asymOut">0.35</output></div>
     </label>
+    <label>蘑菇肩膀平滑度
+      <div class="sliderline"><input id="blend" type="range" min="0.70" max="1.40" step="0.01" value="1.00"><output id="blendOut">1.00×</output></div>
+    </label>
     <label>Ribbon 彎曲度
       <div class="sliderline"><input id="curve" type="range" min="0.60" max="1.70" step="0.05" value="1.00"><output id="curveOut">1.00×</output></div>
     </label>
@@ -168,15 +171,15 @@ function pathFromSpans(spans,scaleX,scaleY){if(!spans.length)return '';let d=`M 
 
 function generate(){
   const cfg=config(), seed=+$('seed').value||1, gr=rngFor(seed,0), topology=createTopology(cfg.cols,cfg.rows,seed);
-  const height=+$('height').value, round=+$('round').value, asym=+$('asym').value, curve=+$('curve').value;
+  const height=+$('height').value, round=+$('round').value, asym=+$('asym').value, blend=+$('blend').value, curve=+$('curve').value;
   const design=[cfg.aspect,1], cell=[design[0]/cfg.cols,design[1]/cfg.rows], minCell=Math.min(...cell);
   const pts=[];for(let r=0;r<=cfg.rows;r++)for(let c=0;c<=cfg.cols;c++){let x=c*cell[0],y=r*cell[1];if(c>0&&c<cfg.cols)x+=rr(gr,-cell[0]*.034,cell[0]*.034);if(r>0&&r<cfg.rows)y+=rr(gr,-cell[1]*.034,cell[1]*.034);pts.push([x,y])}
   const gp=(r,c)=>pts[r*(cfg.cols+1)+c];
   function character(L){let roll=gr(),dm=1,hm=1,nm=1,sm=1;if(roll<.16){dm=.98;hm=1.045;sm=1.02}else if(roll<.30){dm=1.015;hm=.975;nm=.98;sm=.97}const center=rr(gr,.468,.532),depth=minCell*rr(gr,.222,.250)*dm*height;let sl=rr(gr,.252,.292)*L*sm,sr=rr(gr,.252,.292)*L*sm,nl=rr(gr,.062,.073)*L*nm,nr=rr(gr,.062,.073)*L*nm,hl=rr(gr,.154,.176)*L*hm*round,hr=rr(gr,.154,.176)*L*hm*round;const jig=()=>rr(gr,.99,1.01);sl*=jig();sr*=jig();nl*=jig();nr*=jig();hl*=jig();hr*=jig();const shoulderBase=(sl+sr)*.5,neckBase=(nl+nr)*.5,headBase=(hl+hr)*.5,bias=rr(gr,-1,1)*asym;sl=shoulderBase*(1-bias*.08);sr=shoulderBase*(1+bias*.08);nl=neckBase*(1+bias*.10);nr=neckBase*(1-bias*.10);hl=headBase*(1-bias*.16);hr=headBase*(1+bias*.16);const shift=bias*.030*L,sideDepth=bias*.05;return {center,depth,sl,sr,nl,nr,hl,hr,shift,ld:rr(gr,.026,.043)*depth*(1-sideDepth),rd:rr(gr,.026,.043)*depth*(1+sideDepth)}}
   function ribbonProfile(){return {a:minCell*rr(gr,.010,.020)*curve,p:rr(gr,0,1),b:minCell*rr(gr,.0015,.004)*curve,q:rr(gr,0,1)}}
   function ro(p,g){return p.a*Math.sin(Math.PI*2*(g+p.p))+p.b*Math.sin(Math.PI*4*(g+p.q))}
-  function cellGuides(start,end,idx,count,prof,sign){const delta=sub(end,start),L=len(delta);if(L<1e-8)return [];const tan=norm(delta),normal=[-tan[1],tan[0]],ch=character(L),C=ch.center*L,leftGate=clamp(C-ch.sl*1.16,L*.12,L*.22),rightGate=clamp(C+ch.sr*1.16,L*.78,L*.88);const local=[
-    [leftGate*.44,0],[leftGate*.76,-ch.ld*.04],[leftGate,-ch.ld*.14],[C-ch.sl,-ch.ld*.34],[C-(ch.hl+ch.nl)*.58,-ch.ld],[C-ch.nl,.135*ch.depth],[C-ch.hl*.91,.480*ch.depth],[C-ch.hl,.690*ch.depth],[C-ch.hl*.91,.855*ch.depth],[C-ch.hl*.70,.990*ch.depth],[C-ch.hl*.42,1.075*ch.depth],[C-ch.hl*.17+ch.shift*.35,1.120*ch.depth],[C+ch.shift,1.135*ch.depth],[C+ch.hr*.17+ch.shift*.35,1.120*ch.depth],[C+ch.hr*.42,1.075*ch.depth],[C+ch.hr*.70,.990*ch.depth],[C+ch.hr*.91,.855*ch.depth],[C+ch.hr,.690*ch.depth],[C+ch.hr*.91,.480*ch.depth],[C+ch.nr,.135*ch.depth],[C+(ch.hr+ch.nr)*.58,-ch.rd],[C+ch.sr,-ch.rd*.34],[rightGate,-ch.rd*.14],[rightGate+(L-rightGate)*.24,-ch.rd*.04],[rightGate+(L-rightGate)*.56,0]
+  function cellGuides(start,end,idx,count,prof,sign){const delta=sub(end,start),L=len(delta);if(L<1e-8)return [];const tan=norm(delta),normal=[-tan[1],tan[0]],ch=character(L),C=ch.center*L;const gateStretch=1+(blend-1)*.22,shoulderDepth=1+(blend-1)*.30,shoulderReach=1+(blend-1)*.18;const leftGate=clamp(C-ch.sl*1.16*gateStretch,L*.10,L*.24),rightGate=clamp(C+ch.sr*1.16*gateStretch,L*.76,L*.90);const local=[
+    [leftGate*.44,0],[leftGate*.76,-ch.ld*.04*shoulderDepth],[leftGate,-ch.ld*.14*shoulderDepth],[C-ch.sl*shoulderReach,-ch.ld*.34*shoulderDepth],[C-(ch.hl+ch.nl)*.58,-ch.ld],[C-ch.nl,.135*ch.depth],[C-ch.hl*.91,.480*ch.depth],[C-ch.hl,.690*ch.depth],[C-ch.hl*.91,.855*ch.depth],[C-ch.hl*.70,.990*ch.depth],[C-ch.hl*.42,1.075*ch.depth],[C-ch.hl*.17+ch.shift*.35,1.120*ch.depth],[C+ch.shift,1.135*ch.depth],[C+ch.hr*.17+ch.shift*.35,1.120*ch.depth],[C+ch.hr*.42,1.075*ch.depth],[C+ch.hr*.70,.990*ch.depth],[C+ch.hr*.91,.855*ch.depth],[C+ch.hr,.690*ch.depth],[C+ch.hr*.91,.480*ch.depth],[C+ch.nr,.135*ch.depth],[C+(ch.hr+ch.nr)*.58,-ch.rd],[C+ch.sr*shoulderReach,-ch.rd*.34*shoulderDepth],[rightGate,-ch.rd*.14*shoulderDepth],[rightGate+(L-rightGate)*.24,-ch.rd*.04*shoulderDepth],[rightGate+(L-rightGate)*.56,0]
   ];return local.map(([x,y])=>{const lr=clamp(x/L,0,1),g=(idx+lr)/Math.max(count,1),off=ro(prof,g);return add(start,add(mul(tan,x),mul(normal,off+y*sign)))})}
   function ribbon(junctions,pols){const count=junctions.length-1,prof=ribbonProfile(),guides=[junctions[0]];for(let i=0;i<count;i++){guides.push(...cellGuides(junctions[i],junctions[i+1],i,count,prof,pols[i]));guides.push(junctions[i+1])}return naturalBezier(guides)}
   svg.innerHTML='';const sx=1000/design[0], sy=1000/design[1];
@@ -187,13 +190,13 @@ function generate(){
   topology.distribution.forEach((v,i)=>$('s'+i).textContent=v);$('score').textContent=topology.score.toFixed(2);$('templateName').textContent=`${cfg.pieces} · ${cfg.cols}×${cfg.rows}`;
 }
 
-function sync(){ $('heightOut').value=(+$('height').value).toFixed(2)+'×'; $('roundOut').value=(+$('round').value).toFixed(2)+'×'; $('asymOut').value=(+$('asym').value).toFixed(2); $('curveOut').value=(+$('curve').value).toFixed(2)+'×'; generate(); }
+function sync(){ $('heightOut').value=(+$('height').value).toFixed(2)+'×'; $('roundOut').value=(+$('round').value).toFixed(2)+'×'; $('asymOut').value=(+$('asym').value).toFixed(2); $('blendOut').value=(+$('blend').value).toFixed(2)+'×'; $('curveOut').value=(+$('curve').value).toFixed(2)+'×'; generate(); }
 $('next').onclick=()=>{$('seed').value=(+$('seed').value||1)+1;generate()};
 $('random').onclick=()=>{$('seed').value=Math.floor(Math.random()*900000000)+100000000;generate()};
 $('preset').onchange=generate;$('seed').onchange=generate;
-['height','round','asym','curve'].forEach(id=>$(id).addEventListener('input',sync));
-$('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('asym').value=.35;$('curve').value=1;sync()};
-$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · seed ${$('seed').value} · height ${$('height').value} · round ${$('round').value} · asym ${$('asym').value} · curve ${$('curve').value}`;try{await navigator.clipboard.writeText(txt);showToast('Copied')}catch{showToast(txt)}};
+['height','round','asym','blend','curve'].forEach(id=>$(id).addEventListener('input',sync));
+$('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('asym').value=.35;$('blend').value=1;$('curve').value=1;sync()};
+$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · seed ${$('seed').value} · height ${$('height').value} · round ${$('round').value} · asym ${$('asym').value} · blend ${$('blend').value} · curve ${$('curve').value}`;try{await navigator.clipboard.writeText(txt);showToast('Copied')}catch{showToast(txt)}};
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1400)}
 sync();
 })();
