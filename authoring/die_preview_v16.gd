@@ -20,7 +20,7 @@ func _build_ui() -> void:
 	layer.add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "V16 transition fairing · fast live preview"
+	subtitle.text = "V16 baseline candidate · fast live preview"
 	subtitle.position = Vector2(25.0, 46.0)
 	subtitle.add_theme_font_size_override("font_size", 12)
 	layer.add_child(subtitle)
@@ -46,31 +46,31 @@ func _build_ui() -> void:
 
 
 func _build_style_controls(layer: CanvasLayer) -> void:
-	var slider_setup := _make_slider(layer, "Tab Depth / 凸榫深度", 318.0, 0.88, 1.22, 0.01, 1.00)
+	var slider_setup := _make_slider(layer, "Tab Depth / 凸榫深度", 318.0, 0.88, 1.22, 0.01, 0.96)
 	height_slider = slider_setup["slider"]
 	height_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Crown Width / Roundness", 362.0, 0.90, 1.14, 0.01, 1.00)
+	slider_setup = _make_slider(layer, "Crown Width / Roundness", 362.0, 0.90, 1.14, 0.01, 0.93)
 	roundness_slider = slider_setup["slider"]
 	roundness_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Tab Asymmetry / 凸榫不對稱", 406.0, 0.00, 1.00, 0.01, 0.35)
+	slider_setup = _make_slider(layer, "Tab Asymmetry / 凸榫不對稱", 406.0, 0.00, 1.00, 0.01, 1.00)
 	asymmetry_slider = slider_setup["slider"]
 	asymmetry_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Shoulder Blend / 肩部延伸", 450.0, 0.70, 1.40, 0.01, 1.00)
+	slider_setup = _make_slider(layer, "Shoulder Blend / 肩部延伸", 450.0, 0.70, 1.40, 0.01, 1.16)
 	blend_slider = slider_setup["slider"]
 	blend_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Ribbon Curvature / 主刀線曲率", 494.0, 0.60, 1.70, 0.05, 1.00)
+	slider_setup = _make_slider(layer, "Ribbon Curvature / 主刀線曲率", 494.0, 0.60, 1.70, 0.05, 0.60)
 	curvature_slider = slider_setup["slider"]
 	curvature_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Transition Length / 過渡長度", 538.0, 0.55, 1.00, 0.01, 1.00)
+	slider_setup = _make_slider(layer, "Transition Length / 過渡長度", 538.0, 0.55, 1.00, 0.01, 0.57)
 	transition_length_slider = slider_setup["slider"]
 	transition_length_value = slider_setup["value_label"]
 
-	slider_setup = _make_slider(layer, "Transition Fairness / 過渡滑順度", 582.0, 0.00, 1.00, 0.01, 0.90)
+	slider_setup = _make_slider(layer, "Transition Fairness / 過渡滑順度", 582.0, 0.00, 1.00, 0.01, 0.69)
 	transition_fairness_slider = slider_setup["slider"]
 	transition_fairness_value = slider_setup["value_label"]
 
@@ -296,6 +296,14 @@ func _paste_settings() -> void:
 
 
 func _reset_style() -> void:
-	transition_length_slider.value = 1.00
-	transition_fairness_slider.value = 0.90
-	super()
+	height_slider.value = 0.96
+	roundness_slider.value = 0.93
+	asymmetry_slider.value = 1.00
+	blend_slider.value = 1.16
+	curvature_slider.value = 0.60
+	transition_length_slider.value = 0.57
+	transition_fairness_slider.value = 0.69
+	_update_slider_labels()
+	if style_debounce != null:
+		style_debounce.stop()
+	_generate_candidate()
