@@ -6,17 +6,197 @@
 <meta name="theme-color" content="#111317" />
 <title>Piecepace Die Lab</title>
 <style>
-:root{color-scheme:dark;--bg:#111317;--panel:#1a1d22;--panel2:#20242b;--text:#f5f6f8;--muted:#9ca4b0;--accent:#8bd3ff;--good:#7be09f}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif}body{padding:max(14px,env(safe-area-inset-top)) 14px max(18px,env(safe-area-inset-bottom))}.app{max-width:820px;margin:0 auto}header{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:4px 2px 12px}h1{font-size:22px;margin:0;letter-spacing:-.02em}.sub{color:var(--muted);font-size:12px;margin-top:4px}.version{font-size:11px;color:var(--accent);background:#15212a;border:1px solid #29404f;border-radius:999px;padding:5px 9px;white-space:nowrap}.card{background:var(--panel);border:1px solid #2a2f37;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28);overflow:hidden}.stage{padding:12px}.svgwrap{width:100%;aspect-ratio:1/1;background:#fff;border-radius:12px;overflow:hidden;touch-action:manipulation}svg{display:block;width:100%;height:100%}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px 2px 2px}.stat{background:var(--panel2);border-radius:10px;padding:8px 5px;text-align:center;min-width:0}.stat b{display:block;font-size:16px}.stat span{display:block;color:var(--muted);font-size:10px;white-space:nowrap}.score{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:12px;padding:9px 2px 2px}.score strong{color:var(--good);font-size:13px}.controls{margin-top:12px;padding:13px;display:grid;gap:12px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{display:grid;gap:6px;color:var(--muted);font-size:11px}select,input[type=number]{width:100%;background:#12151a;color:var(--text);border:1px solid #343a44;border-radius:11px;padding:10px 11px;font-size:15px;outline:none}input[type=range]{width:100%;accent-color:#b9e7ff}.sliderline{display:flex;align-items:center;justify-content:space-between;gap:10px}.sliderline output{color:var(--text);font-variant-numeric:tabular-nums}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}button{border:0;border-radius:12px;padding:12px 13px;font-size:15px;font-weight:650;background:#f2f4f7;color:#111317;cursor:pointer}button.secondary{background:#282d35;color:#f2f4f7;border:1px solid #363d47}.foot{color:var(--muted);font-size:11px;line-height:1.55;padding:0 3px 2px}.toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#eff4f7;color:#111;padding:9px 12px;border-radius:999px;font-size:12px;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(min-width:680px){.stage{padding:16px}.controls{grid-template-columns:1fr 1fr}.buttons,.foot{grid-column:1/-1}.svgwrap{max-height:640px}.stats{gap:9px}}
+  :root { color-scheme: dark; --bg:#111317; --panel:#1a1d22; --panel2:#20242b; --text:#f5f6f8; --muted:#9ca4b0; --line:#0b0d10; --accent:#8bd3ff; --good:#7be09f; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family: ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif; }
+  body { padding: max(14px, env(safe-area-inset-top)) 14px max(18px, env(safe-area-inset-bottom)); }
+  .app { max-width: 820px; margin: 0 auto; }
+  header { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin: 4px 2px 12px; }
+  h1 { font-size:22px; margin:0; letter-spacing:-.02em; }
+  .sub { color:var(--muted); font-size:12px; margin-top:4px; }
+  .version { font-size:11px; color:var(--accent); background:#15212a; border:1px solid #29404f; border-radius:999px; padding:5px 9px; white-space:nowrap; }
+  .card { background:var(--panel); border:1px solid #2a2f37; border-radius:18px; box-shadow: 0 18px 50px rgba(0,0,0,.28); overflow:hidden; }
+  .stage { padding:12px; }
+  .svgwrap { width:100%; aspect-ratio:1/1; background:#fff; border-radius:12px; overflow:hidden; touch-action:manipulation; }
+  svg { display:block; width:100%; height:100%; }
+  .stats { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; padding:10px 2px 2px; }
+  .stat { background:var(--panel2); border-radius:10px; padding:8px 5px; text-align:center; min-width:0; }
+  .stat b { display:block; font-size:16px; }
+  .stat span { display:block; color:var(--muted); font-size:10px; white-space:nowrap; }
+  .score { display:flex; justify-content:space-between; align-items:center; gap:10px; color:var(--muted); font-size:12px; padding:9px 2px 2px; }
+  .score strong { color:var(--good); font-size:13px; }
+  .controls { margin-top:12px; padding:13px; display:grid; gap:12px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  label { display:grid; gap:6px; color:var(--muted); font-size:11px; }
+  select,input[type=number] { width:100%; background:#12151a; color:var(--text); border:1px solid #343a44; border-radius:11px; padding:10px 11px; font-size:15px; outline:none; }
+  input[type=range] { width:100%; accent-color:#b9e7ff; }
+  .sliderline { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .sliderline output { color:var(--text); font-variant-numeric:tabular-nums; }
+  .buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  button { border:0; border-radius:12px; padding:12px 13px; font-size:15px; font-weight:650; background:#f2f4f7; color:#111317; cursor:pointer; }
+  button.secondary { background:#282d35; color:#f2f4f7; border:1px solid #363d47; }
+  .foot { color:var(--muted); font-size:11px; line-height:1.55; padding:0 3px 2px; }
+  .toast { position:fixed; left:50%; bottom:max(22px,env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(20px); opacity:0; pointer-events:none; background:#eff4f7; color:#111; padding:9px 12px; border-radius:999px; font-size:12px; transition:.2s; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (min-width:680px) { .stage{padding:16px}.controls{grid-template-columns:1fr 1fr}.buttons{grid-column:1/-1}.foot{grid-column:1/-1}.svgwrap{max-height:640px}.stats{gap:9px} }
 </style>
 </head>
 <body>
-<div class="app"><header><div><h1>Piecepace · Die Lab</h1><div class="sub">手機版刀模模擬器 · V14 topology rhythm</div></div><div class="version" id="templateName">36 · 6×6</div></header>
-<section class="card stage"><div class="svgwrap"><svg id="die" viewBox="0 0 1000 1000" aria-label="拼圖刀模預覽"></svg></div><div class="stats"><div class="stat"><b id="s0">0</b><span>4 凹</span></div><div class="stat"><b id="s1">0</b><span>3 凹 1 凸</span></div><div class="stat"><b id="s2">0</b><span>2 凹 2 凸</span></div><div class="stat"><b id="s3">0</b><span>1 凹 3 凸</span></div><div class="stat"><b id="s4">0</b><span>4 凸</span></div></div><div class="score"><span>Interior pieces only</span><span>Rhythm score <strong id="score">—</strong> · 越低越不規律</span></div></section>
-<section class="card controls"><div class="row"><label>片數<select id="preset"><option value="36" selected>36 · 6×6</option><option value="12">12 · 4×3</option></select></label><label>Seed<input id="seed" type="number" inputmode="numeric" value="424242" /></label></div><label>蘑菇高度<div class="sliderline"><input id="height" type="range" min="0.88" max="1.22" step="0.01" value="1.00"><output id="heightOut">1.00×</output></div></label><label>蘑菇寬度 / 圓潤感<div class="sliderline"><input id="round" type="range" min="0.90" max="1.14" step="0.01" value="1.00"><output id="roundOut">1.00×</output></div></label><label>Ribbon 彎曲度<div class="sliderline"><input id="curve" type="range" min="0.60" max="1.70" step="0.05" value="1.00"><output id="curveOut">1.00×</output></div></label><div class="buttons"><button id="next">Generate Next</button><button id="random" class="secondary">Random Seed</button></div><div class="buttons"><button id="copy" class="secondary">Copy Seed / Settings</button><button id="reset" class="secondary">Reset Shape</button></div><div class="foot">這是 V14 邏輯的瀏覽器移植版：shared-edge polarity、topology rhythm optimizer、全 ribbon 平滑曲線與圓帽比例都保留同一個設計思路。瀏覽器 RNG 與 Godot RNG 不同，因此同一個 seed 不保證逐點完全相同；用它做手機上的視覺迭代最適合。</div></section></div><div class="toast" id="toast">Copied</div>
+<div class="app">
+  <header>
+    <div><h1>Piecepace · Die Lab</h1><div class="sub">手機版刀模模擬器 · V14 topology rhythm</div></div>
+    <div class="version" id="templateName">36 · 6×6</div>
+  </header>
+
+  <section class="card stage">
+    <div class="svgwrap"><svg id="die" viewBox="0 0 1000 1000" aria-label="拼圖刀模預覽"></svg></div>
+    <div class="stats">
+      <div class="stat"><b id="s0">0</b><span>4 凹</span></div>
+      <div class="stat"><b id="s1">0</b><span>3 凹 1 凸</span></div>
+      <div class="stat"><b id="s2">0</b><span>2 凹 2 凸</span></div>
+      <div class="stat"><b id="s3">0</b><span>1 凹 3 凸</span></div>
+      <div class="stat"><b id="s4">0</b><span>4 凸</span></div>
+    </div>
+    <div class="score"><span>Interior pieces only</span><span>Rhythm score <strong id="score">—</strong> · 越低越不規律</span></div>
+  </section>
+
+  <section class="card controls">
+    <div class="row">
+      <label>片數
+        <select id="preset"><option value="36" selected>36 · 6×6</option><option value="12">12 · 4×3</option></select>
+      </label>
+      <label>Seed
+        <input id="seed" type="number" inputmode="numeric" value="424242" />
+      </label>
+    </div>
+
+    <label>蘑菇高度
+      <div class="sliderline"><input id="height" type="range" min="0.88" max="1.22" step="0.01" value="1.00"><output id="heightOut">1.00×</output></div>
+    </label>
+    <label>蘑菇寬度 / 圓潤感
+      <div class="sliderline"><input id="round" type="range" min="0.90" max="1.14" step="0.01" value="1.00"><output id="roundOut">1.00×</output></div>
+    </label>
+    <label>蘑菇左右不對稱度
+      <div class="sliderline"><input id="asym" type="range" min="0.00" max="1.00" step="0.01" value="0.35"><output id="asymOut">0.35</output></div>
+    </label>
+    <label>Ribbon 彎曲度
+      <div class="sliderline"><input id="curve" type="range" min="0.60" max="1.70" step="0.05" value="1.00"><output id="curveOut">1.00×</output></div>
+    </label>
+
+    <div class="buttons">
+      <button id="next">Generate Next</button>
+      <button id="random" class="secondary">Random Seed</button>
+    </div>
+    <div class="buttons">
+      <button id="copy" class="secondary">Copy Seed / Settings</button>
+      <button id="reset" class="secondary">Reset Shape</button>
+    </div>
+    <div class="foot">這是 V14 邏輯的瀏覽器移植版：shared-edge polarity、topology rhythm optimizer、全 ribbon 平滑曲線與圓帽比例都保留同一個設計思路。瀏覽器 RNG 與 Godot RNG 不同，因此同一個 seed 不保證逐點完全相同；用它做手機上的視覺迭代最適合。</div>
+  </section>
+</div>
+<div class="toast" id="toast">Copied</div>
+
 <script>
-(()=>{'use strict';const $=id=>document.getElementById(id),svg=$('die'),NS='http://www.w3.org/2000/svg',TARGET=[.03,.19,.56,.19,.03];function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}function rngFor(seed,salt=0){return mulberry32((Number(seed)||1)+salt|0)}const rr=(r,a,b)=>a+(b-a)*r(),ri=(r,a,b)=>Math.floor(rr(r,a,b+1)),add=(a,b)=>[a[0]+b[0],a[1]+b[1]],sub=(a,b)=>[a[0]-b[0],a[1]-b[1]],mul=(a,s)=>[a[0]*s,a[1]*s],len=a=>Math.hypot(a[0],a[1]),norm=a=>{const l=len(a)||1;return[a[0]/l,a[1]/l]},clamp=(x,a,b)=>Math.max(a,Math.min(b,x));function config(){const pieces=+$('preset').value;return pieces===36?{cols:6,rows:6,aspect:1,pieces}:{cols:4,rows:3,aspect:1.6,pieces}}
-function createTopology(cols,rows,seed){let H=new Int8Array((rows+1)*cols),V=new Int8Array(rows*(cols+1));const rand=rngFor(seed,314159),restarts=10,steps=140;let best=null,bestScore=Infinity;const hpol=(r,c)=>H[r*cols+c],vpol=(r,c)=>V[r*(cols+1)+c];function tabs(r,c){let t=0;if(r>0&&hpol(r,c)<0)t++;if(r<rows-1&&hpol(r+1,c)>0)t++;if(c>0&&vpol(r,c)>0)t++;if(c<cols-1&&vpol(r,c+1)<0)t++;return t}function mask(r,c){let m=0;if(r>0&&hpol(r,c)<0)m|=1;if(c<cols-1&&vpol(r,c+1)<0)m|=2;if(r<rows-1&&hpol(r+1,c)>0)m|=4;if(c>0&&vpol(r,c)>0)m|=8;return m}function score(){const ir=Math.max(rows-2,0),ic=Math.max(cols-2,0),n=ir*ic;if(!n)return 0;const counts=new Int8Array(n),masks=new Int8Array(n),dist=[0,0,0,0,0];for(let r=1;r<rows-1;r++)for(let c=1;c<cols-1;c++){const i=(r-1)*ic+c-1,t=tabs(r,c);counts[i]=t;masks[i]=mask(r,c);dist[t]++}let s=0;for(let k=0;k<5;k++){const e=dist[k]/n-TARGET[k];s+=e*e*18}const adj=(a,ma,b,mb)=>{let p=0;if(a===b)p+=.20;if(ma===mb)p+=.85;if((a===0||a===4)&&(b===0||b===4))p+=3.5;return p};for(let r=0;r<ir;r++)for(let c=0;c<ic;c++){const i=r*ic+c;if(c+1<ic)s+=adj(counts[i],masks[i],counts[i+1],masks[i+1]);if(r+1<ir){const j=i+ic;s+=adj(counts[i],masks[i],counts[j],masks[j])}}for(let r=0;r<ir;r++)for(let c=0;c<Math.max(ic-2,0);c++){const a=r*ic+c,b=a+1,d=a+2;if(counts[a]===counts[b]&&counts[b]===counts[d])s+=.85;if(masks[a]===masks[b]&&masks[b]===masks[d])s+=2.4}for(let c=0;c<ic;c++)for(let r=0;r<Math.max(ir-2,0);r++){const a=r*ic+c,b=a+ic,d=b+ic;if(counts[a]===counts[b]&&counts[b]===counts[d])s+=.85;if(masks[a]===masks[b]&&masks[b]===masks[d])s+=2.4}let match=0,total=0;for(let br=1;br<rows;br++)for(let c=0;c<cols;c++){const ex=(br+c)%2===0?1:-1;if(hpol(br,c)===ex)match++;total++}for(let r=0;r<rows;r++)for(let bc=1;bc<cols;bc++){const ex=(r+bc)%2===0?1:-1;if(vpol(r,bc)===ex)match++;total++}if(total){const d=match/total,al=Math.max(d,1-d);if(al>.60)s+=(al-.60)*24}return s}function randomize(){H.fill(0);V.fill(0);for(let br=1;br<rows;br++)for(let c=0;c<cols;c++)H[br*cols+c]=rand()<.5?1:-1;for(let r=0;r<rows;r++)for(let bc=1;bc<cols;bc++)V[r*(cols+1)+bc]=rand()<.5?1:-1}function pick(){const hc=Math.max(0,rows-1)*cols,vc=rows*Math.max(0,cols-1),p=ri(rand,0,hc+vc-1);if(p<hc)return[0,1+Math.floor(p/cols),p%cols];const q=p-hc,inner=Math.max(cols-1,1);return[1,Math.floor(q/inner),1+q%inner]}function flip(e){if(e[0]===0){const i=e[1]*cols+e[2];H[i]=-H[i]}else{const i=e[1]*(cols+1)+e[2];V[i]=-V[i]}}for(let restart=0;restart<restarts;restart++){randomize();let cur=score();for(let st=0;st<steps;st++){const e=pick();flip(e);const prop=score(),prog=st/Math.max(steps-1,1),temp=.85+(.035-.85)*prog,delta=prop-cur;let accept=delta<=0;if(!accept&&temp>1e-6)accept=rand()<Math.exp(-delta/temp);if(accept)cur=prop;else flip(e)}if(cur<bestScore){bestScore=cur;best={H:new Int8Array(H),V:new Int8Array(V)}}}H=best.H;V=best.V;const distribution=[0,0,0,0,0];for(let r=1;r<rows-1;r++)for(let c=1;c<cols-1;c++)distribution[tabs(r,c)]++;return{H,V,score:bestScore,distribution}}
-function naturalBezier(points){if(points.length<2)return[];const n=points.length,t=[0];for(let i=0;i<n-1;i++){const chord=Math.max(len(sub(points[i+1],points[i])),1e-6);t.push(t[t.length-1]+Math.sqrt(chord))}const sec=Array.from({length:n},()=>[0,0]);if(n>2){const m=n-2,L=new Array(m).fill(0),D=new Array(m).fill(0),U=new Array(m).fill(0),R=Array.from({length:m},()=>[0,0]);for(let j=0;j<m;j++){const i=j+1,h0=t[i]-t[i-1],h1=t[i+1]-t[i];L[j]=j>0?h0:0;D[j]=2*(h0+h1);U[j]=j<m-1?h1:0;R[j]=mul(sub(mul(sub(points[i+1],points[i]),1/h1),mul(sub(points[i],points[i-1]),1/h0)),6)}for(let j=1;j<m;j++){const f=L[j]/D[j-1];D[j]-=f*U[j-1];R[j]=sub(R[j],mul(R[j-1],f))}const sol=new Array(m);sol[m-1]=mul(R[m-1],1/D[m-1]);for(let j=m-2;j>=0;j--)sol[j]=mul(sub(R[j],mul(sol[j+1],U[j])),1/D[j]);for(let j=0;j<m;j++)sec[j+1]=sol[j]}const spans=[];for(let i=0;i<n-1;i++){const h=t[i+1]-t[i];if(h<=1e-6)continue;const p0=points[i],p1=points[i+1],m0=sec[i],m1=sec[i+1],slope=mul(sub(p1,p0),1/h),d0=sub(slope,mul(add(mul(m0,2),m1),h/6)),d1=add(slope,mul(add(m0,mul(m1,2)),h/6));spans.push([p0,add(p0,mul(d0,h/3)),sub(p1,mul(d1,h/3)),p1])}return spans}function pathFromSpans(spans,sx,sy){if(!spans.length)return'';let d=`M ${spans[0][0][0]*sx} ${spans[0][0][1]*sy}`;for(const s of spans)d+=` C ${s[1][0]*sx} ${s[1][1]*sy}, ${s[2][0]*sx} ${s[2][1]*sy}, ${s[3][0]*sx} ${s[3][1]*sy}`;return d}
-function generate(){const cfg=config(),seed=+$('seed').value||1,gr=rngFor(seed,0),topology=createTopology(cfg.cols,cfg.rows,seed),height=+$('height').value,round=+$('round').value,curve=+$('curve').value,design=[cfg.aspect,1],cell=[design[0]/cfg.cols,design[1]/cfg.rows],minCell=Math.min(...cell),pts=[];for(let r=0;r<=cfg.rows;r++)for(let c=0;c<=cfg.cols;c++){let x=c*cell[0],y=r*cell[1];if(c>0&&c<cfg.cols)x+=rr(gr,-cell[0]*.034,cell[0]*.034);if(r>0&&r<cfg.rows)y+=rr(gr,-cell[1]*.034,cell[1]*.034);pts.push([x,y])}const gp=(r,c)=>pts[r*(cfg.cols+1)+c];function character(L){let roll=gr(),dm=1,hm=1,nm=1,sm=1;if(roll<.16){dm=.98;hm=1.045;sm=1.02}else if(roll<.30){dm=1.015;hm=.975;nm=.98;sm=.97}const center=rr(gr,.468,.532),depth=minCell*rr(gr,.222,.250)*dm*height;let sl=rr(gr,.252,.292)*L*sm,sr=rr(gr,.252,.292)*L*sm,nl=rr(gr,.062,.073)*L*nm,nr=rr(gr,.062,.073)*L*nm,hl=rr(gr,.154,.176)*L*hm*round,hr=rr(gr,.154,.176)*L*hm*round,jig=()=>rr(gr,.99,1.01);sl*=jig();sr*=jig();nl*=jig();nr*=jig();hl*=jig();hr*=jig();return{center,depth,sl,sr,nl,nr,hl,hr,shift:rr(gr,-.005,.005)*L,ld:rr(gr,.026,.043)*depth,rd:rr(gr,.026,.043)*depth}}function ribbonProfile(){return{a:minCell*rr(gr,.010,.020)*curve,p:rr(gr,0,1),b:minCell*rr(gr,.0015,.004)*curve,q:rr(gr,0,1)}}function ro(p,g){return p.a*Math.sin(Math.PI*2*(g+p.p))+p.b*Math.sin(Math.PI*4*(g+p.q))}function cellGuides(start,end,idx,count,prof,sign){const delta=sub(end,start),L=len(delta);if(L<1e-8)return[];const tan=norm(delta),normal=[-tan[1],tan[0]],ch=character(L),C=ch.center*L,leftGate=clamp(C-ch.sl*1.16,L*.12,L*.22),rightGate=clamp(C+ch.sr*1.16,L*.78,L*.88),local=[[leftGate*.44,0],[leftGate*.76,-ch.ld*.04],[leftGate,-ch.ld*.14],[C-ch.sl,-ch.ld*.34],[C-(ch.hl+ch.nl)*.58,-ch.ld],[C-ch.nl,.135*ch.depth],[C-ch.hl*.91,.480*ch.depth],[C-ch.hl,.690*ch.depth],[C-ch.hl*.91,.855*ch.depth],[C-ch.hl*.70,.990*ch.depth],[C-ch.hl*.42,1.075*ch.depth],[C-ch.hl*.17+ch.shift*.35,1.120*ch.depth],[C+ch.shift,1.135*ch.depth],[C+ch.hr*.17+ch.shift*.35,1.120*ch.depth],[C+ch.hr*.42,1.075*ch.depth],[C+ch.hr*.70,.990*ch.depth],[C+ch.hr*.91,.855*ch.depth],[C+ch.hr,.690*ch.depth],[C+ch.hr*.91,.480*ch.depth],[C+ch.nr,.135*ch.depth],[C+(ch.hr+ch.nr)*.58,-ch.rd],[C+ch.sr,-ch.rd*.34],[rightGate,-ch.rd*.14],[rightGate+(L-rightGate)*.24,-ch.rd*.04],[rightGate+(L-rightGate)*.56,0]];return local.map(([x,y])=>{const lr=clamp(x/L,0,1),g=(idx+lr)/Math.max(count,1),off=ro(prof,g);return add(start,add(mul(tan,x),mul(normal,off+y*sign)))})}function ribbon(junctions,pols){const count=junctions.length-1,prof=ribbonProfile(),guides=[junctions[0]];for(let i=0;i<count;i++){guides.push(...cellGuides(junctions[i],junctions[i+1],i,count,prof,pols[i]));guides.push(junctions[i+1])}return naturalBezier(guides)}svg.innerHTML='';const sx=1000/design[0],sy=1000/design[1],makePath=(d,w=3)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#111318');p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');svg.appendChild(p)};for(let br=1;br<cfg.rows;br++){const js=[];for(let c=0;c<=cfg.cols;c++)js.push(gp(br,c));const pol=[];for(let c=0;c<cfg.cols;c++)pol.push(topology.H[br*cfg.cols+c]);makePath(pathFromSpans(ribbon(js,pol),sx,sy),3)}for(let bc=1;bc<cfg.cols;bc++){const js=[];for(let r=0;r<=cfg.rows;r++)js.push(gp(r,bc));const pol=[];for(let r=0;r<cfg.rows;r++)pol.push(topology.V[r*(cfg.cols+1)+bc]);makePath(pathFromSpans(ribbon(js,pol),sx,sy),3)}const border=document.createElementNS(NS,'rect');border.setAttribute('x','1.5');border.setAttribute('y','1.5');border.setAttribute('width','997');border.setAttribute('height','997');border.setAttribute('fill','none');border.setAttribute('stroke','#111318');border.setAttribute('stroke-width','3');svg.appendChild(border);topology.distribution.forEach((v,i)=>$('s'+i).textContent=v);$('score').textContent=topology.score.toFixed(2);$('templateName').textContent=`${cfg.pieces} · ${cfg.cols}×${cfg.rows}`}
-function sync(){$('heightOut').value=(+$('height').value).toFixed(2)+'×';$('roundOut').value=(+$('round').value).toFixed(2)+'×';$('curveOut').value=(+$('curve').value).toFixed(2)+'×';generate()}$('next').onclick=()=>{$('seed').value=(+$('seed').value||1)+1;generate()};$('random').onclick=()=>{$('seed').value=Math.floor(Math.random()*900000000)+100000000;generate()};$('preset').onchange=generate;$('seed').onchange=generate;['height','round','curve'].forEach(id=>$(id).addEventListener('input',sync));$('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('curve').value=1;sync()};$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · seed ${$('seed').value} · height ${$('height').value} · round ${$('round').value} · curve ${$('curve').value}`;try{await navigator.clipboard.writeText(txt);showToast('Copied')}catch{showToast(txt)}};function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1400)}sync()})();
-</script></body></html>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const svg = $('die');
+const NS='http://www.w3.org/2000/svg';
+const TARGET=[.03,.19,.56,.19,.03];
+
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296}}
+function rngFor(seed,salt=0){return mulberry32((Number(seed)||1)+salt|0)}
+const rr=(r,a,b)=>a+(b-a)*r();
+const ri=(r,a,b)=>Math.floor(rr(r,a,b+1));
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1]], sub=(a,b)=>[a[0]-b[0],a[1]-b[1]], mul=(a,s)=>[a[0]*s,a[1]*s];
+const len=a=>Math.hypot(a[0],a[1]);
+const norm=a=>{const l=len(a)||1;return [a[0]/l,a[1]/l]};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+
+function config(){
+  const pieces=+$('preset').value;
+  return pieces===36 ? {cols:6,rows:6,aspect:1,pieces} : {cols:4,rows:3,aspect:1.6,pieces};
+}
+
+function createTopology(cols,rows,seed){
+  let H=new Int8Array((rows+1)*cols), V=new Int8Array(rows*(cols+1));
+  const rand=rngFor(seed,314159), restarts=10, steps=140;
+  let best=null,bestScore=Infinity;
+  const hpol=(r,c)=>H[r*cols+c], vpol=(r,c)=>V[r*(cols+1)+c];
+  function tabs(r,c){let t=0;if(r>0&&hpol(r,c)<0)t++;if(r<rows-1&&hpol(r+1,c)>0)t++;if(c>0&&vpol(r,c)>0)t++;if(c<cols-1&&vpol(r,c+1)<0)t++;return t}
+  function mask(r,c){let m=0;if(r>0&&hpol(r,c)<0)m|=1;if(c<cols-1&&vpol(r,c+1)<0)m|=2;if(r<rows-1&&hpol(r+1,c)>0)m|=4;if(c>0&&vpol(r,c)>0)m|=8;return m}
+  function score(){
+    const ir=Math.max(rows-2,0), ic=Math.max(cols-2,0), n=ir*ic;if(!n)return 0;
+    const counts=new Int8Array(n), masks=new Int8Array(n), dist=[0,0,0,0,0];
+    for(let r=1;r<rows-1;r++)for(let c=1;c<cols-1;c++){const i=(r-1)*ic+c-1,t=tabs(r,c);counts[i]=t;masks[i]=mask(r,c);dist[t]++}
+    let s=0;for(let k=0;k<5;k++){const e=dist[k]/n-TARGET[k];s+=e*e*18}
+    const adj=(a,ma,b,mb)=>{let p=0;if(a===b)p+=.20;if(ma===mb)p+=.85;if((a===0||a===4)&&(b===0||b===4))p+=3.5;return p};
+    for(let r=0;r<ir;r++)for(let c=0;c<ic;c++){const i=r*ic+c;if(c+1<ic)s+=adj(counts[i],masks[i],counts[i+1],masks[i+1]);if(r+1<ir){const j=i+ic;s+=adj(counts[i],masks[i],counts[j],masks[j])}}
+    for(let r=0;r<ir;r++)for(let c=0;c<Math.max(ic-2,0);c++){const a=r*ic+c,b=a+1,d=a+2;if(counts[a]===counts[b]&&counts[b]===counts[d])s+=.85;if(masks[a]===masks[b]&&masks[b]===masks[d])s+=2.4}
+    for(let c=0;c<ic;c++)for(let r=0;r<Math.max(ir-2,0);r++){const a=r*ic+c,b=a+ic,d=b+ic;if(counts[a]===counts[b]&&counts[b]===counts[d])s+=.85;if(masks[a]===masks[b]&&masks[b]===masks[d])s+=2.4}
+    let match=0,total=0;for(let br=1;br<rows;br++)for(let c=0;c<cols;c++){const ex=(br+c)%2===0?1:-1;if(hpol(br,c)===ex)match++;total++}for(let r=0;r<rows;r++)for(let bc=1;bc<cols;bc++){const ex=(r+bc)%2===0?1:-1;if(vpol(r,bc)===ex)match++;total++}
+    if(total){const d=match/total,al=Math.max(d,1-d);if(al>.60)s+=(al-.60)*24}
+    return s;
+  }
+  function randomize(){H.fill(0);V.fill(0);for(let br=1;br<rows;br++)for(let c=0;c<cols;c++)H[br*cols+c]=rand()<.5?1:-1;for(let r=0;r<rows;r++)for(let bc=1;bc<cols;bc++)V[r*(cols+1)+bc]=rand()<.5?1:-1}
+  function pick(){const hc=Math.max(0,rows-1)*cols, vc=rows*Math.max(0,cols-1), p=ri(rand,0,hc+vc-1);if(p<hc)return [0,1+Math.floor(p/cols),p%cols];const q=p-hc,inner=Math.max(cols-1,1);return [1,Math.floor(q/inner),1+q%inner]}
+  function flip(e){if(e[0]===0){const i=e[1]*cols+e[2];H[i]=-H[i]}else{const i=e[1]*(cols+1)+e[2];V[i]=-V[i]}}
+  for(let restart=0;restart<restarts;restart++){
+    randomize();let cur=score();
+    for(let st=0;st<steps;st++){const e=pick();flip(e);const prop=score(),prog=st/Math.max(steps-1,1),temp=.85+(.035-.85)*prog,delta=prop-cur;let accept=delta<=0;if(!accept&&temp>1e-6)accept=rand()<Math.exp(-delta/temp);if(accept)cur=prop;else flip(e)}
+    if(cur<bestScore){bestScore=cur;best={H:new Int8Array(H),V:new Int8Array(V)}}
+  }
+  H=best.H;V=best.V;
+  const distribution=[0,0,0,0,0];for(let r=1;r<rows-1;r++)for(let c=1;c<cols-1;c++)distribution[tabs(r,c)]++;
+  return {H,V,score:bestScore,distribution};
+}
+
+function naturalBezier(points){
+  if(points.length<2)return [];
+  const n=points.length, t=[0];for(let i=0;i<n-1;i++){const chord=Math.max(len(sub(points[i+1],points[i])),1e-6);t.push(t[t.length-1]+Math.sqrt(chord))}
+  const sec=Array.from({length:n},()=>[0,0]);
+  if(n>2){const m=n-2,L=new Array(m).fill(0),D=new Array(m).fill(0),U=new Array(m).fill(0),R=Array.from({length:m},()=>[0,0]);
+    for(let j=0;j<m;j++){const i=j+1,h0=t[i]-t[i-1],h1=t[i+1]-t[i];L[j]=j>0?h0:0;D[j]=2*(h0+h1);U[j]=j<m-1?h1:0;R[j]=mul(sub(mul(sub(points[i+1],points[i]),1/h1),mul(sub(points[i],points[i-1]),1/h0)),6)}
+    for(let j=1;j<m;j++){const f=L[j]/D[j-1];D[j]-=f*U[j-1];R[j]=sub(R[j],mul(R[j-1],f))}
+    const sol=new Array(m);sol[m-1]=mul(R[m-1],1/D[m-1]);for(let j=m-2;j>=0;j--)sol[j]=mul(sub(R[j],mul(sol[j+1],U[j])),1/D[j]);for(let j=0;j<m;j++)sec[j+1]=sol[j]
+  }
+  const spans=[];for(let i=0;i<n-1;i++){const h=t[i+1]-t[i];if(h<=1e-6)continue;const p0=points[i],p1=points[i+1],m0=sec[i],m1=sec[i+1],slope=mul(sub(p1,p0),1/h);const d0=sub(slope,mul(add(mul(m0,2),m1),h/6));const d1=add(slope,mul(add(m0,mul(m1,2)),h/6));spans.push([p0,add(p0,mul(d0,h/3)),sub(p1,mul(d1,h/3)),p1])}
+  return spans;
+}
+function cubic(p0,p1,p2,p3,t){const u=1-t;return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]}
+function pathFromSpans(spans,scaleX,scaleY){if(!spans.length)return '';let d=`M ${spans[0][0][0]*scaleX} ${spans[0][0][1]*scaleY}`;for(const s of spans)d+=` C ${s[1][0]*scaleX} ${s[1][1]*scaleY}, ${s[2][0]*scaleX} ${s[2][1]*scaleY}, ${s[3][0]*scaleX} ${s[3][1]*scaleY}`;return d}
+
+function generate(){
+  const cfg=config(), seed=+$('seed').value||1, gr=rngFor(seed,0), topology=createTopology(cfg.cols,cfg.rows,seed);
+  const height=+$('height').value, round=+$('round').value, asym=+$('asym').value, curve=+$('curve').value;
+  const design=[cfg.aspect,1], cell=[design[0]/cfg.cols,design[1]/cfg.rows], minCell=Math.min(...cell);
+  const pts=[];for(let r=0;r<=cfg.rows;r++)for(let c=0;c<=cfg.cols;c++){let x=c*cell[0],y=r*cell[1];if(c>0&&c<cfg.cols)x+=rr(gr,-cell[0]*.034,cell[0]*.034);if(r>0&&r<cfg.rows)y+=rr(gr,-cell[1]*.034,cell[1]*.034);pts.push([x,y])}
+  const gp=(r,c)=>pts[r*(cfg.cols+1)+c];
+  function character(L){let roll=gr(),dm=1,hm=1,nm=1,sm=1;if(roll<.16){dm=.98;hm=1.045;sm=1.02}else if(roll<.30){dm=1.015;hm=.975;nm=.98;sm=.97}const center=rr(gr,.468,.532),depth=minCell*rr(gr,.222,.250)*dm*height;let sl=rr(gr,.252,.292)*L*sm,sr=rr(gr,.252,.292)*L*sm,nl=rr(gr,.062,.073)*L*nm,nr=rr(gr,.062,.073)*L*nm,hl=rr(gr,.154,.176)*L*hm*round,hr=rr(gr,.154,.176)*L*hm*round;const jig=()=>rr(gr,.99,1.01);sl*=jig();sr*=jig();nl*=jig();nr*=jig();hl*=jig();hr*=jig();const shoulderBase=(sl+sr)*.5,neckBase=(nl+nr)*.5,headBase=(hl+hr)*.5,bias=rr(gr,-1,1)*asym;sl=shoulderBase*(1-bias*.08);sr=shoulderBase*(1+bias*.08);nl=neckBase*(1+bias*.10);nr=neckBase*(1-bias*.10);hl=headBase*(1-bias*.16);hr=headBase*(1+bias*.16);const shift=bias*.030*L,sideDepth=bias*.05;return {center,depth,sl,sr,nl,nr,hl,hr,shift,ld:rr(gr,.026,.043)*depth*(1-sideDepth),rd:rr(gr,.026,.043)*depth*(1+sideDepth)}}
+  function ribbonProfile(){return {a:minCell*rr(gr,.010,.020)*curve,p:rr(gr,0,1),b:minCell*rr(gr,.0015,.004)*curve,q:rr(gr,0,1)}}
+  function ro(p,g){return p.a*Math.sin(Math.PI*2*(g+p.p))+p.b*Math.sin(Math.PI*4*(g+p.q))}
+  function cellGuides(start,end,idx,count,prof,sign){const delta=sub(end,start),L=len(delta);if(L<1e-8)return [];const tan=norm(delta),normal=[-tan[1],tan[0]],ch=character(L),C=ch.center*L,leftGate=clamp(C-ch.sl*1.16,L*.12,L*.22),rightGate=clamp(C+ch.sr*1.16,L*.78,L*.88);const local=[
+    [leftGate*.44,0],[leftGate*.76,-ch.ld*.04],[leftGate,-ch.ld*.14],[C-ch.sl,-ch.ld*.34],[C-(ch.hl+ch.nl)*.58,-ch.ld],[C-ch.nl,.135*ch.depth],[C-ch.hl*.91,.480*ch.depth],[C-ch.hl,.690*ch.depth],[C-ch.hl*.91,.855*ch.depth],[C-ch.hl*.70,.990*ch.depth],[C-ch.hl*.42,1.075*ch.depth],[C-ch.hl*.17+ch.shift*.35,1.120*ch.depth],[C+ch.shift,1.135*ch.depth],[C+ch.hr*.17+ch.shift*.35,1.120*ch.depth],[C+ch.hr*.42,1.075*ch.depth],[C+ch.hr*.70,.990*ch.depth],[C+ch.hr*.91,.855*ch.depth],[C+ch.hr,.690*ch.depth],[C+ch.hr*.91,.480*ch.depth],[C+ch.nr,.135*ch.depth],[C+(ch.hr+ch.nr)*.58,-ch.rd],[C+ch.sr,-ch.rd*.34],[rightGate,-ch.rd*.14],[rightGate+(L-rightGate)*.24,-ch.rd*.04],[rightGate+(L-rightGate)*.56,0]
+  ];return local.map(([x,y])=>{const lr=clamp(x/L,0,1),g=(idx+lr)/Math.max(count,1),off=ro(prof,g);return add(start,add(mul(tan,x),mul(normal,off+y*sign)))})}
+  function ribbon(junctions,pols){const count=junctions.length-1,prof=ribbonProfile(),guides=[junctions[0]];for(let i=0;i<count;i++){guides.push(...cellGuides(junctions[i],junctions[i+1],i,count,prof,pols[i]));guides.push(junctions[i+1])}return naturalBezier(guides)}
+  svg.innerHTML='';const sx=1000/design[0], sy=1000/design[1];
+  const makePath=(d,w=3)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#111318');p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');svg.appendChild(p)};
+  for(let br=1;br<cfg.rows;br++){const js=[];for(let c=0;c<=cfg.cols;c++)js.push(gp(br,c));const pol=[];for(let c=0;c<cfg.cols;c++)pol.push(topology.H[br*cfg.cols+c]);makePath(pathFromSpans(ribbon(js,pol),sx,sy),3)}
+  for(let bc=1;bc<cfg.cols;bc++){const js=[];for(let r=0;r<=cfg.rows;r++)js.push(gp(r,bc));const pol=[];for(let r=0;r<cfg.rows;r++)pol.push(topology.V[r*(cfg.cols+1)+bc]);makePath(pathFromSpans(ribbon(js,pol),sx,sy),3)}
+  const border=document.createElementNS(NS,'rect');border.setAttribute('x','1.5');border.setAttribute('y','1.5');border.setAttribute('width','997');border.setAttribute('height','997');border.setAttribute('fill','none');border.setAttribute('stroke','#111318');border.setAttribute('stroke-width','3');svg.appendChild(border);
+  topology.distribution.forEach((v,i)=>$('s'+i).textContent=v);$('score').textContent=topology.score.toFixed(2);$('templateName').textContent=`${cfg.pieces} · ${cfg.cols}×${cfg.rows}`;
+}
+
+function sync(){ $('heightOut').value=(+$('height').value).toFixed(2)+'×'; $('roundOut').value=(+$('round').value).toFixed(2)+'×'; $('asymOut').value=(+$('asym').value).toFixed(2); $('curveOut').value=(+$('curve').value).toFixed(2)+'×'; generate(); }
+$('next').onclick=()=>{$('seed').value=(+$('seed').value||1)+1;generate()};
+$('random').onclick=()=>{$('seed').value=Math.floor(Math.random()*900000000)+100000000;generate()};
+$('preset').onchange=generate;$('seed').onchange=generate;
+['height','round','asym','curve'].forEach(id=>$(id).addEventListener('input',sync));
+$('reset').onclick=()=>{$('height').value=1;$('round').value=1;$('asym').value=.35;$('curve').value=1;sync()};
+$('copy').onclick=async()=>{const c=config(),txt=`Piecepace Die Lab · ${c.pieces} pieces · seed ${$('seed').value} · height ${$('height').value} · round ${$('round').value} · asym ${$('asym').value} · curve ${$('curve').value}`;try{await navigator.clipboard.writeText(txt);showToast('Copied')}catch{showToast(txt)}};
+function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1400)}
+sync();
+})();
+</script>
+</body>
+</html>
