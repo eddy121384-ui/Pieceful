@@ -1,7 +1,7 @@
 extends Node2D
 
 const CutPatternAssetScript = preload("res://scripts/cut_pattern_asset.gd")
-const CutPatternGeneratorScript = preload("res://scripts/cut_pattern_generator.gd")
+const CutPatternGeneratorScript = preload("res://scripts/cut_pattern_generator_v14.gd")
 const CutPatternValidatorScript = preload("res://scripts/cut_pattern_validator.gd")
 
 const PRESET_12_COLUMNS := 4
@@ -19,7 +19,7 @@ var current_pattern: CutPatternAsset
 var current_dict: Dictionary = {}
 var current_validation: Dictionary = {}
 
-# Authoring now defaults to 36 pieces so topology distribution and whole-board
+# Authoring defaults to 36 pieces so topology distribution and whole-board
 # die rhythm are visible. The 12-piece prototype remains available as a preset.
 var current_columns := PRESET_36_COLUMNS
 var current_rows := PRESET_36_ROWS
@@ -97,8 +97,8 @@ func _build_ui() -> void:
 	layer.add_child(seed_label)
 
 	topology_label = Label.new()
-	topology_label.position = Vector2(650.0, 56.0)
-	topology_label.size = Vector2(584.0, 22.0)
+	topology_label.position = Vector2(530.0, 56.0)
+	topology_label.size = Vector2(704.0, 22.0)
 	topology_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	topology_label.add_theme_font_size_override("font_size", 13)
 	layer.add_child(topology_label)
@@ -200,14 +200,20 @@ func _update_topology_label(authoring: Dictionary) -> void:
 		topology_label.text = "Topology stats unavailable"
 		return
 
+	var rhythm_score: float = float(authoring.get("topology_rhythm_score", -1.0))
+	var score_text := ""
+	if rhythm_score >= 0.0:
+		score_text = " · rhythm %.2f" % rhythm_score
+
 	# Counts refer only to true four-sided interior pieces. In this notation,
 	# 0T = four blanks and 4T = four tabs.
-	topology_label.text = "Interior · 4B %d  ·  3B/1T %d  ·  2B/2T %d  ·  1B/3T %d  ·  4T %d" % [
+	topology_label.text = "4B %d · 3B/1T %d · 2B/2T %d · 1B/3T %d · 4T %d%s" % [
 		int(distribution.get("zero_tabs", 0)),
 		int(distribution.get("one_tab", 0)),
 		int(distribution.get("two_tabs", 0)),
 		int(distribution.get("three_tabs", 0)),
 		int(distribution.get("four_tabs", 0)),
+		score_text,
 	]
 
 
