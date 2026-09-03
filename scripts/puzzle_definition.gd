@@ -40,6 +40,23 @@ func column_for(index: int) -> int:
 	return index % columns
 
 
+func neighbor_indexes_for(index: int) -> Array[int]:
+	var result: Array[int] = []
+	var row := row_for(index)
+	var column := column_for(index)
+
+	if column > 0:
+		result.append(index - 1)
+	if column < columns - 1:
+		result.append(index + 1)
+	if row > 0:
+		result.append(index - columns)
+	if row < rows - 1:
+		result.append(index + columns)
+
+	return result
+
+
 func target_position_for(index: int) -> Vector2:
 	return board_rect.position + Vector2(
 		float(column_for(index)) * piece_size.x,
