@@ -10,6 +10,7 @@ const DEMO_TEXTURE: Texture2D = preload("res://assets/demo_garden.svg")
 const CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
 
 var board_rect := Rect2(Vector2(340.0, 105.0), Vector2(600.0, 375.0))
+var navigation_rect := Rect2(Vector2.ZERO, Vector2(1280.0, 720.0))
 var definition
 var pieces: Array[Node] = []
 var board_visuals: Array[Node] = []
@@ -31,6 +32,13 @@ func start_new_game() -> void:
 	_build_board_visuals()
 	_build_pieces()
 	progress_changed.emit(solved_count, definition.piece_count())
+
+
+func navigation_bounds() -> Rect2:
+	# V0-01 keeps the historical 1280x720 workspace so the existing 12-piece
+	# regression layout opens exactly as before. Future panorama/scroll puzzles
+	# can widen this rect without changing the camera controller itself.
+	return navigation_rect
 
 
 func _clear_previous_game() -> void:
@@ -116,6 +124,13 @@ func _build_pieces() -> void:
 func _on_piece_picked(piece) -> void:
 	z_counter += 1
 	piece.z_index = z_counter
+
+	# Touch presses are provisionally observed by the camera so empty-space
+	# gestures can pan. Once a piece claims that touch, remove it from camera
+	# gesture tracking so piece dragging and viewport panning never fight.
+	var camera_controller := get_tree().get_first_node_in_group("puzzle_camera_controller")
+	if camera_controller != null and camera_controller.has_method("cancel_pointer"):
+		camera_controller.cancel_pointer(piece.drag_pointer_id)
 
 
 func _on_piece_released(piece) -> void:
