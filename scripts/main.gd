@@ -82,9 +82,9 @@ func _build_ui() -> void:
 	layer.add_child(restart_button)
 
 	var instruction := Label.new()
-	instruction.text = "Drag pieces · Wheel/pinch to zoom · Middle/right drag or empty-space touch to pan"
-	instruction.position = Vector2(340.0, 660.0)
-	instruction.size = Vector2(600.0, 28.0)
+	instruction.text = "Join matching neighbors anywhere · Drag a joined group as one · Wheel/pinch zoom · Pan empty space"
+	instruction.position = Vector2(285.0, 660.0)
+	instruction.size = Vector2(710.0, 28.0)
 	instruction.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instruction.modulate = Color(1.0, 1.0, 1.0, 0.62)
 	instruction.add_theme_font_size_override("font_size", 15)
