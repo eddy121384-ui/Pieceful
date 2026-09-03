@@ -3,6 +3,7 @@ extends Area2D
 
 signal released(piece)
 signal picked(piece)
+signal dragged(piece, delta: Vector2)
 
 var piece_index: int = -1
 var target_position: Vector2
@@ -78,14 +79,14 @@ func _input(event: InputEvent) -> void:
 	if drag_pointer_id == -1:
 		if event is InputEventMouseMotion:
 			if (event.button_mask & MOUSE_BUTTON_MASK_LEFT) != 0:
-				global_position = _screen_to_world(event.position) - drag_offset
+				_move_drag_to_screen(event.position)
 				get_viewport().set_input_as_handled()
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				_finish_drag()
 	else:
 		if event is InputEventScreenDrag and event.index == drag_pointer_id:
-			global_position = _screen_to_world(event.position) - drag_offset
+			_move_drag_to_screen(event.position)
 			get_viewport().set_input_as_handled()
 		elif event is InputEventScreenTouch:
 			if event.index == drag_pointer_id and not event.pressed:
@@ -101,6 +102,16 @@ func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 	drag_offset = _screen_to_world(pointer_screen_position) - global_position
 	picked.emit(self)
 	get_viewport().set_input_as_handled()
+
+
+func _move_drag_to_screen(pointer_screen_position: Vector2) -> void:
+	var next_position := _screen_to_world(pointer_screen_position) - drag_offset
+	var delta := next_position - global_position
+	if delta.is_zero_approx():
+		return
+
+	global_position = next_position
+	dragged.emit(self, delta)
 
 
 func _finish_drag() -> void:
