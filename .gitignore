@@ -1,0 +1,8 @@
+# Godot generated/imported files
+.godot/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/puzzle_board.gd" id="2_board"]
+[ext_resource type="Script" path="res://scripts/puzzle_camera_controller.gd" id="3_camera"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="PuzzleBoard" type="Node2D" parent="."]
+script = ExtResource("2_board")
+
+[node name="PuzzleCamera" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+enabled = true
+script = ExtResource("3_camera")
