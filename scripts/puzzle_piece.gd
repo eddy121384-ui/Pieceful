@@ -44,6 +44,12 @@ func configure(
 	_build_visuals()
 	input_pickable = true
 
+	# Area2D picking still delivers _input_event(), so idle pieces do not need to
+	# receive every viewport input event. Enable _input() only while this specific
+	# piece owns an active drag; this keeps mouse/touch motion cost independent of
+	# the total loose-piece count instead of dispatching through every piece.
+	set_process_input(false)
+
 
 func snap_to_target() -> void:
 	if solved:
@@ -51,6 +57,8 @@ func snap_to_target() -> void:
 
 	solved = true
 	dragging = false
+	drag_pointer_id = -999
+	set_process_input(false)
 	input_pickable = false
 	z_index = 1
 
@@ -73,6 +81,8 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# This callback is enabled only for the currently dragged piece. Idle pieces
+	# never enter this hot path.
 	if not dragging:
 		return
 
@@ -100,6 +110,7 @@ func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 	dragging = true
 	drag_pointer_id = pointer_id
 	drag_offset = _screen_to_world(pointer_screen_position) - global_position
+	set_process_input(true)
 	picked.emit(self)
 	get_viewport().set_input_as_handled()
 
@@ -120,6 +131,7 @@ func _finish_drag() -> void:
 
 	dragging = false
 	drag_pointer_id = -999
+	set_process_input(false)
 	released.emit(self)
 	get_viewport().set_input_as_handled()
 
