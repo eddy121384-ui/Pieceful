@@ -7,11 +7,17 @@ signal completed
 const PuzzleDefinitionScript = preload("res://scripts/puzzle_definition.gd")
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
 const DEMO_TEXTURE: Texture2D = preload("res://assets/demo_garden.svg")
-const CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
+const REGRESSION_CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
+const DEMO_RELAXED_CUT_PATTERN_PATH := "res://cut_patterns/Classic_040_A.json"
 const SNAP_RADIUS_RATIO := 0.18
+const SCATTER_SEED := 20260831
 
+# The demo artwork is 960x600 = 1.6:1, so the board intentionally preserves that
+# native ratio. PuzzleLayoutResolver maps Relaxed ~36 at 1.6:1 to 8x5 = 40 pieces;
+# forcing an exact 6x6 would make each cell 1.6:1 and defeat the ratio-aware layout.
 var board_rect := Rect2(Vector2(340.0, 105.0), Vector2(600.0, 375.0))
 var navigation_rect := Rect2(Vector2.ZERO, Vector2(1280.0, 720.0))
+var active_cut_pattern_path := REGRESSION_CUT_PATTERN_PATH
 var definition
 var pieces: Array[Node] = []
 var board_visuals: Array[Node] = []
@@ -30,11 +36,12 @@ func start_new_game() -> void:
 	_clear_previous_game()
 	solved_count = 0
 	z_counter = 10
+	active_cut_pattern_path = _select_runtime_cut_pattern()
 
 	definition = PuzzleDefinitionScript.new(
 		DEMO_TEXTURE,
 		board_rect,
-		CUT_PATTERN_PATH
+		active_cut_pattern_path
 	)
 
 	_build_board_visuals()
@@ -43,10 +50,34 @@ func start_new_game() -> void:
 
 
 func navigation_bounds() -> Rect2:
-	# V0-01 keeps the historical 1280x720 workspace so the existing 12-piece
-	# regression layout opens exactly as before. Future panorama/scroll puzzles
-	# can widen this rect without changing the camera controller itself.
+	# The current relaxed demo still fits in one 1280x720 workspace. Future
+	# panorama/scroll puzzles can widen this rect without changing camera code.
 	return navigation_rect
+
+
+func active_pattern_id() -> String:
+	if definition == null or definition.cut_pattern == null:
+		return ""
+	return str(definition.cut_pattern.pattern_id)
+
+
+func active_piece_count() -> int:
+	if definition == null:
+		return 0
+	return definition.piece_count()
+
+
+func using_relaxed_runtime_asset() -> bool:
+	return active_cut_pattern_path == DEMO_RELAXED_CUT_PATTERN_PATH
+
+
+func _select_runtime_cut_pattern() -> String:
+	# Authoring approval writes Classic_040_A locally. Once that validated asset
+	# exists, Reshuffle/startup automatically graduates the demo from the 12-piece
+	# regression fixture to the ratio-correct Relaxed runtime without another code edit.
+	if FileAccess.file_exists(DEMO_RELAXED_CUT_PATTERN_PATH):
+		return DEMO_RELAXED_CUT_PATTERN_PATH
+	return REGRESSION_CUT_PATTERN_PATH
 
 
 func _clear_previous_game() -> void:
@@ -111,7 +142,7 @@ func _build_pieces() -> void:
 
 	for index in range(definition.piece_count()):
 		var piece = PuzzlePieceScript.new()
-		piece.name = "Piece_%02d" % index
+		piece.name = "Piece_%03d" % index
 		add_child(piece)
 		piece.configure(
 			index,
@@ -299,29 +330,69 @@ func _snap_radius() -> float:
 
 
 func _scatter_positions() -> Array[Vector2]:
-	var positions: Array[Vector2] = [
-		Vector2(38.0, 90.0),
-		Vector2(182.0, 70.0),
-		Vector2(40.0, 250.0),
-		Vector2(185.0, 255.0),
-		Vector2(42.0, 438.0),
-		Vector2(188.0, 465.0),
-		Vector2(972.0, 88.0),
-		Vector2(1110.0, 72.0),
-		Vector2(974.0, 250.0),
-		Vector2(1110.0, 260.0),
-		Vector2(974.0, 438.0),
-		Vector2(1106.0, 468.0),
-	]
+	# Build deterministic tray slots from the actual piece size instead of a
+	# 12-entry hardcoded list. This scales naturally to the first Relaxed runtime
+	# (40 pieces for the 1.6:1 demo) and remains usable for denser smoke tests.
+	var slots: Array[Vector2] = []
+	var piece_size: Vector2 = definition.piece_size
+	var top_clearance := 82.0
+	var bottom_clearance := 62.0
+	var side_margin := 18.0
+	var step := Vector2(
+		maxf(piece_size.x * 0.82, 38.0),
+		maxf(piece_size.y * 0.82, 38.0)
+	)
+	var minimum := navigation_rect.position + Vector2(side_margin, top_clearance)
+	var maximum := navigation_rect.end - piece_size - Vector2(side_margin, bottom_clearance)
+	var exclusion := board_rect.grow(12.0)
+
+	var y := minimum.y
+	while y <= maximum.y + 0.001:
+		var x := minimum.x
+		while x <= maximum.x + 0.001:
+			var candidate := Vector2(x, y)
+			var footprint := Rect2(candidate, piece_size)
+			if not footprint.intersects(exclusion):
+				slots.append(candidate)
+			x += step.x
+		y += step.y
 
 	var rng := RandomNumberGenerator.new()
-	rng.seed = 20260831
+	rng.seed = SCATTER_SEED
+	_shuffle_with_rng(slots, rng)
 
-	for index in range(positions.size()):
-		positions[index] += Vector2(
-			rng.randf_range(-10.0, 10.0),
-			rng.randf_range(-10.0, 10.0)
-		)
+	var requested := definition.piece_count()
+	if slots.size() < requested:
+		# Very dense layouts can exhaust non-overlapping tray slots. Fill the
+		# remainder with deterministic, slightly overlapping placements outside the
+		# board rather than failing startup; dense navigation will later get a larger
+		# content workspace as part of the high-piece-count runtime milestone.
+		var attempts := 0
+		while slots.size() < requested and attempts < requested * 200:
+			attempts += 1
+			var candidate := Vector2(
+				rng.randf_range(minimum.x, maxf(minimum.x, maximum.x)),
+				rng.randf_range(minimum.y, maxf(minimum.y, maximum.y))
+			)
+			if Rect2(candidate, piece_size).intersects(exclusion):
+				continue
+			slots.append(candidate)
 
-	positions.shuffle()
-	return positions
+	while slots.size() < requested:
+		# Last-resort safety for pathological future layouts. Keep every piece
+		# constructible even if many origins overlap; camera/workspace scaling is a
+		# separate product concern and must not become an index-out-of-range crash.
+		slots.append(navigation_rect.position + Vector2(side_margin, top_clearance))
+
+	var result: Array[Vector2] = []
+	for index in range(requested):
+		result.append(slots[index])
+	return result
+
+
+func _shuffle_with_rng(values: Array[Vector2], rng: RandomNumberGenerator) -> void:
+	for index in range(values.size() - 1, 0, -1):
+		var swap_index := rng.randi_range(0, index)
+		var temporary := values[index]
+		values[index] = values[swap_index]
+		values[swap_index] = temporary
