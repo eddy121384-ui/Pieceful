@@ -233,6 +233,9 @@ func _solve_cluster(cluster_id: int) -> void:
 	for member_value in _cluster_members_for(cluster_id):
 		var member = pieces[int(member_value)]
 		if member.solved:
+			# A moving island can attach to an already anchored piece. Restore the
+			# anchored member exactly in case the small merge correction moved it.
+			member.position = member.target_position
 			continue
 		member.snap_to_target()
 		newly_solved += 1
