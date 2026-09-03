@@ -31,6 +31,12 @@ var z_counter := 10
 var cluster_for_piece: Dictionary = {}
 var cluster_members: Dictionary = {}
 
+# Drag-hot-path cache. Cluster membership cannot change until release, so resolve
+# member indexes to node references once on pick instead of repeating dictionary
+# lookups and array indexing for every mouse/touch motion event.
+var active_drag_piece: Node = null
+var active_drag_members: Array[Node] = []
+
 
 func start_new_game() -> void:
 	_clear_previous_game()
@@ -81,6 +87,8 @@ func _select_runtime_cut_pattern() -> String:
 
 
 func _clear_previous_game() -> void:
+	_clear_active_drag_cache()
+
 	for piece in pieces:
 		if is_instance_valid(piece):
 			remove_child(piece)
@@ -168,6 +176,7 @@ func _build_pieces() -> void:
 
 func _on_piece_picked(piece) -> void:
 	var cluster_id := _cluster_id_for(piece.piece_index)
+	_cache_active_drag_cluster(piece, cluster_id)
 	_raise_cluster(cluster_id)
 
 	# Touch presses are provisionally observed by the camera so empty-space
@@ -179,21 +188,44 @@ func _on_piece_picked(piece) -> void:
 
 
 func _on_piece_dragged(piece, delta: Vector2) -> void:
-	var cluster_id := _cluster_id_for(piece.piece_index)
-	for member_index in _cluster_members_for(cluster_id):
-		var member = pieces[int(member_index)]
+	# Normal path uses node references cached on pick. The fallback keeps behavior
+	# safe if a future input path emits drag without the expected picked signal.
+	if active_drag_piece != piece:
+		_cache_active_drag_cluster(piece, _cluster_id_for(piece.piece_index))
+
+	for member in active_drag_members:
 		if member == piece or member.solved:
 			continue
-		member.global_position += delta
+		# All runtime pieces are direct PuzzleBoard children, so local position is
+		# sufficient and avoids the extra global-transform path on every motion.
+		member.position += delta
 
 
 func _on_piece_released(piece) -> void:
 	if piece.solved:
+		_clear_active_drag_cache()
 		return
 
 	var cluster_id := _cluster_id_for(piece.piece_index)
 	cluster_id = _merge_nearby_clusters(cluster_id)
 	_snap_cluster_to_board_if_close(cluster_id)
+	_clear_active_drag_cache()
+
+
+func _cache_active_drag_cluster(piece, cluster_id: int) -> void:
+	active_drag_piece = piece
+	active_drag_members.clear()
+
+	for member_value in _cluster_members_for(cluster_id):
+		var member = pieces[int(member_value)]
+		if member.solved:
+			continue
+		active_drag_members.append(member)
+
+
+func _clear_active_drag_cache() -> void:
+	active_drag_piece = null
+	active_drag_members.clear()
 
 
 func _merge_nearby_clusters(moving_cluster_id: int) -> int:
