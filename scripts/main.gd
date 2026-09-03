@@ -4,8 +4,10 @@ extends Node
 @onready var puzzle_camera: PuzzleCameraController = $PuzzleCamera
 
 var status_label: Label
+var runtime_label: Label
 var zoom_label: Label
 var completion_panel: PanelContainer
+var completion_copy: Label
 
 
 func _ready() -> void:
@@ -16,6 +18,7 @@ func _ready() -> void:
 	board.start_new_game()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 	_on_zoom_changed(puzzle_camera.zoom.x)
+	_update_runtime_label()
 
 
 func _build_ui() -> void:
@@ -35,6 +38,14 @@ func _build_ui() -> void:
 	subtitle.modulate = Color(1.0, 1.0, 1.0, 0.58)
 	subtitle.add_theme_font_size_override("font_size", 14)
 	layer.add_child(subtitle)
+
+	runtime_label = Label.new()
+	runtime_label.position = Vector2(270.0, 54.0)
+	runtime_label.size = Vector2(740.0, 20.0)
+	runtime_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	runtime_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
+	runtime_label.add_theme_font_size_override("font_size", 12)
+	layer.add_child(runtime_label)
 
 	status_label = Label.new()
 	status_label.position = Vector2(525.0, 28.0)
@@ -106,11 +117,11 @@ func _build_ui() -> void:
 	complete_title.add_theme_font_size_override("font_size", 28)
 	completion_box.add_child(complete_title)
 
-	var complete_copy := Label.new()
-	complete_copy.text = "12 pieces · first Piecepace vertical slice"
-	complete_copy.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	complete_copy.modulate = Color(1.0, 1.0, 1.0, 0.65)
-	completion_box.add_child(complete_copy)
+	completion_copy = Label.new()
+	completion_copy.text = "Runtime puzzle"
+	completion_copy.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	completion_copy.modulate = Color(1.0, 1.0, 1.0, 0.65)
+	completion_box.add_child(completion_copy)
 
 	var again_button := Button.new()
 	again_button.text = "Play again"
@@ -121,6 +132,20 @@ func _build_ui() -> void:
 
 func _on_progress_changed(solved_count: int, total_count: int) -> void:
 	status_label.text = "%d / %d pieces" % [solved_count, total_count]
+	if completion_copy != null:
+		completion_copy.text = "%d pieces · %s" % [total_count, board.active_pattern_id()]
+
+
+func _update_runtime_label() -> void:
+	if runtime_label == null:
+		return
+	if board.using_relaxed_runtime_asset():
+		runtime_label.text = "Relaxed runtime · %s · %d pieces" % [
+			board.active_pattern_id(),
+			board.active_piece_count(),
+		]
+	else:
+		runtime_label.text = "12-piece regression fixture · approve Classic_040_A to graduate this demo"
 
 
 func _on_zoom_changed(zoom_scale: float) -> void:
@@ -147,3 +172,5 @@ func _on_completed() -> void:
 func _restart() -> void:
 	completion_panel.visible = false
 	board.start_new_game()
+	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
+	_update_runtime_label()
