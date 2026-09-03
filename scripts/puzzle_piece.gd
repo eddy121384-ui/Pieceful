@@ -39,6 +39,15 @@ func configure(
 	source_cell_size = p_source_cell_size
 	position = p_start_position
 
+	# Runtime assembly never asks PhysicsServer for Area2D↔Area2D overlaps.
+	# The collision polygon exists only so the viewport can pick the visible piece.
+	# Disable monitoring before adding the shape so moving a cluster across a pile
+	# does not create broadphase overlap bookkeeping for every crossed piece pair.
+	monitoring = false
+	monitorable = false
+	collision_layer = 1
+	collision_mask = 0
+
 	polygon_points = p_outline
 	uv_points = _build_uvs()
 	_build_visuals()
