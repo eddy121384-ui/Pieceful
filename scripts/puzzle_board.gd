@@ -361,7 +361,7 @@ func _scatter_positions() -> Array[Vector2]:
 	rng.seed = SCATTER_SEED
 	_shuffle_with_rng(slots, rng)
 
-	var requested := definition.piece_count()
+	var requested: int = definition.piece_count()
 	if slots.size() < requested:
 		# Very dense layouts can exhaust non-overlapping tray slots. Fill the
 		# remainder with deterministic, slightly overlapping placements outside the
