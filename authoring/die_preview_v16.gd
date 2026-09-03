@@ -146,15 +146,38 @@ func _build_curation_controls(layer: CanvasLayer) -> void:
 
 	var note := Label.new()
 	note.text = (
-		"Live Preview is intentionally unvalidated for speed. Use Validate Candidate "
-		+ "before approval. Difficulty targets are approximate.\n\n"
-		+ "12-piece remains a runtime regression asset, not a player-facing difficulty."
+		"F6 still opens the selected 1:1 / 36-piece visual baseline. "
+		+ "Use the button below only for the current 960×600 runtime graduation test."
 	)
 	note.position = Vector2(944.0, 536.0)
-	note.size = Vector2(310.0, 150.0)
+	note.size = Vector2(310.0, 78.0)
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.add_theme_font_size_override("font_size", 12)
 	layer.add_child(note)
+
+	var demo_runtime_button := Button.new()
+	demo_runtime_button.text = "Load Demo 960×600 · Relaxed 40"
+	demo_runtime_button.position = Vector2(944.0, 626.0)
+	demo_runtime_button.size = Vector2(310.0, 38.0)
+	demo_runtime_button.pressed.connect(_load_demo_relaxed_runtime)
+	layer.add_child(demo_runtime_button)
+
+
+func _load_demo_relaxed_runtime() -> void:
+	# Keep the canonical F6 baseline at 1:1 / 36 pieces. This explicit preset is
+	# only the ratio-aware runtime graduation case for the current 960×600 demo.
+	_select_aspect_value(1.6)
+	_select_target_value(36)
+	_resolve_layout(false)
+
+	# PuzzleLayoutResolver should resolve 1.6:1 + Relaxed ~36 to 8×5 = 40.
+	# Only this known production-target preset receives the runtime asset ID.
+	if current_columns == 8 and current_rows == 5 and current_piece_count == 40:
+		pattern_id_edit.text = "Classic_040_A"
+	else:
+		pattern_id_edit.text = "Classic_%03d_candidate" % current_piece_count
+
+	_generate_candidate()
 
 
 func _update_slider_labels() -> void:
