@@ -78,27 +78,27 @@ func _input(event: InputEvent) -> void:
 	if drag_pointer_id == -1:
 		if event is InputEventMouseMotion:
 			if (event.button_mask & MOUSE_BUTTON_MASK_LEFT) != 0:
-				global_position = event.position - drag_offset
+				global_position = _screen_to_world(event.position) - drag_offset
 				get_viewport().set_input_as_handled()
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				_finish_drag()
 	else:
 		if event is InputEventScreenDrag and event.index == drag_pointer_id:
-			global_position = event.position - drag_offset
+			global_position = _screen_to_world(event.position) - drag_offset
 			get_viewport().set_input_as_handled()
 		elif event is InputEventScreenTouch:
 			if event.index == drag_pointer_id and not event.pressed:
 				_finish_drag()
 
 
-func _begin_drag(pointer_id: int, pointer_position: Vector2) -> void:
+func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 	if dragging or solved:
 		return
 
 	dragging = true
 	drag_pointer_id = pointer_id
-	drag_offset = pointer_position - global_position
+	drag_offset = _screen_to_world(pointer_screen_position) - global_position
 	picked.emit(self)
 	get_viewport().set_input_as_handled()
 
@@ -111,6 +111,14 @@ func _finish_drag() -> void:
 	drag_pointer_id = -999
 	released.emit(self)
 	get_viewport().set_input_as_handled()
+
+
+func _screen_to_world(screen_position: Vector2) -> Vector2:
+	# InputEvent positions are viewport-space. Once Camera2D zoom/pan is active,
+	# writing those coordinates directly into global_position makes pieces jump.
+	# Convert through the live canvas transform so dragging stays exact at every
+	# camera scale and offset.
+	return get_viewport().get_canvas_transform().affine_inverse() * screen_position
 
 
 func _build_visuals() -> void:
