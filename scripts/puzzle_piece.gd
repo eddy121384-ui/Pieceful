@@ -71,6 +71,15 @@ func snap_to_target() -> void:
 	input_pickable = false
 	z_index = 1
 
+	# A solved piece is seated on the puzzle board rather than floating above it.
+	# Keeping its per-piece drop shadow visible lets the offset shadow of one solved
+	# neighbor leak across another solved face, creating intermittent dark seams.
+	# Loose pieces and off-board clusters keep their shadows; only anchored pieces
+	# become visually flat with the completed image.
+	var shadow := get_node_or_null("Shadow")
+	if shadow != null:
+		shadow.visible = false
+
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.set_ease(Tween.EASE_OUT)
