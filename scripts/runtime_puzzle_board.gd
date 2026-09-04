@@ -106,12 +106,18 @@ func request_difficulty(difficulty_id: String) -> bool:
 	last_difficulty_switch_ms = int(Time.get_ticks_msec() - switch_started)
 	var load_ms := 0
 	var outline_ms := 0
+	var cache_hits := 0
+	var cache_misses := 0
 	if definition != null:
 		load_ms = int(definition.cut_pattern_load_ms)
 		outline_ms = int(definition.outline_build_ms_total)
+		if definition.cut_pattern != null and definition.cut_pattern.has_method("render_cache_diagnostics"):
+			var cache_stats: Dictionary = definition.cut_pattern.render_cache_diagnostics()
+			cache_hits = int(cache_stats.get("hits", 0))
+			cache_misses = int(cache_stats.get("misses", 0))
 	var remaining_ms := maxi(0, last_difficulty_switch_ms - load_ms - outline_ms)
 	print(
-		"Piecepace difficulty switch · %s · %d pieces · total %d ms · JSON/decode %d ms · outlines %d ms · nodes/scatter/other %d ms"
+		"Piecepace difficulty switch · %s · %d pieces · total %d ms · JSON/decode %d ms · outlines %d ms · nodes/scatter/other %d ms · shared-edge cache %d hits / %d misses"
 		% [
 			active_difficulty_label(),
 			active_piece_count(),
@@ -119,6 +125,8 @@ func request_difficulty(difficulty_id: String) -> bool:
 			load_ms,
 			outline_ms,
 			remaining_ms,
+			cache_hits,
+			cache_misses,
 		]
 	)
 	return true
@@ -184,19 +192,15 @@ func _runtime_zoom_scale() -> float:
 
 
 func _raise_cluster(cluster_id: int) -> void:
-	var members := _cluster_members_for(cluster_id)
-	if members.is_empty():
-		return
-
-	# Treat one assembled island as one CanvasItem layer. The base implementation
-	# raises every member to a different z value, which lets a later member's child
-	# Shadow (relative z=-1) still sit above an earlier member face. Sharing one z
-	# puts all member shadows at cluster_z-1 and all member faces at cluster_z.
-	# Result: the island keeps its external floating shadow, but no member shadow
-	# can leak across another member as an internal dark seam.
+	# A cluster is one visual object from the player's perspective. Giving every
+	# member its own ascending z-index lets a later member's child Shadow (z=-1)
+	# render above an earlier member's Face, which creates dark seams inside a
+	# correctly joined off-board island. Raise the whole cluster to one shared
+	# parent z-index instead: all member shadows stay below all member faces while
+	# the island still floats above untouched loose pieces.
 	z_counter += 1
 	var cluster_z := z_counter
-	for member_value in members:
+	for member_value in _cluster_members_for(cluster_id):
 		pieces[int(member_value)].z_index = cluster_z
 
 
