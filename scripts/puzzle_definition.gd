@@ -10,6 +10,8 @@ var board_rect: Rect2
 var piece_size: Vector2
 var source_cell_size: Vector2
 var cut_pattern: CutPatternAsset
+var cut_pattern_load_ms := 0
+var outline_build_ms_total := 0
 
 
 func _init(
@@ -19,7 +21,9 @@ func _init(
 ) -> void:
 	texture = p_texture
 	board_rect = p_board_rect
+	var load_started := Time.get_ticks_msec()
 	cut_pattern = CutPatternAssetScript.load_json(p_cut_pattern_path)
+	cut_pattern_load_ms = int(Time.get_ticks_msec() - load_started)
 	assert(cut_pattern != null, "Failed to load CutPattern: %s" % p_cut_pattern_path)
 
 	columns = cut_pattern.columns
@@ -72,8 +76,11 @@ func source_origin_for(index: int) -> Vector2:
 
 
 func outline_for(index: int) -> PackedVector2Array:
-	return cut_pattern.outline_for(
+	var started := Time.get_ticks_msec()
+	var outline := cut_pattern.outline_for(
 		row_for(index),
 		column_for(index),
 		board_rect.size
 	)
+	outline_build_ms_total += int(Time.get_ticks_msec() - started)
+	return outline

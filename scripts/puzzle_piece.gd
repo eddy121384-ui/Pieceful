@@ -125,6 +125,15 @@ func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 	if dragging or solved:
 		return
 
+	# Physics picking does not guarantee CanvasItem visual z-order for overlapping
+	# Area2D shapes. The runtime board performs an exact visible-polygon test and
+	# allows only the topmost visible piece to claim the press. Lower broadphase
+	# candidates simply decline the event instead of stealing the drag.
+	var board := get_parent()
+	if board != null and board.has_method("can_begin_piece_drag"):
+		if not board.can_begin_piece_drag(self, pointer_screen_position):
+			return
+
 	dragging = true
 	drag_pointer_id = pointer_id
 	drag_offset = _screen_to_world(pointer_screen_position) - global_position
@@ -189,10 +198,30 @@ func _build_visuals() -> void:
 	outline.antialiased = true
 	add_child(outline)
 
+	# Use a cheap bounding polygon for PhysicsServer broadphase. Runtime selection
+	# is still exact because RuntimePuzzleBoard.can_begin_piece_drag() checks the
+	# full visible polygon before allowing a drag. This avoids feeding thousands of
+	# sampled ribbon vertices into CollisionPolygon2D for every 150/286-piece load.
 	var collision := CollisionPolygon2D.new()
 	collision.name = "HitArea"
-	collision.polygon = polygon_points
+	collision.polygon = _pick_bounds_polygon()
 	add_child(collision)
+
+
+func _pick_bounds_polygon() -> PackedVector2Array:
+	if polygon_points.is_empty():
+		return PackedVector2Array()
+
+	var bounds := Rect2(polygon_points[0], Vector2.ZERO)
+	for point in polygon_points:
+		bounds = bounds.expand(point)
+
+	return PackedVector2Array([
+		bounds.position,
+		Vector2(bounds.end.x, bounds.position.y),
+		bounds.end,
+		Vector2(bounds.position.x, bounds.end.y),
+	])
 
 
 func _build_uvs() -> PackedVector2Array:

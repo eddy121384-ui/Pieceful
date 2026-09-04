@@ -3,13 +3,16 @@ extends "res://scripts/puzzle_board.gd"
 
 const RuntimeDifficultyCatalogScript = preload("res://scripts/runtime_difficulty_catalog.gd")
 const ResponsiveWorkspaceLayoutScript = preload("res://scripts/responsive_workspace_layout.gd")
+const RuntimeSnapPolicyScript = preload("res://scripts/runtime_snap_policy.gd")
 
 var difficulty_catalog = RuntimeDifficultyCatalogScript.new()
 var workspace_layout = ResponsiveWorkspaceLayoutScript.new()
+var snap_policy = RuntimeSnapPolicyScript.new()
 var selected_difficulty_id := "relaxed"
 var last_difficulty_error := ""
 var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
+var last_difficulty_switch_ms := 0
 
 
 func difficulty_presets() -> Array:
@@ -37,6 +40,51 @@ func workspace_orientation_label() -> String:
 	return "Portrait" if workspace_orientation == "portrait" else "Landscape"
 
 
+func snap_diagnostics() -> Dictionary:
+	if definition == null:
+		return {}
+	return snap_policy.diagnostics(definition.piece_size, _runtime_zoom_scale())
+
+
+func can_begin_piece_drag(piece, pointer_screen_position: Vector2) -> bool:
+	if piece == null or piece.solved or not piece.visible or not piece.input_pickable:
+		return false
+
+	var pointer_world := (
+		get_viewport().get_canvas_transform().affine_inverse()
+		* pointer_screen_position
+	)
+	var top_piece = null
+	var top_z := -2147483648
+	var top_order := -1
+
+	# Physics picking is only the broadphase. Resolve the actual winner against the
+	# full visible cut polygon and CanvasItem draw order, so an overlapped lower
+	# piece can never steal a click merely because PhysicsServer reported it first.
+	for candidate in pieces:
+		if not is_instance_valid(candidate):
+			continue
+		if candidate.solved or not candidate.visible or not candidate.input_pickable:
+			continue
+
+		var local_point: Vector2 = candidate.to_local(pointer_world)
+		if not Geometry2D.is_point_in_polygon(local_point, candidate.polygon_points):
+			continue
+
+		var candidate_z := int(candidate.z_index)
+		var candidate_order := int(candidate.get_index())
+		if (
+			top_piece == null
+			or candidate_z > top_z
+			or (candidate_z == top_z and candidate_order > top_order)
+		):
+			top_piece = candidate
+			top_z = candidate_z
+			top_order = candidate_order
+
+	return top_piece == piece
+
+
 func request_difficulty(difficulty_id: String) -> bool:
 	last_difficulty_error = ""
 	var preset := difficulty_catalog.preset_for(difficulty_id)
@@ -52,8 +100,35 @@ func request_difficulty(difficulty_id: String) -> bool:
 		]
 		return false
 
+	var switch_started := Time.get_ticks_msec()
 	selected_difficulty_id = difficulty_id
 	start_new_game()
+	last_difficulty_switch_ms = int(Time.get_ticks_msec() - switch_started)
+	var load_ms := 0
+	var outline_ms := 0
+	var cache_hits := 0
+	var cache_misses := 0
+	if definition != null:
+		load_ms = int(definition.cut_pattern_load_ms)
+		outline_ms = int(definition.outline_build_ms_total)
+		if definition.cut_pattern != null and definition.cut_pattern.has_method("render_cache_diagnostics"):
+			var cache_stats: Dictionary = definition.cut_pattern.render_cache_diagnostics()
+			cache_hits = int(cache_stats.get("hits", 0))
+			cache_misses = int(cache_stats.get("misses", 0))
+	var remaining_ms := maxi(0, last_difficulty_switch_ms - load_ms - outline_ms)
+	print(
+		"Piecepace difficulty switch · %s · %d pieces · total %d ms · JSON/decode %d ms · outlines %d ms · nodes/scatter/other %d ms · shared-edge cache %d hits / %d misses"
+		% [
+			active_difficulty_label(),
+			active_piece_count(),
+			last_difficulty_switch_ms,
+			load_ms,
+			outline_ms,
+			remaining_ms,
+			cache_hits,
+			cache_misses,
+		]
+	)
 	return true
 
 
@@ -101,6 +176,32 @@ func _select_runtime_cut_pattern() -> String:
 	# difficulty changes never silently fall back: request_difficulty() rejects a
 	# missing curated asset before restarting the current game.
 	return REGRESSION_CUT_PATTERN_PATH
+
+
+func _snap_radius() -> float:
+	if definition == null:
+		return 0.0
+	return snap_policy.radius_world(definition.piece_size, _runtime_zoom_scale())
+
+
+func _runtime_zoom_scale() -> float:
+	var camera_controller := get_tree().get_first_node_in_group("puzzle_camera_controller")
+	if camera_controller == null:
+		return 1.0
+	return maxf(float(camera_controller.zoom.x), 0.01)
+
+
+func _raise_cluster(cluster_id: int) -> void:
+	# A cluster is one visual object from the player's perspective. Giving every
+	# member its own ascending z-index lets a later member's child Shadow (z=-1)
+	# render above an earlier member's Face, which creates dark seams inside a
+	# correctly joined off-board island. Raise the whole cluster to one shared
+	# parent z-index instead: all member shadows stay below all member faces while
+	# the island still floats above untouched loose pieces.
+	z_counter += 1
+	var cluster_z := z_counter
+	for member_value in _cluster_members_for(cluster_id):
+		pieces[int(member_value)].z_index = cluster_z
 
 
 func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect: Rect2) -> void:
