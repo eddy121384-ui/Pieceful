@@ -5,6 +5,10 @@ const RuntimeDifficultyCatalogScript = preload("res://scripts/runtime_difficulty
 const ResponsiveWorkspaceLayoutScript = preload("res://scripts/responsive_workspace_layout.gd")
 const RuntimeSnapPolicyScript = preload("res://scripts/runtime_snap_policy.gd")
 
+const PREVIEW_Z_INDEX := 3000
+const HINT_FILL_COLOR := Color(1.0, 0.91, 0.55, 0.16)
+const HINT_LINE_COLOR := Color(1.0, 0.95, 0.72, 0.82)
+
 var difficulty_catalog = RuntimeDifficultyCatalogScript.new()
 var workspace_layout = ResponsiveWorkspaceLayoutScript.new()
 var snap_policy = RuntimeSnapPolicyScript.new()
@@ -13,6 +17,16 @@ var last_difficulty_error := ""
 var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
 var last_difficulty_switch_ms := 0
+
+# Hint is a runtime player aid, not an authoring feature. It defaults on for the
+# normal experience, but the player can disable it completely for a no-hint
+# challenge. The setting survives reshuffles, difficulty changes, and orientation
+# reflow for the lifetime of this runtime session. Disk persistence belongs to the
+# later Save / Resume issue.
+var hint_enabled := true
+var preview_sprite: Sprite2D = null
+var hint_fill: Polygon2D = null
+var hint_outline: Line2D = null
 
 
 func difficulty_presets() -> Array:
@@ -44,6 +58,25 @@ func snap_diagnostics() -> Dictionary:
 	if definition == null:
 		return {}
 	return snap_policy.diagnostics(definition.piece_size, _runtime_zoom_scale())
+
+
+func hint_is_enabled() -> bool:
+	return hint_enabled
+
+
+func set_hint_enabled(enabled: bool) -> void:
+	hint_enabled = enabled
+	if not hint_enabled:
+		_hide_hint_marker()
+
+
+func start_new_game() -> void:
+	# A new layout should never inherit a stale target marker. The player's Hint
+	# On/Off preference is intentionally kept.
+	preview_sprite = null
+	_clear_hint_visuals()
+	super.start_new_game()
+	_apply_preview_state()
 
 
 func can_begin_piece_drag(piece, pointer_screen_position: Vector2) -> bool:
@@ -159,6 +192,7 @@ func apply_viewport_layout(viewport_size: Vector2) -> bool:
 
 	if definition != null and rect_changed:
 		_clear_active_drag_cache()
+		_hide_hint_marker()
 		_reflow_existing_state(previous_board_rect, previous_navigation_rect)
 		_rebuild_board_visuals()
 
@@ -191,6 +225,28 @@ func _runtime_zoom_scale() -> float:
 	return maxf(float(camera_controller.zoom.x), 0.01)
 
 
+func _build_board_visuals() -> void:
+	super._build_board_visuals()
+
+	# The prototype's permanent solved-image overlay is no longer part of the
+	# puzzle board. Preview is now a separate floating screen-space reference card.
+	preview_sprite = get_node_or_null("SolvedPreview") as Sprite2D
+	if preview_sprite != null:
+		preview_sprite.z_index = PREVIEW_Z_INDEX
+	_apply_preview_state()
+	_ensure_hint_visuals()
+
+
+func _on_piece_picked(piece) -> void:
+	super._on_piece_picked(piece)
+	_show_hint_for_piece(piece)
+
+
+func _on_piece_released(piece) -> void:
+	super._on_piece_released(piece)
+	_hide_hint_marker()
+
+
 func _raise_cluster(cluster_id: int) -> void:
 	# A cluster is one visual object from the player's perspective. Giving every
 	# member its own ascending z-index lets a later member's child Shadow (z=-1)
@@ -202,6 +258,76 @@ func _raise_cluster(cluster_id: int) -> void:
 	var cluster_z := z_counter
 	for member_value in _cluster_members_for(cluster_id):
 		pieces[int(member_value)].z_index = cluster_z
+
+
+func _apply_preview_state() -> void:
+	if preview_sprite == null or not is_instance_valid(preview_sprite):
+		return
+	# Board-level solved preview stays hidden permanently. The UI owns Preview now.
+	preview_sprite.visible = false
+	preview_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
+
+
+func _ensure_hint_visuals() -> void:
+	if hint_fill == null or not is_instance_valid(hint_fill):
+		hint_fill = Polygon2D.new()
+		hint_fill.name = "HintTargetFill"
+		hint_fill.color = HINT_FILL_COLOR
+		hint_fill.z_index = 0
+		hint_fill.visible = false
+		add_child(hint_fill)
+
+	if hint_outline == null or not is_instance_valid(hint_outline):
+		hint_outline = Line2D.new()
+		hint_outline.name = "HintTargetOutline"
+		hint_outline.width = 2.5
+		hint_outline.default_color = HINT_LINE_COLOR
+		hint_outline.antialiased = true
+		hint_outline.z_index = 0
+		hint_outline.visible = false
+		add_child(hint_outline)
+
+
+func _show_hint_for_piece(piece) -> void:
+	if not hint_enabled or piece == null or piece.solved:
+		_hide_hint_marker()
+		return
+
+	_ensure_hint_visuals()
+	var padding := maxf(minf(piece.piece_size.x, piece.piece_size.y) * 0.08, 4.0)
+	var target_region := Rect2(piece.target_position, piece.piece_size).grow(padding)
+	var points := PackedVector2Array([
+		target_region.position,
+		target_region.position + Vector2(target_region.size.x, 0.0),
+		target_region.end,
+		target_region.position + Vector2(0.0, target_region.size.y),
+	])
+
+	hint_fill.polygon = points
+	hint_fill.visible = true
+
+	var outline_points := points.duplicate()
+	outline_points.append(points[0])
+	hint_outline.points = outline_points
+	hint_outline.visible = true
+
+
+func _hide_hint_marker() -> void:
+	if hint_fill != null and is_instance_valid(hint_fill):
+		hint_fill.visible = false
+	if hint_outline != null and is_instance_valid(hint_outline):
+		hint_outline.visible = false
+
+
+func _clear_hint_visuals() -> void:
+	if hint_fill != null and is_instance_valid(hint_fill):
+		remove_child(hint_fill)
+		hint_fill.queue_free()
+	if hint_outline != null and is_instance_valid(hint_outline):
+		remove_child(hint_outline)
+		hint_outline.queue_free()
+	hint_fill = null
+	hint_outline = null
 
 
 func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect: Rect2) -> void:
@@ -257,6 +383,8 @@ func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect
 
 
 func _rebuild_board_visuals() -> void:
+	_clear_hint_visuals()
+	preview_sprite = null
 	for visual in board_visuals:
 		if is_instance_valid(visual):
 			remove_child(visual)
