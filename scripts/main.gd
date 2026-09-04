@@ -15,6 +15,8 @@ var zoom_out_button: Button
 var zoom_in_button: Button
 var fit_button: Button
 var restart_button: Button
+var preview_button: Button
+var hint_button: Button
 var difficulty_caption: Label
 var difficulty_select: OptionButton
 var instruction_label: Label
@@ -43,6 +45,7 @@ func _ready() -> void:
 	_layout_ui(viewport_size)
 	_on_zoom_changed(puzzle_camera.zoom.x)
 	_refresh_difficulty_control()
+	_refresh_hint_button()
 	_update_runtime_label()
 
 
@@ -117,6 +120,21 @@ func _build_ui() -> void:
 	restart_button.pressed.connect(_restart)
 	layer.add_child(restart_button)
 
+	preview_button = Button.new()
+	preview_button.text = "Hold Preview"
+	preview_button.size = Vector2(112.0, 44.0)
+	preview_button.tooltip_text = "Hold to show the complete reference image"
+	preview_button.button_down.connect(_preview_pressed)
+	preview_button.button_up.connect(_preview_released)
+	layer.add_child(preview_button)
+
+	hint_button = Button.new()
+	hint_button.toggle_mode = true
+	hint_button.size = Vector2(112.0, 44.0)
+	hint_button.button_pressed = board.hint_is_enabled()
+	hint_button.toggled.connect(_on_hint_toggled)
+	layer.add_child(hint_button)
+
 	difficulty_caption = Label.new()
 	difficulty_caption.text = "Difficulty"
 	difficulty_caption.size = Vector2(230.0, 20.0)
@@ -136,10 +154,10 @@ func _build_ui() -> void:
 	layer.add_child(difficulty_select)
 
 	instruction_label = Label.new()
-	instruction_label.text = "Join matching neighbors anywhere · Drag a joined group as one · Wheel/pinch zoom · Pan empty space"
+	instruction_label.text = "Join matching neighbors anywhere · Hold Preview for reference · Hint is optional · Wheel/pinch zoom · Pan empty space"
 	instruction_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instruction_label.modulate = Color(1.0, 1.0, 1.0, 0.62)
-	instruction_label.add_theme_font_size_override("font_size", 15)
+	instruction_label.add_theme_font_size_override("font_size", 14)
 	layer.add_child(instruction_label)
 
 	completion_panel = PanelContainer.new()
@@ -207,12 +225,13 @@ func _layout_ui(viewport_size: Vector2) -> void:
 	difficulty_caption.position = Vector2(margin, height - 92.0)
 	difficulty_select.position = Vector2(margin, height - 68.0)
 
-	if width >= 760.0:
-		instruction_label.position = Vector2(270.0, height - 56.0)
-		instruction_label.size = Vector2(maxf(300.0, width - 294.0), 28.0)
-	else:
-		instruction_label.position = Vector2(margin, height - 128.0)
-		instruction_label.size = Vector2(maxf(260.0, width - margin * 2.0), 28.0)
+	var aid_controls_width := 232.0
+	var aid_start := width - margin - aid_controls_width
+	preview_button.position = Vector2(aid_start, height - 68.0)
+	hint_button.position = Vector2(aid_start + 120.0, height - 68.0)
+
+	instruction_label.position = Vector2(margin, height - 126.0)
+	instruction_label.size = Vector2(maxf(260.0, width - margin * 2.0), 28.0)
 
 	completion_panel.position = Vector2(
 		(width - completion_panel.size.x) * 0.5,
@@ -251,6 +270,18 @@ func _refresh_difficulty_control() -> void:
 			difficulty_select.select(index)
 
 
+func _refresh_hint_button() -> void:
+	if hint_button == null:
+		return
+	hint_button.button_pressed = board.hint_is_enabled()
+	hint_button.text = "Hint: On" if board.hint_is_enabled() else "Hint: Off"
+	hint_button.tooltip_text = (
+		"Show a target-region clue while dragging"
+		if board.hint_is_enabled()
+		else "No target clues; Preview remains available"
+	)
+
+
 func _on_difficulty_selected(index: int) -> void:
 	var difficulty_id := str(difficulty_select.get_item_metadata(index))
 	if difficulty_id == board.active_difficulty_id():
@@ -260,6 +291,7 @@ func _on_difficulty_selected(index: int) -> void:
 	if board.request_difficulty(difficulty_id):
 		puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 		_refresh_difficulty_control()
+		_refresh_hint_button()
 		_update_runtime_label()
 		return
 
@@ -273,15 +305,20 @@ func _on_difficulty_selected(index: int) -> void:
 func _update_runtime_label() -> void:
 	if runtime_label == null:
 		return
+	var hint_state := "Hint On" if board.hint_is_enabled() else "Hint Off"
 	if board.active_difficulty_id() == "regression":
-		runtime_label.text = "%s · 12-piece regression fixture · Relaxed asset missing" % board.workspace_orientation_label()
+		runtime_label.text = "%s · 12-piece regression fixture · Relaxed asset missing · %s" % [
+			board.workspace_orientation_label(),
+			hint_state,
+		]
 		return
 
-	runtime_label.text = "%s · %s runtime · %s · %d pieces" % [
+	runtime_label.text = "%s · %s runtime · %s · %d pieces · %s" % [
 		board.workspace_orientation_label(),
 		board.active_difficulty_label(),
 		board.active_pattern_id(),
 		board.active_piece_count(),
+		hint_state,
 	]
 
 
@@ -339,6 +376,20 @@ func _fit_view() -> void:
 	puzzle_camera.fit_to_content()
 
 
+func _preview_pressed() -> void:
+	board.set_preview_held(true)
+
+
+func _preview_released() -> void:
+	board.set_preview_held(false)
+
+
+func _on_hint_toggled(enabled: bool) -> void:
+	board.set_hint_enabled(enabled)
+	_refresh_hint_button()
+	_update_runtime_label()
+
+
 func _on_completed() -> void:
 	completion_panel.visible = true
 
@@ -348,4 +399,5 @@ func _restart() -> void:
 	board.start_new_game()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 	_refresh_difficulty_control()
+	_refresh_hint_button()
 	_update_runtime_label()
