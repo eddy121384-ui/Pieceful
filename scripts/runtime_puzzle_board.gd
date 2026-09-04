@@ -183,6 +183,23 @@ func _runtime_zoom_scale() -> float:
 	return maxf(float(camera_controller.zoom.x), 0.01)
 
 
+func _raise_cluster(cluster_id: int) -> void:
+	var members := _cluster_members_for(cluster_id)
+	if members.is_empty():
+		return
+
+	# One cluster is one visual layer. The base implementation increments z for
+	# every member, which lets the shadow of a later/higher member draw over the
+	# face of an earlier/lower member and creates dark seams inside an assembled
+	# off-board island. Give the whole cluster one z value instead: every member's
+	# child Shadow (relative z=-1) is then below every member face (relative z=0),
+	# preserving the outer floating shadow without internal shadow leakage.
+	z_counter += 1
+	var cluster_z := z_counter
+	for member_value in members:
+		pieces[int(member_value)].z_index = cluster_z
+
+
 func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect: Rect2) -> void:
 	# The board keeps the same physical play-surface size, so approved piece
 	# geometry never changes during orientation switches. Only target positions and
