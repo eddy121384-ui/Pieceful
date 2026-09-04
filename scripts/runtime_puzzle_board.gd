@@ -3,9 +3,11 @@ extends "res://scripts/puzzle_board.gd"
 
 const RuntimeDifficultyCatalogScript = preload("res://scripts/runtime_difficulty_catalog.gd")
 const ResponsiveWorkspaceLayoutScript = preload("res://scripts/responsive_workspace_layout.gd")
+const RuntimeSnapPolicyScript = preload("res://scripts/runtime_snap_policy.gd")
 
 var difficulty_catalog = RuntimeDifficultyCatalogScript.new()
 var workspace_layout = ResponsiveWorkspaceLayoutScript.new()
+var snap_policy = RuntimeSnapPolicyScript.new()
 var selected_difficulty_id := "relaxed"
 var last_difficulty_error := ""
 var workspace_orientation := ""
@@ -35,6 +37,12 @@ func active_difficulty_label() -> String:
 
 func workspace_orientation_label() -> String:
 	return "Portrait" if workspace_orientation == "portrait" else "Landscape"
+
+
+func snap_diagnostics() -> Dictionary:
+	if definition == null:
+		return {}
+	return snap_policy.diagnostics(definition.piece_size, _runtime_zoom_scale())
 
 
 func request_difficulty(difficulty_id: String) -> bool:
@@ -101,6 +109,19 @@ func _select_runtime_cut_pattern() -> String:
 	# difficulty changes never silently fall back: request_difficulty() rejects a
 	# missing curated asset before restarting the current game.
 	return REGRESSION_CUT_PATTERN_PATH
+
+
+func _snap_radius() -> float:
+	if definition == null:
+		return 0.0
+	return snap_policy.radius_world(definition.piece_size, _runtime_zoom_scale())
+
+
+func _runtime_zoom_scale() -> float:
+	var camera_controller := get_tree().get_first_node_in_group("puzzle_camera_controller")
+	if camera_controller == null:
+		return 1.0
+	return maxf(float(camera_controller.zoom.x), 0.01)
 
 
 func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect: Rect2) -> void:
