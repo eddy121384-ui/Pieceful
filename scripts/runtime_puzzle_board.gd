@@ -12,6 +12,7 @@ var selected_difficulty_id := "relaxed"
 var last_difficulty_error := ""
 var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
+var last_difficulty_switch_ms := 0
 
 
 func difficulty_presets() -> Array:
@@ -45,6 +46,45 @@ func snap_diagnostics() -> Dictionary:
 	return snap_policy.diagnostics(definition.piece_size, _runtime_zoom_scale())
 
 
+func can_begin_piece_drag(piece, pointer_screen_position: Vector2) -> bool:
+	if piece == null or piece.solved or not piece.visible or not piece.input_pickable:
+		return false
+
+	var pointer_world := (
+		get_viewport().get_canvas_transform().affine_inverse()
+		* pointer_screen_position
+	)
+	var top_piece = null
+	var top_z := -2147483648
+	var top_order := -1
+
+	# Physics picking is only the broadphase. Resolve the actual winner against the
+	# full visible cut polygon and CanvasItem draw order, so an overlapped lower
+	# piece can never steal a click merely because PhysicsServer reported it first.
+	for candidate in pieces:
+		if not is_instance_valid(candidate):
+			continue
+		if candidate.solved or not candidate.visible or not candidate.input_pickable:
+			continue
+
+		var local_point: Vector2 = candidate.to_local(pointer_world)
+		if not Geometry2D.is_point_in_polygon(local_point, candidate.polygon_points):
+			continue
+
+		var candidate_z := int(candidate.z_index)
+		var candidate_order := int(candidate.get_index())
+		if (
+			top_piece == null
+			or candidate_z > top_z
+			or (candidate_z == top_z and candidate_order > top_order)
+		):
+			top_piece = candidate
+			top_z = candidate_z
+			top_order = candidate_order
+
+	return top_piece == piece
+
+
 func request_difficulty(difficulty_id: String) -> bool:
 	last_difficulty_error = ""
 	var preset := difficulty_catalog.preset_for(difficulty_id)
@@ -60,8 +100,14 @@ func request_difficulty(difficulty_id: String) -> bool:
 		]
 		return false
 
+	var switch_started := Time.get_ticks_msec()
 	selected_difficulty_id = difficulty_id
 	start_new_game()
+	last_difficulty_switch_ms = int(Time.get_ticks_msec() - switch_started)
+	print(
+		"Piecepace difficulty switch · %s · %d pieces · %d ms"
+		% [active_difficulty_label(), active_piece_count(), last_difficulty_switch_ms]
+	)
 	return true
 
 
