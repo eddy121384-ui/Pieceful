@@ -1,5 +1,8 @@
 extends Node
 
+const BASE_SHORT_EDGE := 720.0
+const RESIZE_DEBOUNCE_SECONDS := 0.06
+
 @onready var board: RuntimePuzzleBoard = $PuzzleBoard
 @onready var puzzle_camera: PuzzleCameraController = $PuzzleCamera
 
@@ -17,16 +20,24 @@ var difficulty_select: OptionButton
 var instruction_label: Label
 var completion_panel: PanelContainer
 var completion_copy: Label
+var resize_debounce: Timer
 
 
 func _ready() -> void:
 	_build_ui()
+	_build_resize_observer()
 	board.progress_changed.connect(_on_progress_changed)
 	board.completed.connect(_on_completed)
 	puzzle_camera.zoom_changed.connect(_on_zoom_changed)
-	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
-	var viewport_size := _viewport_size()
+	# Window size is the source of truth for device orientation. With stretch
+	# enabled, the root Viewport can keep its previous logical size while the OS
+	# window is already being resized, so viewport.size_changed alone is not a
+	# reliable orientation signal.
+	get_window().size_changed.connect(_schedule_responsive_reflow)
+	get_viewport().size_changed.connect(_schedule_responsive_reflow)
+
+	var viewport_size := _sync_content_scale_to_window()
 	board.apply_viewport_layout(viewport_size)
 	board.start_new_game()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
@@ -34,6 +45,14 @@ func _ready() -> void:
 	_on_zoom_changed(puzzle_camera.zoom.x)
 	_refresh_difficulty_control()
 	_update_runtime_label()
+
+
+func _build_resize_observer() -> void:
+	resize_debounce = Timer.new()
+	resize_debounce.one_shot = true
+	resize_debounce.wait_time = RESIZE_DEBOUNCE_SECONDS
+	resize_debounce.timeout.connect(_apply_responsive_reflow)
+	add_child(resize_debounce)
 
 
 func _build_ui() -> void:
@@ -267,13 +286,13 @@ func _update_runtime_label() -> void:
 	]
 
 
-func _on_zoom_changed(zoom_scale: float) -> void:
-	if zoom_label != null:
-		zoom_label.text = "%d%%" % int(round(zoom_scale * 100.0))
+func _schedule_responsive_reflow() -> void:
+	if resize_debounce != null:
+		resize_debounce.start()
 
 
-func _on_viewport_size_changed() -> void:
-	var viewport_size := _viewport_size()
+func _apply_responsive_reflow() -> void:
+	var viewport_size := _sync_content_scale_to_window()
 	var orientation_changed := board.apply_viewport_layout(viewport_size)
 	_layout_ui(viewport_size)
 	puzzle_camera.set_content_rect(board.navigation_bounds(), false)
@@ -282,8 +301,31 @@ func _on_viewport_size_changed() -> void:
 	_update_runtime_label()
 
 
-func _viewport_size() -> Vector2:
-	return get_viewport().get_visible_rect().size
+func _sync_content_scale_to_window() -> Vector2:
+	var physical_size := Vector2(get_window().size)
+	if physical_size.x <= 1.0 or physical_size.y <= 1.0:
+		return get_viewport().get_visible_rect().size
+
+	var physical_aspect := physical_size.x / physical_size.y
+	var logical_size := Vector2.ZERO
+	if physical_aspect >= 1.0:
+		logical_size = Vector2(BASE_SHORT_EDGE * physical_aspect, BASE_SHORT_EDGE)
+	else:
+		logical_size = Vector2(BASE_SHORT_EDGE, BASE_SHORT_EDGE / physical_aspect)
+
+	var desired_scale_size := Vector2i(
+		maxi(1, int(round(logical_size.x))),
+		maxi(1, int(round(logical_size.y)))
+	)
+	if get_window().content_scale_size != desired_scale_size:
+		get_window().content_scale_size = desired_scale_size
+
+	return Vector2(desired_scale_size)
+
+
+func _on_zoom_changed(zoom_scale: float) -> void:
+	if zoom_label != null:
+		zoom_label.text = "%d%%" % int(round(zoom_scale * 100.0))
 
 
 func _zoom_out() -> void:
