@@ -3,6 +3,8 @@ extends Node
 const BASE_SHORT_EDGE := 720.0
 const RESIZE_DEBOUNCE_SECONDS := 0.06
 const BoardCutLinesOverlayScript = preload("res://scripts/board_cut_lines_overlay.gd")
+const DraggableReferencePanelScript = preload("res://scripts/draggable_reference_panel.gd")
+const RuntimeReshufflePolicyScript = preload("res://scripts/runtime_reshuffle_policy.gd")
 
 @onready var board: RuntimePuzzleBoard = $PuzzleBoard
 @onready var puzzle_camera: PuzzleCameraController = $PuzzleCamera
@@ -24,10 +26,11 @@ var difficulty_select: OptionButton
 var instruction_label: Label
 var completion_panel: PanelContainer
 var completion_copy: Label
-var preview_panel: PanelContainer
+var preview_panel = null
 var preview_texture_rect: TextureRect
 var resize_debounce: Timer
 var board_lines_overlay = null
+var reshuffle_policy = RuntimeReshufflePolicyScript.new()
 
 # Player-aid switches are intentionally independent. Preview defaults off so the
 # workspace starts uncluttered; subtle board cut lines and Hint default on for the
@@ -54,6 +57,7 @@ func _ready() -> void:
 	var viewport_size := _sync_content_scale_to_window()
 	board.apply_viewport_layout(viewport_size)
 	board.start_new_game()
+	_randomize_runtime_scatter()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 	_refresh_board_lines_overlay()
 	_refresh_reference_panel()
@@ -178,9 +182,8 @@ func _build_ui() -> void:
 	instruction_label.add_theme_font_size_override("font_size", 14)
 	layer.add_child(instruction_label)
 
-	preview_panel = PanelContainer.new()
+	preview_panel = DraggableReferencePanelScript.new()
 	preview_panel.visible = false
-	preview_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(preview_panel)
 
 	var preview_box := VBoxContainer.new()
@@ -188,7 +191,7 @@ func _build_ui() -> void:
 	preview_panel.add_child(preview_box)
 
 	var preview_title := Label.new()
-	preview_title.text = "Reference"
+	preview_title.text = "Reference · drag to move"
 	preview_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	preview_title.modulate = Color(1.0, 1.0, 1.0, 0.72)
 	preview_title.add_theme_font_size_override("font_size", 13)
@@ -304,7 +307,8 @@ func _layout_reference_panel(viewport_size: Vector2, compact_top: bool) -> void:
 	preview_panel.size = Vector2(panel_width, panel_height)
 
 	var panel_y := 156.0 if compact_top else 86.0
-	preview_panel.position = Vector2(width - margin - panel_width, panel_y)
+	var default_position := Vector2(width - margin - panel_width, panel_y)
+	preview_panel.set_layout_bounds(viewport_size, default_position)
 
 
 func _on_progress_changed(solved_count: int, total_count: int) -> void:
@@ -342,7 +346,7 @@ func _refresh_aid_controls() -> void:
 	if preview_button != null:
 		preview_button.set_pressed_no_signal(preview_enabled)
 		preview_button.text = "Preview: On" if preview_enabled else "Preview: Off"
-		preview_button.tooltip_text = "Show or hide the floating reference image"
+		preview_button.tooltip_text = "Show or hide the draggable floating reference image"
 
 	if hint_button != null:
 		hint_button.set_pressed_no_signal(board.hint_is_enabled())
@@ -377,6 +381,10 @@ func _refresh_board_lines_overlay() -> void:
 	board_lines_overlay.visible = board_lines_enabled
 
 
+func _randomize_runtime_scatter() -> void:
+	reshuffle_policy.reshuffle_piece_positions(board)
+
+
 func _on_difficulty_selected(index: int) -> void:
 	var difficulty_id := str(difficulty_select.get_item_metadata(index))
 	if difficulty_id == board.active_difficulty_id():
@@ -384,6 +392,7 @@ func _on_difficulty_selected(index: int) -> void:
 
 	completion_panel.visible = false
 	if board.request_difficulty(difficulty_id):
+		_randomize_runtime_scatter()
 		puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 		_refresh_difficulty_control()
 		_refresh_board_lines_overlay()
@@ -500,6 +509,7 @@ func _on_completed() -> void:
 func _restart() -> void:
 	completion_panel.visible = false
 	board.start_new_game()
+	_randomize_runtime_scatter()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 	_refresh_board_lines_overlay()
 	_refresh_reference_panel()
