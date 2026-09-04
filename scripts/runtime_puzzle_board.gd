@@ -104,9 +104,22 @@ func request_difficulty(difficulty_id: String) -> bool:
 	selected_difficulty_id = difficulty_id
 	start_new_game()
 	last_difficulty_switch_ms = int(Time.get_ticks_msec() - switch_started)
+	var load_ms := 0
+	var outline_ms := 0
+	if definition != null:
+		load_ms = int(definition.cut_pattern_load_ms)
+		outline_ms = int(definition.outline_build_ms_total)
+	var remaining_ms := maxi(0, last_difficulty_switch_ms - load_ms - outline_ms)
 	print(
-		"Piecepace difficulty switch · %s · %d pieces · %d ms"
-		% [active_difficulty_label(), active_piece_count(), last_difficulty_switch_ms]
+		"Piecepace difficulty switch · %s · %d pieces · total %d ms · JSON/decode %d ms · outlines %d ms · nodes/scatter/other %d ms"
+		% [
+			active_difficulty_label(),
+			active_piece_count(),
+			last_difficulty_switch_ms,
+			load_ms,
+			outline_ms,
+			remaining_ms,
+		]
 	)
 	return true
 
