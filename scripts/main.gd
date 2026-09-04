@@ -35,7 +35,6 @@ func _ready() -> void:
 	# window is already being resized, so viewport.size_changed alone is not a
 	# reliable orientation signal.
 	get_window().size_changed.connect(_schedule_responsive_reflow)
-	get_viewport().size_changed.connect(_schedule_responsive_reflow)
 
 	var viewport_size := _sync_content_scale_to_window()
 	board.apply_viewport_layout(viewport_size)
