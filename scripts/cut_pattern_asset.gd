@@ -16,6 +16,18 @@ var intersections: PackedVector2Array = PackedVector2Array()
 var horizontal_segments: Array = []
 var vertical_segments: Array = []
 
+# A physical cut edge is shared by two neighboring pieces, but piece outline
+# assembly historically sampled that same cubic ribbon independently for each
+# side. Keep one transient render cache per CutPattern instance and board size so
+# every unique horizontal / vertical boundary is sampled at most once per game.
+# This avoids a heavy cross-difficulty asset cache while removing duplicated
+# curve work during 150 / 286-piece construction.
+var _render_cache_board_size := Vector2.ZERO
+var _horizontal_render_cache: Dictionary = {}
+var _vertical_render_cache: Dictionary = {}
+var _render_cache_hits := 0
+var _render_cache_misses := 0
+
 
 static func load_json(path: String) -> CutPatternAsset:
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -90,6 +102,15 @@ func piece_count() -> int:
 	return columns * rows
 
 
+func render_cache_diagnostics() -> Dictionary:
+	return {
+		"hits": _render_cache_hits,
+		"misses": _render_cache_misses,
+		"horizontal_cached": _horizontal_render_cache.size(),
+		"vertical_cached": _vertical_render_cache.size(),
+	}
+
+
 func outline_for(row: int, column: int, board_size: Vector2) -> PackedVector2Array:
 	var outline := PackedVector2Array()
 	var nominal_origin := Vector2(
@@ -110,10 +131,16 @@ func render_horizontal_segment(
 	column: int,
 	board_size: Vector2
 ) -> PackedVector2Array:
-	return _render_segment(
-		horizontal_segments[boundary_row * columns + column],
-		board_size
-	)
+	_ensure_render_cache_for(board_size)
+	var segment_index := boundary_row * columns + column
+	if _horizontal_render_cache.has(segment_index):
+		_render_cache_hits += 1
+		return _horizontal_render_cache[segment_index]
+
+	var rendered := _render_segment(horizontal_segments[segment_index], board_size)
+	_horizontal_render_cache[segment_index] = rendered
+	_render_cache_misses += 1
+	return rendered
 
 
 func render_vertical_segment(
@@ -121,10 +148,27 @@ func render_vertical_segment(
 	boundary_column: int,
 	board_size: Vector2
 ) -> PackedVector2Array:
-	return _render_segment(
-		vertical_segments[row * (columns + 1) + boundary_column],
-		board_size
-	)
+	_ensure_render_cache_for(board_size)
+	var segment_index := row * (columns + 1) + boundary_column
+	if _vertical_render_cache.has(segment_index):
+		_render_cache_hits += 1
+		return _vertical_render_cache[segment_index]
+
+	var rendered := _render_segment(vertical_segments[segment_index], board_size)
+	_vertical_render_cache[segment_index] = rendered
+	_render_cache_misses += 1
+	return rendered
+
+
+func _ensure_render_cache_for(board_size: Vector2) -> void:
+	if _render_cache_board_size.is_equal_approx(board_size):
+		return
+
+	_render_cache_board_size = board_size
+	_horizontal_render_cache.clear()
+	_vertical_render_cache.clear()
+	_render_cache_hits = 0
+	_render_cache_misses = 0
 
 
 func _render_segment(
