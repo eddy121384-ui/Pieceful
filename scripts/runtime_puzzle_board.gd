@@ -5,7 +5,6 @@ const RuntimeDifficultyCatalogScript = preload("res://scripts/runtime_difficulty
 const ResponsiveWorkspaceLayoutScript = preload("res://scripts/responsive_workspace_layout.gd")
 const RuntimeSnapPolicyScript = preload("res://scripts/runtime_snap_policy.gd")
 
-const PREVIEW_ALPHA := 0.92
 const PREVIEW_Z_INDEX := 3000
 const HINT_FILL_COLOR := Color(1.0, 0.91, 0.55, 0.16)
 const HINT_LINE_COLOR := Color(1.0, 0.95, 0.72, 0.82)
@@ -25,7 +24,6 @@ var last_difficulty_switch_ms := 0
 # reflow for the lifetime of this runtime session. Disk persistence belongs to the
 # later Save / Resume issue.
 var hint_enabled := true
-var preview_held := false
 var preview_sprite: Sprite2D = null
 var hint_fill: Polygon2D = null
 var hint_outline: Line2D = null
@@ -72,18 +70,9 @@ func set_hint_enabled(enabled: bool) -> void:
 		_hide_hint_marker()
 
 
-func set_preview_held(active: bool) -> void:
-	# Kept as a no-op-compatible runtime hook for the first Draft iteration. The
-	# player-facing Preview is now a floating UI toggle owned by main.gd, while the
-	# board's old solved-image sprite remains permanently hidden.
-	preview_held = active
-	_apply_preview_state()
-
-
 func start_new_game() -> void:
 	# A new layout should never inherit a stale target marker. The player's Hint
 	# On/Off preference is intentionally kept.
-	preview_held = false
 	preview_sprite = null
 	_clear_hint_visuals()
 	super.start_new_game()
