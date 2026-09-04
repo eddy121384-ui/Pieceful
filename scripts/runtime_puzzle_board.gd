@@ -188,12 +188,12 @@ func _raise_cluster(cluster_id: int) -> void:
 	if members.is_empty():
 		return
 
-	# One cluster is one visual layer. The base implementation increments z for
-	# every member, which lets the shadow of a later/higher member draw over the
-	# face of an earlier/lower member and creates dark seams inside an assembled
-	# off-board island. Give the whole cluster one z value instead: every member's
-	# child Shadow (relative z=-1) is then below every member face (relative z=0),
-	# preserving the outer floating shadow without internal shadow leakage.
+	# Treat one assembled island as one CanvasItem layer. The base implementation
+	# raises every member to a different z value, which lets a later member's child
+	# Shadow (relative z=-1) still sit above an earlier member face. Sharing one z
+	# puts all member shadows at cluster_z-1 and all member faces at cluster_z.
+	# Result: the island keeps its external floating shadow, but no member shadow
+	# can leak across another member as an internal dark seam.
 	z_counter += 1
 	var cluster_z := z_counter
 	for member_value in members:
