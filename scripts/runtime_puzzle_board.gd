@@ -19,11 +19,11 @@ var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
 var last_difficulty_switch_ms := 0
 
-# Hint / Preview are runtime player aids, not authoring features. Hint defaults on
-# for the normal experience, but the player can disable it completely for a
-# no-hint challenge. The setting survives reshuffles, difficulty changes, and
-# orientation reflow for the lifetime of this runtime session. Disk persistence
-# belongs to the later Save / Resume issue.
+# Hint is a runtime player aid, not an authoring feature. It defaults on for the
+# normal experience, but the player can disable it completely for a no-hint
+# challenge. The setting survives reshuffles, difficulty changes, and orientation
+# reflow for the lifetime of this runtime session. Disk persistence belongs to the
+# later Save / Resume issue.
 var hint_enabled := true
 var preview_held := false
 var preview_sprite: Sprite2D = null
@@ -73,13 +73,16 @@ func set_hint_enabled(enabled: bool) -> void:
 
 
 func set_preview_held(active: bool) -> void:
+	# Kept as a no-op-compatible runtime hook for the first Draft iteration. The
+	# player-facing Preview is now a floating UI toggle owned by main.gd, while the
+	# board's old solved-image sprite remains permanently hidden.
 	preview_held = active
 	_apply_preview_state()
 
 
 func start_new_game() -> void:
-	# A new layout should never inherit a physically held Preview button or a stale
-	# target marker, but the player's Hint On/Off preference is intentionally kept.
+	# A new layout should never inherit a stale target marker. The player's Hint
+	# On/Off preference is intentionally kept.
 	preview_held = false
 	preview_sprite = null
 	_clear_hint_visuals()
@@ -236,9 +239,8 @@ func _runtime_zoom_scale() -> float:
 func _build_board_visuals() -> void:
 	super._build_board_visuals()
 
-	# The old prototype permanently showed a faint solved image. v0.1 turns that
-	# into an explicit player action instead: the reference is completely hidden
-	# until Preview is physically held down.
+	# The prototype's permanent solved-image overlay is no longer part of the
+	# puzzle board. Preview is now a separate floating screen-space reference card.
 	preview_sprite = get_node_or_null("SolvedPreview") as Sprite2D
 	if preview_sprite != null:
 		preview_sprite.z_index = PREVIEW_Z_INDEX
@@ -272,8 +274,9 @@ func _raise_cluster(cluster_id: int) -> void:
 func _apply_preview_state() -> void:
 	if preview_sprite == null or not is_instance_valid(preview_sprite):
 		return
-	preview_sprite.visible = preview_held
-	preview_sprite.modulate = Color(1.0, 1.0, 1.0, PREVIEW_ALPHA if preview_held else 0.0)
+	# Board-level solved preview stays hidden permanently. The UI owns Preview now.
+	preview_sprite.visible = false
+	preview_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
 
 
 func _ensure_hint_visuals() -> void:
