@@ -478,7 +478,7 @@ func _on_preview_toggled(enabled: bool) -> void:
 	preview_enabled = enabled
 	_refresh_reference_panel()
 	_refresh_aid_controls()
-	_layout_reference_panel(_sync_content_scale_to_window(), board.workspace_orientation == "portrait")
+	_layout_ui(_sync_content_scale_to_window())
 
 
 func _on_hint_toggled(enabled: bool) -> void:
