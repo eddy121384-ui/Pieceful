@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/main_icon_ui.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/runtime_puzzle_board.gd" id="2_board"]
 [ext_resource type="Script" path="res://scripts/puzzle_camera_controller.gd" id="3_camera"]
-[ext_resource type="Script" path="res://scripts/sorting_workspace_controller.gd" id="4_sorting"]
+[ext_resource type="Script" path="res://scripts/sorting_workspace_icon_ui.gd" id="4_sorting"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
