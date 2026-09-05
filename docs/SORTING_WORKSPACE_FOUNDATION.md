@@ -71,6 +71,28 @@ The Tray canvas owns the visible interactive representation for those members. T
 
 Solved / anchored pieces cannot be moved back into a Tray.
 
+## Icon-first mobile UI
+
+The V0-03 workspace follows a simple presentation rule: **icons represent actions; text represents player content**.
+
+Action controls use one consistent SVG line-icon atlas instead of text labels or emoji. The first icon-first pass covers:
+
+- Zoom out / Zoom in,
+- Fit workspace,
+- Reshuffle / Play again,
+- Preview state,
+- Hint,
+- Board Lines,
+- Sorting Trays,
+- Create Tray,
+- Back,
+- Rename Tray,
+- Tray drag handle.
+
+Toggle controls communicate state through pressed / bright vs dim presentation rather than `On / Off` text. Preview additionally changes icon across Off / Floating / Board modes.
+
+Text remains where it carries content rather than an action: Tray names, piece counts / progress, difficulty choices, and short contextual guidance. Desktop keeps tooltips for discoverability; touch UI does not require labels to remain permanently visible.
+
 ## Responsive behavior
 
 Tray membership, Tray-local piece positions, cluster relationships, and player-positioned floating-window locations survive Portrait / Landscape reflow within the same puzzle generation.
@@ -91,18 +113,21 @@ Reshuffle / Play again and difficulty changes are treated as a new puzzle genera
 Before merging this foundation:
 
 1. Launch Relaxed and confirm normal main-table Drag / Snap / Zoom / Pan still works.
-2. Create and rename several Trays.
-3. Move an open floating Tray to several screen positions.
-4. Drag a single main-table piece directly into the Tray canvas; it should remain visible inside the mini table rather than becoming a thumbnail card.
-5. Drag that piece around inside the Tray canvas.
-6. Drag it out across the Tray edge and release on the main table; it should return under the pointer with no Return button.
-7. Put two correct neighboring pieces into the same Tray separately and assemble them inside the Tray; confirm they snap into one cluster.
-8. Drag the newly assembled Tray cluster around; all members must move rigidly together.
-9. Drag that cluster back to the main table and confirm the assembly remains intact.
-10. Put a preassembled main-table cluster into a Tray and confirm it remains assembled and playable there.
-11. Release a main-table piece just outside the Tray canvas; it must not be transferred accidentally.
-12. While a Tray is open, the visible main-table area must remain interactive.
-13. Move the Tray, switch Landscape ↔ Portrait, and confirm Tray position, membership, local mini-table layout, and cluster relationships survive.
-14. On a phone-like Portrait viewport, confirm the floating Tray remains on-screen and leaves enough surrounding main-table area to support direct drag in / out.
-15. Reshuffle / difficulty change should start a fresh generation with zero Trays.
-16. Recheck Preview, Hint, Lines, overlap picking, cluster merge, board snap, and runtime reshuffling for regressions.
+2. Confirm top toolbar uses icons for Zoom, Fit, and Reshuffle, with no action-name text inside those buttons.
+3. Confirm Preview, Hint, and Board Lines are icon-only; toggle states remain visually distinguishable and Preview changes icon across its three modes.
+4. Open Sorting and confirm the Sorting, Create Tray, Back, Rename, and Tray-move controls are icon-first while Tray names remain text.
+5. Create and rename several Trays.
+6. Move an open floating Tray to several screen positions.
+7. Drag a single main-table piece directly into the Tray canvas; it should remain visible inside the mini table rather than becoming a thumbnail card.
+8. Drag that piece around inside the Tray canvas.
+9. Drag it out across the Tray edge and release on the main table; it should return under the pointer with no Return button.
+10. Put two correct neighboring pieces into the same Tray separately and assemble them inside the Tray; confirm they snap into one cluster.
+11. Drag the newly assembled Tray cluster around; all members must move rigidly together.
+12. Drag that cluster back to the main table and confirm the assembly remains intact.
+13. Put a preassembled main-table cluster into a Tray and confirm it remains assembled and playable there.
+14. Release a main-table piece just outside the Tray canvas; it must not be transferred accidentally.
+15. While a Tray is open, the visible main-table area must remain interactive.
+16. Move the Tray, switch Landscape ↔ Portrait, and confirm Tray position, membership, local mini-table layout, cluster relationships, and icon controls survive.
+17. On a phone-like Portrait viewport, confirm the floating Tray remains on-screen and icon controls leave materially more workspace than the old text buttons.
+18. Reshuffle / difficulty change should start a fresh generation with zero Trays.
+19. Recheck Preview, Hint, Lines, overlap picking, cluster merge, board snap, and runtime reshuffling for regressions.
