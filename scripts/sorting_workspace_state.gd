@@ -4,28 +4,52 @@ extends RefCounted
 const LOCATION_LOOSE := "loose"
 const LOCATION_TRAY := "tray"
 const LOCATION_BOARD := "board"
-const DEFAULT_TRAY_ID := "tray_1"
 
 var tray_order: Array[String] = []
 var tray_names: Dictionary = {}
 var tray_members: Dictionary = {}
 var piece_locations: Dictionary = {}
 var tray_for_piece: Dictionary = {}
+var next_tray_number := 1
 
 
 func reset(piece_count: int) -> void:
-	tray_order = [DEFAULT_TRAY_ID]
-	tray_names = {DEFAULT_TRAY_ID: "Tray 1"}
-	tray_members = {DEFAULT_TRAY_ID: []}
+	tray_order.clear()
+	tray_names.clear()
+	tray_members.clear()
 	piece_locations.clear()
 	tray_for_piece.clear()
+	next_tray_number = 1
 
 	for piece_index in range(maxi(piece_count, 0)):
 		piece_locations[piece_index] = LOCATION_LOOSE
 
 
-func default_tray_id() -> String:
-	return DEFAULT_TRAY_ID
+func tray_ids() -> Array[String]:
+	return tray_order.duplicate()
+
+
+func create_tray(requested_name: String = "") -> String:
+	var tray_id := "tray_%d" % next_tray_number
+	var display_name := requested_name.strip_edges()
+	if display_name.is_empty():
+		display_name = "Tray %d" % next_tray_number
+
+	next_tray_number += 1
+	tray_order.append(tray_id)
+	tray_names[tray_id] = display_name
+	tray_members[tray_id] = []
+	return tray_id
+
+
+func rename_tray(tray_id: String, requested_name: String) -> bool:
+	if not tray_names.has(tray_id):
+		return false
+	var display_name := requested_name.strip_edges()
+	if display_name.is_empty():
+		return false
+	tray_names[tray_id] = display_name
+	return true
 
 
 func tray_name(tray_id: String) -> String:
@@ -39,6 +63,14 @@ func tray_piece_indexes(tray_id: String) -> Array:
 	return []
 
 
+func tray_piece_count(tray_id: String) -> int:
+	return tray_piece_indexes(tray_id).size()
+
+
+func total_tray_piece_count() -> int:
+	return count_in_location(LOCATION_TRAY)
+
+
 func location_for(piece_index: int) -> String:
 	return str(piece_locations.get(piece_index, LOCATION_LOOSE))
 
@@ -47,19 +79,24 @@ func tray_id_for(piece_index: int) -> String:
 	return str(tray_for_piece.get(piece_index, ""))
 
 
-func assign_piece_to_tray(piece_index: int, tray_id: String) -> bool:
-	if not tray_members.has(tray_id):
-		return false
-	if location_for(piece_index) == LOCATION_BOARD:
+func assign_pieces_to_tray(piece_indexes: Array, tray_id: String) -> bool:
+	if not tray_members.has(tray_id) or piece_indexes.is_empty():
 		return false
 
-	_remove_from_current_tray(piece_index)
+	for value in piece_indexes:
+		var piece_index := int(value)
+		if location_for(piece_index) == LOCATION_BOARD:
+			return false
+
 	var members: Array = tray_members[tray_id]
-	if not members.has(piece_index):
-		members.append(piece_index)
+	for value in piece_indexes:
+		var piece_index := int(value)
+		_remove_from_current_tray(piece_index)
+		if not members.has(piece_index):
+			members.append(piece_index)
+		piece_locations[piece_index] = LOCATION_TRAY
+		tray_for_piece[piece_index] = tray_id
 	tray_members[tray_id] = members
-	piece_locations[piece_index] = LOCATION_TRAY
-	tray_for_piece[piece_index] = tray_id
 	return true
 
 
