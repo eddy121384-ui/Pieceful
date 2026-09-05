@@ -26,7 +26,6 @@ var add_tray_button: Button
 var tray_scroll: ScrollContainer
 var tray_list_box: VBoxContainer
 var note_label: Label
-
 var detail_panel: PanelContainer
 var detail_title: Label
 var detail_name_edit: LineEdit
@@ -43,7 +42,6 @@ func _ready() -> void:
 	if board == null:
 		push_warning("SortingWorkspaceController: PuzzleBoard not found")
 		return
-
 	_build_ui()
 	_build_reflow_settle_timer()
 	board.progress_changed.connect(_on_progress_changed)
@@ -129,13 +127,10 @@ func _build_ui() -> void:
 	note_label.modulate = Color(1.0, 1.0, 1.0, 0.58)
 	note_label.add_theme_font_size_override("font_size", 12)
 	box.add_child(note_label)
-
 	_build_tray_detail_window()
 
 
 func _build_tray_detail_window() -> void:
-	# The tray window is intentionally non-modal. The board must remain touchable
-	# while a tray is open so the player can physically drag pieces into it.
 	detail_panel = PanelContainer.new()
 	detail_panel.visible = false
 	detail_panel.custom_minimum_size = Vector2(DETAIL_WIDTH, DETAIL_HEIGHT)
@@ -215,12 +210,10 @@ func _on_progress_changed(_solved_count: int, _total_count: int) -> void:
 func _ensure_piece_bindings() -> bool:
 	if board == null:
 		return false
-
 	var current_ids: Array = []
 	for piece in board.pieces:
 		if is_instance_valid(piece):
 			current_ids.append(piece.get_instance_id())
-
 	if current_ids == bound_piece_instance_ids:
 		return false
 
@@ -230,19 +223,15 @@ func _ensure_piece_bindings() -> bool:
 	drag_origin_positions.clear()
 	active_tray_id = ""
 	_close_tray_detail()
-
 	for piece in board.pieces:
 		if is_instance_valid(piece) and not piece.picked.is_connected(_on_piece_picked):
 			piece.picked.connect(_on_piece_picked)
-
 	return true
 
 
 func _sync_solved_locations() -> void:
 	for piece in board.pieces:
-		if not is_instance_valid(piece):
-			continue
-		if piece.solved:
+		if is_instance_valid(piece) and piece.solved:
 			state.mark_piece_on_board(piece.piece_index)
 
 
@@ -308,7 +297,6 @@ func _rename_active_tray() -> void:
 
 
 func try_store_drag_release(piece) -> bool:
-	# Called by RuntimePuzzleBoard before normal merge/snap processing.
 	if (
 		active_tray_id.is_empty()
 		or detail_panel == null
@@ -319,7 +307,7 @@ func try_store_drag_release(piece) -> bool:
 		drag_origin_positions.clear()
 		return false
 
-	var drop_position := Vector2(piece.last_pointer_screen_position)
+	var drop_position: Vector2 = Vector2(piece.last_pointer_screen_position)
 	if not detail_panel.get_global_rect().has_point(drop_position):
 		drag_origin_positions.clear()
 		return false
@@ -332,9 +320,7 @@ func try_store_drag_release(piece) -> bool:
 	for value in members:
 		var piece_index := int(value)
 		var member = board.pieces[piece_index]
-		return_positions[piece_index] = Vector2(
-			drag_origin_positions.get(piece_index, member.position)
-		)
+		return_positions[piece_index] = Vector2(drag_origin_positions.get(piece_index, member.position))
 
 	if not state.assign_pieces_to_tray(members, active_tray_id):
 		drag_origin_positions.clear()
@@ -352,7 +338,6 @@ func try_store_drag_release(piece) -> bool:
 func _group_members_for_piece(piece_index: int) -> Array:
 	if piece_index < 0 or piece_index >= board.pieces.size():
 		return []
-
 	var anchor = board.pieces[piece_index]
 	if not is_instance_valid(anchor) or anchor.solved or not anchor.visible:
 		return []
@@ -382,29 +367,21 @@ func _group_members_for_piece(piece_index: int) -> Array:
 func _return_group_to_loose(member_indexes: Array) -> void:
 	if member_indexes.is_empty():
 		return
-
 	var translation: Vector2 = _safe_group_return_translation(member_indexes)
 	board.z_counter += 1
 	var group_z: int = board.z_counter
-
 	for value in member_indexes:
 		var piece_index := int(value)
 		if piece_index < 0 or piece_index >= board.pieces.size():
 			continue
 		var piece = board.pieces[piece_index]
-		var saved_position: Vector2 = Vector2(
-			return_positions.get(
-				piece_index,
-				board.navigation_rect.position + Vector2(24.0, 100.0)
-			)
-		)
+		var saved_position: Vector2 = Vector2(return_positions.get(piece_index, board.navigation_rect.position + Vector2(24.0, 100.0)))
 		state.move_piece_to_loose(piece_index)
 		piece.position = saved_position + translation
 		piece.visible = true
 		piece.input_pickable = true
 		piece.z_index = group_z
 		return_positions.erase(piece_index)
-
 	_refresh_ui()
 	_refresh_tray_detail()
 
@@ -417,36 +394,21 @@ func _safe_group_return_translation(member_indexes: Array) -> Vector2:
 		if piece_index < 0 or piece_index >= board.pieces.size():
 			continue
 		var piece = board.pieces[piece_index]
-		var saved_position: Vector2 = Vector2(
-			return_positions.get(
-				piece_index,
-				board.navigation_rect.position + Vector2(24.0, 100.0)
-			)
-		)
+		var saved_position: Vector2 = Vector2(return_positions.get(piece_index, board.navigation_rect.position + Vector2(24.0, 100.0)))
 		var piece_rect := Rect2(saved_position, Vector2(piece.piece_size))
 		if not has_bounds:
 			bounds = piece_rect
 			has_bounds = true
 		else:
 			bounds = bounds.merge(piece_rect)
-
 	if not has_bounds:
 		return Vector2.ZERO
 
 	var nav: Rect2 = board.navigation_rect
-	var workspace := Rect2(
-		nav.position + Vector2(18.0, 86.0),
-		Vector2(
-			maxf(1.0, nav.size.x - 36.0),
-			maxf(1.0, nav.size.y - 154.0)
-		)
-	)
+	var workspace := Rect2(nav.position + Vector2(18.0, 86.0), Vector2(maxf(1.0, nav.size.x - 36.0), maxf(1.0, nav.size.y - 154.0)))
 	var max_x := maxf(workspace.position.x, workspace.end.x - bounds.size.x)
 	var max_y := maxf(workspace.position.y, workspace.end.y - bounds.size.y)
-	var target_position := Vector2(
-		clampf(bounds.position.x, workspace.position.x, max_x),
-		clampf(bounds.position.y, workspace.position.y, max_y)
-	)
+	var target_position := Vector2(clampf(bounds.position.x, workspace.position.x, max_x), clampf(bounds.position.y, workspace.position.y, max_y))
 	var candidate_rect := Rect2(target_position, bounds.size)
 	var exclusion: Rect2 = board.board_rect.grow(12.0)
 	if not candidate_rect.intersects(exclusion):
@@ -462,17 +424,11 @@ func _safe_group_return_translation(member_indexes: Array) -> Vector2:
 		var test_rect := Rect2(candidate, bounds.size)
 		if _rect_inside(test_rect, workspace) and not test_rect.intersects(exclusion):
 			return candidate - bounds.position
-
 	return target_position - bounds.position
 
 
 func _rect_inside(rect: Rect2, outer: Rect2) -> bool:
-	return (
-		rect.position.x >= outer.position.x
-		and rect.position.y >= outer.position.y
-		and rect.end.x <= outer.end.x
-		and rect.end.y <= outer.end.y
-	)
+	return rect.position.x >= outer.position.x and rect.position.y >= outer.position.y and rect.end.x <= outer.end.x and rect.end.y <= outer.end.y
 
 
 func _stash_piece(piece_index: int) -> void:
@@ -495,13 +451,11 @@ func _restash_tray_pieces() -> void:
 func _refresh_ui() -> void:
 	if sort_button == null:
 		return
-
 	_sync_solved_locations()
 	var tray_ids: Array[String] = state.tray_ids()
 	var loose_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_LOOSE)
 	var tray_piece_count: int = state.total_tray_piece_count()
 	var board_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_BOARD)
-
 	sort_button.text = "Sort · %d tray%s" % [tray_ids.size(), "" if tray_ids.size() == 1 else "s"]
 	summary_label.text = "Loose %d · Trays %d · Board %d" % [loose_count, tray_piece_count, board_count]
 
@@ -516,16 +470,11 @@ func _refresh_ui() -> void:
 		for tray_id in tray_ids:
 			var tray_button := Button.new()
 			var count: int = state.tray_piece_count(tray_id)
-			tray_button.text = "%s    ·    %d piece%s" % [
-				state.tray_name(tray_id),
-				count,
-				"" if count == 1 else "s",
-			]
+			tray_button.text = "%s    ·    %d piece%s" % [state.tray_name(tray_id), count, "" if count == 1 else "s"]
 			tray_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 			tray_button.custom_minimum_size = Vector2(0.0, 48.0)
 			tray_button.pressed.connect(_open_tray.bind(tray_id))
 			tray_list_box.add_child(tray_button)
-
 	if not active_tray_id.is_empty() and tray_ids.has(active_tray_id):
 		_refresh_tray_detail()
 
@@ -533,14 +482,8 @@ func _refresh_ui() -> void:
 func _refresh_tray_detail() -> void:
 	if active_tray_id.is_empty() or not state.tray_ids().has(active_tray_id):
 		return
-
 	var piece_count: int = state.tray_piece_count(active_tray_id)
-	detail_title.text = "%s · %d piece%s" % [
-		state.tray_name(active_tray_id),
-		piece_count,
-		"" if piece_count == 1 else "s",
-	]
-
+	detail_title.text = "%s · %d piece%s" % [state.tray_name(active_tray_id), piece_count, "" if piece_count == 1 else "s"]
 	_clear_container(detail_grid)
 	var groups: Array = _tray_groups(active_tray_id)
 	if groups.is_empty():
@@ -557,30 +500,21 @@ func _refresh_tray_detail() -> void:
 			var piece_index := int(value)
 			if piece_index >= 0 and piece_index < board.pieces.size():
 				piece_nodes.append(board.pieces[piece_index])
-
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(150.0, 146.0)
 		detail_grid.add_child(card)
-
 		var card_box := VBoxContainer.new()
 		card_box.alignment = BoxContainer.ALIGNMENT_CENTER
 		card_box.add_theme_constant_override("separation", 4)
 		card.add_child(card_box)
-
 		var preview = TrayItemPreviewScript.new()
 		card_box.add_child(preview)
 		preview.configure(piece_nodes)
-
 		var kind_label := Label.new()
 		kind_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		kind_label.text = (
-			"Single piece"
-			if members.size() == 1
-			else "%d-piece cluster" % members.size()
-		)
+		kind_label.text = "Single piece" if members.size() == 1 else "%d-piece cluster" % members.size()
 		kind_label.modulate = Color(1.0, 1.0, 1.0, 0.7)
 		card_box.add_child(kind_label)
-
 		var return_button := Button.new()
 		return_button.text = "Return to Loose"
 		return_button.pressed.connect(_return_group_to_loose.bind(members.duplicate()))
@@ -599,7 +533,6 @@ func _tray_groups(tray_id: String) -> Array:
 		var members: Array = grouped[cluster_id]
 		members.append(piece_index)
 		grouped[cluster_id] = members
-
 	var result: Array = []
 	for cluster_id in group_order:
 		result.append(grouped[cluster_id])
@@ -627,44 +560,30 @@ func _after_window_reflow() -> void:
 func _layout_ui() -> void:
 	if ui_layer == null:
 		return
-
 	var viewport_size := Vector2(get_window().content_scale_size)
 	if viewport_size.x <= 1.0 or viewport_size.y <= 1.0:
 		viewport_size = get_viewport().get_visible_rect().size
-
 	var width := maxf(viewport_size.x, 1.0)
 	var height := maxf(viewport_size.y, 1.0)
 	var margin := 24.0
 	var portrait := height > width
-
 	sort_button.position = Vector2(margin, 92.0)
 
 	if portrait:
-		var panel_width := minf(PANEL_WIDTH, width - margin * 2.0)
-		var panel_height := minf(PANEL_HEIGHT, height - 210.0)
-		panel.size = Vector2(panel_width, panel_height)
-		panel.position = Vector2(
-			(width - panel_width) * 0.5,
-			maxf(150.0, height - panel_height - 96.0)
-		)
-
-		var detail_width := width - margin * 2.0
-		var detail_height := minf(DETAIL_HEIGHT, maxf(280.0, height * 0.46))
-		detail_panel.size = Vector2(detail_width, detail_height)
-		detail_panel.position = Vector2(
-			margin,
-			maxf(120.0, height - detail_height - 84.0)
-		)
+		var portrait_panel_width := minf(PANEL_WIDTH, width - margin * 2.0)
+		var portrait_panel_height := minf(PANEL_HEIGHT, height - 210.0)
+		panel.size = Vector2(portrait_panel_width, portrait_panel_height)
+		panel.position = Vector2((width - portrait_panel_width) * 0.5, maxf(150.0, height - portrait_panel_height - 96.0))
+		var portrait_detail_width := width - margin * 2.0
+		var portrait_detail_height := minf(DETAIL_HEIGHT, maxf(280.0, height * 0.46))
+		detail_panel.size = Vector2(portrait_detail_width, portrait_detail_height)
+		detail_panel.position = Vector2(margin, maxf(120.0, height - portrait_detail_height - 84.0))
 		detail_grid.columns = 2
 	else:
 		panel.size = Vector2(PANEL_WIDTH, minf(PANEL_HEIGHT, height - 180.0))
 		panel.position = Vector2(margin, 148.0)
-
-		var detail_width := minf(DETAIL_WIDTH, maxf(330.0, width * 0.38))
-		var detail_height := maxf(300.0, height - 172.0)
-		detail_panel.size = Vector2(detail_width, detail_height)
-		detail_panel.position = Vector2(
-			width - margin - detail_width,
-			86.0
-		)
+		var landscape_detail_width := minf(DETAIL_WIDTH, maxf(330.0, width * 0.38))
+		var landscape_detail_height := maxf(300.0, height - 172.0)
+		detail_panel.size = Vector2(landscape_detail_width, landscape_detail_height)
+		detail_panel.position = Vector2(width - margin - landscape_detail_width, 86.0)
 		detail_grid.columns = 2
