@@ -2,6 +2,13 @@ extends Node
 
 const BASE_SHORT_EDGE := 720.0
 const RESIZE_DEBOUNCE_SECONDS := 0.06
+const BoardCutLinesOverlayScript = preload("res://scripts/board_cut_lines_overlay.gd")
+const DraggableReferencePanelScript = preload("res://scripts/draggable_reference_panel.gd")
+const RuntimeReshufflePolicyScript = preload("res://scripts/runtime_reshuffle_policy.gd")
+
+const PREVIEW_MODE_OFF := "off"
+const PREVIEW_MODE_FLOATING := "floating"
+const PREVIEW_MODE_BOARD := "board"
 
 @onready var board: RuntimePuzzleBoard = $PuzzleBoard
 @onready var puzzle_camera: PuzzleCameraController = $PuzzleCamera
@@ -15,12 +22,27 @@ var zoom_out_button: Button
 var zoom_in_button: Button
 var fit_button: Button
 var restart_button: Button
+var preview_button: Button
+var hint_button: Button
+var board_lines_button: Button
 var difficulty_caption: Label
 var difficulty_select: OptionButton
 var instruction_label: Label
 var completion_panel: PanelContainer
 var completion_copy: Label
+var preview_panel = null
+var preview_texture_rect: TextureRect
 var resize_debounce: Timer
+var board_lines_overlay = null
+var reshuffle_policy = RuntimeReshufflePolicyScript.new()
+
+# Player-aid controls are intentionally independent. Preview defaults Off, while
+# subtle board cut lines and Hint default On for the normal experience. Preview
+# cycles Off -> Floating -> Board so one compact control supports both reference
+# styles without adding another footer button. Runtime choices survive reshuffle,
+# difficulty changes, and live orientation changes. Disk save is deferred to #3.
+var preview_mode := PREVIEW_MODE_OFF
+var board_lines_enabled := true
 
 
 func _ready() -> void:
@@ -39,10 +61,14 @@ func _ready() -> void:
 	var viewport_size := _sync_content_scale_to_window()
 	board.apply_viewport_layout(viewport_size)
 	board.start_new_game()
+	_randomize_runtime_scatter()
+	_apply_preview_mode()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
+	_refresh_board_lines_overlay()
 	_layout_ui(viewport_size)
 	_on_zoom_changed(puzzle_camera.zoom.x)
 	_refresh_difficulty_control()
+	_refresh_aid_controls()
 	_update_runtime_label()
 
 
@@ -117,6 +143,23 @@ func _build_ui() -> void:
 	restart_button.pressed.connect(_restart)
 	layer.add_child(restart_button)
 
+	preview_button = Button.new()
+	preview_button.size = Vector2(132.0, 44.0)
+	preview_button.pressed.connect(_cycle_preview_mode)
+	layer.add_child(preview_button)
+
+	hint_button = Button.new()
+	hint_button.toggle_mode = true
+	hint_button.size = Vector2(112.0, 44.0)
+	hint_button.toggled.connect(_on_hint_toggled)
+	layer.add_child(hint_button)
+
+	board_lines_button = Button.new()
+	board_lines_button.toggle_mode = true
+	board_lines_button.size = Vector2(132.0, 44.0)
+	board_lines_button.toggled.connect(_on_board_lines_toggled)
+	layer.add_child(board_lines_button)
+
 	difficulty_caption = Label.new()
 	difficulty_caption.text = "Difficulty"
 	difficulty_caption.size = Vector2(230.0, 20.0)
@@ -136,11 +179,33 @@ func _build_ui() -> void:
 	layer.add_child(difficulty_select)
 
 	instruction_label = Label.new()
-	instruction_label.text = "Join matching neighbors anywhere · Drag a joined group as one · Wheel/pinch zoom · Pan empty space"
+	instruction_label.text = "Join matching neighbors anywhere · Preview mode / Hint / Board Lines are optional · Wheel/pinch zoom · Pan empty space"
 	instruction_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instruction_label.modulate = Color(1.0, 1.0, 1.0, 0.62)
-	instruction_label.add_theme_font_size_override("font_size", 15)
+	instruction_label.add_theme_font_size_override("font_size", 14)
 	layer.add_child(instruction_label)
+
+	preview_panel = DraggableReferencePanelScript.new()
+	preview_panel.visible = false
+	layer.add_child(preview_panel)
+
+	var preview_box := VBoxContainer.new()
+	preview_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	preview_panel.add_child(preview_box)
+
+	var preview_title := Label.new()
+	preview_title.text = "Reference · drag to move"
+	preview_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	preview_title.modulate = Color(1.0, 1.0, 1.0, 0.72)
+	preview_title.add_theme_font_size_override("font_size", 13)
+	preview_title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	preview_box.add_child(preview_title)
+
+	preview_texture_rect = TextureRect.new()
+	preview_texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	preview_texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	preview_texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	preview_box.add_child(preview_texture_rect)
 
 	completion_panel = PanelContainer.new()
 	completion_panel.size = Vector2(350.0, 180.0)
@@ -207,17 +272,46 @@ func _layout_ui(viewport_size: Vector2) -> void:
 	difficulty_caption.position = Vector2(margin, height - 92.0)
 	difficulty_select.position = Vector2(margin, height - 68.0)
 
-	if width >= 760.0:
-		instruction_label.position = Vector2(270.0, height - 56.0)
-		instruction_label.size = Vector2(maxf(300.0, width - 294.0), 28.0)
-	else:
-		instruction_label.position = Vector2(margin, height - 128.0)
-		instruction_label.size = Vector2(maxf(260.0, width - margin * 2.0), 28.0)
+	var aid_controls_width := 392.0
+	var aid_start := width - margin - aid_controls_width
+	preview_button.position = Vector2(aid_start, height - 68.0)
+	hint_button.position = Vector2(aid_start + 140.0, height - 68.0)
+	board_lines_button.position = Vector2(aid_start + 260.0, height - 68.0)
+
+	instruction_label.position = Vector2(margin, height - 126.0)
+	instruction_label.size = Vector2(maxf(260.0, width - margin * 2.0), 28.0)
+
+	_layout_reference_panel(viewport_size, compact_top)
 
 	completion_panel.position = Vector2(
 		(width - completion_panel.size.x) * 0.5,
 		(height - completion_panel.size.y) * 0.5
 	)
+
+
+func _layout_reference_panel(viewport_size: Vector2, compact_top: bool) -> void:
+	if preview_panel == null or preview_texture_rect == null:
+		return
+
+	var width := maxf(viewport_size.x, 1.0)
+	var margin := 24.0
+	var panel_width := 220.0 if width >= 900.0 else 180.0
+	var texture_aspect := 1.6
+	if preview_texture_rect.texture != null:
+		var texture_size := preview_texture_rect.texture.get_size()
+		if texture_size.y > 0.0:
+			texture_aspect = texture_size.x / texture_size.y
+
+	var image_width := panel_width - 16.0
+	var image_height := image_width / maxf(texture_aspect, 0.01)
+	var panel_height := image_height + 34.0
+	preview_texture_rect.custom_minimum_size = Vector2(image_width, image_height)
+	preview_panel.custom_minimum_size = Vector2(panel_width, panel_height)
+	preview_panel.size = Vector2(panel_width, panel_height)
+
+	var panel_y := 156.0 if compact_top else 86.0
+	var default_position := Vector2(width - margin - panel_width, panel_y)
+	preview_panel.set_layout_bounds(viewport_size, default_position)
 
 
 func _on_progress_changed(solved_count: int, total_count: int) -> void:
@@ -251,6 +345,62 @@ func _refresh_difficulty_control() -> void:
 			difficulty_select.select(index)
 
 
+func _refresh_aid_controls() -> void:
+	if preview_button != null:
+		match preview_mode:
+			PREVIEW_MODE_FLOATING:
+				preview_button.text = "Preview: Float"
+			PREVIEW_MODE_BOARD:
+				preview_button.text = "Preview: Board"
+			_:
+				preview_button.text = "Preview: Off"
+		preview_button.tooltip_text = "Cycle Preview: Off → Floating reference → Board overlay"
+
+	if hint_button != null:
+		hint_button.set_pressed_no_signal(board.hint_is_enabled())
+		hint_button.text = "Hint: On" if board.hint_is_enabled() else "Hint: Off"
+		hint_button.tooltip_text = (
+			"Show a target-region clue while dragging"
+			if board.hint_is_enabled()
+			else "No target-region clues"
+		)
+
+	if board_lines_button != null:
+		board_lines_button.set_pressed_no_signal(board_lines_enabled)
+		board_lines_button.text = "Lines: On" if board_lines_enabled else "Lines: Off"
+		board_lines_button.tooltip_text = "Show or hide subtle die-cut outlines on the board"
+
+
+func _apply_preview_mode() -> void:
+	board.set_board_preview_enabled(preview_mode == PREVIEW_MODE_BOARD)
+	_refresh_reference_panel()
+
+
+func _refresh_reference_panel() -> void:
+	if preview_panel == null or preview_texture_rect == null:
+		return
+	if board.definition != null:
+		preview_texture_rect.texture = board.definition.texture
+	preview_panel.visible = (
+		preview_mode == PREVIEW_MODE_FLOATING
+		and preview_texture_rect.texture != null
+	)
+
+
+func _refresh_board_lines_overlay() -> void:
+	if board_lines_overlay == null or not is_instance_valid(board_lines_overlay):
+		board_lines_overlay = BoardCutLinesOverlayScript.new()
+		board_lines_overlay.name = "BoardCutLinesOverlay"
+		board.add_child(board_lines_overlay)
+
+	board_lines_overlay.configure(board)
+	board_lines_overlay.visible = board_lines_enabled
+
+
+func _randomize_runtime_scatter() -> void:
+	reshuffle_policy.reshuffle_piece_positions(board)
+
+
 func _on_difficulty_selected(index: int) -> void:
 	var difficulty_id := str(difficulty_select.get_item_metadata(index))
 	if difficulty_id == board.active_difficulty_id():
@@ -258,8 +408,12 @@ func _on_difficulty_selected(index: int) -> void:
 
 	completion_panel.visible = false
 	if board.request_difficulty(difficulty_id):
+		_randomize_runtime_scatter()
+		_apply_preview_mode()
 		puzzle_camera.set_content_rect(board.navigation_bounds(), true)
 		_refresh_difficulty_control()
+		_refresh_board_lines_overlay()
+		_refresh_aid_controls()
 		_update_runtime_label()
 		return
 
@@ -273,15 +427,20 @@ func _on_difficulty_selected(index: int) -> void:
 func _update_runtime_label() -> void:
 	if runtime_label == null:
 		return
+	var hint_state := "Hint On" if board.hint_is_enabled() else "Hint Off"
 	if board.active_difficulty_id() == "regression":
-		runtime_label.text = "%s · 12-piece regression fixture · Relaxed asset missing" % board.workspace_orientation_label()
+		runtime_label.text = "%s · 12-piece regression fixture · Relaxed asset missing · %s" % [
+			board.workspace_orientation_label(),
+			hint_state,
+		]
 		return
 
-	runtime_label.text = "%s · %s runtime · %s · %d pieces" % [
+	runtime_label.text = "%s · %s runtime · %s · %d pieces · %s" % [
 		board.workspace_orientation_label(),
 		board.active_difficulty_label(),
 		board.active_pattern_id(),
 		board.active_piece_count(),
+		hint_state,
 	]
 
 
@@ -293,6 +452,8 @@ func _schedule_responsive_reflow() -> void:
 func _apply_responsive_reflow() -> void:
 	var viewport_size := _sync_content_scale_to_window()
 	var orientation_changed := board.apply_viewport_layout(viewport_size)
+	_apply_preview_mode()
+	_refresh_board_lines_overlay()
 	_layout_ui(viewport_size)
 	puzzle_camera.set_content_rect(board.navigation_bounds(), false)
 	if orientation_changed:
@@ -339,6 +500,31 @@ func _fit_view() -> void:
 	puzzle_camera.fit_to_content()
 
 
+func _cycle_preview_mode() -> void:
+	match preview_mode:
+		PREVIEW_MODE_OFF:
+			preview_mode = PREVIEW_MODE_FLOATING
+		PREVIEW_MODE_FLOATING:
+			preview_mode = PREVIEW_MODE_BOARD
+		_:
+			preview_mode = PREVIEW_MODE_OFF
+	_apply_preview_mode()
+	_refresh_aid_controls()
+	_layout_ui(_sync_content_scale_to_window())
+
+
+func _on_hint_toggled(enabled: bool) -> void:
+	board.set_hint_enabled(enabled)
+	_refresh_aid_controls()
+	_update_runtime_label()
+
+
+func _on_board_lines_toggled(enabled: bool) -> void:
+	board_lines_enabled = enabled
+	_refresh_board_lines_overlay()
+	_refresh_aid_controls()
+
+
 func _on_completed() -> void:
 	completion_panel.visible = true
 
@@ -346,6 +532,10 @@ func _on_completed() -> void:
 func _restart() -> void:
 	completion_panel.visible = false
 	board.start_new_game()
+	_randomize_runtime_scatter()
+	_apply_preview_mode()
 	puzzle_camera.set_content_rect(board.navigation_bounds(), true)
+	_refresh_board_lines_overlay()
 	_refresh_difficulty_control()
+	_refresh_aid_controls()
 	_update_runtime_label()
