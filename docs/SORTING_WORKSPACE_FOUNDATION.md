@@ -27,6 +27,7 @@ An open tray is a draggable, translucent floating window above the puzzle table 
 - The puzzle board remains interactive outside the tray window.
 - Each tray remembers the position where the player left it during the current puzzle generation.
 - Portrait / Landscape changes preserve that chosen position as far as possible and only clamp the tray back inside the visible viewport when necessary.
+- Portrait layouts may reduce the floating tray size to keep it usable on phone-like viewports instead of forcing a desktop-width panel.
 
 This models a real sorting tray that the player can place wherever it is convenient instead of forcing the workspace to reorganize around a fixed UI panel.
 
@@ -91,6 +92,7 @@ Before merging this foundation:
 10. Use `Return to Loose` and confirm the piece / cluster returns playable with cluster geometry intact.
 11. Rename a tray and confirm both tray list and open window update.
 12. Move an open tray, switch Landscape ↔ Portrait, and confirm the window stays visible instead of resetting to a fixed side position; stored memberships remain intact.
-13. Reshuffle and difficulty changes should begin a fresh generation with zero trays.
-14. Anchor at least one piece and confirm Board count updates.
-15. Recheck Preview, Hint, Lines, overlap picking, cluster merge, board snap, and runtime reshuffling for regressions.
+13. On a phone-like Portrait viewport, confirm the tray remains completely on-screen and still leaves usable board area around it.
+14. Reshuffle and difficulty changes should begin a fresh generation with zero trays.
+15. Anchor at least one piece and confirm Board count updates.
+16. Recheck Preview, Hint, Lines, overlap picking, cluster merge, board snap, and runtime reshuffling for regressions.
