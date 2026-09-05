@@ -19,9 +19,6 @@ var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
 var last_difficulty_switch_ms := 0
 
-# Hint and board-preview state are runtime player aids, not authoring features.
-# They survive reshuffles, difficulty changes, and orientation reflow for the
-# lifetime of this runtime session. Disk persistence belongs to Save / Resume.
 var hint_enabled := true
 var board_preview_enabled := false
 var preview_sprite: Sprite2D = null
@@ -80,8 +77,6 @@ func set_board_preview_enabled(enabled: bool) -> void:
 
 
 func start_new_game() -> void:
-	# A new layout should never inherit a stale target marker. Player aid choices
-	# are intentionally preserved.
 	preview_sprite = null
 	_clear_hint_visuals()
 	super.start_new_game()
@@ -100,9 +95,6 @@ func can_begin_piece_drag(piece, pointer_screen_position: Vector2) -> bool:
 	var top_z := -2147483648
 	var top_order := -1
 
-	# Physics picking is only the broadphase. Resolve the actual winner against the
-	# full visible cut polygon and CanvasItem draw order, so an overlapped lower
-	# piece can never steal a click merely because PhysicsServer reported it first.
 	for candidate in pieces:
 		if not is_instance_valid(candidate):
 			continue
@@ -214,10 +206,6 @@ func _select_runtime_cut_pattern() -> String:
 		var path := str(preset["cut_pattern_path"])
 		if FileAccess.file_exists(path):
 			return path
-
-	# Preserve the tiny regression fixture as a startup safety net only. Player
-	# difficulty changes never silently fall back: request_difficulty() rejects a
-	# missing curated asset before restarting the current game.
 	return REGRESSION_CUT_PATTERN_PATH
 
 
@@ -236,10 +224,6 @@ func _runtime_zoom_scale() -> float:
 
 func _build_board_visuals() -> void:
 	super._build_board_visuals()
-
-	# Reuse the prototype SolvedPreview node as the optional board-overlay mode.
-	# It remains below pieces and guidance layers, so it behaves like a faint
-	# reference mat rather than an answer painted over the player's pieces.
 	preview_sprite = get_node_or_null("SolvedPreview") as Sprite2D
 	if preview_sprite != null:
 		preview_sprite.z_index = BOARD_PREVIEW_Z_INDEX
@@ -253,17 +237,24 @@ func _on_piece_picked(piece) -> void:
 
 
 func _on_piece_released(piece) -> void:
+	# Sorting is a screen-space drop target. Give it first refusal before normal
+	# neighbor merge / board snap so dropping into an open Tray never accidentally
+	# solves or joins the piece underneath the floating tray window.
+	var sorting_workspace := get_parent().get_node_or_null("SortingWorkspace")
+	if (
+		sorting_workspace != null
+		and sorting_workspace.has_method("try_store_drag_release")
+		and sorting_workspace.try_store_drag_release(piece)
+	):
+		_clear_active_drag_cache()
+		_hide_hint_marker()
+		return
+
 	super._on_piece_released(piece)
 	_hide_hint_marker()
 
 
 func _raise_cluster(cluster_id: int) -> void:
-	# A cluster is one visual object from the player's perspective. Giving every
-	# member its own ascending z-index lets a later member's child Shadow (z=-1)
-	# render above an earlier member's Face, which creates dark seams inside a
-	# correctly joined off-board island. Raise the whole cluster to one shared
-	# parent z-index instead: all member shadows stay below all member faces while
-	# the island still floats above untouched loose pieces.
 	z_counter += 1
 	var cluster_z := z_counter
 	for member_value in _cluster_members_for(cluster_id):
@@ -345,9 +336,6 @@ func _clear_hint_visuals() -> void:
 
 
 func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect: Rect2) -> void:
-	# The board keeps the same physical play-surface size, so approved piece
-	# geometry never changes during orientation switches. Only target positions and
-	# workspace placement move.
 	definition.board_rect = board_rect
 	for piece in pieces:
 		piece.target_position = definition.target_position_for(piece.piece_index)
@@ -356,9 +344,6 @@ func _reflow_existing_state(previous_board_rect: Rect2, previous_navigation_rect
 	var old_width := maxf(previous_navigation_rect.size.x, 1.0)
 	var old_height := maxf(previous_navigation_rect.size.y, 1.0)
 
-	# Reflow one cluster at a time. Mapping individual pieces would distort a
-	# preassembled island when portrait/landscape have different workspace ratios.
-	# Moving the cluster centroid preserves exact neighbor-relative offsets.
 	for cluster_key in cluster_members.keys():
 		var members: Array = _cluster_members_for(int(cluster_key))
 		if members.is_empty():

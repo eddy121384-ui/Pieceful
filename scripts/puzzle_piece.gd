@@ -16,6 +16,7 @@ var solved := false
 var dragging := false
 var drag_pointer_id := -999
 var drag_offset := Vector2.ZERO
+var last_pointer_screen_position := Vector2.ZERO
 
 var polygon_points := PackedVector2Array()
 var uv_points := PackedVector2Array()
@@ -38,11 +39,10 @@ func configure(
 	source_origin = p_source_origin
 	source_cell_size = p_source_cell_size
 	position = p_start_position
+	last_pointer_screen_position = Vector2.ZERO
 
 	# Runtime assembly never asks PhysicsServer for Area2D↔Area2D overlaps.
 	# The collision polygon exists only so the viewport can pick the visible piece.
-	# Disable monitoring before adding the shape so moving a cluster across a pile
-	# does not create broadphase overlap bookkeeping for every crossed piece pair.
 	monitoring = false
 	monitorable = false
 	collision_layer = 1
@@ -52,11 +52,6 @@ func configure(
 	uv_points = _build_uvs()
 	_build_visuals()
 	input_pickable = true
-
-	# Area2D picking still delivers _input_event(), so idle pieces do not need to
-	# receive every viewport input event. Enable _input() only while this specific
-	# piece owns an active drag; this keeps mouse/touch motion cost independent of
-	# the total loose-piece count instead of dispatching through every piece.
 	set_process_input(false)
 
 
@@ -71,11 +66,6 @@ func snap_to_target() -> void:
 	input_pickable = false
 	z_index = 1
 
-	# A solved piece is seated on the puzzle board rather than floating above it.
-	# Keeping its per-piece drop shadow visible lets the offset shadow of one solved
-	# neighbor leak across another solved face, creating intermittent dark seams.
-	# Loose pieces and off-board clusters keep their shadows; only anchored pieces
-	# become visually flat with the completed image.
 	var shadow := get_node_or_null("Shadow")
 	if shadow != null:
 		shadow.visible = false
@@ -99,8 +89,6 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# This callback is enabled only for the currently dragged piece. Idle pieces
-	# never enter this hot path.
 	if not dragging:
 		return
 
@@ -111,24 +99,20 @@ func _input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
-				_finish_drag()
+				_finish_drag(event.position)
 	else:
 		if event is InputEventScreenDrag and event.index == drag_pointer_id:
 			_move_drag_to_screen(event.position)
 			get_viewport().set_input_as_handled()
 		elif event is InputEventScreenTouch:
 			if event.index == drag_pointer_id and not event.pressed:
-				_finish_drag()
+				_finish_drag(event.position)
 
 
 func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 	if dragging or solved:
 		return
 
-	# Physics picking does not guarantee CanvasItem visual z-order for overlapping
-	# Area2D shapes. The runtime board performs an exact visible-polygon test and
-	# allows only the topmost visible piece to claim the press. Lower broadphase
-	# candidates simply decline the event instead of stealing the drag.
 	var board := get_parent()
 	if board != null and board.has_method("can_begin_piece_drag"):
 		if not board.can_begin_piece_drag(self, pointer_screen_position):
@@ -136,6 +120,7 @@ func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 
 	dragging = true
 	drag_pointer_id = pointer_id
+	last_pointer_screen_position = pointer_screen_position
 	drag_offset = _screen_to_world(pointer_screen_position) - global_position
 	set_process_input(true)
 	picked.emit(self)
@@ -143,6 +128,7 @@ func _begin_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
 
 
 func _move_drag_to_screen(pointer_screen_position: Vector2) -> void:
+	last_pointer_screen_position = pointer_screen_position
 	var next_position := _screen_to_world(pointer_screen_position) - drag_offset
 	var delta := next_position - global_position
 	if delta.is_zero_approx():
@@ -152,10 +138,11 @@ func _move_drag_to_screen(pointer_screen_position: Vector2) -> void:
 	dragged.emit(self, delta)
 
 
-func _finish_drag() -> void:
+func _finish_drag(pointer_screen_position: Vector2) -> void:
 	if not dragging:
 		return
 
+	last_pointer_screen_position = pointer_screen_position
 	dragging = false
 	drag_pointer_id = -999
 	set_process_input(false)
@@ -164,10 +151,6 @@ func _finish_drag() -> void:
 
 
 func _screen_to_world(screen_position: Vector2) -> Vector2:
-	# InputEvent positions are viewport-space. Once Camera2D zoom/pan is active,
-	# writing those coordinates directly into global_position makes pieces jump.
-	# Convert through the live canvas transform so dragging stays exact at every
-	# camera scale and offset.
 	return get_viewport().get_canvas_transform().affine_inverse() * screen_position
 
 
@@ -198,10 +181,6 @@ func _build_visuals() -> void:
 	outline.antialiased = true
 	add_child(outline)
 
-	# Use a cheap bounding polygon for PhysicsServer broadphase. Runtime selection
-	# is still exact because RuntimePuzzleBoard.can_begin_piece_drag() checks the
-	# full visible polygon before allowing a drag. This avoids feeding thousands of
-	# sampled ribbon vertices into CollisionPolygon2D for every 150/286-piece load.
 	var collision := CollisionPolygon2D.new()
 	collision.name = "HitArea"
 	collision.polygon = _pick_bounds_polygon()
