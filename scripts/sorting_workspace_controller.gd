@@ -5,6 +5,7 @@ const SortingWorkspaceStateScript = preload("res://scripts/sorting_workspace_sta
 const STASH_ORIGIN := Vector2(-1000000.0, -1000000.0)
 const PANEL_WIDTH := 330.0
 const PANEL_HEIGHT := 360.0
+const REFLOW_SETTLE_SECONDS := 0.09
 
 var board = null
 var state = SortingWorkspaceStateScript.new()
@@ -22,6 +23,7 @@ var tray_title_label: Label
 var tray_list: ItemList
 var return_to_loose_button: Button
 var note_label: Label
+var reflow_settle_timer: Timer
 
 
 func _ready() -> void:
@@ -31,9 +33,18 @@ func _ready() -> void:
 		return
 
 	_build_ui()
+	_build_reflow_settle_timer()
 	board.progress_changed.connect(_on_progress_changed)
 	get_window().size_changed.connect(_schedule_layout_refresh)
 	call_deferred("_apply_after_parent_ready")
+
+
+func _build_reflow_settle_timer() -> void:
+	reflow_settle_timer = Timer.new()
+	reflow_settle_timer.one_shot = true
+	reflow_settle_timer.wait_time = REFLOW_SETTLE_SECONDS
+	reflow_settle_timer.timeout.connect(_after_window_reflow)
+	add_child(reflow_settle_timer)
 
 
 func _build_ui() -> void:
@@ -302,7 +313,8 @@ func _on_tray_item_selected(_index: int) -> void:
 
 
 func _schedule_layout_refresh() -> void:
-	call_deferred("_after_window_reflow")
+	if reflow_settle_timer != null:
+		reflow_settle_timer.start()
 
 
 func _after_window_reflow() -> void:
