@@ -163,7 +163,7 @@ func _build_ui() -> void:
 func _build_tray_detail_window() -> void:
 	detail_panel = PanelContainer.new()
 	detail_panel.visible = false
-	detail_panel.custom_minimum_size = Vector2(DETAIL_WIDTH, DETAIL_HEIGHT)
+	detail_panel.custom_minimum_size = Vector2(300.0, 280.0)
 	detail_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	ui_layer.add_child(detail_panel)
 
@@ -234,7 +234,7 @@ func _build_tray_detail_window() -> void:
 
 	detail_scroll = ScrollContainer.new()
 	detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	detail_scroll.custom_minimum_size = Vector2(0.0, 260.0)
+	detail_scroll.custom_minimum_size = Vector2(0.0, 180.0)
 	detail_box.add_child(detail_scroll)
 
 	detail_grid = GridContainer.new()
