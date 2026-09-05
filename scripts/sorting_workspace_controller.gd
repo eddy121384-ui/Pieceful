@@ -127,7 +127,7 @@ func _apply_after_parent_ready() -> void:
 
 
 func _on_progress_changed(_solved_count: int, _total_count: int) -> void:
-	var generation_changed := _ensure_piece_bindings()
+	var generation_changed: bool = _ensure_piece_bindings()
 	if not generation_changed:
 		_sync_solved_locations()
 	_refresh_ui()
@@ -251,20 +251,21 @@ func _restash_tray_pieces() -> void:
 func _safe_return_position(piece_index: int, piece) -> Vector2:
 	var candidate: Vector2 = return_positions.get(piece_index, board.navigation_rect.position + Vector2(24.0, 100.0))
 	var nav: Rect2 = board.navigation_rect
-	var max_position := nav.end - piece.piece_size - Vector2(12.0, 12.0)
+	var max_position: Vector2 = nav.end - Vector2(piece.piece_size) - Vector2(12.0, 12.0)
 	candidate.x = clampf(candidate.x, nav.position.x + 12.0, maxf(nav.position.x + 12.0, max_position.x))
 	candidate.y = clampf(candidate.y, nav.position.y + 82.0, maxf(nav.position.y + 82.0, max_position.y))
 
-	if not Rect2(candidate, piece.piece_size).intersects(board.board_rect.grow(12.0)):
+	if not Rect2(candidate, Vector2(piece.piece_size)).intersects(board.board_rect.grow(12.0)):
 		return candidate
 
-	var step := Vector2(maxf(piece.piece_size.x * 0.9, 42.0), maxf(piece.piece_size.y * 0.9, 42.0))
-	var y := nav.position.y + 92.0
+	var piece_size: Vector2 = Vector2(piece.piece_size)
+	var step: Vector2 = Vector2(maxf(piece_size.x * 0.9, 42.0), maxf(piece_size.y * 0.9, 42.0))
+	var y: float = nav.position.y + 92.0
 	while y <= max_position.y + 0.001:
-		var x := nav.position.x + 18.0
+		var x: float = nav.position.x + 18.0
 		while x <= max_position.x + 0.001:
-			var test_position := Vector2(x, y)
-			if not Rect2(test_position, piece.piece_size).intersects(board.board_rect.grow(12.0)):
+			var test_position: Vector2 = Vector2(x, y)
+			if not Rect2(test_position, piece_size).intersects(board.board_rect.grow(12.0)):
 				return test_position
 			x += step.x
 		y += step.y
@@ -277,10 +278,10 @@ func _refresh_ui() -> void:
 		return
 
 	_sync_solved_locations()
-	var tray_id := state.default_tray_id()
-	var tray_pieces := state.tray_piece_indexes(tray_id)
-	var loose_count := state.count_in_location(SortingWorkspaceStateScript.LOCATION_LOOSE)
-	var board_count := state.count_in_location(SortingWorkspaceStateScript.LOCATION_BOARD)
+	var tray_id: String = state.default_tray_id()
+	var tray_pieces: Array = state.tray_piece_indexes(tray_id)
+	var loose_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_LOOSE)
+	var board_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_BOARD)
 
 	sort_button.text = "Sort · %d" % tray_pieces.size()
 	summary_label.text = "Loose %d · Tray %d · Board %d" % [loose_count, tray_pieces.size(), board_count]
@@ -292,7 +293,7 @@ func _refresh_ui() -> void:
 	else:
 		var cluster_id := int(board.cluster_for_piece.get(selected_piece_index, selected_piece_index))
 		var members = board.cluster_members.get(cluster_id, [])
-		var cluster_size := members.size() if members is Array else 1
+		var cluster_size: int = members.size() if members is Array else 1
 		selected_label.text = "Selected: Piece %03d · %s" % [
 			selected_piece_index + 1,
 			"single loose piece" if cluster_size == 1 else "joined cluster (%d pieces)" % cluster_size,
@@ -302,7 +303,8 @@ func _refresh_ui() -> void:
 	tray_list.clear()
 	for value in tray_pieces:
 		var piece_index := int(value)
-		var item_index := tray_list.add_item("Piece %03d" % (piece_index + 1))
+		tray_list.add_item("Piece %03d" % (piece_index + 1))
+		var item_index: int = tray_list.get_item_count() - 1
 		tray_list.set_item_metadata(item_index, piece_index)
 
 	return_to_loose_button.disabled = tray_pieces.is_empty() or tray_list.get_selected_items().is_empty()
