@@ -36,12 +36,12 @@ This models a real sorting tray that the player can place wherever it is conveni
 The primary storage flow is:
 
 1. Open the desired tray.
-2. Place the floating tray where convenient.
+2. Place the floating tray where convenient using the tray drag handle.
 3. Drag a loose piece or joined cluster directly from the puzzle table into the tray window.
 4. Release the mouse / finger inside the tray window.
 5. Runtime intercepts that release before normal neighbor merge or board snap, stores the whole sorting item, and refreshes the visual tray contents.
 
-There is no required `select piece → press Move selected here` step in the player flow.
+There is no required `select piece → press Move selected here` step in the player flow. Tray-window dragging and puzzle-item dragging use separate gesture targets so moving the tray itself does not move a puzzle item underneath it.
 
 ## Visual tray contents
 
