@@ -2,9 +2,12 @@ class_name SortingWorkspaceController
 extends Node
 
 const SortingWorkspaceStateScript = preload("res://scripts/sorting_workspace_state.gd")
+const TrayItemPreviewScript = preload("res://scripts/tray_item_preview.gd")
 const STASH_ORIGIN := Vector2(-1000000.0, -1000000.0)
-const PANEL_WIDTH := 330.0
-const PANEL_HEIGHT := 360.0
+const PANEL_WIDTH := 360.0
+const PANEL_HEIGHT := 440.0
+const DETAIL_WIDTH := 590.0
+const DETAIL_HEIGHT := 500.0
 const REFLOW_SETTLE_SECONDS := 0.09
 
 var board = null
@@ -12,17 +15,27 @@ var state = SortingWorkspaceStateScript.new()
 var bound_piece_instance_ids: Array = []
 var return_positions: Dictionary = {}
 var selected_piece_index := -1
+var active_tray_id := ""
 
 var ui_layer: CanvasLayer
 var sort_button: Button
 var panel: PanelContainer
 var summary_label: Label
 var selected_label: Label
-var move_to_tray_button: Button
-var tray_title_label: Label
-var tray_list: ItemList
-var return_to_loose_button: Button
+var new_tray_name: LineEdit
+var add_tray_button: Button
+var tray_scroll: ScrollContainer
+var tray_list_box: VBoxContainer
 var note_label: Label
+var detail_backdrop: ColorRect
+var detail_panel: PanelContainer
+var detail_title: Label
+var detail_name_edit: LineEdit
+var rename_button: Button
+var move_selected_button: Button
+var detail_scroll: ScrollContainer
+var detail_grid: GridContainer
+var close_detail_button: Button
 var reflow_settle_timer: Timer
 
 
@@ -54,10 +67,10 @@ func _build_ui() -> void:
 	add_child(ui_layer)
 
 	sort_button = Button.new()
-	sort_button.text = "Sort · 0"
+	sort_button.text = "Sort · 0 trays"
 	sort_button.toggle_mode = true
-	sort_button.size = Vector2(116.0, 44.0)
-	sort_button.tooltip_text = "Open the Sorting Workspace prototype"
+	sort_button.size = Vector2(136.0, 44.0)
+	sort_button.tooltip_text = "Open Sorting Workspace"
 	sort_button.toggled.connect(_on_sort_toggled)
 	ui_layer.add_child(sort_button)
 
@@ -68,12 +81,12 @@ func _build_ui() -> void:
 	ui_layer.add_child(panel)
 
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 8)
+	box.add_theme_constant_override("separation", 9)
 	panel.add_child(box)
 
 	var title := Label.new()
-	title.text = "Sorting Workspace · foundation"
-	title.add_theme_font_size_override("font_size", 19)
+	title.text = "Sorting Workspace"
+	title.add_theme_font_size_override("font_size", 20)
 	box.add_child(title)
 
 	summary_label = Label.new()
@@ -82,45 +95,123 @@ func _build_ui() -> void:
 
 	selected_label = Label.new()
 	selected_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	selected_label.custom_minimum_size = Vector2(0.0, 44.0)
+	selected_label.custom_minimum_size = Vector2(0.0, 42.0)
 	box.add_child(selected_label)
 
-	move_to_tray_button = Button.new()
-	move_to_tray_button.text = "Move selected → Tray 1"
-	move_to_tray_button.pressed.connect(_move_selected_to_tray)
-	box.add_child(move_to_tray_button)
+	var create_row := HBoxContainer.new()
+	create_row.add_theme_constant_override("separation", 8)
+	box.add_child(create_row)
 
-	var separator := HSeparator.new()
-	box.add_child(separator)
+	new_tray_name = LineEdit.new()
+	new_tray_name.placeholder_text = "New tray name…"
+	new_tray_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	new_tray_name.text_submitted.connect(_on_new_tray_submitted)
+	create_row.add_child(new_tray_name)
 
-	tray_title_label = Label.new()
-	tray_title_label.text = "Tray 1"
-	tray_title_label.add_theme_font_size_override("font_size", 16)
-	box.add_child(tray_title_label)
+	add_tray_button = Button.new()
+	add_tray_button.text = "+ Tray"
+	add_tray_button.custom_minimum_size = Vector2(86.0, 40.0)
+	add_tray_button.pressed.connect(_create_tray_from_field)
+	create_row.add_child(add_tray_button)
 
-	tray_list = ItemList.new()
-	tray_list.custom_minimum_size = Vector2(0.0, 142.0)
-	tray_list.select_mode = ItemList.SELECT_SINGLE
-	tray_list.item_selected.connect(_on_tray_item_selected)
-	box.add_child(tray_list)
+	var tray_caption := Label.new()
+	tray_caption.text = "Your trays"
+	tray_caption.modulate = Color(1.0, 1.0, 1.0, 0.62)
+	box.add_child(tray_caption)
 
-	return_to_loose_button = Button.new()
-	return_to_loose_button.text = "Return tray piece → Loose"
-	return_to_loose_button.pressed.connect(_return_selected_tray_piece)
-	box.add_child(return_to_loose_button)
+	tray_scroll = ScrollContainer.new()
+	tray_scroll.custom_minimum_size = Vector2(0.0, 220.0)
+	tray_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	box.add_child(tray_scroll)
+
+	tray_list_box = VBoxContainer.new()
+	tray_list_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tray_list_box.add_theme_constant_override("separation", 7)
+	tray_scroll.add_child(tray_list_box)
 
 	note_label = Label.new()
-	note_label.text = "Foundation: single loose pieces only. Joined clusters stay on the table."
+	note_label.text = "Select a loose piece or cluster on the table, then open the tray you want to use."
 	note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
 	note_label.add_theme_font_size_override("font_size", 12)
 	box.add_child(note_label)
 
+	_build_tray_detail_window()
+
+
+func _build_tray_detail_window() -> void:
+	detail_backdrop = ColorRect.new()
+	detail_backdrop.color = Color(0.0, 0.0, 0.0, 0.58)
+	detail_backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
+	detail_backdrop.visible = false
+	ui_layer.add_child(detail_backdrop)
+
+	detail_panel = PanelContainer.new()
+	detail_panel.visible = false
+	detail_panel.custom_minimum_size = Vector2(DETAIL_WIDTH, DETAIL_HEIGHT)
+	ui_layer.add_child(detail_panel)
+
+	var detail_box := VBoxContainer.new()
+	detail_box.add_theme_constant_override("separation", 9)
+	detail_panel.add_child(detail_box)
+
+	var header := HBoxContainer.new()
+	header.add_theme_constant_override("separation", 8)
+	detail_box.add_child(header)
+
+	detail_title = Label.new()
+	detail_title.text = "Tray"
+	detail_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_title.add_theme_font_size_override("font_size", 22)
+	header.add_child(detail_title)
+
+	close_detail_button = Button.new()
+	close_detail_button.text = "Close"
+	close_detail_button.pressed.connect(_close_tray_detail)
+	header.add_child(close_detail_button)
+
+	var rename_row := HBoxContainer.new()
+	rename_row.add_theme_constant_override("separation", 8)
+	detail_box.add_child(rename_row)
+
+	detail_name_edit = LineEdit.new()
+	detail_name_edit.placeholder_text = "Tray name"
+	detail_name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_name_edit.text_submitted.connect(_on_rename_submitted)
+	rename_row.add_child(detail_name_edit)
+
+	rename_button = Button.new()
+	rename_button.text = "Rename"
+	rename_button.pressed.connect(_rename_active_tray)
+	rename_row.add_child(rename_button)
+
+	move_selected_button = Button.new()
+	move_selected_button.text = "Move selected here"
+	move_selected_button.pressed.connect(_move_selected_to_active_tray)
+	detail_box.add_child(move_selected_button)
+
+	var content_caption := Label.new()
+	content_caption.text = "Contents"
+	content_caption.modulate = Color(1.0, 1.0, 1.0, 0.62)
+	detail_box.add_child(content_caption)
+
+	detail_scroll = ScrollContainer.new()
+	detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	detail_scroll.custom_minimum_size = Vector2(0.0, 300.0)
+	detail_box.add_child(detail_scroll)
+
+	detail_grid = GridContainer.new()
+	detail_grid.columns = 3
+	detail_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_grid.add_theme_constant_override("h_separation", 10)
+	detail_grid.add_theme_constant_override("v_separation", 10)
+	detail_scroll.add_child(detail_grid)
+
 
 func _apply_after_parent_ready() -> void:
 	var subtitle = get_parent().get("subtitle_label")
 	if subtitle is Label:
-		subtitle.text = "V0-03 · Sorting Workspace foundation"
+		subtitle.text = "V0-03 · Sorting Workspace"
 	_ensure_piece_bindings()
 	_refresh_ui()
 	_layout_ui()
@@ -149,6 +240,8 @@ func _ensure_piece_bindings() -> bool:
 	state.reset(board.pieces.size())
 	return_positions.clear()
 	selected_piece_index = -1
+	active_tray_id = ""
+	_close_tray_detail()
 
 	for piece in board.pieces:
 		if is_instance_valid(piece) and not piece.picked.is_connected(_on_piece_picked):
@@ -176,60 +269,204 @@ func _on_piece_picked(piece) -> void:
 
 func _on_sort_toggled(enabled: bool) -> void:
 	panel.visible = enabled
+	if not enabled:
+		_close_tray_detail()
 	_refresh_ui()
 	_layout_ui()
 
 
-func _move_selected_to_tray() -> void:
-	if not _can_move_piece_to_tray(selected_piece_index):
+func _on_new_tray_submitted(_submitted_text: String) -> void:
+	_create_tray_from_field()
+
+
+func _create_tray_from_field() -> void:
+	var tray_id: String = state.create_tray(new_tray_name.text)
+	new_tray_name.clear()
+	_refresh_ui()
+	_open_tray(tray_id)
+
+
+func _open_tray(tray_id: String) -> void:
+	if not state.tray_ids().has(tray_id):
+		return
+	active_tray_id = tray_id
+	detail_backdrop.visible = true
+	detail_panel.visible = true
+	detail_name_edit.text = state.tray_name(tray_id)
+	_refresh_tray_detail()
+	_layout_ui()
+
+
+func _close_tray_detail() -> void:
+	if detail_backdrop != null:
+		detail_backdrop.visible = false
+	if detail_panel != null:
+		detail_panel.visible = false
+	active_tray_id = ""
+
+
+func _on_rename_submitted(_submitted_text: String) -> void:
+	_rename_active_tray()
+
+
+func _rename_active_tray() -> void:
+	if active_tray_id.is_empty():
+		return
+	if state.rename_tray(active_tray_id, detail_name_edit.text):
+		detail_name_edit.text = state.tray_name(active_tray_id)
 		_refresh_ui()
+		_refresh_tray_detail()
+
+
+func _move_selected_to_active_tray() -> void:
+	if active_tray_id.is_empty():
+		return
+	var members: Array = _selected_group_members()
+	if members.is_empty():
+		_refresh_tray_detail()
 		return
 
-	var piece = board.pieces[selected_piece_index]
-	return_positions[selected_piece_index] = piece.position
-	if not state.assign_piece_to_tray(selected_piece_index, state.default_tray_id()):
+	for value in members:
+		var piece_index := int(value)
+		var piece = board.pieces[piece_index]
+		return_positions[piece_index] = Vector2(piece.position)
+
+	if not state.assign_pieces_to_tray(members, active_tray_id):
 		return
 
-	_stash_piece(selected_piece_index)
+	for value in members:
+		_stash_piece(int(value))
+
 	selected_piece_index = -1
 	_refresh_ui()
+	_refresh_tray_detail()
 
 
-func _return_selected_tray_piece() -> void:
-	var selected_items := tray_list.get_selected_items()
-	if selected_items.is_empty():
+func _selected_group_members() -> Array:
+	if selected_piece_index < 0 or selected_piece_index >= board.pieces.size():
+		return []
+
+	var anchor = board.pieces[selected_piece_index]
+	if not is_instance_valid(anchor) or anchor.solved or not anchor.visible:
+		return []
+
+	var cluster_id := int(board.cluster_for_piece.get(selected_piece_index, selected_piece_index))
+	var raw_members = board.cluster_members.get(cluster_id, [selected_piece_index])
+	if not (raw_members is Array):
+		return []
+
+	var members: Array = []
+	for value in raw_members:
+		var piece_index := int(value)
+		if piece_index < 0 or piece_index >= board.pieces.size():
+			return []
+		var piece = board.pieces[piece_index]
+		if (
+			not is_instance_valid(piece)
+			or piece.solved
+			or not piece.visible
+			or state.location_for(piece_index) != SortingWorkspaceStateScript.LOCATION_LOOSE
+		):
+			return []
+		members.append(piece_index)
+	return members
+
+
+func _return_group_to_loose(member_indexes: Array) -> void:
+	if member_indexes.is_empty():
 		return
 
-	var list_index := int(selected_items[0])
-	var piece_index := int(tray_list.get_item_metadata(list_index))
-	if piece_index < 0 or piece_index >= board.pieces.size():
-		return
-
-	var piece = board.pieces[piece_index]
-	state.move_piece_to_loose(piece_index)
-	piece.position = _safe_return_position(piece_index, piece)
-	piece.visible = true
-	piece.input_pickable = true
+	var translation: Vector2 = _safe_group_return_translation(member_indexes)
 	board.z_counter += 1
-	piece.z_index = board.z_counter
-	selected_piece_index = piece_index
-	return_positions.erase(piece_index)
+	var group_z: int = board.z_counter
+
+	for value in member_indexes:
+		var piece_index := int(value)
+		if piece_index < 0 or piece_index >= board.pieces.size():
+			continue
+		var piece = board.pieces[piece_index]
+		var saved_position: Vector2 = Vector2(
+			return_positions.get(
+				piece_index,
+				board.navigation_rect.position + Vector2(24.0, 100.0)
+			)
+		)
+		state.move_piece_to_loose(piece_index)
+		piece.position = saved_position + translation
+		piece.visible = true
+		piece.input_pickable = true
+		piece.z_index = group_z
+		return_positions.erase(piece_index)
+
+	selected_piece_index = int(member_indexes[0])
 	_refresh_ui()
+	_refresh_tray_detail()
 
 
-func _can_move_piece_to_tray(piece_index: int) -> bool:
-	if piece_index < 0 or piece_index >= board.pieces.size():
-		return false
-	if state.location_for(piece_index) != SortingWorkspaceStateScript.LOCATION_LOOSE:
-		return false
+func _safe_group_return_translation(member_indexes: Array) -> Vector2:
+	var bounds := Rect2()
+	var has_bounds := false
+	for value in member_indexes:
+		var piece_index := int(value)
+		if piece_index < 0 or piece_index >= board.pieces.size():
+			continue
+		var piece = board.pieces[piece_index]
+		var saved_position: Vector2 = Vector2(
+			return_positions.get(
+				piece_index,
+				board.navigation_rect.position + Vector2(24.0, 100.0)
+			)
+		)
+		var piece_rect := Rect2(saved_position, Vector2(piece.piece_size))
+		if not has_bounds:
+			bounds = piece_rect
+			has_bounds = true
+		else:
+			bounds = bounds.merge(piece_rect)
 
-	var piece = board.pieces[piece_index]
-	if not is_instance_valid(piece) or piece.solved or not piece.visible:
-		return false
+	if not has_bounds:
+		return Vector2.ZERO
 
-	var cluster_id := int(board.cluster_for_piece.get(piece_index, piece_index))
-	var members = board.cluster_members.get(cluster_id, [])
-	return members is Array and members.size() == 1
+	var nav: Rect2 = board.navigation_rect
+	var workspace := Rect2(
+		nav.position + Vector2(18.0, 86.0),
+		Vector2(
+			maxf(1.0, nav.size.x - 36.0),
+			maxf(1.0, nav.size.y - 154.0)
+		)
+	)
+	var max_x := maxf(workspace.position.x, workspace.end.x - bounds.size.x)
+	var max_y := maxf(workspace.position.y, workspace.end.y - bounds.size.y)
+	var target_position := Vector2(
+		clampf(bounds.position.x, workspace.position.x, max_x),
+		clampf(bounds.position.y, workspace.position.y, max_y)
+	)
+	var candidate_rect := Rect2(target_position, bounds.size)
+	var exclusion: Rect2 = board.board_rect.grow(12.0)
+	if not candidate_rect.intersects(exclusion):
+		return target_position - bounds.position
+
+	var candidates: Array[Vector2] = [
+		Vector2(exclusion.position.x - 18.0 - bounds.size.x, target_position.y),
+		Vector2(exclusion.end.x + 18.0, target_position.y),
+		Vector2(target_position.x, exclusion.position.y - 18.0 - bounds.size.y),
+		Vector2(target_position.x, exclusion.end.y + 18.0),
+	]
+	for candidate in candidates:
+		var test_rect := Rect2(candidate, bounds.size)
+		if _rect_inside(test_rect, workspace) and not test_rect.intersects(exclusion):
+			return candidate - bounds.position
+
+	return target_position - bounds.position
+
+
+func _rect_inside(rect: Rect2, outer: Rect2) -> bool:
+	return (
+		rect.position.x >= outer.position.x
+		and rect.position.y >= outer.position.y
+		and rect.end.x <= outer.end.x
+		and rect.end.y <= outer.end.y
+	)
 
 
 func _stash_piece(piece_index: int) -> void:
@@ -244,33 +481,9 @@ func _stash_piece(piece_index: int) -> void:
 
 
 func _restash_tray_pieces() -> void:
-	for piece_index in state.tray_piece_indexes(state.default_tray_id()):
-		_stash_piece(int(piece_index))
-
-
-func _safe_return_position(piece_index: int, piece) -> Vector2:
-	var candidate: Vector2 = return_positions.get(piece_index, board.navigation_rect.position + Vector2(24.0, 100.0))
-	var nav: Rect2 = board.navigation_rect
-	var max_position: Vector2 = nav.end - Vector2(piece.piece_size) - Vector2(12.0, 12.0)
-	candidate.x = clampf(candidate.x, nav.position.x + 12.0, maxf(nav.position.x + 12.0, max_position.x))
-	candidate.y = clampf(candidate.y, nav.position.y + 82.0, maxf(nav.position.y + 82.0, max_position.y))
-
-	if not Rect2(candidate, Vector2(piece.piece_size)).intersects(board.board_rect.grow(12.0)):
-		return candidate
-
-	var piece_size: Vector2 = Vector2(piece.piece_size)
-	var step: Vector2 = Vector2(maxf(piece_size.x * 0.9, 42.0), maxf(piece_size.y * 0.9, 42.0))
-	var y: float = nav.position.y + 92.0
-	while y <= max_position.y + 0.001:
-		var x: float = nav.position.x + 18.0
-		while x <= max_position.x + 0.001:
-			var test_position: Vector2 = Vector2(x, y)
-			if not Rect2(test_position, piece_size).intersects(board.board_rect.grow(12.0)):
-				return test_position
-			x += step.x
-		y += step.y
-
-	return nav.position + Vector2(18.0, 92.0)
+	for tray_id in state.tray_ids():
+		for piece_index in state.tray_piece_indexes(tray_id):
+			_stash_piece(int(piece_index))
 
 
 func _refresh_ui() -> void:
@@ -278,40 +491,132 @@ func _refresh_ui() -> void:
 		return
 
 	_sync_solved_locations()
-	var tray_id: String = state.default_tray_id()
-	var tray_pieces: Array = state.tray_piece_indexes(tray_id)
+	var tray_ids: Array[String] = state.tray_ids()
 	var loose_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_LOOSE)
+	var tray_piece_count: int = state.total_tray_piece_count()
 	var board_count: int = state.count_in_location(SortingWorkspaceStateScript.LOCATION_BOARD)
 
-	sort_button.text = "Sort · %d" % tray_pieces.size()
-	summary_label.text = "Loose %d · Tray %d · Board %d" % [loose_count, tray_pieces.size(), board_count]
-	tray_title_label.text = "%s · %d" % [state.tray_name(tray_id), tray_pieces.size()]
+	sort_button.text = "Sort · %d tray%s" % [tray_ids.size(), "" if tray_ids.size() == 1 else "s"]
+	summary_label.text = "Loose %d · Trays %d · Board %d" % [loose_count, tray_piece_count, board_count]
 
-	if selected_piece_index < 0 or selected_piece_index >= board.pieces.size():
-		selected_label.text = "Selected: none — touch or drag a loose piece first."
-		move_to_tray_button.disabled = true
+	var selected_members: Array = _selected_group_members()
+	if selected_members.is_empty():
+		selected_label.text = "Selected: none — touch or drag a loose piece / cluster first."
 	else:
-		var cluster_id := int(board.cluster_for_piece.get(selected_piece_index, selected_piece_index))
-		var members = board.cluster_members.get(cluster_id, [])
-		var cluster_size: int = members.size() if members is Array else 1
-		selected_label.text = "Selected: Piece %03d · %s" % [
-			selected_piece_index + 1,
-			"single loose piece" if cluster_size == 1 else "joined cluster (%d pieces)" % cluster_size,
-		]
-		move_to_tray_button.disabled = not _can_move_piece_to_tray(selected_piece_index)
+		selected_label.text = (
+			"Selected: single piece"
+			if selected_members.size() == 1
+			else "Selected: %d-piece cluster" % selected_members.size()
+		)
 
-	tray_list.clear()
-	for value in tray_pieces:
+	_clear_container(tray_list_box)
+	if tray_ids.is_empty():
+		var empty_label := Label.new()
+		empty_label.text = "No trays yet. Name one above and create it."
+		empty_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		empty_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
+		tray_list_box.add_child(empty_label)
+	else:
+		for tray_id in tray_ids:
+			var tray_button := Button.new()
+			var count: int = state.tray_piece_count(tray_id)
+			tray_button.text = "%s    ·    %d piece%s" % [
+				state.tray_name(tray_id),
+				count,
+				"" if count == 1 else "s",
+			]
+			tray_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			tray_button.custom_minimum_size = Vector2(0.0, 46.0)
+			tray_button.pressed.connect(_open_tray.bind(tray_id))
+			tray_list_box.add_child(tray_button)
+
+	if not active_tray_id.is_empty() and tray_ids.has(active_tray_id):
+		_refresh_tray_detail()
+
+
+func _refresh_tray_detail() -> void:
+	if active_tray_id.is_empty() or not state.tray_ids().has(active_tray_id):
+		return
+
+	var piece_count: int = state.tray_piece_count(active_tray_id)
+	detail_title.text = "%s · %d piece%s" % [
+		state.tray_name(active_tray_id),
+		piece_count,
+		"" if piece_count == 1 else "s",
+	]
+	move_selected_button.disabled = _selected_group_members().is_empty()
+
+	_clear_container(detail_grid)
+	var groups: Array = _tray_groups(active_tray_id)
+	if groups.is_empty():
+		var empty_label := Label.new()
+		empty_label.text = "This tray is empty."
+		empty_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
+		detail_grid.add_child(empty_label)
+		return
+
+	for group_value in groups:
+		var members: Array = group_value
+		var piece_nodes: Array = []
+		for value in members:
+			var piece_index := int(value)
+			if piece_index >= 0 and piece_index < board.pieces.size():
+				piece_nodes.append(board.pieces[piece_index])
+
+		var card := PanelContainer.new()
+		card.custom_minimum_size = Vector2(150.0, 142.0)
+		detail_grid.add_child(card)
+
+		var card_box := VBoxContainer.new()
+		card_box.alignment = BoxContainer.ALIGNMENT_CENTER
+		card_box.add_theme_constant_override("separation", 4)
+		card.add_child(card_box)
+
+		var preview = TrayItemPreviewScript.new()
+		card_box.add_child(preview)
+		preview.configure(piece_nodes)
+
+		var kind_label := Label.new()
+		kind_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		kind_label.text = (
+			"Single piece"
+			if members.size() == 1
+			else "%d-piece cluster" % members.size()
+		)
+		kind_label.modulate = Color(1.0, 1.0, 1.0, 0.7)
+		card_box.add_child(kind_label)
+
+		var return_button := Button.new()
+		return_button.text = "Return to Loose"
+		return_button.pressed.connect(_return_group_to_loose.bind(members.duplicate()))
+		card_box.add_child(return_button)
+
+
+func _tray_groups(tray_id: String) -> Array:
+	var grouped: Dictionary = {}
+	var group_order: Array[int] = []
+	for value in state.tray_piece_indexes(tray_id):
 		var piece_index := int(value)
-		tray_list.add_item("Piece %03d" % (piece_index + 1))
-		var item_index: int = tray_list.get_item_count() - 1
-		tray_list.set_item_metadata(item_index, piece_index)
+		var cluster_id := int(board.cluster_for_piece.get(piece_index, piece_index))
+		if not grouped.has(cluster_id):
+			grouped[cluster_id] = []
+			group_order.append(cluster_id)
+		var members: Array = grouped[cluster_id]
+		members.append(piece_index)
+		grouped[cluster_id] = members
 
-	return_to_loose_button.disabled = tray_pieces.is_empty() or tray_list.get_selected_items().is_empty()
+	var result: Array = []
+	for cluster_id in group_order:
+		result.append(grouped[cluster_id])
+	return result
 
 
-func _on_tray_item_selected(_index: int) -> void:
-	return_to_loose_button.disabled = tray_list.get_selected_items().is_empty()
+func _clear_container(container: Node) -> void:
+	if container == null:
+		return
+	for child in container.get_children():
+		container.remove_child(child)
+		child.queue_free()
 
 
 func _schedule_layout_refresh() -> void:
@@ -341,11 +646,24 @@ func _layout_ui() -> void:
 
 	if portrait:
 		var panel_width := minf(PANEL_WIDTH, width - margin * 2.0)
-		panel.size = Vector2(panel_width, PANEL_HEIGHT)
+		var panel_height := minf(PANEL_HEIGHT, height - 210.0)
+		panel.size = Vector2(panel_width, panel_height)
 		panel.position = Vector2(
 			(width - panel_width) * 0.5,
-			maxf(150.0, height - PANEL_HEIGHT - 118.0)
+			maxf(150.0, height - panel_height - 96.0)
 		)
 	else:
 		panel.size = Vector2(PANEL_WIDTH, minf(PANEL_HEIGHT, height - 180.0))
 		panel.position = Vector2(margin, 148.0)
+
+	detail_backdrop.position = Vector2.ZERO
+	detail_backdrop.size = viewport_size
+
+	var detail_width := minf(DETAIL_WIDTH, width - margin * 2.0)
+	var detail_height := minf(DETAIL_HEIGHT, height - margin * 2.0)
+	detail_panel.size = Vector2(detail_width, detail_height)
+	detail_panel.position = Vector2(
+		(width - detail_width) * 0.5,
+		(height - detail_height) * 0.5
+	)
+	detail_grid.columns = 3 if detail_width >= 520.0 else 2
