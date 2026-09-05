@@ -14,7 +14,9 @@ func configure(board) -> void:
 		return
 
 	position = board.board_rect.position
-	z_index = -1
+	# Keep pressed-board cut traces above the optional faint image mat, while all
+	# real pieces remain comfortably above both layers.
+	z_index = 0
 	var pattern = board.definition.cut_pattern
 	var board_size: Vector2 = board.board_rect.size
 	var rows: int = board.definition.rows
