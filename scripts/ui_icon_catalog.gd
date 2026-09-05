@@ -25,8 +25,8 @@ enum IconId {
 
 
 static func texture(icon_id: int) -> Texture2D:
-	var column := icon_id % 4
-	var row := icon_id / 4
+	var column: int = icon_id % 4
+	var row: int = int(icon_id / 4)
 	var atlas_texture := AtlasTexture.new()
 	atlas_texture.atlas = ATLAS
 	atlas_texture.region = Rect2(
@@ -47,6 +47,7 @@ static func apply_button(
 	button.icon = texture(icon_id)
 	button.expand_icon = true
 	button.icon_max_width = icon_width
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.size = button_size
 	button.custom_minimum_size = button_size
 	button.tooltip_text = tooltip
