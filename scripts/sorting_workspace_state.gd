@@ -8,6 +8,7 @@ const LOCATION_BOARD := "board"
 var tray_order: Array[String] = []
 var tray_names: Dictionary = {}
 var tray_members: Dictionary = {}
+var tray_piece_positions: Dictionary = {}
 var piece_locations: Dictionary = {}
 var tray_for_piece: Dictionary = {}
 var next_tray_number := 1
@@ -17,6 +18,7 @@ func reset(piece_count: int) -> void:
 	tray_order.clear()
 	tray_names.clear()
 	tray_members.clear()
+	tray_piece_positions.clear()
 	piece_locations.clear()
 	tray_for_piece.clear()
 	next_tray_number = 1
@@ -39,6 +41,7 @@ func create_tray(requested_name: String = "") -> String:
 	tray_order.append(tray_id)
 	tray_names[tray_id] = display_name
 	tray_members[tray_id] = []
+	tray_piece_positions[tray_id] = {}
 	return tray_id
 
 
@@ -77,6 +80,30 @@ func location_for(piece_index: int) -> String:
 
 func tray_id_for(piece_index: int) -> String:
 	return str(tray_for_piece.get(piece_index, ""))
+
+
+func has_tray_piece_position(tray_id: String, piece_index: int) -> bool:
+	if not tray_piece_positions.has(tray_id):
+		return false
+	var positions = tray_piece_positions[tray_id]
+	return positions is Dictionary and positions.has(piece_index)
+
+
+func tray_piece_position(tray_id: String, piece_index: int) -> Vector2:
+	if not tray_piece_positions.has(tray_id):
+		return Vector2.ZERO
+	var positions = tray_piece_positions[tray_id]
+	if positions is Dictionary:
+		return Vector2(positions.get(piece_index, Vector2.ZERO))
+	return Vector2.ZERO
+
+
+func set_tray_piece_position(tray_id: String, piece_index: int, position: Vector2) -> void:
+	if not tray_piece_positions.has(tray_id):
+		tray_piece_positions[tray_id] = {}
+	var positions: Dictionary = tray_piece_positions[tray_id]
+	positions[piece_index] = position
+	tray_piece_positions[tray_id] = positions
 
 
 func assign_pieces_to_tray(piece_indexes: Array, tray_id: String) -> bool:
@@ -128,3 +155,8 @@ func _remove_from_current_tray(piece_index: int) -> void:
 	var members: Array = tray_members[current_tray]
 	members.erase(piece_index)
 	tray_members[current_tray] = members
+
+	if tray_piece_positions.has(current_tray):
+		var positions: Dictionary = tray_piece_positions[current_tray]
+		positions.erase(piece_index)
+		tray_piece_positions[current_tray] = positions
