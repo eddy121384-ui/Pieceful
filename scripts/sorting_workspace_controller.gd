@@ -6,7 +6,7 @@ const TrayItemPreviewScript = preload("res://scripts/tray_item_preview.gd")
 const STASH_ORIGIN := Vector2(-1000000.0, -1000000.0)
 const PANEL_WIDTH := 360.0
 const PANEL_HEIGHT := 440.0
-const DETAIL_WIDTH := 590.0
+const DETAIL_WIDTH := 430.0
 const DETAIL_HEIGHT := 500.0
 const REFLOW_SETTLE_SECONDS := 0.09
 
@@ -14,25 +14,24 @@ var board = null
 var state = SortingWorkspaceStateScript.new()
 var bound_piece_instance_ids: Array = []
 var return_positions: Dictionary = {}
-var selected_piece_index := -1
+var drag_origin_positions: Dictionary = {}
 var active_tray_id := ""
 
 var ui_layer: CanvasLayer
 var sort_button: Button
 var panel: PanelContainer
 var summary_label: Label
-var selected_label: Label
 var new_tray_name: LineEdit
 var add_tray_button: Button
 var tray_scroll: ScrollContainer
 var tray_list_box: VBoxContainer
 var note_label: Label
-var detail_backdrop: ColorRect
+
 var detail_panel: PanelContainer
 var detail_title: Label
 var detail_name_edit: LineEdit
 var rename_button: Button
-var move_selected_button: Button
+var drop_hint_label: Label
 var detail_scroll: ScrollContainer
 var detail_grid: GridContainer
 var close_detail_button: Button
@@ -93,11 +92,6 @@ func _build_ui() -> void:
 	summary_label.modulate = Color(1.0, 1.0, 1.0, 0.72)
 	box.add_child(summary_label)
 
-	selected_label = Label.new()
-	selected_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	selected_label.custom_minimum_size = Vector2(0.0, 42.0)
-	box.add_child(selected_label)
-
 	var create_row := HBoxContainer.new()
 	create_row.add_theme_constant_override("separation", 8)
 	box.add_child(create_row)
@@ -120,7 +114,7 @@ func _build_ui() -> void:
 	box.add_child(tray_caption)
 
 	tray_scroll = ScrollContainer.new()
-	tray_scroll.custom_minimum_size = Vector2(0.0, 220.0)
+	tray_scroll.custom_minimum_size = Vector2(0.0, 240.0)
 	tray_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	box.add_child(tray_scroll)
 
@@ -130,9 +124,9 @@ func _build_ui() -> void:
 	tray_scroll.add_child(tray_list_box)
 
 	note_label = Label.new()
-	note_label.text = "Select a loose piece or cluster on the table, then open the tray you want to use."
+	note_label.text = "Open a tray, then drag a loose piece or cluster directly into it."
 	note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	note_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
+	note_label.modulate = Color(1.0, 1.0, 1.0, 0.58)
 	note_label.add_theme_font_size_override("font_size", 12)
 	box.add_child(note_label)
 
@@ -140,12 +134,8 @@ func _build_ui() -> void:
 
 
 func _build_tray_detail_window() -> void:
-	detail_backdrop = ColorRect.new()
-	detail_backdrop.color = Color(0.0, 0.0, 0.0, 0.58)
-	detail_backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
-	detail_backdrop.visible = false
-	ui_layer.add_child(detail_backdrop)
-
+	# The tray window is intentionally non-modal. The board must remain touchable
+	# while a tray is open so the player can physically drag pieces into it.
 	detail_panel = PanelContainer.new()
 	detail_panel.visible = false
 	detail_panel.custom_minimum_size = Vector2(DETAIL_WIDTH, DETAIL_HEIGHT)
@@ -166,7 +156,7 @@ func _build_tray_detail_window() -> void:
 	header.add_child(detail_title)
 
 	close_detail_button = Button.new()
-	close_detail_button.text = "Close"
+	close_detail_button.text = "Back"
 	close_detail_button.pressed.connect(_close_tray_detail)
 	header.add_child(close_detail_button)
 
@@ -185,23 +175,21 @@ func _build_tray_detail_window() -> void:
 	rename_button.pressed.connect(_rename_active_tray)
 	rename_row.add_child(rename_button)
 
-	move_selected_button = Button.new()
-	move_selected_button.text = "Move selected here"
-	move_selected_button.pressed.connect(_move_selected_to_active_tray)
-	detail_box.add_child(move_selected_button)
-
-	var content_caption := Label.new()
-	content_caption.text = "Contents"
-	content_caption.modulate = Color(1.0, 1.0, 1.0, 0.62)
-	detail_box.add_child(content_caption)
+	drop_hint_label = Label.new()
+	drop_hint_label.text = "↓ Drag pieces or a joined cluster into this tray"
+	drop_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	drop_hint_label.custom_minimum_size = Vector2(0.0, 38.0)
+	drop_hint_label.modulate = Color(1.0, 1.0, 1.0, 0.78)
+	drop_hint_label.add_theme_font_size_override("font_size", 14)
+	detail_box.add_child(drop_hint_label)
 
 	detail_scroll = ScrollContainer.new()
 	detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	detail_scroll.custom_minimum_size = Vector2(0.0, 300.0)
+	detail_scroll.custom_minimum_size = Vector2(0.0, 260.0)
 	detail_box.add_child(detail_scroll)
 
 	detail_grid = GridContainer.new()
-	detail_grid.columns = 3
+	detail_grid.columns = 2
 	detail_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	detail_grid.add_theme_constant_override("h_separation", 10)
 	detail_grid.add_theme_constant_override("v_separation", 10)
@@ -239,7 +227,7 @@ func _ensure_piece_bindings() -> bool:
 	bound_piece_instance_ids = current_ids
 	state.reset(board.pieces.size())
 	return_positions.clear()
-	selected_piece_index = -1
+	drag_origin_positions.clear()
 	active_tray_id = ""
 	_close_tray_detail()
 
@@ -256,21 +244,22 @@ func _sync_solved_locations() -> void:
 			continue
 		if piece.solved:
 			state.mark_piece_on_board(piece.piece_index)
-			if selected_piece_index == piece.piece_index:
-				selected_piece_index = -1
 
 
 func _on_piece_picked(piece) -> void:
+	drag_origin_positions.clear()
 	if piece == null or piece.solved or not piece.visible:
 		return
-	selected_piece_index = int(piece.piece_index)
-	_refresh_ui()
+	for value in _group_members_for_piece(int(piece.piece_index)):
+		var piece_index := int(value)
+		var member = board.pieces[piece_index]
+		drag_origin_positions[piece_index] = Vector2(member.position)
 
 
 func _on_sort_toggled(enabled: bool) -> void:
-	panel.visible = enabled
 	if not enabled:
 		_close_tray_detail()
+	panel.visible = enabled and active_tray_id.is_empty()
 	_refresh_ui()
 	_layout_ui()
 
@@ -290,7 +279,7 @@ func _open_tray(tray_id: String) -> void:
 	if not state.tray_ids().has(tray_id):
 		return
 	active_tray_id = tray_id
-	detail_backdrop.visible = true
+	panel.visible = false
 	detail_panel.visible = true
 	detail_name_edit.text = state.tray_name(tray_id)
 	_refresh_tray_detail()
@@ -298,11 +287,11 @@ func _open_tray(tray_id: String) -> void:
 
 
 func _close_tray_detail() -> void:
-	if detail_backdrop != null:
-		detail_backdrop.visible = false
 	if detail_panel != null:
 		detail_panel.visible = false
 	active_tray_id = ""
+	if panel != null and sort_button != null:
+		panel.visible = sort_button.button_pressed
 
 
 func _on_rename_submitted(_submitted_text: String) -> void:
@@ -318,57 +307,75 @@ func _rename_active_tray() -> void:
 		_refresh_tray_detail()
 
 
-func _move_selected_to_active_tray() -> void:
-	if active_tray_id.is_empty():
-		return
-	var members: Array = _selected_group_members()
+func try_store_drag_release(piece) -> bool:
+	# Called by RuntimePuzzleBoard before normal merge/snap processing.
+	if (
+		active_tray_id.is_empty()
+		or detail_panel == null
+		or not detail_panel.visible
+		or piece == null
+		or not is_instance_valid(piece)
+	):
+		drag_origin_positions.clear()
+		return false
+
+	var drop_position := Vector2(piece.last_pointer_screen_position)
+	if not detail_panel.get_global_rect().has_point(drop_position):
+		drag_origin_positions.clear()
+		return false
+
+	var members: Array = _group_members_for_piece(int(piece.piece_index))
 	if members.is_empty():
-		_refresh_tray_detail()
-		return
+		drag_origin_positions.clear()
+		return false
 
 	for value in members:
 		var piece_index := int(value)
-		var piece = board.pieces[piece_index]
-		return_positions[piece_index] = Vector2(piece.position)
+		var member = board.pieces[piece_index]
+		return_positions[piece_index] = Vector2(
+			drag_origin_positions.get(piece_index, member.position)
+		)
 
 	if not state.assign_pieces_to_tray(members, active_tray_id):
-		return
+		drag_origin_positions.clear()
+		return false
 
 	for value in members:
 		_stash_piece(int(value))
 
-	selected_piece_index = -1
+	drag_origin_positions.clear()
 	_refresh_ui()
 	_refresh_tray_detail()
+	return true
 
 
-func _selected_group_members() -> Array:
-	if selected_piece_index < 0 or selected_piece_index >= board.pieces.size():
+func _group_members_for_piece(piece_index: int) -> Array:
+	if piece_index < 0 or piece_index >= board.pieces.size():
 		return []
 
-	var anchor = board.pieces[selected_piece_index]
+	var anchor = board.pieces[piece_index]
 	if not is_instance_valid(anchor) or anchor.solved or not anchor.visible:
 		return []
 
-	var cluster_id := int(board.cluster_for_piece.get(selected_piece_index, selected_piece_index))
-	var raw_members = board.cluster_members.get(cluster_id, [selected_piece_index])
+	var cluster_id := int(board.cluster_for_piece.get(piece_index, piece_index))
+	var raw_members = board.cluster_members.get(cluster_id, [piece_index])
 	if not (raw_members is Array):
 		return []
 
 	var members: Array = []
 	for value in raw_members:
-		var piece_index := int(value)
-		if piece_index < 0 or piece_index >= board.pieces.size():
+		var member_index := int(value)
+		if member_index < 0 or member_index >= board.pieces.size():
 			return []
-		var piece = board.pieces[piece_index]
+		var member = board.pieces[member_index]
 		if (
-			not is_instance_valid(piece)
-			or piece.solved
-			or not piece.visible
-			or state.location_for(piece_index) != SortingWorkspaceStateScript.LOCATION_LOOSE
+			not is_instance_valid(member)
+			or member.solved
+			or not member.visible
+			or state.location_for(member_index) != SortingWorkspaceStateScript.LOCATION_LOOSE
 		):
 			return []
-		members.append(piece_index)
+		members.append(member_index)
 	return members
 
 
@@ -398,7 +405,6 @@ func _return_group_to_loose(member_indexes: Array) -> void:
 		piece.z_index = group_z
 		return_positions.erase(piece_index)
 
-	selected_piece_index = int(member_indexes[0])
 	_refresh_ui()
 	_refresh_tray_detail()
 
@@ -499,16 +505,6 @@ func _refresh_ui() -> void:
 	sort_button.text = "Sort · %d tray%s" % [tray_ids.size(), "" if tray_ids.size() == 1 else "s"]
 	summary_label.text = "Loose %d · Trays %d · Board %d" % [loose_count, tray_piece_count, board_count]
 
-	var selected_members: Array = _selected_group_members()
-	if selected_members.is_empty():
-		selected_label.text = "Selected: none — touch or drag a loose piece / cluster first."
-	else:
-		selected_label.text = (
-			"Selected: single piece"
-			if selected_members.size() == 1
-			else "Selected: %d-piece cluster" % selected_members.size()
-		)
-
 	_clear_container(tray_list_box)
 	if tray_ids.is_empty():
 		var empty_label := Label.new()
@@ -526,7 +522,7 @@ func _refresh_ui() -> void:
 				"" if count == 1 else "s",
 			]
 			tray_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-			tray_button.custom_minimum_size = Vector2(0.0, 46.0)
+			tray_button.custom_minimum_size = Vector2(0.0, 48.0)
 			tray_button.pressed.connect(_open_tray.bind(tray_id))
 			tray_list_box.add_child(tray_button)
 
@@ -544,14 +540,13 @@ func _refresh_tray_detail() -> void:
 		piece_count,
 		"" if piece_count == 1 else "s",
 	]
-	move_selected_button.disabled = _selected_group_members().is_empty()
 
 	_clear_container(detail_grid)
 	var groups: Array = _tray_groups(active_tray_id)
 	if groups.is_empty():
 		var empty_label := Label.new()
-		empty_label.text = "This tray is empty."
-		empty_label.modulate = Color(1.0, 1.0, 1.0, 0.52)
+		empty_label.text = "Empty tray — drag a piece here."
+		empty_label.modulate = Color(1.0, 1.0, 1.0, 0.58)
 		detail_grid.add_child(empty_label)
 		return
 
@@ -564,7 +559,7 @@ func _refresh_tray_detail() -> void:
 				piece_nodes.append(board.pieces[piece_index])
 
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(150.0, 142.0)
+		card.custom_minimum_size = Vector2(150.0, 146.0)
 		detail_grid.add_child(card)
 
 		var card_box := VBoxContainer.new()
@@ -652,18 +647,24 @@ func _layout_ui() -> void:
 			(width - panel_width) * 0.5,
 			maxf(150.0, height - panel_height - 96.0)
 		)
+
+		var detail_width := width - margin * 2.0
+		var detail_height := minf(DETAIL_HEIGHT, maxf(280.0, height * 0.46))
+		detail_panel.size = Vector2(detail_width, detail_height)
+		detail_panel.position = Vector2(
+			margin,
+			maxf(120.0, height - detail_height - 84.0)
+		)
+		detail_grid.columns = 2
 	else:
 		panel.size = Vector2(PANEL_WIDTH, minf(PANEL_HEIGHT, height - 180.0))
 		panel.position = Vector2(margin, 148.0)
 
-	detail_backdrop.position = Vector2.ZERO
-	detail_backdrop.size = viewport_size
-
-	var detail_width := minf(DETAIL_WIDTH, width - margin * 2.0)
-	var detail_height := minf(DETAIL_HEIGHT, height - margin * 2.0)
-	detail_panel.size = Vector2(detail_width, detail_height)
-	detail_panel.position = Vector2(
-		(width - detail_width) * 0.5,
-		(height - detail_height) * 0.5
-	)
-	detail_grid.columns = 3 if detail_width >= 520.0 else 2
+		var detail_width := minf(DETAIL_WIDTH, maxf(330.0, width * 0.38))
+		var detail_height := maxf(300.0, height - 172.0)
+		detail_panel.size = Vector2(detail_width, detail_height)
+		detail_panel.position = Vector2(
+			width - margin - detail_width,
+			86.0
+		)
+		detail_grid.columns = 2
