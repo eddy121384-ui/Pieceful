@@ -18,6 +18,7 @@ var board = null
 var state = null
 var tray_id := ""
 var content_root: Node2D = null
+var empty_hint: Label = null
 var visual_nodes: Dictionary = {}
 var piece_z: Dictionary = {}
 var z_counter := 1
@@ -36,6 +37,7 @@ func _ready() -> void:
 	custom_minimum_size = Vector2(280.0, 190.0)
 	set_process_input(false)
 	_ensure_content_root()
+	_ensure_empty_hint()
 	queue_redraw()
 
 
@@ -51,16 +53,19 @@ func configure(p_board, p_state, p_tray_id: String) -> void:
 	state = p_state
 	tray_id = p_tray_id
 	_ensure_content_root()
+	_ensure_empty_hint()
 	refresh()
 
 
 func refresh() -> void:
 	if board == null or state == null or tray_id.is_empty():
 		_clear_visuals()
+		_update_empty_hint()
 		queue_redraw()
 		return
 	_ensure_missing_positions()
 	_rebuild_visuals()
+	_update_empty_hint()
 	queue_redraw()
 
 
@@ -113,17 +118,28 @@ func _draw() -> void:
 	draw_rect(rect, Color(0.018, 0.021, 0.028, 0.34), true)
 	draw_rect(rect.grow(-1.0), Color(1.0, 1.0, 1.0, 0.12), false, 1.0)
 
-	if state == null or tray_id.is_empty() or state.tray_piece_count(tray_id) > 0:
+
+func _ensure_empty_hint() -> void:
+	if empty_hint != null and is_instance_valid(empty_hint):
 		return
-	var label_position: Vector2 = Vector2(18.0, maxf(34.0, size.y * 0.5))
-	draw_string(
-		ThemeDB.fallback_font,
-		label_position,
-		"Drop pieces here — this tray is a playable mini table",
-		HORIZONTAL_ALIGNMENT_LEFT,
-		-1.0,
-		14,
-		Color(1.0, 1.0, 1.0, 0.46)
+	empty_hint = Label.new()
+	empty_hint.text = "Drop pieces here — playable mini table"
+	empty_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	empty_hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	empty_hint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	empty_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	empty_hint.modulate = Color(1.0, 1.0, 1.0, 0.44)
+	empty_hint.add_theme_font_size_override("font_size", 14)
+	add_child(empty_hint)
+
+
+func _update_empty_hint() -> void:
+	if empty_hint == null:
+		return
+	empty_hint.visible = (
+		state != null
+		and not tray_id.is_empty()
+		and state.tray_piece_count(tray_id) == 0
 	)
 
 
