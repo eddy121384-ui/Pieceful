@@ -5,7 +5,8 @@ const RuntimeDifficultyCatalogScript = preload("res://scripts/runtime_difficulty
 const ResponsiveWorkspaceLayoutScript = preload("res://scripts/responsive_workspace_layout.gd")
 const RuntimeSnapPolicyScript = preload("res://scripts/runtime_snap_policy.gd")
 
-const PREVIEW_Z_INDEX := 3000
+const BOARD_PREVIEW_ALPHA := 0.13
+const BOARD_PREVIEW_Z_INDEX := -1
 const HINT_FILL_COLOR := Color(1.0, 0.91, 0.55, 0.16)
 const HINT_LINE_COLOR := Color(1.0, 0.95, 0.72, 0.82)
 
@@ -18,12 +19,11 @@ var workspace_orientation := ""
 var last_viewport_size := Vector2.ZERO
 var last_difficulty_switch_ms := 0
 
-# Hint is a runtime player aid, not an authoring feature. It defaults on for the
-# normal experience, but the player can disable it completely for a no-hint
-# challenge. The setting survives reshuffles, difficulty changes, and orientation
-# reflow for the lifetime of this runtime session. Disk persistence belongs to the
-# later Save / Resume issue.
+# Hint and board-preview state are runtime player aids, not authoring features.
+# They survive reshuffles, difficulty changes, and orientation reflow for the
+# lifetime of this runtime session. Disk persistence belongs to Save / Resume.
 var hint_enabled := true
+var board_preview_enabled := false
 var preview_sprite: Sprite2D = null
 var hint_fill: Polygon2D = null
 var hint_outline: Line2D = null
@@ -70,9 +70,18 @@ func set_hint_enabled(enabled: bool) -> void:
 		_hide_hint_marker()
 
 
+func board_preview_is_enabled() -> bool:
+	return board_preview_enabled
+
+
+func set_board_preview_enabled(enabled: bool) -> void:
+	board_preview_enabled = enabled
+	_apply_preview_state()
+
+
 func start_new_game() -> void:
-	# A new layout should never inherit a stale target marker. The player's Hint
-	# On/Off preference is intentionally kept.
+	# A new layout should never inherit a stale target marker. Player aid choices
+	# are intentionally preserved.
 	preview_sprite = null
 	_clear_hint_visuals()
 	super.start_new_game()
@@ -228,11 +237,12 @@ func _runtime_zoom_scale() -> float:
 func _build_board_visuals() -> void:
 	super._build_board_visuals()
 
-	# The prototype's permanent solved-image overlay is no longer part of the
-	# puzzle board. Preview is now a separate floating screen-space reference card.
+	# Reuse the prototype SolvedPreview node as the optional board-overlay mode.
+	# It remains below pieces and guidance layers, so it behaves like a faint
+	# reference mat rather than an answer painted over the player's pieces.
 	preview_sprite = get_node_or_null("SolvedPreview") as Sprite2D
 	if preview_sprite != null:
-		preview_sprite.z_index = PREVIEW_Z_INDEX
+		preview_sprite.z_index = BOARD_PREVIEW_Z_INDEX
 	_apply_preview_state()
 	_ensure_hint_visuals()
 
@@ -263,9 +273,13 @@ func _raise_cluster(cluster_id: int) -> void:
 func _apply_preview_state() -> void:
 	if preview_sprite == null or not is_instance_valid(preview_sprite):
 		return
-	# Board-level solved preview stays hidden permanently. The UI owns Preview now.
-	preview_sprite.visible = false
-	preview_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	preview_sprite.visible = board_preview_enabled
+	preview_sprite.modulate = Color(
+		1.0,
+		1.0,
+		1.0,
+		BOARD_PREVIEW_ALPHA if board_preview_enabled else 0.0
+	)
 
 
 func _ensure_hint_visuals() -> void:
@@ -273,7 +287,7 @@ func _ensure_hint_visuals() -> void:
 		hint_fill = Polygon2D.new()
 		hint_fill.name = "HintTargetFill"
 		hint_fill.color = HINT_FILL_COLOR
-		hint_fill.z_index = 0
+		hint_fill.z_index = 1
 		hint_fill.visible = false
 		add_child(hint_fill)
 
@@ -283,7 +297,7 @@ func _ensure_hint_visuals() -> void:
 		hint_outline.width = 2.5
 		hint_outline.default_color = HINT_LINE_COLOR
 		hint_outline.antialiased = true
-		hint_outline.z_index = 0
+		hint_outline.z_index = 1
 		hint_outline.visible = false
 		add_child(hint_outline)
 
