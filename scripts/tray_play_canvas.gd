@@ -109,13 +109,13 @@ func accept_world_drop(
 
 
 func _draw() -> void:
-	var rect := Rect2(Vector2.ZERO, size)
+	var rect: Rect2 = Rect2(Vector2.ZERO, size)
 	draw_rect(rect, Color(0.018, 0.021, 0.028, 0.34), true)
 	draw_rect(rect.grow(-1.0), Color(1.0, 1.0, 1.0, 0.12), false, 1.0)
 
 	if state == null or tray_id.is_empty() or state.tray_piece_count(tray_id) > 0:
 		return
-	var label_position := Vector2(18.0, maxf(34.0, size.y * 0.5))
+	var label_position: Vector2 = Vector2(18.0, maxf(34.0, size.y * 0.5))
 	draw_string(
 		ThemeDB.fallback_font,
 		label_position,
@@ -162,10 +162,10 @@ func _input(event: InputEvent) -> void:
 
 
 func _begin_piece_drag(pointer_id: int, screen_position: Vector2) -> void:
-	var piece_index := _top_piece_at(screen_position)
+	var piece_index: int = _top_piece_at(screen_position)
 	if piece_index < 0:
 		return
-	var members := _group_members_for_piece(piece_index)
+	var members: Array = _group_members_for_piece(piece_index)
 	if members.is_empty():
 		return
 
@@ -184,7 +184,7 @@ func _begin_piece_drag(pointer_id: int, screen_position: Vector2) -> void:
 
 
 func _move_piece_drag(screen_position: Vector2) -> void:
-	var delta := screen_position - drag_last_screen_position
+	var delta: Vector2 = screen_position - drag_last_screen_position
 	if delta.is_zero_approx():
 		return
 	drag_last_screen_position = screen_position
@@ -196,10 +196,10 @@ func _finish_piece_drag(screen_position: Vector2) -> void:
 	if not dragging:
 		return
 
-	var released_members := drag_member_indexes.duplicate()
-	var released_anchor := drag_anchor_piece_index
-	var released_offset := drag_anchor_pointer_offset
-	var released_inside := get_global_rect().has_point(screen_position)
+	var released_members: Array = drag_member_indexes.duplicate()
+	var released_anchor: int = drag_anchor_piece_index
+	var released_offset: Vector2 = drag_anchor_pointer_offset
+	var released_inside: bool = get_global_rect().has_point(screen_position)
 
 	dragging = false
 	drag_pointer_id = -999
@@ -227,15 +227,15 @@ func _finish_piece_drag(screen_position: Vector2) -> void:
 func _try_snap_group_in_tray(anchor_piece_index: int) -> void:
 	if board == null or state == null or anchor_piece_index < 0:
 		return
-	var moving_cluster_id := int(
+	var moving_cluster_id: int = int(
 		board.cluster_for_piece.get(anchor_piece_index, anchor_piece_index)
 	)
 	var merged_again := true
-	var snap_radius := _tray_snap_radius()
+	var snap_radius: float = _tray_snap_radius()
 
 	while merged_again:
 		merged_again = false
-		var moving_members := _cluster_members_for_id(moving_cluster_id)
+		var moving_members: Array = _cluster_members_for_id(moving_cluster_id)
 		for member_value in moving_members:
 			var member_index := int(member_value)
 			if state.tray_id_for(member_index) != tray_id:
@@ -245,24 +245,24 @@ func _try_snap_group_in_tray(anchor_piece_index: int) -> void:
 			for neighbor_index in board.definition.neighbor_indexes_for(member_index):
 				if state.tray_id_for(neighbor_index) != tray_id:
 					continue
-				var other_cluster_id := int(
+				var other_cluster_id: int = int(
 					board.cluster_for_piece.get(neighbor_index, neighbor_index)
 				)
 				if other_cluster_id == moving_cluster_id:
 					continue
 
 				var neighbor = board.pieces[neighbor_index]
-				var correct_offset := (
+				var correct_offset: Vector2 = (
 					Vector2(member.target_position)
 					- Vector2(neighbor.target_position)
 				) * visual_scale()
-				var desired_member_position := (
-					state.tray_piece_position(tray_id, neighbor_index)
+				var desired_member_position: Vector2 = (
+					Vector2(state.tray_piece_position(tray_id, neighbor_index))
 					+ correct_offset
 				)
-				var correction := (
+				var correction: Vector2 = (
 					desired_member_position
-					- state.tray_piece_position(tray_id, member_index)
+					- Vector2(state.tray_piece_position(tray_id, member_index))
 				)
 
 				if correction.length() <= snap_radius:
@@ -284,8 +284,8 @@ func _merge_board_clusters(survivor_id: int, absorbed_id: int) -> void:
 	if not board.cluster_members.has(absorbed_id):
 		return
 
-	var survivor_members := _cluster_members_for_id(survivor_id)
-	var absorbed_members := _cluster_members_for_id(absorbed_id)
+	var survivor_members: Array = _cluster_members_for_id(survivor_id)
+	var absorbed_members: Array = _cluster_members_for_id(absorbed_id)
 	for value in absorbed_members:
 		var piece_index := int(value)
 		if not survivor_members.has(piece_index):
@@ -298,7 +298,7 @@ func _merge_board_clusters(survivor_id: int, absorbed_id: int) -> void:
 func _tray_snap_radius() -> float:
 	if board == null or board.definition == null:
 		return 14.0
-	var short_edge := minf(
+	var short_edge: float = minf(
 		float(board.definition.piece_size.x),
 		float(board.definition.piece_size.y)
 	) * visual_scale()
@@ -308,8 +308,8 @@ func _tray_snap_radius() -> float:
 func _group_members_for_piece(piece_index: int) -> Array:
 	if board == null or state == null:
 		return []
-	var cluster_id := int(board.cluster_for_piece.get(piece_index, piece_index))
-	var members := _cluster_members_for_id(cluster_id)
+	var cluster_id: int = int(board.cluster_for_piece.get(piece_index, piece_index))
+	var members: Array = _cluster_members_for_id(cluster_id)
 	if members.is_empty():
 		return []
 	for value in members:
@@ -330,8 +330,8 @@ func _cluster_members_for_id(cluster_id: int) -> Array:
 func _top_piece_at(screen_position: Vector2) -> int:
 	if board == null or state == null:
 		return -1
-	var local_point := _screen_to_local(screen_position)
-	var scale_factor := visual_scale()
+	var local_point: Vector2 = _screen_to_local(screen_position)
+	var scale_factor: float = visual_scale()
 	var winner := -1
 	var winner_z := -2147483648
 
@@ -340,11 +340,15 @@ func _top_piece_at(screen_position: Vector2) -> int:
 		if piece_index < 0 or piece_index >= board.pieces.size():
 			continue
 		var piece = board.pieces[piece_index]
-		var piece_position := state.tray_piece_position(tray_id, piece_index)
-		var piece_local := (local_point - piece_position) / scale_factor
+		var piece_position: Vector2 = Vector2(
+			state.tray_piece_position(tray_id, piece_index)
+		)
+		var piece_local: Vector2 = (
+			local_point - piece_position
+		) / scale_factor
 		if not Geometry2D.is_point_in_polygon(piece_local, piece.polygon_points):
 			continue
-		var candidate_z := int(piece_z.get(piece_index, 0))
+		var candidate_z: int = int(piece_z.get(piece_index, 0))
 		if winner < 0 or candidate_z >= winner_z:
 			winner = piece_index
 			winner_z = candidate_z
@@ -358,7 +362,9 @@ func _translate_group(member_indexes: Array, delta: Vector2) -> void:
 		var piece_index := int(value)
 		if state.tray_id_for(piece_index) != tray_id:
 			continue
-		var next_position := state.tray_piece_position(tray_id, piece_index) + delta
+		var next_position: Vector2 = (
+			Vector2(state.tray_piece_position(tray_id, piece_index)) + delta
+		)
 		state.set_tray_piece_position(tray_id, piece_index, next_position)
 
 
@@ -375,7 +381,7 @@ func _clamp_all_groups_inside() -> void:
 	var seen: Dictionary = {}
 	for value in state.tray_piece_indexes(tray_id):
 		var piece_index := int(value)
-		var cluster_id := int(board.cluster_for_piece.get(piece_index, piece_index))
+		var cluster_id: int = int(board.cluster_for_piece.get(piece_index, piece_index))
 		if seen.has(cluster_id):
 			continue
 		seen[cluster_id] = true
@@ -385,15 +391,15 @@ func _clamp_all_groups_inside() -> void:
 func _clamp_group_inside(member_indexes: Array) -> void:
 	if member_indexes.is_empty() or size.x <= 1.0 or size.y <= 1.0:
 		return
-	var bounds := _group_bounds(member_indexes)
+	var bounds: Rect2 = _group_bounds(member_indexes)
 	if bounds.size.x <= 0.0 or bounds.size.y <= 0.0:
 		return
-	var min_position := Vector2(EDGE_PADDING, EDGE_PADDING)
-	var max_position := Vector2(
+	var min_position: Vector2 = Vector2(EDGE_PADDING, EDGE_PADDING)
+	var max_position: Vector2 = Vector2(
 		maxf(EDGE_PADDING, size.x - EDGE_PADDING - bounds.size.x),
 		maxf(EDGE_PADDING, size.y - EDGE_PADDING - bounds.size.y)
 	)
-	var target := Vector2(
+	var target: Vector2 = Vector2(
 		clampf(bounds.position.x, min_position.x, max_position.x),
 		clampf(bounds.position.y, min_position.y, max_position.y)
 	)
@@ -403,13 +409,15 @@ func _clamp_group_inside(member_indexes: Array) -> void:
 func _group_bounds(member_indexes: Array) -> Rect2:
 	var result := Rect2()
 	var has_bounds := false
-	var scale_factor := visual_scale()
+	var scale_factor: float = visual_scale()
 	for value in member_indexes:
 		var piece_index := int(value)
 		if state.tray_id_for(piece_index) != tray_id:
 			continue
 		var piece = board.pieces[piece_index]
-		var piece_position := state.tray_piece_position(tray_id, piece_index)
+		var piece_position: Vector2 = Vector2(
+			state.tray_piece_position(tray_id, piece_index)
+		)
 		var piece_rect := Rect2(
 			piece_position,
 			Vector2(piece.piece_size) * scale_factor
@@ -425,9 +433,9 @@ func _group_bounds(member_indexes: Array) -> Rect2:
 func _ensure_missing_positions() -> void:
 	if board == null or state == null or tray_id.is_empty():
 		return
-	var scale_factor := visual_scale()
-	var piece_size := Vector2(board.definition.piece_size) * scale_factor
-	var step := Vector2(
+	var scale_factor: float = visual_scale()
+	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
+	var step: Vector2 = Vector2(
 		maxf(48.0, piece_size.x * 0.86),
 		maxf(48.0, piece_size.y * 0.86)
 	)
@@ -466,7 +474,7 @@ func _rebuild_visuals() -> void:
 	_clear_visuals()
 	if board == null or state == null:
 		return
-	var scale_factor := visual_scale()
+	var scale_factor: float = visual_scale()
 	for value in state.tray_piece_indexes(tray_id):
 		var piece_index := int(value)
 		if piece_index < 0 or piece_index >= board.pieces.size():
