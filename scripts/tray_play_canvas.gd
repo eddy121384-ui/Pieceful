@@ -68,7 +68,7 @@ func visual_scale() -> float:
 	if board == null or board.definition == null:
 		return 1.0
 	var piece_size: Vector2 = Vector2(board.definition.piece_size)
-	var short_edge := maxf(1.0, minf(piece_size.x, piece_size.y))
+	var short_edge: float = maxf(1.0, minf(piece_size.x, piece_size.y))
 	return clampf(TARGET_PIECE_SHORT_EDGE / short_edge, MIN_VISUAL_SCALE, MAX_VISUAL_SCALE)
 
 
@@ -82,10 +82,12 @@ func accept_world_drop(
 	if anchor_piece_index < 0 or anchor_piece_index >= board.pieces.size():
 		return
 
-	var scale_factor := visual_scale()
-	var local_drop := _screen_to_local(screen_position)
+	var scale_factor: float = visual_scale()
+	var local_drop: Vector2 = _screen_to_local(screen_position)
 	var anchor_piece = board.pieces[anchor_piece_index]
-	var anchor_position := local_drop - Vector2(anchor_piece.piece_size) * scale_factor * 0.5
+	var anchor_position: Vector2 = (
+		local_drop - Vector2(anchor_piece.piece_size) * scale_factor * 0.5
+	)
 
 	for value in member_indexes:
 		var piece_index := int(value)
@@ -95,7 +97,11 @@ func accept_world_drop(
 		var relative_target: Vector2 = (
 			Vector2(member.target_position) - Vector2(anchor_piece.target_position)
 		) * scale_factor
-		state.set_tray_piece_position(tray_id, piece_index, anchor_position + relative_target)
+		state.set_tray_piece_position(
+			tray_id,
+			piece_index,
+			anchor_position + relative_target
+		)
 
 	_raise_group(member_indexes)
 	_clamp_group_inside(member_indexes)
@@ -261,16 +267,32 @@ func _try_snap_group_in_tray(anchor_piece_index: int) -> void:
 
 				if correction.length() <= snap_radius:
 					_translate_group(moving_members, correction)
-					if board.has_method("sorting_merge_clusters"):
-						moving_cluster_id = int(
-							board.sorting_merge_clusters(member_index, neighbor_index)
-						)
+					_merge_board_clusters(moving_cluster_id, other_cluster_id)
 					_raise_group(_cluster_members_for_id(moving_cluster_id))
 					merged_again = true
 					tray_cluster_changed.emit()
 					break
 			if merged_again:
 				break
+
+
+func _merge_board_clusters(survivor_id: int, absorbed_id: int) -> void:
+	if survivor_id == absorbed_id:
+		return
+	if not board.cluster_members.has(survivor_id):
+		return
+	if not board.cluster_members.has(absorbed_id):
+		return
+
+	var survivor_members := _cluster_members_for_id(survivor_id)
+	var absorbed_members := _cluster_members_for_id(absorbed_id)
+	for value in absorbed_members:
+		var piece_index := int(value)
+		if not survivor_members.has(piece_index):
+			survivor_members.append(piece_index)
+		board.cluster_for_piece[piece_index] = survivor_id
+	board.cluster_members[survivor_id] = survivor_members
+	board.cluster_members.erase(absorbed_id)
 
 
 func _tray_snap_radius() -> float:
@@ -405,19 +427,28 @@ func _ensure_missing_positions() -> void:
 		return
 	var scale_factor := visual_scale()
 	var piece_size := Vector2(board.definition.piece_size) * scale_factor
-	var step := Vector2(maxf(48.0, piece_size.x * 0.86), maxf(48.0, piece_size.y * 0.86))
-	var columns := maxi(1, int(maxf(1.0, size.x - 24.0) / maxf(step.x, 1.0)))
+	var step := Vector2(
+		maxf(48.0, piece_size.x * 0.86),
+		maxf(48.0, piece_size.y * 0.86)
+	)
+	var columns: int = maxi(
+		1,
+		floori(maxf(1.0, size.x - 24.0) / maxf(step.x, 1.0))
+	)
 	var ordinal := 0
 	for value in state.tray_piece_indexes(tray_id):
 		var piece_index := int(value)
 		if state.has_tray_piece_position(tray_id, piece_index):
 			continue
-		var column := ordinal % columns
-		var row := ordinal / columns
+		var column: int = ordinal % columns
+		var row: int = floori(float(ordinal) / float(columns))
 		state.set_tray_piece_position(
 			tray_id,
 			piece_index,
-			Vector2(12.0 + float(column) * step.x, 12.0 + float(row) * step.y)
+			Vector2(
+				12.0 + float(column) * step.x,
+				12.0 + float(row) * step.y
+			)
 		)
 		ordinal += 1
 
@@ -471,7 +502,10 @@ func _sync_visual_positions() -> void:
 		return
 	for piece_index in visual_nodes.keys():
 		var node = visual_nodes[piece_index]
-		if is_instance_valid(node) and state.has_tray_piece_position(tray_id, int(piece_index)):
+		if (
+			is_instance_valid(node)
+			and state.has_tray_piece_position(tray_id, int(piece_index))
+		):
 			node.position = state.tray_piece_position(tray_id, int(piece_index))
 	_sync_visual_z()
 
