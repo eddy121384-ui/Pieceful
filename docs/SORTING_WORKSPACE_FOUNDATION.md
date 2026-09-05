@@ -2,76 +2,86 @@
 
 This document defines the first product-shaped Sorting Workspace slice for Issue #14.
 
-## Core model
+## Core model: workspace surfaces, not folders
 
-Pieces have three logical locations:
+A Tray is not a storage folder and its contents are not inert thumbnails.
 
-- `loose` — available on the puzzle table,
-- `tray` — intentionally stored in a player-created sorting tray,
-- `board` — anchored / solved.
+The player has multiple puzzle surfaces:
 
-The location model remains independent from UI nodes so future Save / Resume can persist logical workspace state rather than screen coordinates.
+- `loose` — the main puzzle table,
+- `tray` — a player-created floating mini puzzle table,
+- `board` — the anchored / solved target board.
+
+A piece / cluster can move between the main table and a Tray, but its puzzle identity and cluster relationships are shared across surfaces. A cluster assembled inside a Tray is still that same cluster when dragged back to the main table.
+
+Each Tray therefore owns local piece coordinates in addition to membership. This is the beginning of the workspace state that later Save / Resume can persist.
 
 ## Player-created trays
 
 The runtime starts with no mandatory engineering fixture. Players can create multiple trays, name them at creation time, use fallback names such as `Tray 1`, and rename them later.
 
-The main Sorting panel shows tray names and piece counts. Clicking a tray opens its dedicated contents window.
+The main Sorting panel shows tray names and piece counts. Clicking a tray opens that Tray's live mini workspace.
 
 ## Floating tray metaphor
 
-An open tray is a draggable, translucent floating window above the puzzle table rather than a fixed sidebar or modal sheet.
+An open Tray is a draggable, translucent floating mini table above the main puzzle table rather than a fixed sidebar, modal sheet, or file browser.
 
-- A dedicated drag handle moves the tray without moving puzzle pieces.
-- The tray body uses a translucent background while artwork thumbnails remain fully legible.
-- The puzzle board remains interactive outside the tray window.
-- Each tray remembers the position where the player left it during the current puzzle generation.
-- Portrait / Landscape changes preserve that chosen position as far as possible and only clamp the tray back inside the visible viewport when necessary.
-- Portrait layouts may reduce the floating tray size to keep it usable on phone-like viewports instead of forcing a desktop-width panel.
+- A dedicated drag handle moves the Tray itself.
+- The mini-table canvas remains interactive independently from the window drag handle.
+- Each Tray remembers its current-session floating position.
+- Portrait / Landscape changes keep the chosen position as far as possible and clamp only when the window would leave the viewport.
+- The main puzzle table remains interactive outside the floating Tray.
 
-This models a real sorting tray that the player can place wherever it is convenient instead of forcing the workspace to reorganize around a fixed UI panel.
+## Direct Main Table ↔ Tray movement
 
-## Touch-first direct drop
+Main Table → Tray:
 
-The primary storage flow is:
+1. Open the desired Tray.
+2. Drag a loose piece or joined cluster directly from the main table into the Tray canvas.
+3. Release inside the mini canvas.
+4. Runtime intercepts that release before normal main-table snap, transfers the same puzzle item to the Tray surface, and places it at the local drop position.
 
-1. Open the desired tray.
-2. Place the floating tray where convenient using the tray drag handle.
-3. Drag a loose piece or joined cluster directly from the puzzle table into the tray window.
-4. Release the mouse / finger inside the tray window.
-5. Runtime intercepts that release before normal neighbor merge or board snap, stores the whole sorting item, and refreshes the visual tray contents.
+Tray → Main Table:
 
-There is no required `select piece → press Move selected here` step in the player flow. Tray-window dragging and puzzle-item dragging use separate gesture targets so moving the tray itself does not move a puzzle item underneath it.
+1. Grab a piece / cluster directly inside the Tray canvas.
+2. Drag it across the Tray canvas edge.
+3. Release outside the mini canvas.
+4. The same piece / cluster returns to the main table under the pointer and immediately uses the normal main-table neighbor / board snap rules.
 
-## Visual tray contents
+There is no `select → Move` button and no `Return to Loose` button in the primary interaction.
 
-A tray contents window renders each stored sorting item using the actual puzzle artwork and exact piece silhouette.
+## Playing inside a Tray
 
-- A single loose piece appears as its real piece image.
-- A joined cluster appears as one combined visual cluster preview.
-- Internal labels such as `Piece 037` are not player-facing UI.
+Pieces inside a Tray are active puzzle pieces, not preview cards.
 
-The current foundation keeps an explicit `Return to Loose` action on each visual item. Direct drag from Tray back to the board can be layered on after the board-to-tray touch path is validated.
+- They render with the real puzzle artwork and exact cut silhouette.
+- They can be dragged around the mini canvas.
+- Joined clusters drag as one rigid group.
+- Neighboring pieces / clusters use the same target-relative puzzle geometry and can snap together inside the Tray.
+- A successful Tray snap updates the shared global cluster relationship.
+- Dragging that assembled cluster back to the main table preserves the assembly.
 
-## Cluster semantics
+This lets a player create semantic work areas such as `Sky`, `Building`, or `Edges` and actually solve those portions inside their Tray before returning a larger island to the main table.
 
-A persistent off-board cluster is treated as one sorting item. Dragging any member of that cluster into an open tray stores the entire cluster without splitting it.
+## Surface isolation
 
-Stored members are hidden, non-pickable, and excluded from normal snapping. Returning them to Loose restores the cluster as one rigid group at a safe workspace location.
+A piece currently on a Tray surface is hidden / non-pickable on the main world surface so it cannot accidentally interact with main-table snapping while the player is working inside the Tray.
 
-Solved / anchored pieces cannot be moved back into a tray.
+The Tray canvas owns the visible interactive representation for those members. The main PuzzleBoard continues to own the canonical puzzle definition and global cluster membership.
+
+Solved / anchored pieces cannot be moved back into a Tray.
 
 ## Responsive behavior
 
-Tray membership and player-positioned floating tray locations survive Portrait / Landscape reflow within the same puzzle generation. Stored pieces remain hidden and inert while the board reflows, then are re-stashed after the board resize debounce settles. Floating tray positions are clamped only when the new viewport would otherwise place part of the tray off-screen.
+Tray membership, Tray-local piece positions, cluster relationships, and player-positioned floating-window locations survive Portrait / Landscape reflow within the same puzzle generation.
 
-Reshuffle / Play again and difficulty changes are treated as a new puzzle generation in this foundation, so player-created trays, memberships, and floating-window positions reset. Disk persistence belongs to Issue #3 after #14 / #15 settle the final workspace model.
+Reshuffle / Play again and difficulty changes are treated as a new puzzle generation in this foundation, so player-created Trays and their local workspace state reset. Disk persistence belongs to Issue #3 after #14 / #15 settle the final workspace schema.
 
 ## Still outside this slice
 
 - tray reorder / collapse / delete,
-- direct Tray-to-board drag return,
 - multi-select across unrelated pieces / clusters,
+- independent Tray zoom / pan,
 - full-screen Sorting Table,
 - Edge-only filter,
 - Save / Resume.
@@ -80,19 +90,19 @@ Reshuffle / Play again and difficulty changes are treated as a new puzzle genera
 
 Before merging this foundation:
 
-1. Launch Relaxed and confirm normal Drag / Snap / Zoom / Pan still works.
-2. Open Sort and create at least three differently named trays.
-3. Confirm each tray card shows the chosen name and current piece count.
-4. Open a tray and drag the tray itself to several positions; confirm the board remains playable outside it.
-5. Confirm the tray background is translucent while stored artwork thumbnails remain clear.
-6. Drag a single loose piece directly into the relocated tray and release; confirm it disappears from the table without any extra button press.
-7. Confirm the tray shows that piece as its actual artwork / silhouette, never an internal numeric ID.
-8. Drag a loose piece near the tray but release outside it; normal board behavior should continue and the piece should not be stored.
-9. Join 2–3 neighboring pieces, drag the cluster into the tray, and confirm one combined cluster preview appears and the cluster is not split.
-10. Use `Return to Loose` and confirm the piece / cluster returns playable with cluster geometry intact.
-11. Rename a tray and confirm both tray list and open window update.
-12. Move an open tray, switch Landscape ↔ Portrait, and confirm the window stays visible instead of resetting to a fixed side position; stored memberships remain intact.
-13. On a phone-like Portrait viewport, confirm the tray remains completely on-screen and still leaves usable board area around it.
-14. Reshuffle and difficulty changes should begin a fresh generation with zero trays.
-15. Anchor at least one piece and confirm Board count updates.
+1. Launch Relaxed and confirm normal main-table Drag / Snap / Zoom / Pan still works.
+2. Create and rename several Trays.
+3. Move an open floating Tray to several screen positions.
+4. Drag a single main-table piece directly into the Tray canvas; it should remain visible inside the mini table rather than becoming a thumbnail card.
+5. Drag that piece around inside the Tray canvas.
+6. Drag it out across the Tray edge and release on the main table; it should return under the pointer with no Return button.
+7. Put two correct neighboring pieces into the same Tray separately and assemble them inside the Tray; confirm they snap into one cluster.
+8. Drag the newly assembled Tray cluster around; all members must move rigidly together.
+9. Drag that cluster back to the main table and confirm the assembly remains intact.
+10. Put a preassembled main-table cluster into a Tray and confirm it remains assembled and playable there.
+11. Release a main-table piece just outside the Tray canvas; it must not be transferred accidentally.
+12. While a Tray is open, the visible main-table area must remain interactive.
+13. Move the Tray, switch Landscape ↔ Portrait, and confirm Tray position, membership, local mini-table layout, and cluster relationships survive.
+14. On a phone-like Portrait viewport, confirm the floating Tray remains on-screen and leaves enough surrounding main-table area to support direct drag in / out.
+15. Reshuffle / difficulty change should start a fresh generation with zero Trays.
 16. Recheck Preview, Hint, Lines, overlap picking, cluster merge, board snap, and runtime reshuffling for regressions.
