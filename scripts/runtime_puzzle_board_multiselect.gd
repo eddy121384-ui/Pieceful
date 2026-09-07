@@ -66,6 +66,16 @@ func _on_piece_released(piece) -> void:
 
 	if (
 		sorting_workspace != null
+		and sorting_workspace.has_method("try_store_rail_drop")
+		and sorting_workspace.try_store_rail_drop(piece)
+	):
+		_clear_active_drag_cache()
+		_hide_hint_marker()
+		_reset_selection_drag_state()
+		return
+
+	if (
+		sorting_workspace != null
 		and sorting_workspace.has_method("try_store_manager_drop")
 		and sorting_workspace.try_store_manager_drop(piece)
 	):
