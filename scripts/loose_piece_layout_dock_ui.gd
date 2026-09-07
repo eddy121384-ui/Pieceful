@@ -46,11 +46,17 @@ func _build_layout_mode_dock_button() -> void:
 func _install_scrollable_rail_canvas() -> void:
 	if rail_canvas == null:
 		return
-	var rail_box := rail_canvas.get_parent()
+	# `rail_canvas` is intentionally dynamic in the inherited workspace because it
+	# can be swapped between canvas implementations. Cast the scene-tree values
+	# explicitly so older/stricter Godot analyzers do not have to infer a type
+	# through a Variant-returning expression.
+	var rail_box: Node = rail_canvas.get_parent() as Node
 	if rail_box == null:
 		return
-	var old_index: int = rail_canvas.get_index()
-	var old_canvas = rail_canvas
+	var old_index: int = int(rail_canvas.get_index())
+	var old_canvas: Node = rail_canvas as Node
+	if old_canvas == null:
+		return
 	rail_box.remove_child(old_canvas)
 	old_canvas.queue_free()
 
