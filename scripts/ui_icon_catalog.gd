@@ -46,7 +46,7 @@ static func apply_button(
 	button.text = ""
 	button.icon = texture(icon_id)
 	button.expand_icon = true
-	button.icon_max_width = icon_width
+	button.add_theme_constant_override("icon_max_width", icon_width)
 	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.size = button_size
 	button.custom_minimum_size = button_size
