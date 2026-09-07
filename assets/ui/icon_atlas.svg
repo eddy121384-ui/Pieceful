@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none" stroke="#F4F7FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- 4x4 atlas, 64px cells. Each icon uses a 24x24 source grid scaled 2x. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384" fill="none" stroke="#F4F7FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 4-column atlas, 64px cells. Each icon uses a 24x24 source grid scaled 2x. -->
   <g transform="translate(8 8) scale(2)">
     <!-- tray -->
     <path d="M3 7h18l-2 11H5L3 7Z"/><path d="M7 11h10"/><path d="M9 7V5h6v2"/>
@@ -68,5 +68,39 @@
   <g transform="translate(200 200) scale(2)">
     <!-- close -->
     <path d="M6 6l12 12M18 6 6 18"/>
+  </g>
+
+  <g transform="translate(8 264) scale(2)">
+    <!-- multi-select -->
+    <rect x="4" y="4" width="6" height="6" rx="1"/><path d="m5.5 7 1.5 1.5L9 6"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>
+  </g>
+  <g transform="translate(72 264) scale(2)">
+    <!-- move up -->
+    <path d="m6 14 6-6 6 6"/><path d="M12 8v10"/>
+  </g>
+  <g transform="translate(136 264) scale(2)">
+    <!-- move down -->
+    <path d="m6 10 6 6 6-6"/><path d="M12 6v10"/>
+  </g>
+  <g transform="translate(200 264) scale(2)">
+    <!-- delete -->
+    <path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13M10 10v7M14 10v7"/>
+  </g>
+
+  <g transform="translate(8 328) scale(2)">
+    <!-- collapse -->
+    <path d="m6 9 6 6 6-6"/>
+  </g>
+  <g transform="translate(72 328) scale(2)">
+    <!-- expand -->
+    <path d="m6 15 6-6 6 6"/>
+  </g>
+  <g transform="translate(136 328) scale(2)">
+    <!-- send selected to tray -->
+    <path d="M3 7h18l-2 11H5L3 7Z"/><path d="M7 11h6"/><path d="m14 9 4 3-4 3"/>
+  </g>
+  <g transform="translate(200 328) scale(2)">
+    <!-- reserved / more -->
+    <circle cx="6" cy="12" r="1" fill="#F4F7FB" stroke="none"/><circle cx="12" cy="12" r="1" fill="#F4F7FB" stroke="none"/><circle cx="18" cy="12" r="1" fill="#F4F7FB" stroke="none"/>
   </g>
 </svg>
