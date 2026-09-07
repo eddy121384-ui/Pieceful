@@ -3,9 +3,11 @@ extends "res://scripts/sorting_workspace_management_ui.gd"
 const FloatingIcons = preload("res://scripts/ui_icon_catalog.gd")
 
 const MANAGER_MARGIN := 16.0
+const MANAGER_DRAG_HANDLE_HEIGHT := 48.0
 
 var manager_drag_handle: Label
 var manager_grip_icon: TextureRect
+var manager_close_button: Button
 var manager_dragging := false
 var manager_drag_pointer_id := -999
 var manager_drag_offset := Vector2.ZERO
@@ -15,26 +17,32 @@ var manager_window_position := Vector2.ZERO
 
 func _build_ui() -> void:
 	super._build_ui()
-	_build_manager_drag_handle()
+	_build_manager_drag_header()
 
 
-func _build_manager_drag_handle() -> void:
+func _build_manager_drag_header() -> void:
 	if panel == null or panel.get_child_count() == 0:
 		return
 	var box = panel.get_child(0)
 	if not (box is VBoxContainer):
 		return
 
+	var header := HBoxContainer.new()
+	header.name = "ManagerFloatingHeader"
+	header.add_theme_constant_override("separation", 6)
+	box.add_child(header)
+	box.move_child(header, 0)
+
 	manager_drag_handle = Label.new()
 	manager_drag_handle.name = "ManagerDragHandle"
 	manager_drag_handle.text = ""
-	manager_drag_handle.custom_minimum_size = Vector2(0.0, 32.0)
+	manager_drag_handle.custom_minimum_size = Vector2(0.0, MANAGER_DRAG_HANDLE_HEIGHT)
+	manager_drag_handle.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	manager_drag_handle.mouse_filter = Control.MOUSE_FILTER_STOP
 	manager_drag_handle.mouse_default_cursor_shape = Control.CURSOR_MOVE
 	manager_drag_handle.tooltip_text = "Move tray manager"
 	manager_drag_handle.gui_input.connect(_on_manager_drag_handle_gui_input)
-	box.add_child(manager_drag_handle)
-	box.move_child(manager_drag_handle, 0)
+	header.add_child(manager_drag_handle)
 
 	manager_grip_icon = TextureRect.new()
 	manager_grip_icon.texture = FloatingIcons.texture(FloatingIcons.IconId.GRIP)
@@ -45,11 +53,23 @@ func _build_manager_drag_handle() -> void:
 	manager_grip_icon.anchor_top = 0.5
 	manager_grip_icon.anchor_right = 0.5
 	manager_grip_icon.anchor_bottom = 0.5
-	manager_grip_icon.offset_left = -14.0
-	manager_grip_icon.offset_top = -14.0
-	manager_grip_icon.offset_right = 14.0
-	manager_grip_icon.offset_bottom = 14.0
+	manager_grip_icon.offset_left = -16.0
+	manager_grip_icon.offset_top = -16.0
+	manager_grip_icon.offset_right = 16.0
+	manager_grip_icon.offset_bottom = 16.0
 	manager_drag_handle.add_child(manager_grip_icon)
+
+	manager_close_button = Button.new()
+	manager_close_button.name = "ManagerCloseButton"
+	FloatingIcons.apply_button(
+		manager_close_button,
+		FloatingIcons.IconId.CLOSE,
+		"Close tray manager",
+		Vector2(44.0, 44.0),
+		20
+	)
+	manager_close_button.pressed.connect(_close_manager)
+	header.add_child(manager_close_button)
 
 
 func _input(event: InputEvent) -> void:
@@ -116,6 +136,13 @@ func _finish_manager_drag() -> void:
 	manager_dragging = false
 	manager_drag_pointer_id = -999
 	manager_drag_offset = Vector2.ZERO
+
+
+func _close_manager() -> void:
+	_finish_manager_drag()
+	if sort_button != null:
+		sort_button.set_pressed_no_signal(false)
+	_on_sort_toggled(false)
 
 
 func _on_sort_toggled(enabled: bool) -> void:
