@@ -28,7 +28,7 @@ enum IconId {
 	COLLAPSE,
 	EXPAND,
 	SEND,
-	MORE,
+	LAYOUT,
 }
 
 
