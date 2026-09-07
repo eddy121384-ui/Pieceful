@@ -21,6 +21,14 @@ enum IconId {
 	GRID,
 	REPLAY,
 	CLOSE,
+	SELECT,
+	MOVE_UP,
+	MOVE_DOWN,
+	DELETE,
+	COLLAPSE,
+	EXPAND,
+	SEND,
+	MORE,
 }
 
 
