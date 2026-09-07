@@ -1,6 +1,10 @@
 class_name ScrollableLoosePieceRailCanvas
 extends "res://scripts/loose_piece_rail_canvas.gd"
 
+const ANTI_NEIGHBOR_WINDOW := 6
+const ANTI_NEIGHBOR_AXIS_WEIGHT := 0.42
+const ANTI_NEIGHBOR_JITTER := 0.38
+
 var horizontal_flow := false
 var visible_cross_extent := 180.0
 var randomized_cluster_order: Array = []
@@ -23,13 +27,12 @@ func set_scroll_layout(p_horizontal_flow: bool, p_visible_cross_extent: float) -
 
 
 func reshuffle_group_order() -> void:
-	# Rail placement must not leak source-image order. Puzzle piece indexes follow
-	# the source grid closely, so a deterministic index sort clusters similar
-	# colours and effectively gives the player free image segmentation hints.
-	# Shuffle by cluster instead: connected pieces remain rigid, unrelated groups
-	# are randomized. The order then stays stable until explicitly reshuffled.
-	randomized_cluster_order = _current_cluster_ids()
-	randomized_cluster_order.shuffle()
+	# A plain Fisher-Yates shuffle is mathematically random, but it can still put
+	# several source-neighbour pieces next to each other by chance. Players read
+	# that as "not shuffled" and, worse, it can leak source-grid structure.
+	# Build a randomized far-from-recent-neighbours order instead. Connected
+	# pieces stay one rigid group; only unrelated groups are reordered.
+	randomized_cluster_order = _anti_neighbor_order(_current_cluster_ids())
 	_layout_groups()
 	_rebuild_visuals()
 	_update_empty_hint()
@@ -59,8 +62,8 @@ func _layout_groups() -> void:
 		custom_minimum_size = Vector2.ZERO
 		return
 
-	var columns := 1
-	var rows := 1
+	var columns: int = 1
+	var rows: int = 1
 	if horizontal_flow:
 		var usable_height: float = maxf(
 			cell.y,
@@ -94,8 +97,8 @@ func _layout_groups() -> void:
 		var group = groups[ordinal]
 		if not (group is Array) or group.is_empty():
 			continue
-		var column := 0
-		var row := 0
+		var column: int = 0
+		var row: int = 0
 		if horizontal_flow:
 			column = floori(float(ordinal) / float(rows))
 			row = ordinal % rows
@@ -106,14 +109,14 @@ func _layout_groups() -> void:
 		var relative_bounds: Rect2 = _relative_group_bounds(group, scale_factor)
 		var anchor_index: int = int(group[0])
 		var anchor_piece = board.pieces[anchor_index]
-		var cell_origin := Vector2(
+		var cell_origin: Vector2 = Vector2(
 			EDGE_PADDING + float(column) * cell.x,
 			EDGE_PADDING + float(row) * cell.y
 		)
-		var anchor_position := cell_origin - relative_bounds.position
+		var anchor_position: Vector2 = cell_origin - relative_bounds.position
 
 		for value in group:
-			var member_index := int(value)
+			var member_index: int = int(value)
 			var member = board.pieces[member_index]
 			positions[member_index] = (
 				anchor_position
@@ -168,20 +171,132 @@ func _sync_randomized_cluster_order() -> void:
 			retained.append(cluster_id)
 	randomized_cluster_order = retained
 
-	# Newly dropped groups enter a random slot instead of always appearing at the
-	# end. Existing groups keep their positions, so normal refreshes never make the
-	# Rail visibly reshuffle underneath the player.
+	# Initial population gets a full anti-neighbour shuffle. Later refreshes keep
+	# existing ordering stable so the Rail never visibly scrambles under the user.
+	if randomized_cluster_order.is_empty() and current_ids.size() > 1:
+		randomized_cluster_order = _anti_neighbor_order(current_ids)
+		return
+
+	# Newly dropped groups are inserted into a slot whose nearby Rail neighbours
+	# are far away in source-image space. This avoids a newly returned piece
+	# accidentally recreating an obvious source row/column streak.
 	for cluster_id_value in current_ids:
 		var cluster_id: int = int(cluster_id_value)
 		if randomized_cluster_order.has(cluster_id):
 			continue
-		var insertion_index: int = randi_range(0, randomized_cluster_order.size())
+		var insertion_index: int = _best_insertion_index(cluster_id)
 		randomized_cluster_order.insert(insertion_index, cluster_id)
+
+
+func _anti_neighbor_order(cluster_ids: Array) -> Array:
+	var remaining: Array = cluster_ids.duplicate()
+	var ordered: Array = []
+	if remaining.is_empty():
+		return ordered
+
+	var first_index: int = randi_range(0, remaining.size() - 1)
+	ordered.append(int(remaining[first_index]))
+	remaining.remove_at(first_index)
+
+	while not remaining.is_empty():
+		var best_index: int = 0
+		var best_score: float = -INF
+		for candidate_index in range(remaining.size()):
+			var candidate_id: int = int(remaining[candidate_index])
+			var score: float = _candidate_separation_score(candidate_id, ordered)
+			score += randf() * ANTI_NEIGHBOR_JITTER
+			if score > best_score:
+				best_score = score
+				best_index = candidate_index
+		ordered.append(int(remaining[best_index]))
+		remaining.remove_at(best_index)
+	return ordered
+
+
+func _candidate_separation_score(candidate_id: int, ordered: Array) -> float:
+	if ordered.is_empty():
+		return randf()
+	var window_size: int = mini(ANTI_NEIGHBOR_WINDOW, ordered.size())
+	var start_index: int = ordered.size() - window_size
+	var minimum_score: float = INF
+	for ordered_index in range(start_index, ordered.size()):
+		var neighbour_id: int = int(ordered[ordered_index])
+		minimum_score = minf(
+			minimum_score,
+			_source_separation(candidate_id, neighbour_id)
+		)
+	return minimum_score
+
+
+func _source_separation(cluster_a: int, cluster_b: int) -> float:
+	var a: Vector2 = _cluster_source_centroid(cluster_a)
+	var b: Vector2 = _cluster_source_centroid(cluster_b)
+	var piece_size: Vector2 = Vector2.ONE
+	if board != null and board.definition != null:
+		piece_size = Vector2(board.definition.piece_size)
+	var dx: float = absf(a.x - b.x) / maxf(absf(piece_size.x), 1.0)
+	var dy: float = absf(a.y - b.y) / maxf(absf(piece_size.y), 1.0)
+	var euclidean: float = sqrt(dx * dx + dy * dy)
+	# min(dx, dy) explicitly penalizes same-row / same-column neighbours. Pure
+	# Euclidean distance can still consider two far-apart pieces in one source
+	# column "well separated", recreating the exact tray pattern users complain
+	# about in other jigsaw apps.
+	var axis_spread: float = minf(dx, dy)
+	return euclidean + axis_spread * ANTI_NEIGHBOR_AXIS_WEIGHT
+
+
+func _cluster_source_centroid(cluster_id: int) -> Vector2:
+	if board == null:
+		return Vector2.ZERO
+	var raw_members = board.cluster_members.get(cluster_id, [])
+	if not (raw_members is Array) or raw_members.is_empty():
+		return Vector2.ZERO
+	var total := Vector2.ZERO
+	var count: int = 0
+	for value in raw_members:
+		var piece_index: int = int(value)
+		if piece_index < 0 or piece_index >= board.pieces.size():
+			continue
+		var piece = board.pieces[piece_index]
+		if not is_instance_valid(piece):
+			continue
+		total += Vector2(piece.target_position)
+		count += 1
+	if count <= 0:
+		return Vector2.ZERO
+	return total / float(count)
+
+
+func _best_insertion_index(cluster_id: int) -> int:
+	if randomized_cluster_order.is_empty():
+		return 0
+	var best_index: int = 0
+	var best_score: float = -INF
+	for insertion_index in range(randomized_cluster_order.size() + 1):
+		var local_score: float = INF
+		var has_neighbour := false
+		for offset in [-2, -1, 0, 1]:
+			var neighbour_index: int = insertion_index + int(offset)
+			if neighbour_index < 0 or neighbour_index >= randomized_cluster_order.size():
+				continue
+			var neighbour_id: int = int(randomized_cluster_order[neighbour_index])
+			local_score = minf(
+				local_score,
+				_source_separation(cluster_id, neighbour_id)
+			)
+			has_neighbour = true
+		if not has_neighbour:
+			local_score = 0.0
+		local_score += randf() * ANTI_NEIGHBOR_JITTER
+		if local_score > best_score:
+			best_score = local_score
+			best_index = insertion_index
+	return best_index
 
 
 func _cell_size_for_groups(groups: Array, scale_factor: float) -> Vector2:
 	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
-	var maximum := Vector2(
+	var maximum: Vector2 = Vector2(
 		maxf(64.0, piece_size.x),
 		maxf(64.0, piece_size.y)
 	)
@@ -200,15 +315,15 @@ func _relative_group_bounds(group: Array, scale_factor: float) -> Rect2:
 	var anchor_index: int = int(group[0])
 	var anchor_piece = board.pieces[anchor_index]
 	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
-	var result := Rect2()
+	var result: Rect2 = Rect2()
 	var has_bounds := false
 	for value in group:
-		var member_index := int(value)
+		var member_index: int = int(value)
 		var member = board.pieces[member_index]
 		var relative_position: Vector2 = (
 			Vector2(member.target_position) - Vector2(anchor_piece.target_position)
 		) * scale_factor
-		var piece_rect := Rect2(relative_position, piece_size)
+		var piece_rect: Rect2 = Rect2(relative_position, piece_size)
 		if not has_bounds:
 			result = piece_rect
 			has_bounds = true
@@ -249,7 +364,7 @@ func _finish_piece_drag(screen_position: Vector2) -> void:
 
 
 func _visible_global_rect() -> Rect2:
-	var parent_control := get_parent() as Control
+	var parent_control: Control = get_parent() as Control
 	if parent_control != null:
 		return parent_control.get_global_rect()
 	return get_global_rect()
