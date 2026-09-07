@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-25-loose-piece-layout-mode
   workflow_dispatch:
 
 permissions:
@@ -74,6 +75,15 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Smoke main scene
+        shell: bash
+        run: |
+          set -euxo pipefail
+          timeout 8s "${GODOT_BIN}" --headless --path . --editor-pid 0 || status=$?
+          if [ "${status:-0}" -ne 0 ] && [ "${status:-0}" -ne 124 ]; then
+            exit "${status}"
+          fi
 
       - name: Export Web build
         shell: bash
