@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - infra/web-mobile-preview
+      - feat/issue-25-loose-piece-layout-mode
       - main
   workflow_dispatch:
 
