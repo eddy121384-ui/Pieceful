@@ -10,6 +10,7 @@ const COLLAPSED_TRAY_HEIGHT := 94.0
 
 var selection_mode := false
 var selected_clusters: Dictionary = {}
+var tray_drop_targets: Dictionary = {}
 var selection_mode_button: Button
 var clear_selection_button: Button
 var selection_count_label: Label
@@ -115,15 +116,30 @@ func _on_selection_mode_toggled(enabled: bool) -> void:
 		_apply_selection_visuals()
 
 
-func try_handle_piece_select_tap(piece) -> bool:
-	if not selection_mode or panel == null or not panel.visible:
-		return false
+func selection_mode_active() -> bool:
+	return selection_mode and panel != null and panel.visible
+
+
+func is_piece_selected(piece_index: int) -> bool:
+	var cluster_id: int = int(board.cluster_for_piece.get(piece_index, piece_index))
+	return selected_clusters.has(cluster_id)
+
+
+func selected_drag_members_for_piece(piece_index: int) -> Array:
+	if not selection_mode_active() or not is_piece_selected(piece_index):
+		return []
+	return _selected_members()
+
+
+func toggle_selection_for_piece(piece) -> void:
+	if not selection_mode_active():
+		return
 	if piece == null or not is_instance_valid(piece) or piece.solved:
-		return true
+		return
 
 	var members: Array = _loose_group_members_for_piece(int(piece.piece_index))
 	if members.is_empty():
-		return true
+		return
 
 	var cluster_id: int = int(
 		board.cluster_for_piece.get(int(piece.piece_index), int(piece.piece_index))
@@ -135,7 +151,6 @@ func try_handle_piece_select_tap(piece) -> bool:
 
 	_apply_selection_visuals()
 	_refresh_ui()
-	return true
 
 
 func _exit_selection_mode() -> void:
@@ -166,7 +181,7 @@ func _refresh_selection_controls() -> void:
 			"" if piece_count == 1 else "s",
 		]
 	elif selection_mode:
-		selection_count_label.text = "Tap pieces to select"
+		selection_count_label.text = "Tap to select · drag to a Tray"
 	else:
 		selection_count_label.text = "Multi-select"
 	clear_selection_button.visible = group_count > 0
@@ -204,6 +219,14 @@ func _selected_members() -> Array:
 	return result
 
 
+func _selected_groups() -> Array:
+	var result: Array = []
+	for members in selected_clusters.values():
+		if members is Array and not members.is_empty():
+			result.append(members.duplicate())
+	return result
+
+
 func _apply_selection_visuals() -> void:
 	if board == null:
 		return
@@ -231,6 +254,7 @@ func _refresh_ui() -> void:
 
 
 func _rebuild_management_tray_rows() -> void:
+	tray_drop_targets.clear()
 	_clear_container(tray_list_box)
 	var tray_ids: Array[String] = state.tray_ids()
 	if tray_ids.is_empty():
@@ -251,22 +275,11 @@ func _rebuild_management_tray_rows() -> void:
 		open_button.text = "%s · %d" % [state.tray_name(tray_id), count]
 		open_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		open_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		open_button.custom_minimum_size = Vector2(0.0, 42.0)
-		open_button.tooltip_text = "Open %s" % state.tray_name(tray_id)
+		open_button.custom_minimum_size = Vector2(0.0, 46.0)
+		open_button.tooltip_text = "Open %s · drop pieces here" % state.tray_name(tray_id)
 		open_button.pressed.connect(_open_tray.bind(tray_id))
 		row.add_child(open_button)
-
-		if not selected_clusters.is_empty():
-			var send_button := Button.new()
-			Icons.apply_button(
-				send_button,
-				Icons.IconId.SEND,
-				"Move selected to %s" % state.tray_name(tray_id),
-				Vector2(38.0, 38.0),
-				18
-			)
-			send_button.pressed.connect(_move_selected_to_tray.bind(tray_id))
-			row.add_child(send_button)
+		tray_drop_targets[tray_id] = open_button
 
 		var up_button := Button.new()
 		Icons.apply_button(
@@ -302,6 +315,102 @@ func _rebuild_management_tray_rows() -> void:
 		)
 		delete_button.pressed.connect(_delete_tray.bind(tray_id))
 		row.add_child(delete_button)
+
+
+func _tray_id_at_screen_point(screen_position: Vector2) -> String:
+	for tray_id in tray_drop_targets.keys():
+		var target = tray_drop_targets[tray_id]
+		if not is_instance_valid(target) or not target.visible:
+			continue
+		if target.get_global_rect().grow(4.0).has_point(screen_position):
+			return str(tray_id)
+	return ""
+
+
+func try_store_manager_drop(piece) -> bool:
+	if (
+		panel == null
+		or not panel.visible
+		or piece == null
+		or not is_instance_valid(piece)
+		or piece.solved
+	):
+		return false
+
+	var drop_position: Vector2 = Vector2(piece.last_pointer_screen_position)
+	var tray_id: String = _tray_id_at_screen_point(drop_position)
+	if tray_id.is_empty():
+		return false
+
+	var groups: Array = []
+	if selection_mode_active() and is_piece_selected(int(piece.piece_index)):
+		groups = _selected_groups()
+	else:
+		var members: Array = _loose_group_members_for_piece(int(piece.piece_index))
+		if members.is_empty():
+			return false
+		groups.append(members)
+
+	return _store_groups_in_tray(groups, tray_id)
+
+
+func _store_groups_in_tray(groups: Array, tray_id: String) -> bool:
+	if groups.is_empty() or not state.tray_ids().has(tray_id):
+		return false
+
+	var all_members: Array = []
+	for group in groups:
+		if not (group is Array) or group.is_empty():
+			continue
+		for value in group:
+			var piece_index: int = int(value)
+			if state.location_for(piece_index) != ManagementState.LOCATION_LOOSE:
+				return false
+			if not all_members.has(piece_index):
+				all_members.append(piece_index)
+	if all_members.is_empty():
+		return false
+
+	var existing_count: int = state.tray_piece_count(tray_id)
+	if not state.assign_pieces_to_tray(all_members, tray_id):
+		return false
+
+	var scale_factor: float = _tray_visual_scale()
+	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
+	var step_x: float = maxf(64.0, piece_size.x * 1.25)
+	var step_y: float = maxf(64.0, piece_size.y * 1.25)
+	var columns: int = 4
+	var group_index := 0
+
+	for group in groups:
+		if not (group is Array) or group.is_empty():
+			continue
+		var anchor_index: int = int(group[0])
+		var anchor_piece = board.pieces[anchor_index]
+		var ordinal: int = existing_count + group_index
+		var row_index: int = floori(float(ordinal) / float(columns))
+		var anchor_local := Vector2(
+			14.0 + float(ordinal % columns) * step_x,
+			14.0 + float(row_index) * step_y
+		)
+		for value in group:
+			var member_index: int = int(value)
+			var member = board.pieces[member_index]
+			var relative_target: Vector2 = (
+				Vector2(member.target_position) - Vector2(anchor_piece.target_position)
+			) * scale_factor
+			state.set_tray_piece_position(
+				tray_id,
+				member_index,
+				anchor_local + relative_target
+			)
+			_stash_piece(member_index)
+		group_index += 1
+
+	selected_clusters.clear()
+	_apply_selection_visuals()
+	_refresh_ui()
+	return true
 
 
 func _move_tray(tray_id: String, delta: int) -> void:
@@ -368,59 +477,6 @@ func _return_deleted_tray_members(member_indexes: Array) -> void:
 			member.input_pickable = true
 			member.z_index = group_z
 		group_ordinal += 1
-
-
-func _move_selected_to_tray(tray_id: String) -> void:
-	if selected_clusters.is_empty() or not state.tray_ids().has(tray_id):
-		return
-	var groups: Array = []
-	for members in selected_clusters.values():
-		if members is Array and not members.is_empty():
-			groups.append(members.duplicate())
-	var all_members: Array = _selected_members()
-	if all_members.is_empty():
-		return
-
-	var existing_count: int = state.tray_piece_count(tray_id)
-	if not state.assign_pieces_to_tray(all_members, tray_id):
-		return
-
-	var scale_factor: float = _tray_visual_scale()
-	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
-	var step_x: float = maxf(64.0, piece_size.x * 1.25)
-	var step_y: float = maxf(64.0, piece_size.y * 1.25)
-	var columns: int = 4
-	var group_index := 0
-	for members in groups:
-		var anchor_index: int = int(members[0])
-		var anchor_piece = board.pieces[anchor_index]
-		var ordinal: int = existing_count + group_index
-		var anchor_local := Vector2(
-			14.0 + float(ordinal % columns) * step_x,
-			14.0 + float(ordinal / columns) * step_y
-		)
-		for value in members:
-			var member_index: int = int(value)
-			var member = board.pieces[member_index]
-			var relative_target: Vector2 = (
-				Vector2(member.target_position)
-				- Vector2(anchor_piece.target_position)
-			) * scale_factor
-			state.set_tray_piece_position(
-				tray_id,
-				member_index,
-				anchor_local + relative_target
-			)
-			_stash_piece(member_index)
-		group_index += 1
-
-	selected_clusters.clear()
-	selection_mode = false
-	selection_mode_button.set_pressed_no_signal(false)
-	_apply_selection_visuals()
-	if tray_id == active_tray_id and tray_play_canvas != null:
-		tray_play_canvas.refresh()
-	_refresh_ui()
 
 
 func _tray_visual_scale() -> float:
