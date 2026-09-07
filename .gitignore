@@ -1,6 +1,10 @@
 # Godot generated/imported files
 .godot/
 
+# Local CI/export output
+.godot-ci/
+build/
+
 # OS/editor noise
 .DS_Store
 Thumbs.db
