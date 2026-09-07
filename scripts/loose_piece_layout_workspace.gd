@@ -235,7 +235,7 @@ func _restore_all_loose_groups_to_scatter() -> void:
 		var anchor_position := Vector2(starts[group_ordinal % starts.size()])
 		group_ordinal += 1
 		board.z_counter += 1
-		var group_z := board.z_counter
+		var group_z: int = int(board.z_counter)
 		for value in members:
 			var member_index := int(value)
 			var member = board.pieces[member_index]
@@ -447,7 +447,7 @@ func _release_rail_group_to_main_table(
 	var anchor_piece = board.pieces[anchor_piece_index]
 
 	board.z_counter += 1
-	var group_z := board.z_counter
+	var group_z: int = int(board.z_counter)
 	for value in member_indexes:
 		var piece_index := int(value)
 		if piece_index < 0 or piece_index >= board.pieces.size():
