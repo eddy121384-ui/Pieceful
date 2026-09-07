@@ -111,7 +111,7 @@ func _iconify_drag_handle() -> void:
 		return
 	detail_drag_handle.text = ""
 	detail_drag_handle.tooltip_text = "Move tray"
-	detail_drag_handle.custom_minimum_size = Vector2(0.0, 48.0)
+	detail_drag_handle.custom_minimum_size = Vector2(0.0, 56.0)
 
 	grip_icon = TextureRect.new()
 	grip_icon.texture = Icons.texture(Icons.IconId.GRIP)
@@ -122,11 +122,50 @@ func _iconify_drag_handle() -> void:
 	grip_icon.anchor_top = 0.5
 	grip_icon.anchor_right = 0.5
 	grip_icon.anchor_bottom = 0.5
-	grip_icon.offset_left = -16.0
-	grip_icon.offset_top = -16.0
-	grip_icon.offset_right = 16.0
-	grip_icon.offset_bottom = 16.0
+	grip_icon.offset_left = -18.0
+	grip_icon.offset_top = -18.0
+	grip_icon.offset_right = 18.0
+	grip_icon.offset_bottom = 18.0
 	detail_drag_handle.add_child(grip_icon)
+	_rebind_detail_drag_handle_input()
+
+
+func _rebind_detail_drag_handle_input() -> void:
+	if detail_drag_handle == null:
+		return
+	var legacy_callable := Callable(self, "_on_detail_drag_handle_gui_input")
+	if detail_drag_handle.gui_input.is_connected(legacy_callable):
+		detail_drag_handle.gui_input.disconnect(legacy_callable)
+	detail_drag_handle.gui_input.connect(_on_detail_drag_handle_gui_input_canvas_safe)
+
+
+func _on_detail_drag_handle_gui_input_canvas_safe(event: InputEvent) -> void:
+	if detail_panel == null or not detail_panel.visible:
+		return
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_begin_detail_drag(
+				-1,
+				_viewport_position_in_ui_canvas(get_viewport().get_mouse_position())
+			)
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			_begin_detail_drag(
+				event.index,
+				_control_local_to_ui_canvas(detail_drag_handle, event.position)
+			)
+
+
+func _viewport_position_in_ui_canvas(viewport_position: Vector2) -> Vector2:
+	if ui_layer != null:
+		return ui_layer.transform.affine_inverse() * viewport_position
+	return viewport_position
+
+
+func _control_local_to_ui_canvas(control: Control, local_position: Vector2) -> Vector2:
+	if control == null:
+		return local_position
+	return control.get_global_transform() * local_position
 
 
 func _simplify_panel_title() -> void:
