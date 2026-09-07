@@ -25,9 +25,9 @@ func _build_ui() -> void:
 	)
 	Icons.apply_button(
 		close_detail_button,
-		Icons.IconId.BACK,
-		"Back",
-		Vector2(40.0, 40.0),
+		Icons.IconId.CLOSE,
+		"Close tray",
+		Vector2(44.0, 44.0),
 		20
 	)
 	Icons.apply_button(
@@ -111,7 +111,7 @@ func _iconify_drag_handle() -> void:
 		return
 	detail_drag_handle.text = ""
 	detail_drag_handle.tooltip_text = "Move tray"
-	detail_drag_handle.custom_minimum_size = Vector2(0.0, 34.0)
+	detail_drag_handle.custom_minimum_size = Vector2(0.0, 48.0)
 
 	grip_icon = TextureRect.new()
 	grip_icon.texture = Icons.texture(Icons.IconId.GRIP)
@@ -122,10 +122,10 @@ func _iconify_drag_handle() -> void:
 	grip_icon.anchor_top = 0.5
 	grip_icon.anchor_right = 0.5
 	grip_icon.anchor_bottom = 0.5
-	grip_icon.offset_left = -15.0
-	grip_icon.offset_top = -15.0
-	grip_icon.offset_right = 15.0
-	grip_icon.offset_bottom = 15.0
+	grip_icon.offset_left = -16.0
+	grip_icon.offset_top = -16.0
+	grip_icon.offset_right = 16.0
+	grip_icon.offset_bottom = 16.0
 	detail_drag_handle.add_child(grip_icon)
 
 
