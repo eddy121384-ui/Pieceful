@@ -3,7 +3,8 @@ extends "res://scripts/sorting_workspace_management_ui.gd"
 const FloatingIcons = preload("res://scripts/ui_icon_catalog.gd")
 
 const MANAGER_MARGIN := 16.0
-const MANAGER_DRAG_HANDLE_HEIGHT := 48.0
+const MANAGER_DRAG_HANDLE_HEIGHT := 56.0
+const MOBILE_REFLOW_SETTLE_SECONDS := 0.28
 
 var manager_drag_handle: Label
 var manager_grip_icon: TextureRect
@@ -13,6 +14,12 @@ var manager_drag_pointer_id := -999
 var manager_drag_offset := Vector2.ZERO
 var manager_user_positioned := false
 var manager_window_position := Vector2.ZERO
+
+
+func _ready() -> void:
+	super._ready()
+	if reflow_settle_timer != null:
+		reflow_settle_timer.wait_time = MOBILE_REFLOW_SETTLE_SECONDS
 
 
 func _build_ui() -> void:
@@ -53,10 +60,10 @@ func _build_manager_drag_header() -> void:
 	manager_grip_icon.anchor_top = 0.5
 	manager_grip_icon.anchor_right = 0.5
 	manager_grip_icon.anchor_bottom = 0.5
-	manager_grip_icon.offset_left = -16.0
-	manager_grip_icon.offset_top = -16.0
-	manager_grip_icon.offset_right = 16.0
-	manager_grip_icon.offset_bottom = 16.0
+	manager_grip_icon.offset_left = -18.0
+	manager_grip_icon.offset_top = -18.0
+	manager_grip_icon.offset_right = 18.0
+	manager_grip_icon.offset_bottom = 18.0
 	manager_drag_handle.add_child(manager_grip_icon)
 
 	manager_close_button = Button.new()
@@ -84,7 +91,9 @@ func _input(event: InputEvent) -> void:
 	if manager_drag_pointer_id == -1:
 		if event is InputEventMouseMotion:
 			if (event.button_mask & MOUSE_BUTTON_MASK_LEFT) != 0:
-				_move_manager_panel(get_viewport().get_mouse_position())
+				_move_manager_panel(
+					_viewport_position_in_ui_canvas(get_viewport().get_mouse_position())
+				)
 				get_viewport().set_input_as_handled()
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
@@ -92,7 +101,7 @@ func _input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 	else:
 		if event is InputEventScreenDrag and event.index == manager_drag_pointer_id:
-			_move_manager_panel(event.position)
+			_move_manager_panel(_viewport_position_in_ui_canvas(event.position))
 			get_viewport().set_input_as_handled()
 		elif event is InputEventScreenTouch:
 			if event.index == manager_drag_pointer_id and not event.pressed:
@@ -105,26 +114,32 @@ func _on_manager_drag_handle_gui_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_begin_manager_drag(-1, get_viewport().get_mouse_position())
+			_begin_manager_drag(
+				-1,
+				_viewport_position_in_ui_canvas(get_viewport().get_mouse_position())
+			)
 	elif event is InputEventScreenTouch:
 		if event.pressed:
-			_begin_manager_drag(event.index, event.position)
+			_begin_manager_drag(
+				event.index,
+				_control_local_to_ui_canvas(manager_drag_handle, event.position)
+			)
 
 
-func _begin_manager_drag(pointer_id: int, pointer_screen_position: Vector2) -> void:
+func _begin_manager_drag(pointer_id: int, pointer_canvas_position: Vector2) -> void:
 	manager_dragging = true
 	manager_drag_pointer_id = pointer_id
-	manager_drag_offset = pointer_screen_position - panel.position
+	manager_drag_offset = pointer_canvas_position - panel.position
 	manager_user_positioned = true
 	manager_window_position = panel.position
 	get_viewport().set_input_as_handled()
 
 
-func _move_manager_panel(pointer_screen_position: Vector2) -> void:
+func _move_manager_panel(pointer_canvas_position: Vector2) -> void:
 	if not manager_dragging or panel == null:
 		return
 	panel.position = _clamp_manager_position(
-		pointer_screen_position - manager_drag_offset
+		pointer_canvas_position - manager_drag_offset
 	)
 	manager_window_position = panel.position
 
