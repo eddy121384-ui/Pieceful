@@ -3,6 +3,7 @@ extends "res://scripts/loose_piece_rail_canvas.gd"
 
 var horizontal_flow := false
 var visible_cross_extent := 180.0
+var randomized_cluster_order: Array = []
 
 
 func _ready() -> void:
@@ -15,6 +16,20 @@ func _ready() -> void:
 func set_scroll_layout(p_horizontal_flow: bool, p_visible_cross_extent: float) -> void:
 	horizontal_flow = p_horizontal_flow
 	visible_cross_extent = maxf(p_visible_cross_extent, 80.0)
+	_layout_groups()
+	_rebuild_visuals()
+	_update_empty_hint()
+	queue_redraw()
+
+
+func reshuffle_group_order() -> void:
+	# Rail placement must not leak source-image order. Puzzle piece indexes follow
+	# the source grid closely, so a deterministic index sort clusters similar
+	# colours and effectively gives the player free image segmentation hints.
+	# Shuffle by cluster instead: connected pieces remain rigid, unrelated groups
+	# are randomized. The order then stays stable until explicitly reshuffled.
+	randomized_cluster_order = _current_cluster_ids()
+	randomized_cluster_order.shuffle()
 	_layout_groups()
 	_rebuild_visuals()
 	_update_empty_hint()
@@ -107,6 +122,61 @@ func _layout_groups() -> void:
 					- Vector2(anchor_piece.target_position)
 				) * scale_factor
 			)
+
+
+func _groups_in_display_order() -> Array:
+	var groups: Array = []
+	if board == null:
+		return groups
+
+	_sync_randomized_cluster_order()
+	for cluster_id_value in randomized_cluster_order:
+		var cluster_id: int = int(cluster_id_value)
+		var raw_members = board.cluster_members.get(cluster_id, [])
+		if not (raw_members is Array):
+			continue
+		var group: Array = []
+		for member_value in raw_members:
+			var member_index: int = int(member_value)
+			if member_indexes.has(member_index):
+				group.append(member_index)
+		if not group.is_empty():
+			groups.append(group)
+	return groups
+
+
+func _current_cluster_ids() -> Array:
+	var result: Array = []
+	if board == null:
+		return result
+	for value in member_indexes:
+		var piece_index: int = int(value)
+		var cluster_id: int = int(
+			board.cluster_for_piece.get(piece_index, piece_index)
+		)
+		if not result.has(cluster_id):
+			result.append(cluster_id)
+	return result
+
+
+func _sync_randomized_cluster_order() -> void:
+	var current_ids: Array = _current_cluster_ids()
+	var retained: Array = []
+	for cluster_id_value in randomized_cluster_order:
+		var cluster_id: int = int(cluster_id_value)
+		if current_ids.has(cluster_id):
+			retained.append(cluster_id)
+	randomized_cluster_order = retained
+
+	# Newly dropped groups enter a random slot instead of always appearing at the
+	# end. Existing groups keep their positions, so normal refreshes never make the
+	# Rail visibly reshuffle underneath the player.
+	for cluster_id_value in current_ids:
+		var cluster_id: int = int(cluster_id_value)
+		if randomized_cluster_order.has(cluster_id):
+			continue
+		var insertion_index: int = randi_range(0, randomized_cluster_order.size())
+		randomized_cluster_order.insert(insertion_index, cluster_id)
 
 
 func _cell_size_for_groups(groups: Array, scale_factor: float) -> Vector2:
