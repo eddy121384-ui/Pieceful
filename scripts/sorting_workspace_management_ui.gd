@@ -1,7 +1,6 @@
 extends "res://scripts/sorting_workspace_icon_ui.gd"
 
 const ManagementState = preload("res://scripts/sorting_workspace_management_state.gd")
-const Icons = preload("res://scripts/ui_icon_catalog.gd")
 
 const SELECTED_OUTLINE_COLOR := Color(1.0, 0.82, 0.30, 1.0)
 const NORMAL_OUTLINE_COLOR := Color(1.0, 1.0, 1.0, 0.66)
@@ -50,7 +49,7 @@ func _build_selection_controls() -> void:
 	row.add_child(selection_mode_button)
 
 	selection_count_label = Label.new()
-	selection_count_label.text = "0 selected"
+	selection_count_label.text = "Multi-select"
 	selection_count_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	selection_count_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	selection_count_label.modulate = Color(1.0, 1.0, 1.0, 0.70)
@@ -101,6 +100,12 @@ func _ensure_piece_bindings() -> bool:
 	return changed
 
 
+func _on_sort_toggled(enabled: bool) -> void:
+	super._on_sort_toggled(enabled)
+	if not enabled:
+		_exit_selection_mode()
+
+
 func _on_selection_mode_toggled(enabled: bool) -> void:
 	selection_mode = enabled
 	if not selection_mode:
@@ -111,7 +116,7 @@ func _on_selection_mode_toggled(enabled: bool) -> void:
 
 
 func try_handle_piece_select_tap(piece) -> bool:
-	if not selection_mode:
+	if not selection_mode or panel == null or not panel.visible:
 		return false
 	if piece == null or not is_instance_valid(piece) or piece.solved:
 		return true
@@ -133,6 +138,15 @@ func try_handle_piece_select_tap(piece) -> bool:
 	return true
 
 
+func _exit_selection_mode() -> void:
+	selection_mode = false
+	selected_clusters.clear()
+	if selection_mode_button != null:
+		selection_mode_button.set_pressed_no_signal(false)
+	_apply_selection_visuals()
+	_refresh_selection_controls()
+
+
 func _clear_selection() -> void:
 	selected_clusters.clear()
 	_apply_selection_visuals()
@@ -145,17 +159,16 @@ func _refresh_selection_controls() -> void:
 		return
 	var group_count: int = selected_clusters.size()
 	var piece_count: int = _selected_members().size()
-	selection_count_label.text = (
-		"%d selected · %d piece%s" % [
+	if group_count > 0:
+		selection_count_label.text = "%d selected · %d piece%s" % [
 			group_count,
 			piece_count,
 			"" if piece_count == 1 else "s",
 		]
-		if group_count > 0
-		else "Tap pieces to select"
-		if selection_mode
-		else "Multi-select"
-	)
+	elif selection_mode:
+		selection_count_label.text = "Tap pieces to select"
+	else:
+		selection_count_label.text = "Multi-select"
 	clear_selection_button.visible = group_count > 0
 	if selection_mode_button != null:
 		selection_mode_button.set_pressed_no_signal(selection_mode)
@@ -256,19 +269,37 @@ func _rebuild_management_tray_rows() -> void:
 			row.add_child(send_button)
 
 		var up_button := Button.new()
-		Icons.apply_button(up_button, Icons.IconId.MOVE_UP, "Move tray up", Vector2(34.0, 38.0), 16)
+		Icons.apply_button(
+			up_button,
+			Icons.IconId.MOVE_UP,
+			"Move tray up",
+			Vector2(34.0, 38.0),
+			16
+		)
 		up_button.disabled = index == 0
 		up_button.pressed.connect(_move_tray.bind(tray_id, -1))
 		row.add_child(up_button)
 
 		var down_button := Button.new()
-		Icons.apply_button(down_button, Icons.IconId.MOVE_DOWN, "Move tray down", Vector2(34.0, 38.0), 16)
+		Icons.apply_button(
+			down_button,
+			Icons.IconId.MOVE_DOWN,
+			"Move tray down",
+			Vector2(34.0, 38.0),
+			16
+		)
 		down_button.disabled = index == tray_ids.size() - 1
 		down_button.pressed.connect(_move_tray.bind(tray_id, 1))
 		row.add_child(down_button)
 
 		var delete_button := Button.new()
-		Icons.apply_button(delete_button, Icons.IconId.DELETE, "Delete tray · return pieces to table", Vector2(36.0, 38.0), 17)
+		Icons.apply_button(
+			delete_button,
+			Icons.IconId.DELETE,
+			"Delete tray · return pieces to table",
+			Vector2(36.0, 38.0),
+			17
+		)
 		delete_button.pressed.connect(_delete_tray.bind(tray_id))
 		row.add_child(delete_button)
 
@@ -307,13 +338,18 @@ func _return_deleted_tray_members(member_indexes: Array) -> void:
 		handled_clusters[cluster_id] = true
 
 		var raw_members = board.cluster_members.get(cluster_id, [piece_index])
-		var group_members: Array = raw_members.duplicate() if raw_members is Array else [piece_index]
+		var group_members: Array = (
+			raw_members.duplicate() if raw_members is Array else [piece_index]
+		)
 		var anchor_index: int = piece_index
 		var anchor_piece = board.pieces[anchor_index]
 		var anchor_position: Vector2 = (
 			Vector2(starts[anchor_index])
 			if anchor_index < starts.size()
-			else board.navigation_rect.position + Vector2(24.0 + group_ordinal * 18.0, 96.0 + group_ordinal * 12.0)
+			else board.navigation_rect.position + Vector2(
+				24.0 + group_ordinal * 18.0,
+				96.0 + group_ordinal * 12.0
+			)
 		)
 
 		board.z_counter += 1
@@ -353,7 +389,7 @@ func _move_selected_to_tray(tray_id: String) -> void:
 	var piece_size: Vector2 = Vector2(board.definition.piece_size) * scale_factor
 	var step_x: float = maxf(64.0, piece_size.x * 1.25)
 	var step_y: float = maxf(64.0, piece_size.y * 1.25)
-	var columns := 4
+	var columns: int = 4
 	var group_index := 0
 	for members in groups:
 		var anchor_index: int = int(members[0])
@@ -367,9 +403,14 @@ func _move_selected_to_tray(tray_id: String) -> void:
 			var member_index: int = int(value)
 			var member = board.pieces[member_index]
 			var relative_target: Vector2 = (
-				Vector2(member.target_position) - Vector2(anchor_piece.target_position)
+				Vector2(member.target_position)
+				- Vector2(anchor_piece.target_position)
 			) * scale_factor
-			state.set_tray_piece_position(tray_id, member_index, anchor_local + relative_target)
+			state.set_tray_piece_position(
+				tray_id,
+				member_index,
+				anchor_local + relative_target
+			)
 			_stash_piece(member_index)
 		group_index += 1
 
@@ -391,6 +432,7 @@ func _tray_visual_scale() -> float:
 
 
 func _open_tray(tray_id: String) -> void:
+	_exit_selection_mode()
 	super._open_tray(tray_id)
 	_apply_detail_collapsed_state()
 
@@ -415,7 +457,9 @@ func _apply_detail_collapsed_state() -> void:
 	collapse_detail_button.icon = Icons.texture(
 		Icons.IconId.EXPAND if collapsed else Icons.IconId.COLLAPSE
 	)
-	collapse_detail_button.tooltip_text = "Expand tray" if collapsed else "Collapse tray"
+	collapse_detail_button.tooltip_text = (
+		"Expand tray" if collapsed else "Collapse tray"
+	)
 	detail_panel.custom_minimum_size = (
 		Vector2(260.0, COLLAPSED_TRAY_HEIGHT)
 		if collapsed
