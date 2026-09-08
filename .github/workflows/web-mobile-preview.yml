@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - perf/issue-15-batched-main-table
   workflow_dispatch:
 
 permissions:
@@ -74,6 +75,16 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Smoke main scene
+        shell: bash
+        run: |
+          set -uo pipefail
+          status=0
+          timeout 12s "${GODOT_BIN}" --headless --path . main.tscn || status=$?
+          if [ "$status" -ne 0 ] && [ "$status" -ne 124 ]; then
+            exit "$status"
+          fi
 
       - name: Export Web build
         shell: bash
