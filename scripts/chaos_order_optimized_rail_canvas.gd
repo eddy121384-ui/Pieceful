@@ -3,8 +3,16 @@ extends "res://scripts/scrollable_loose_piece_rail_canvas.gd"
 
 const DENSE_RAIL_THRESHOLD := 120
 const DENSE_SHUFFLE_SAMPLE := 24
+const VIRTUALIZATION_BUFFER := 104.0
 
 var source_centroid_cache: Dictionary = {}
+var virtualization_refresh_queued := false
+var last_virtualized_visual_count := -1
+
+
+func _ready() -> void:
+	super._ready()
+	call_deferred("_connect_scroll_virtualization")
 
 
 func configure(p_board, p_member_indexes: Array) -> void:
@@ -40,15 +48,51 @@ func set_scroll_layout(p_horizontal_flow: bool, p_visible_cross_extent: float) -
 		return
 
 	_layout_groups()
-	# Reflowing from the provisional canvas size into the final scroll direction
-	# must not destroy/recreate hundreds of Polygon2D nodes. Reuse the same nodes
-	# and only move them to their new Rail slots.
-	if _visuals_cover_members():
+	# Dense Rail keeps only the visible window instantiated. Reflowing the canvas
+	# therefore updates the small visible set rather than rebuilding every piece.
+	if _dense_virtualization_active():
+		_sync_virtual_visuals()
+	elif _visuals_cover_members():
 		_sync_visual_positions()
 	else:
 		_rebuild_visuals()
 	_update_empty_hint()
 	queue_redraw()
+
+
+func _connect_scroll_virtualization() -> void:
+	var scroll: ScrollContainer = get_parent() as ScrollContainer
+	if scroll == null:
+		return
+	var horizontal_bar: HScrollBar = scroll.get_h_scroll_bar()
+	var vertical_bar: VScrollBar = scroll.get_v_scroll_bar()
+	if horizontal_bar != null:
+		var h_callable := Callable(self, "_on_scroll_value_changed")
+		if not horizontal_bar.value_changed.is_connected(h_callable):
+			horizontal_bar.value_changed.connect(h_callable)
+	if vertical_bar != null:
+		var v_callable := Callable(self, "_on_scroll_value_changed")
+		if not vertical_bar.value_changed.is_connected(v_callable):
+			vertical_bar.value_changed.connect(v_callable)
+	_queue_virtualization_refresh()
+
+
+func _on_scroll_value_changed(_value: float) -> void:
+	_queue_virtualization_refresh()
+
+
+func _queue_virtualization_refresh() -> void:
+	if not _dense_virtualization_active() or virtualization_refresh_queued:
+		return
+	virtualization_refresh_queued = true
+	call_deferred("_flush_virtualization_refresh")
+
+
+func _flush_virtualization_refresh() -> void:
+	virtualization_refresh_queued = false
+	if not _dense_virtualization_active():
+		return
+	_sync_virtual_visuals()
 
 
 func _same_member_set(values: Array) -> bool:
@@ -63,10 +107,19 @@ func _same_member_set(values: Array) -> bool:
 	return true
 
 
+func _dense_virtualization_active() -> bool:
+	return member_indexes.size() >= DENSE_RAIL_THRESHOLD
+
+
 func _visuals_cover_members() -> bool:
-	if visual_nodes.size() != member_indexes.size():
+	var expected: Array = (
+		_visible_member_indexes()
+		if _dense_virtualization_active()
+		else member_indexes.duplicate()
+	)
+	if visual_nodes.size() != expected.size():
 		return false
-	for value in member_indexes:
+	for value in expected:
 		var piece_index: int = int(value)
 		if not visual_nodes.has(piece_index):
 			return false
@@ -82,44 +135,151 @@ func _rebuild_visuals() -> void:
 	if board == null:
 		return
 
+	var dense_mode: bool = _dense_virtualization_active()
+	var render_members: Array = (
+		_visible_member_indexes()
+		if dense_mode
+		else member_indexes.duplicate()
+	)
+	for value in render_members:
+		_create_piece_visual(int(value), dense_mode)
+	_sync_visual_positions()
+	_report_virtualization(render_members.size())
+
+
+func _sync_virtual_visuals() -> void:
+	if not _dense_virtualization_active():
+		return
+	_ensure_content_root()
+	if board == null:
+		return
+
+	var desired_members: Array = _visible_member_indexes()
+	var desired_set: Dictionary = {}
+	for value in desired_members:
+		desired_set[int(value)] = true
+
+	var stale_indexes: Array = []
+	for piece_index_value in visual_nodes.keys():
+		var piece_index: int = int(piece_index_value)
+		if not desired_set.has(piece_index):
+			stale_indexes.append(piece_index)
+	for piece_index_value in stale_indexes:
+		var piece_index: int = int(piece_index_value)
+		var old_node = visual_nodes.get(piece_index)
+		visual_nodes.erase(piece_index)
+		if is_instance_valid(old_node):
+			old_node.get_parent().remove_child(old_node)
+			old_node.queue_free()
+
+	for value in desired_members:
+		var piece_index: int = int(value)
+		if visual_nodes.has(piece_index) and is_instance_valid(visual_nodes[piece_index]):
+			continue
+		_create_piece_visual(piece_index, true)
+
+	_sync_visual_positions()
+	_report_virtualization(desired_members.size())
+
+
+func _create_piece_visual(piece_index: int, dense_mode: bool) -> void:
+	if board == null or content_root == null:
+		return
+	if piece_index < 0 or piece_index >= board.pieces.size():
+		return
+	var source_piece = board.pieces[piece_index]
+	if not is_instance_valid(source_piece):
+		return
+
 	var scale_factor: float = visual_scale()
-	var dense_mode: bool = member_indexes.size() >= DENSE_RAIL_THRESHOLD
+	var holder := Node2D.new()
+	holder.name = "RailPiece_%03d" % piece_index
+	holder.position = _piece_position(piece_index)
+	holder.scale = Vector2(scale_factor, scale_factor)
+	holder.z_index = int(piece_z.get(piece_index, 0))
+	content_root.add_child(holder)
+	visual_nodes[piece_index] = holder
+
+	var face := Polygon2D.new()
+	face.polygon = source_piece.polygon_points
+	face.uv = source_piece.uv_points
+	face.texture = source_piece.source_texture
+	holder.add_child(face)
+
+	# A per-piece Line2D is useful at 40 pieces, but at 286 pieces it creates
+	# hundreds of additional nodes and antialiasing work. Dense Rail pieces are
+	# already visually separated by spacing, so omit this decorative layer.
+	if dense_mode:
+		return
+	var outline := Line2D.new()
+	var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
+	if not outline_points.is_empty():
+		outline_points.append(outline_points[0])
+	outline.points = outline_points
+	outline.width = 1.1 / maxf(scale_factor, 0.01)
+	outline.default_color = Color(1.0, 1.0, 1.0, 0.58)
+	outline.antialiased = true
+	holder.add_child(outline)
+
+
+func _visible_member_indexes() -> Array:
+	var result: Array = []
+	if board == null:
+		return result
+	if not _dense_virtualization_active():
+		return member_indexes.duplicate()
+
+	var visible_rect: Rect2 = _visible_local_rect().grow(VIRTUALIZATION_BUFFER)
+	if visible_rect.size.x <= 1.0 or visible_rect.size.y <= 1.0:
+		# The first configure can happen before the ScrollContainer receives its
+		# final size. Render a bounded starter window instead of falling back to all
+		# 286 nodes; the deferred scroll refresh fills the real viewport next frame.
+		var starter_count: int = mini(32, member_indexes.size())
+		for ordinal in range(starter_count):
+			result.append(int(member_indexes[ordinal]))
+		return result
+
+	var scale_factor: float = visual_scale()
 	for value in member_indexes:
 		var piece_index: int = int(value)
 		if piece_index < 0 or piece_index >= board.pieces.size():
 			continue
-		var source_piece = board.pieces[piece_index]
-		if not is_instance_valid(source_piece):
+		var piece = board.pieces[piece_index]
+		if not is_instance_valid(piece):
 			continue
+		var piece_rect := Rect2(
+			_piece_position(piece_index),
+			Vector2(piece.piece_size) * scale_factor
+		)
+		if visible_rect.intersects(piece_rect, true):
+			result.append(piece_index)
+	return result
 
-		var holder := Node2D.new()
-		holder.name = "RailPiece_%03d" % piece_index
-		holder.position = _piece_position(piece_index)
-		holder.scale = Vector2(scale_factor, scale_factor)
-		holder.z_index = int(piece_z.get(piece_index, 0))
-		content_root.add_child(holder)
-		visual_nodes[piece_index] = holder
 
-		var face := Polygon2D.new()
-		face.polygon = source_piece.polygon_points
-		face.uv = source_piece.uv_points
-		face.texture = source_piece.source_texture
-		holder.add_child(face)
+func _visible_local_rect() -> Rect2:
+	var scroll: ScrollContainer = get_parent() as ScrollContainer
+	if scroll == null:
+		return Rect2(Vector2.ZERO, size)
+	var viewport_rect: Rect2 = scroll.get_global_rect()
+	if viewport_rect.size.x <= 1.0 or viewport_rect.size.y <= 1.0:
+		return Rect2()
+	var inverse: Transform2D = get_global_transform().affine_inverse()
+	var local_start: Vector2 = inverse * viewport_rect.position
+	var local_end: Vector2 = inverse * viewport_rect.end
+	return Rect2(local_start, local_end - local_start).abs()
 
-		# A per-piece Line2D is useful at 40 pieces, but at 286 pieces it creates
-		# hundreds of additional nodes and antialiasing work. Dense Rail pieces are
-		# already visually separated by spacing, so omit this decorative layer.
-		if dense_mode:
-			continue
-		var outline := Line2D.new()
-		var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
-		if not outline_points.is_empty():
-			outline_points.append(outline_points[0])
-		outline.points = outline_points
-		outline.width = 1.1 / maxf(scale_factor, 0.01)
-		outline.default_color = Color(1.0, 1.0, 1.0, 0.58)
-		outline.antialiased = true
-		holder.add_child(outline)
+
+func _report_virtualization(rendered_count: int) -> void:
+	if not _dense_virtualization_active():
+		last_virtualized_visual_count = -1
+		return
+	if rendered_count == last_virtualized_visual_count:
+		return
+	last_virtualized_visual_count = rendered_count
+	print(
+		"Pieceful dense Rail virtualization · %d members · %d visuals"
+		% [member_indexes.size(), rendered_count]
+	)
 
 
 func _current_cluster_ids() -> Array:
