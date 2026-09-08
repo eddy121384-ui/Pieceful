@@ -7,6 +7,7 @@ const VIRTUALIZATION_BUFFER := 104.0
 
 var source_centroid_cache: Dictionary = {}
 var virtualization_refresh_queued := false
+var virtualization_settle_queued := false
 var last_virtualized_visual_count := -1
 
 
@@ -30,6 +31,7 @@ func configure(p_board, p_member_indexes: Array) -> void:
 		_sync_visual_positions()
 	_update_empty_hint()
 	queue_redraw()
+	_queue_virtualization_settle_refresh()
 
 
 func refresh(p_member_indexes: Array) -> void:
@@ -45,6 +47,7 @@ func set_scroll_layout(p_horizontal_flow: bool, p_visible_cross_extent: float) -
 	horizontal_flow = p_horizontal_flow
 	visible_cross_extent = next_cross_extent
 	if not layout_changed:
+		_queue_virtualization_settle_refresh()
 		return
 
 	_layout_groups()
@@ -58,6 +61,7 @@ func set_scroll_layout(p_horizontal_flow: bool, p_visible_cross_extent: float) -
 		_rebuild_visuals()
 	_update_empty_hint()
 	queue_redraw()
+	_queue_virtualization_settle_refresh()
 
 
 func _connect_scroll_virtualization() -> void:
@@ -90,6 +94,25 @@ func _queue_virtualization_refresh() -> void:
 
 func _flush_virtualization_refresh() -> void:
 	virtualization_refresh_queued = false
+	if not _dense_virtualization_active():
+		return
+	_sync_virtual_visuals()
+
+
+func _queue_virtualization_settle_refresh() -> void:
+	if not _dense_virtualization_active() or virtualization_settle_queued:
+		return
+	virtualization_settle_queued = true
+	call_deferred("_refresh_virtualization_after_layout")
+
+
+func _refresh_virtualization_after_layout() -> void:
+	# ScrollContainer updates its child minimum size/scroll range during the UI
+	# layout pass. A dense Rail can be configured earlier in the same frame, so
+	# wait one process frame before trusting the viewport window. Without this,
+	# first entry can instantiate only a handful of pieces until the user scrolls.
+	await get_tree().process_frame
+	virtualization_settle_queued = false
 	if not _dense_virtualization_active():
 		return
 	_sync_virtual_visuals()
@@ -233,7 +256,7 @@ func _visible_member_indexes() -> Array:
 	if visible_rect.size.x <= 1.0 or visible_rect.size.y <= 1.0:
 		# The first configure can happen before the ScrollContainer receives its
 		# final size. Render a bounded starter window instead of falling back to all
-		# 286 nodes; the deferred scroll refresh fills the real viewport next frame.
+		# dense nodes; the post-layout refresh fills the real viewport next frame.
 		var starter_count: int = mini(32, member_indexes.size())
 		for ordinal in range(starter_count):
 			result.append(int(member_indexes[ordinal]))
@@ -260,13 +283,16 @@ func _visible_local_rect() -> Rect2:
 	var scroll: ScrollContainer = get_parent() as ScrollContainer
 	if scroll == null:
 		return Rect2(Vector2.ZERO, size)
-	var viewport_rect: Rect2 = scroll.get_global_rect()
-	if viewport_rect.size.x <= 1.0 or viewport_rect.size.y <= 1.0:
+	if scroll.size.x <= 1.0 or scroll.size.y <= 1.0:
 		return Rect2()
-	var inverse: Transform2D = get_global_transform().affine_inverse()
-	var local_start: Vector2 = inverse * viewport_rect.position
-	var local_end: Vector2 = inverse * viewport_rect.end
-	return Rect2(local_start, local_end - local_start).abs()
+	# The Rail canvas is the ScrollContainer content child. Its local viewport is
+	# therefore exactly the scroll offsets plus the visible ScrollContainer size.
+	# Using global transforms here is fragile during the first layout frame because
+	# ScrollContainer is simultaneously repositioning this child.
+	return Rect2(
+		Vector2(float(scroll.scroll_horizontal), float(scroll.scroll_vertical)),
+		scroll.size
+	)
 
 
 func _report_virtualization(rendered_count: int) -> void:
