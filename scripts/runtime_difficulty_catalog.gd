@@ -2,9 +2,12 @@ class_name RuntimeDifficultyCatalog
 extends RefCounted
 
 # Runtime difficulty is intentionally backed only by curated, validated CutPattern
-# assets. The player-facing runtime must never synthesize a fresh die on demand.
+# assets. The player-facing production presets never synthesize a fresh die on
+# demand. Stress 400 is the one explicit exception on the #15 performance branch:
+# its V16 die is generated into user:// by ChaosOrderStressPuzzleBoard and is
+# deliberately labelled as a stress preset rather than an approved production die.
 # The current 960x600 demo artwork is 1.6:1, so the ratio-aware resolver maps the
-# three Issue #2 representative targets to 40, 150, and 286 pieces respectively.
+# three production targets to 40, 150, and 286 pieces respectively.
 
 const PRESETS := [
 	{
@@ -34,6 +37,15 @@ const PRESETS := [
 		"rows": 13,
 		"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
 	},
+	{
+		"id": "stress_400",
+		"label": "Stress",
+		"target_piece_count": 400,
+		"resolved_piece_count": 400,
+		"columns": 25,
+		"rows": 16,
+		"cut_pattern_path": "user://Pieceful_Stress_400_v16_A.json",
+	},
 ]
 
 
@@ -48,6 +60,10 @@ func is_available(difficulty_id: String) -> bool:
 	var preset := preset_for(difficulty_id)
 	if preset.is_empty():
 		return false
+	# Stress is generated lazily by the board when selected. Keep it selectable
+	# even before the user:// cache exists.
+	if difficulty_id == "stress_400":
+		return true
 	return FileAccess.file_exists(str(preset["cut_pattern_path"]))
 
 
