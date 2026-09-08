@@ -9,6 +9,7 @@ const CHAOS_MIN_PIECES := 250
 const SPREAD_RADIUS_SCREEN := 118.0
 const SPREAD_MIN_STEP_SCREEN := 9.0
 const SPREAD_MAX_STEP_SCREEN := 34.0
+const SPREAD_BUTTON_SIZE := Vector2(96.0, 42.0)
 
 var pile_policy = ChaosOrderPilePolicyScript.new()
 var spread_button: Button
@@ -36,8 +37,16 @@ func _build_spread_control() -> void:
 	ChaosIcons.apply_button(
 		spread_button,
 		ChaosIcons.IconId.EXPAND,
-		"Spread loose pile"
+		"Spread loose pile",
+		SPREAD_BUTTON_SIZE,
+		20
 	)
+	# Keep an explicit text label in the prototype. An icon-only action was too
+	# easy to miss on a dense Hard workspace, and the atlas glyph can disappear
+	# visually against the pile depending on display scale.
+	spread_button.text = "Spread"
+	spread_button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	spread_button.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spread_button.toggled.connect(_on_spread_mode_toggled)
 	layer.add_child(spread_button)
 	_refresh_spread_control()
@@ -45,12 +54,15 @@ func _build_spread_control() -> void:
 
 func _layout_ui(viewport_size: Vector2) -> void:
 	super._layout_ui(viewport_size)
-	if spread_button == null or difficulty_select == null:
+	if spread_button == null:
 		return
-	var top_rect: Rect2 = ChaosMetrics.top_bar_rect(viewport_size)
+	# Make Spread an unmistakable workspace action rather than squeezing it into
+	# the already crowded top bar. It floats immediately above the bottom dock and
+	# therefore remains reachable in both portrait and landscape.
+	var dock_rect: Rect2 = ChaosMetrics.dock_rect(viewport_size)
 	spread_button.position = Vector2(
-		difficulty_select.position.x - 52.0,
-		top_rect.position.y + 6.0
+		dock_rect.end.x - SPREAD_BUTTON_SIZE.x,
+		maxf(76.0, dock_rect.position.y - SPREAD_BUTTON_SIZE.y - 8.0)
 	)
 
 
@@ -94,10 +106,11 @@ func _refresh_spread_control() -> void:
 	spread_button.visible = available
 	spread_button.disabled = not available
 	spread_button.set_pressed_no_signal(spread_mode_active and available)
+	spread_button.text = "Spread On" if spread_mode_active and available else "Spread"
 	spread_button.modulate = (
 		Color.WHITE
 		if spread_mode_active and available
-		else Color(1.0, 1.0, 1.0, 0.58)
+		else Color(1.0, 1.0, 1.0, 0.82)
 	)
 	spread_button.tooltip_text = (
 		"Spread mode on · drag empty pile space to fan pieces out"
