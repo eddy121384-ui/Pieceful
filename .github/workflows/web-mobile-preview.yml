@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-15-chaos-order-300-piece
   workflow_dispatch:
 
 permissions:
@@ -74,6 +75,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Smoke main scene
+        shell: bash
+        run: |
+          set -euxo pipefail
+          timeout 12s "${GODOT_BIN}" --headless --path . --quit-after 2
 
       - name: Export Web build
         shell: bash
