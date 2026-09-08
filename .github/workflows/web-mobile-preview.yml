@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - perf/issue-15-batched-main-table
   workflow_dispatch:
 
 permissions:
