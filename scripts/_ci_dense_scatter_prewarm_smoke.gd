@@ -30,7 +30,7 @@ func _run() -> void:
 	await process_frame
 
 	workspace._set_loose_layout_mode("rail")
-	await create_timer(0.45).timeout
+	await _wait_for_transition(workspace, 240)
 	workspace._set_loose_layout_mode("scatter")
 	await process_frame
 
@@ -43,7 +43,12 @@ func _run() -> void:
 		quit(44)
 		return
 
-	await create_timer(0.40).timeout
+	await _wait_for_transition(workspace, 360)
+	if workspace.layout_transition_active:
+		push_error("Prewarm smoke: Scatter transition did not finish")
+		quit(45)
+		return
+
 	var visible_loose := 0
 	var opaque_loose := 0
 	for piece_value in board.pieces:
@@ -57,8 +62,15 @@ func _run() -> void:
 
 	if visible_loose < 250 or opaque_loose < 250:
 		push_error("Prewarm smoke: Scatter restore incomplete: visible=%d opaque=%d" % [visible_loose, opaque_loose])
-		quit(45)
+		quit(46)
 		return
 
 	print("Pieceful prewarm smoke · visible %d · opaque %d" % [visible_loose, opaque_loose])
 	quit(0)
+
+
+func _wait_for_transition(workspace: Node, max_frames: int) -> void:
+	var frames := 0
+	while workspace.layout_transition_active and frames < max_frames:
+		await process_frame
+		frames += 1
