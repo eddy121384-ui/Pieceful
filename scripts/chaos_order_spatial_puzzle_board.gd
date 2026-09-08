@@ -1,7 +1,6 @@
 class_name ChaosOrderSpatialPuzzleBoard
 extends "res://scripts/runtime_puzzle_board_multiselect.gd"
 
-const SPATIAL_DIFFICULTY_ID := "hard"
 const SPATIAL_MIN_PIECES := 250
 const PICK_CELL_SIZE := 72.0
 
@@ -162,10 +161,10 @@ func _reflow_existing_state(
 
 
 func _configure_spatial_runtime() -> void:
-	spatial_mode_active = (
-		active_difficulty_id() == SPATIAL_DIFFICULTY_ID
-		and active_piece_count() >= SPATIAL_MIN_PIECES
-	)
+	# Spatial picking is a density optimization, not a Hard-only gameplay rule.
+	# Any 250+ runtime, including the experimental Stress 400 preset, should avoid
+	# maintaining hundreds of PhysicsServer pick polygons.
+	spatial_mode_active = active_piece_count() >= SPATIAL_MIN_PIECES
 	spatial_active_piece_index = -1
 	pending_spatial_pick_index = -1
 	spatial_pick_buckets.clear()
