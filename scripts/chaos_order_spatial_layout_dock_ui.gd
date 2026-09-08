@@ -1,4 +1,4 @@
-extends "res://scripts/chaos_order_layout_dock_ui.gd"
+extends "res://scripts/chaos_order_prewarm_layout_dock_ui.gd"
 
 
 func _set_loose_layout_mode(mode: String) -> void:
