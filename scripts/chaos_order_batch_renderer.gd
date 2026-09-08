@@ -15,6 +15,27 @@ func request_refresh() -> void:
 	queue_redraw()
 
 
+func normalized_uvs_for_piece(piece) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	if piece == null or not is_instance_valid(piece):
+		return result
+	if piece.source_texture == null:
+		return result
+
+	var texture_size: Vector2 = Vector2(piece.source_texture.get_size())
+	if texture_size.x <= 0.0 or texture_size.y <= 0.0:
+		return result
+
+	result.resize(piece.uv_points.size())
+	for index in range(piece.uv_points.size()):
+		var pixel_uv: Vector2 = Vector2(piece.uv_points[index])
+		result[index] = Vector2(
+			pixel_uv.x / texture_size.x,
+			pixel_uv.y / texture_size.y
+		)
+	return result
+
+
 func _draw() -> void:
 	last_drawn_count = 0
 	if board == null or not is_instance_valid(board):
@@ -33,6 +54,10 @@ func _draw() -> void:
 		):
 			continue
 
+		var normalized_uvs: PackedVector2Array = normalized_uvs_for_piece(piece)
+		if normalized_uvs.size() != piece.polygon_points.size():
+			continue
+
 		draw_set_transform(
 			Vector2(piece.position),
 			float(piece.rotation),
@@ -41,7 +66,7 @@ func _draw() -> void:
 		draw_polygon(
 			piece.polygon_points,
 			face_color,
-			piece.uv_points,
+			normalized_uvs,
 			piece.source_texture
 		)
 
