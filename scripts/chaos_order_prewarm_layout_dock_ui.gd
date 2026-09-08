@@ -60,9 +60,6 @@ func _restore_dense_loose_groups_to_scatter() -> void:
 			if not is_instance_valid(member) or bool(member.solved):
 				continue
 
-			# Prepare canonical world placement while the piece remains hidden. The old
-			# dense path flipped all ~286 pieces visible here, forcing Godot to activate
-			# their Polygon2D/Line2D trees before the transition even started.
 			member.position = (
 				anchor_position
 				+ Vector2(member.target_position)
@@ -96,9 +93,6 @@ func _start_dense_scatter_prewarm() -> void:
 
 	dense_prewarm_tween = create_tween()
 	for batch_index in range(batch_count):
-		# Delay even the first activation until the transition is visibly underway.
-		# This keeps the click frame light and spreads CanvasItem activation across
-		# the motion-cover window without exposing any piece teleporting.
 		dense_prewarm_tween.tween_interval(DENSE_PREWARM_INTERVAL)
 		var start_index: int = batch_index * batch_size
 		var end_index: int = mini(
@@ -119,6 +113,8 @@ func _prewarm_dense_scatter_batch(start_index: int, end_index: int) -> void:
 		if ordinal < 0 or ordinal >= dense_prewarm_members.size():
 			continue
 		var piece_index: int = dense_prewarm_members[ordinal]
+		if dense_prewarm_activated.has(piece_index):
+			continue
 		if piece_index < 0 or piece_index >= board.pieces.size():
 			continue
 		var piece = board.pieces[piece_index]
@@ -129,9 +125,6 @@ func _prewarm_dense_scatter_batch(start_index: int, end_index: int) -> void:
 		):
 			continue
 
-		# Visible=true performs the expensive CanvasItem reactivation while alpha=0
-		# keeps the prepared world piece completely invisible to the player. Input
-		# stays disabled until the normal transition finish hands control back.
 		piece.modulate = Color(1.0, 1.0, 1.0, 0.0)
 		piece.visible = true
 		piece.input_pickable = false
@@ -148,9 +141,6 @@ func _finish_layout_transition() -> void:
 		dense_prewarm_tween.kill()
 	dense_prewarm_tween = null
 
-	# If an unusually slow frame prevented the scheduled callbacks from completing,
-	# finish the remaining activation under the final transition frame. Normally all
-	# eight batches have already run by ~224 ms of the 300 ms motion window.
 	if finished_mode == LAYOUT_SCATTER:
 		_prewarm_dense_scatter_batch(0, dense_prewarm_members.size())
 
