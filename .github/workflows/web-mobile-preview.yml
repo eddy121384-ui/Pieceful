@@ -86,6 +86,12 @@ jobs:
             exit "$status"
           fi
 
+      - name: Smoke Hard batch runtime
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script res://scripts/_ci_batch_runtime_smoke.gd
+
       - name: Export Web build
         shell: bash
         run: |
