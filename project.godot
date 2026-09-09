@@ -11,7 +11,11 @@ run/main_scene="res://main.tscn"
 
 [display]
 
-window/size/viewport_width=1280
+; Keep the content-scale base square. With canvas_items + aspect=expand the
+; physical long axis expands automatically: 16:9 presents near 1280x720 while
+; 9:16 presents near 720x1280. Rotation therefore does not need to replace
+; Window.content_scale_size after hundreds of puzzle CanvasItems exist.
+window/size/viewport_width=720
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
