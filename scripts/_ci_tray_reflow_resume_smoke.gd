@@ -93,8 +93,7 @@ func _run() -> void:
 		return
 
 	# Save a landscape-coordinate version and prove the reference survives the
-	# disk round trip. The second scene then lazily reflows it when the Tray opens
-	# at a portrait mini-table size.
+	# disk round trip. The second scene then lazily projects it to portrait space.
 	workspace.state.set_tray_piece_position(tray_id, 0, anchor)
 	workspace.state.set_tray_piece_position(
 		tray_id,
@@ -137,9 +136,7 @@ func _run() -> void:
 		return
 
 	var canvas2 = workspace2.tray_play_canvas
-	canvas2.size = PORTRAIT_TRAY
-	canvas2.configure(board2, workspace2.state, tray_id)
-	await process_frame
+	canvas2.prepare_tray_for_size(board2, workspace2.state, tray_id, PORTRAIT_TRAY)
 	var restored_relative: Vector2 = (
 		Vector2(workspace2.state.tray_piece_position(tray_id, 1))
 		- Vector2(workspace2.state.tray_piece_position(tray_id, 0))
@@ -162,6 +159,36 @@ func _run() -> void:
 			"Tray reflow smoke: resumed normalized placement drifted %s -> %s"
 			% [before_norm, restored_norm],
 			143
+		)
+		return
+	if Vector2(workspace2.state.tray_position_reference_size(tray_id)).distance_to(PORTRAIT_TRAY) > EPS:
+		_fail("Tray reflow smoke: portrait reference was not adopted after lazy reflow", 144)
+		return
+
+	# Finally bind the real Container-owned canvas. It may choose a different
+	# runtime size than the synthetic portrait benchmark, but it must preserve the
+	# same rigid cluster and keep the group inside its actual mini-table.
+	canvas2.configure(board2, workspace2.state, tray_id)
+	await process_frame
+	var ui_relative: Vector2 = (
+		Vector2(workspace2.state.tray_piece_position(tray_id, 1))
+		- Vector2(workspace2.state.tray_piece_position(tray_id, 0))
+	)
+	if ui_relative.distance_to(before_relative) > EPS:
+		_fail("Tray reflow smoke: real UI configure stretched resumed cluster", 145)
+		return
+	var ui_bounds: Rect2 = canvas2._group_bounds_for(
+		board2,
+		workspace2.state,
+		tray_id,
+		[0, 1]
+	)
+	var actual_size: Vector2 = Vector2(canvas2.size)
+	if actual_size.x > 1.0 and actual_size.y > 1.0 and not _bounds_inside(ui_bounds, actual_size):
+		_fail(
+			"Tray reflow smoke: real UI configure left cluster outside actual Tray %s"
+			% actual_size,
+			146
 		)
 		return
 
