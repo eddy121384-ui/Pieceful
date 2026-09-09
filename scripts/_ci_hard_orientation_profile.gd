@@ -30,7 +30,25 @@ func _run() -> void:
 
 	print("Pieceful orientation profile · Hard %d" % board.active_piece_count())
 
+	var window := get_root().get_window()
+	var original_scale_size: Vector2i = window.content_scale_size
 	var t := Time.get_ticks_usec()
+	window.content_scale_size = Vector2i(720, 1280)
+	print("PROFILE content-scale setter landscape→portrait %.3f ms" % _ms(t))
+	t = Time.get_ticks_usec()
+	await process_frame
+	print("PROFILE first frame after portrait scale %.3f ms" % _ms(t))
+
+	t = Time.get_ticks_usec()
+	window.content_scale_size = Vector2i(1280, 720)
+	print("PROFILE content-scale setter portrait→landscape %.3f ms" % _ms(t))
+	t = Time.get_ticks_usec()
+	await process_frame
+	print("PROFILE first frame after landscape scale %.3f ms" % _ms(t))
+	window.content_scale_size = original_scale_size
+	await process_frame
+
+	t = Time.get_ticks_usec()
 	board.apply_viewport_layout(Vector2(720.0, 1280.0))
 	print("PROFILE board landscape→portrait %.3f ms" % _ms(t))
 
