@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/chaos_order_stress_puzzle_board.gd" id="2_board"]
 [ext_resource type="Script" path="res://scripts/puzzle_camera_controller.gd" id="3_camera"]
 [ext_resource type="Script" path="res://scripts/chaos_order_spatial_layout_dock_ui.gd" id="4_sorting"]
-[ext_resource type="Script" path="res://scripts/single_slot_save_coordinator.gd" id="5_save"]
+[ext_resource type="Script" path="res://scripts/orientation_safe_single_slot_save_coordinator.gd" id="5_save"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
