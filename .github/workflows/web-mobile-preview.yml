@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-3a-save-schema-single-resume
   workflow_dispatch:
 
 permissions:
@@ -74,6 +75,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Smoke cluster-safe Rail toggle
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script res://scripts/_ci_cluster_safe_rail_smoke.gd
 
       - name: Export Web build
         shell: bash
