@@ -1,17 +1,26 @@
 extends SceneTree
 
+const SQUARE_BASE := Vector2i(720, 720)
+
 func _initialize() -> void:
 	call_deferred("_run")
 
 func _ms(start_usec: int) -> float:
 	return float(Time.get_ticks_usec() - start_usec) / 1000.0
 
+func _fail(message: String, code: int) -> void:
+	push_error(message)
+	quit(code)
+
 func _run() -> void:
 	var packed := load("res://main.tscn") as PackedScene
 	if packed == null:
-		push_error("Hard orientation profile: main.tscn failed to load")
-		quit(150)
+		_fail("Hard orientation profile: main.tscn failed to load", 150)
 		return
+
+	var window := get_root().get_window()
+	window.size = Vector2i(1280, 720)
+	await process_frame
 
 	var scene = packed.instantiate()
 	get_root().add_child(scene)
@@ -21,37 +30,52 @@ func _run() -> void:
 	var save = scene.get_node("SaveCoordinator")
 	save.clear_save()
 	if not board.request_difficulty("hard"):
-		push_error("Hard orientation profile: Hard failed")
-		quit(151)
+		_fail("Hard orientation profile: Hard failed", 151)
 		return
 	await process_frame
 	await process_frame
 	await create_timer(0.15).timeout
 
-	print("Pieceful orientation profile · Hard %d" % board.active_piece_count())
+	if window.content_scale_size != SQUARE_BASE:
+		_fail("Hard orientation profile: base is not stable square: %s" % window.content_scale_size, 152)
+		return
+	print("Pieceful orientation stable profile · Hard %d · base %s" % [board.active_piece_count(), window.content_scale_size])
 
-	var window := get_root().get_window()
-	var original_scale_size: Vector2i = window.content_scale_size
 	var t := Time.get_ticks_usec()
-	window.content_scale_size = Vector2i(720, 1280)
-	print("PROFILE content-scale setter landscape→portrait %.3f ms" % _ms(t))
-	t = Time.get_ticks_usec()
+	window.size = Vector2i(720, 1280)
 	await process_frame
-	print("PROFILE first frame after portrait scale %.3f ms" % _ms(t))
+	var portrait_first_frame_ms := _ms(t)
+	await create_timer(0.10).timeout
+	if window.content_scale_size != SQUARE_BASE:
+		_fail("Hard orientation profile: portrait changed content-scale base", 153)
+		return
+	if board.workspace_orientation_label().to_lower() != "portrait":
+		_fail("Hard orientation profile: board did not settle portrait", 154)
+		return
+	print(
+		"PROFILE stable physical landscape→portrait first-frame %.3f ms · logical %s · base %s"
+		% [portrait_first_frame_ms, get_viewport().get_visible_rect().size, window.content_scale_size]
+	)
 
 	t = Time.get_ticks_usec()
-	window.content_scale_size = Vector2i(1280, 720)
-	print("PROFILE content-scale setter portrait→landscape %.3f ms" % _ms(t))
-	t = Time.get_ticks_usec()
+	window.size = Vector2i(1280, 720)
 	await process_frame
-	print("PROFILE first frame after landscape scale %.3f ms" % _ms(t))
-	window.content_scale_size = original_scale_size
-	await process_frame
+	var landscape_first_frame_ms := _ms(t)
+	await create_timer(0.10).timeout
+	if window.content_scale_size != SQUARE_BASE:
+		_fail("Hard orientation profile: landscape changed content-scale base", 155)
+		return
+	if board.workspace_orientation_label().to_lower() != "landscape":
+		_fail("Hard orientation profile: board did not settle landscape", 156)
+		return
+	print(
+		"PROFILE stable physical portrait→landscape first-frame %.3f ms · logical %s · base %s"
+		% [landscape_first_frame_ms, get_viewport().get_visible_rect().size, window.content_scale_size]
+	)
 
 	t = Time.get_ticks_usec()
 	board.apply_viewport_layout(Vector2(720.0, 1280.0))
 	print("PROFILE board landscape→portrait %.3f ms" % _ms(t))
-
 	t = Time.get_ticks_usec()
 	board.apply_viewport_layout(Vector2(1280.0, 720.0))
 	print("PROFILE board portrait→landscape %.3f ms" % _ms(t))
@@ -66,14 +90,6 @@ func _run() -> void:
 		print("PROFILE board-lines configure %.3f ms · %d segments" % [_ms(t), overlay.segments.size()])
 
 	t = Time.get_ticks_usec()
-	scene._apply_preview_mode()
-	print("PROFILE preview %.3f ms" % _ms(t))
-
-	t = Time.get_ticks_usec()
-	scene._layout_ui(Vector2(720.0, 1280.0))
-	print("PROFILE main UI layout %.3f ms" % _ms(t))
-
-	t = Time.get_ticks_usec()
 	workspace._after_window_reflow()
 	print("PROFILE sorting settle scatter %.3f ms" % _ms(t))
 
@@ -85,28 +101,10 @@ func _run() -> void:
 	workspace.state.set_tray_position_reference_size(tray_id, Vector2(420.0, 260.0))
 	workspace._open_tray(tray_id)
 	await process_frame
-
 	t = Time.get_ticks_usec()
 	workspace.tray_play_canvas.prepare_tray_for_size(board, workspace.state, tray_id, Vector2(260.0, 420.0))
 	print("PROFILE tray rigid reflow 2-piece %.3f ms" % _ms(t))
 
-	t = Time.get_ticks_usec()
-	workspace._after_window_reflow()
-	print("PROFILE sorting settle open tray %.3f ms" % _ms(t))
-
-	workspace._close_tray_detail()
-	t = Time.get_ticks_usec()
-	workspace._set_loose_layout_mode("rail")
-	print("PROFILE enter Rail %.3f ms · %d members" % [_ms(t), workspace._rail_member_indexes().size()])
-	await create_timer(0.15).timeout
-
-	t = Time.get_ticks_usec()
-	workspace._refresh_loose_piece_layout()
-	print("PROFILE dense Rail refresh %.3f ms" % _ms(t))
-
-	t = Time.get_ticks_usec()
-	workspace._after_window_reflow()
-	print("PROFILE sorting settle Rail %.3f ms" % _ms(t))
-
 	save.clear_save()
+	print("Pieceful orientation stable profile · PASS")
 	quit(0)
