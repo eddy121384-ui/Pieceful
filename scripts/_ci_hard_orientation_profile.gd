@@ -54,7 +54,7 @@ func _run() -> void:
 		return
 	print(
 		"PROFILE stable physical landscape→portrait first-frame %.3f ms · logical %s · base %s"
-		% [portrait_first_frame_ms, get_viewport().get_visible_rect().size, window.content_scale_size]
+		% [portrait_first_frame_ms, window.get_visible_rect().size, window.content_scale_size]
 	)
 
 	t = Time.get_ticks_usec()
@@ -70,7 +70,7 @@ func _run() -> void:
 		return
 	print(
 		"PROFILE stable physical portrait→landscape first-frame %.3f ms · logical %s · base %s"
-		% [landscape_first_frame_ms, get_viewport().get_visible_rect().size, window.content_scale_size]
+		% [landscape_first_frame_ms, window.get_visible_rect().size, window.content_scale_size]
 	)
 
 	t = Time.get_ticks_usec()
