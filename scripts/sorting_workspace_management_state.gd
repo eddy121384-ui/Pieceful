@@ -52,5 +52,6 @@ func delete_tray(tray_id: String) -> Array:
 	tray_names.erase(tray_id)
 	tray_members.erase(tray_id)
 	tray_piece_positions.erase(tray_id)
+	tray_position_reference_sizes.erase(tray_id)
 	tray_collapsed.erase(tray_id)
 	return members
