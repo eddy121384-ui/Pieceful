@@ -11,15 +11,16 @@ run/main_scene="res://main.tscn"
 
 [display]
 
-; Dense-orientation A/B: render through a fixed logical viewport surface first,
-; then scale the composed result to the physical window. This tests whether
-; root CanvasItem resize churn can be isolated by Godot's viewport stretch path.
+; Diagnostic only: keep the render target at a true fixed 720x720 while the
+; physical window changes shape. aspect=ignore will visibly distort output; the
+; goal is only to isolate whether fixed render-target dimensions remove the
+; dense CanvasItem orientation hitch.
 window/size/viewport_width=720
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/aspect="ignore"
 
 [input_devices]
 
