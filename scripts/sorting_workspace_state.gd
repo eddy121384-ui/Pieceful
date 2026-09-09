@@ -9,6 +9,10 @@ var tray_order: Array[String] = []
 var tray_names: Dictionary = {}
 var tray_members: Dictionary = {}
 var tray_piece_positions: Dictionary = {}
+# Local Tray positions are only meaningful relative to the mini-table size that
+# produced them. Keeping that reference lets a later portrait/landscape layout
+# reproject whole rigid clusters without scaling their internal geometry.
+var tray_position_reference_sizes: Dictionary = {}
 var piece_locations: Dictionary = {}
 var tray_for_piece: Dictionary = {}
 var next_tray_number := 1
@@ -19,6 +23,7 @@ func reset(piece_count: int) -> void:
 	tray_names.clear()
 	tray_members.clear()
 	tray_piece_positions.clear()
+	tray_position_reference_sizes.clear()
 	piece_locations.clear()
 	tray_for_piece.clear()
 	next_tray_number = 1
@@ -42,6 +47,7 @@ func create_tray(requested_name: String = "") -> String:
 	tray_names[tray_id] = display_name
 	tray_members[tray_id] = []
 	tray_piece_positions[tray_id] = {}
+	tray_position_reference_sizes[tray_id] = Vector2.ZERO
 	return tray_id
 
 
@@ -104,6 +110,16 @@ func set_tray_piece_position(tray_id: String, piece_index: int, position: Vector
 	var positions: Dictionary = tray_piece_positions[tray_id]
 	positions[piece_index] = position
 	tray_piece_positions[tray_id] = positions
+
+
+func tray_position_reference_size(tray_id: String) -> Vector2:
+	return Vector2(tray_position_reference_sizes.get(tray_id, Vector2.ZERO))
+
+
+func set_tray_position_reference_size(tray_id: String, reference_size: Vector2) -> void:
+	if not tray_names.has(tray_id):
+		return
+	tray_position_reference_sizes[tray_id] = reference_size
 
 
 func assign_pieces_to_tray(piece_indexes: Array, tray_id: String) -> bool:
