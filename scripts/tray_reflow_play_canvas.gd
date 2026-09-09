@@ -155,7 +155,7 @@ func _group_bounds_for(
 ) -> Rect2:
 	var result := Rect2()
 	var has_bounds := false
-	var scale_factor: float = visual_scale()
+	var scale_factor: float = _visual_scale_for_board(p_board)
 	for value in member_indexes:
 		var piece_index: int = int(value)
 		if (
@@ -180,6 +180,18 @@ func _group_bounds_for(
 		else:
 			result = result.merge(piece_rect)
 	return result
+
+
+func _visual_scale_for_board(p_board) -> float:
+	if p_board == null or p_board.definition == null:
+		return 1.0
+	var piece_size: Vector2 = Vector2(p_board.definition.piece_size)
+	var short_edge: float = maxf(1.0, minf(piece_size.x, piece_size.y))
+	return clampf(
+		TARGET_PIECE_SHORT_EDGE / short_edge,
+		MIN_VISUAL_SCALE,
+		MAX_VISUAL_SCALE
+	)
 
 
 func _translate_group_for_state(
