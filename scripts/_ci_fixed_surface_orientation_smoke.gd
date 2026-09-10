@@ -101,7 +101,7 @@ func _run() -> void:
 	if piece == null:
 		_fail("Fixed-surface smoke: no visible Hard loose piece", 189)
 		return
-	var pick_landscape := board.spatial_piece_at_screen(_surface_point_for_world_piece(piece))
+	var pick_landscape = board.spatial_piece_at_screen(_surface_point_for_world_piece(piece))
 	if pick_landscape != piece:
 		_fail("Fixed-surface smoke: Hard spatial picker misses in landscape", 190)
 		return
@@ -132,7 +132,7 @@ func _run() -> void:
 	if piece == null:
 		_fail("Fixed-surface smoke: no portrait loose piece", 195)
 		return
-	var pick_portrait := board.spatial_piece_at_screen(_surface_point_for_world_piece(piece))
+	var pick_portrait = board.spatial_piece_at_screen(_surface_point_for_world_piece(piece))
 	if pick_portrait != piece:
 		_fail("Fixed-surface smoke: Hard spatial picker misses after rotation", 196)
 		return
@@ -150,7 +150,7 @@ func _run() -> void:
 	var rail_piece = board.pieces[rail_piece_index]
 	var rail_local := Vector2(rail._piece_position(rail_piece_index))
 	rail_local += _polygon_centroid(rail_piece.polygon_points) * float(rail.visual_scale())
-	var rail_surface := rail.get_global_transform_with_canvas() * rail_local
+	var rail_surface: Vector2 = rail.get_global_transform_with_canvas() * rail_local
 	if int(rail._top_piece_at(rail_surface)) != rail_piece_index:
 		_fail("Fixed-surface smoke: Rail hit-test is offset after portrait compensation", 198)
 		return
@@ -176,7 +176,7 @@ func _run() -> void:
 		return
 	var tray_local := Vector2(workspace.state.tray_piece_position(tray_id, rail_piece_index))
 	tray_local += _polygon_centroid(rail_piece.polygon_points) * float(tray.visual_scale())
-	var tray_surface := tray.get_global_transform_with_canvas() * tray_local
+	var tray_surface: Vector2 = tray.get_global_transform_with_canvas() * tray_local
 	if int(tray._top_piece_at(tray_surface)) != rail_piece_index:
 		_fail("Fixed-surface smoke: Tray hit-test is offset after portrait compensation", 202)
 		return
