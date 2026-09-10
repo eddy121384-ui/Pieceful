@@ -11,10 +11,11 @@ run/main_scene="res://main.tscn"
 
 [display]
 
-; Diagnostic only: keep the render target at a true fixed 720x720 while the
-; physical window changes shape. aspect=ignore will visibly distort output; the
-; goal is only to isolate whether fixed render-target dimensions remove the
-; dense CanvasItem orientation hitch.
+; Keep the render target truly fixed at 720x720. Main and SortingUI continue to
+; lay out in virtual landscape/portrait coordinates and pre-compensate the long
+; axis before this final viewport stretch. Physical rotation therefore scales one
+; composed surface instead of resizing/rebinding the 1,000+ CanvasItems used by
+; dense puzzle modes.
 window/size/viewport_width=720
 window/size/viewport_height=720
 window/size/window_width_override=1280
