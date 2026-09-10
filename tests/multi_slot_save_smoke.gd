@@ -135,7 +135,7 @@ func _run() -> void:
 	if coordinator == null:
 		_fail("SaveCoordinator missing after legacy migration boot")
 		return
-	var migrated_games := coordinator.list_unfinished_games()
+	var migrated_games: Array = coordinator.list_unfinished_games()
 	if migrated_games.size() != 1:
 		_fail("legacy autosave did not migrate into exactly one unfinished slot")
 		return
