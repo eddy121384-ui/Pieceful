@@ -211,3 +211,72 @@ func _translate_group_for_state(
 			piece_index,
 			Vector2(p_state.tray_piece_position(p_tray_id, piece_index)) + delta
 		)
+
+
+# Fixed-surface input --------------------------------------------------------
+# The Tray lives under a non-uniformly transformed CanvasLayer. Keep every
+# public drag signal in render-surface coordinates, while all placement deltas
+# are measured in Tray-local virtual coordinates.
+
+func _gui_input(event: InputEvent) -> void:
+	if dragging:
+		return
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_begin_piece_drag(-1, get_viewport().get_mouse_position())
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			_begin_piece_drag(event.index, _local_to_screen(event.position))
+
+
+func _move_piece_drag(screen_position: Vector2) -> void:
+	var current_local := _screen_to_local(screen_position)
+	var previous_local := _screen_to_local(drag_last_screen_position)
+	var delta := current_local - previous_local
+	if delta.is_zero_approx():
+		return
+	drag_last_screen_position = screen_position
+	_translate_group(drag_member_indexes, delta)
+	_sync_visual_positions()
+
+
+func _finish_piece_drag(screen_position: Vector2) -> void:
+	if not dragging:
+		return
+
+	var released_members: Array = drag_member_indexes.duplicate()
+	var released_anchor: int = drag_anchor_piece_index
+	var released_offset: Vector2 = drag_anchor_pointer_offset
+	var released_inside := Rect2(Vector2.ZERO, size).has_point(
+		_screen_to_local(screen_position)
+	)
+
+	dragging = false
+	drag_pointer_id = -999
+	drag_anchor_piece_index = -1
+	drag_member_indexes.clear()
+	drag_last_screen_position = Vector2.ZERO
+	drag_anchor_pointer_offset = Vector2.ZERO
+	set_process_input(false)
+
+	if not released_inside:
+		group_dragged_out.emit(
+			released_members,
+			released_anchor,
+			screen_position,
+			released_offset
+		)
+		return
+
+	_clamp_group_inside(released_members)
+	_try_snap_group_in_tray(released_anchor)
+	_sync_visual_positions()
+	queue_redraw()
+
+
+func _screen_to_local(screen_position: Vector2) -> Vector2:
+	return get_global_transform_with_canvas().affine_inverse() * screen_position
+
+
+func _local_to_screen(local_position: Vector2) -> Vector2:
+	return get_global_transform_with_canvas() * local_position
