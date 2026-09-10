@@ -91,8 +91,7 @@ func _run() -> void:
 		return
 
 	# Device users already have the #3-A/#3-B single-slot file. Reuse the current
-	# valid Schema V1 payload as a legacy autosave fixture, erase the new index,
-	# and prove a fresh boot imports that file into the new multi-slot directory.
+	# valid Schema V1 payload as a legacy autosave fixture for the migration check.
 	if not coordinator.save_now(true):
 		_fail("could not create migration fixture")
 		return
@@ -101,6 +100,26 @@ func _run() -> void:
 		_fail("migration fixture slot is empty")
 		return
 
+	# Completion must remove the unfinished game and keep it removed. The autosave
+	# timer still exists after completion, so simulate its next write immediately.
+	if not coordinator.mark_active_completed():
+		_fail("could not retire completed game")
+		return
+	if not coordinator.save_now(false):
+		_fail("post-completion autosave call failed")
+		return
+	if not str(coordinator.active_game()).is_empty():
+		_fail("post-completion autosave resurrected an active game id")
+		return
+	if not coordinator.list_unfinished_games().is_empty():
+		_fail("completed puzzle returned to unfinished games after autosave")
+		return
+	if FileAccess.file_exists(SAVE_DIR.path_join("%s.json" % first_id)):
+		_fail("completed unfinished-slot file still exists")
+		return
+
+	# Erase the new index and feed the valid V1 payload through the actual legacy
+	# path. A fresh boot must import it into one durable multi-slot game.
 	main.queue_free()
 	await process_frame
 	_clear_test_saves()
