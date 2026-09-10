@@ -3,6 +3,48 @@ extends "res://scripts/orientation_safe_single_slot_save_coordinator.gd"
 # V1 additive metadata: Tray local positions are paired with the mini-table size
 # that produced them. Older V1 saves omit this field and remain loadable; they
 # adopt the destination size on first open and are safely clamped there.
+#
+# Autosave comparisons deliberately use a stable gameplay snapshot. Wall-clock
+# capture time is attached only when a file is actually written, otherwise the
+# 2.5-second autosave timer would make every unchanged snapshot look dirty.
+
+
+func save_now(force_write: bool = true) -> bool:
+	last_save_error = ""
+	if board == null or workspace == null or board.definition == null:
+		last_save_error = "Runtime is not ready"
+		return false
+
+	return _write_stable_snapshot(_capture_snapshot(), force_write)
+
+
+func _write_stable_snapshot(stable_snapshot: Dictionary, force_write: bool) -> bool:
+	var stable_encoded := JSON.stringify(stable_snapshot)
+	if not force_write and stable_encoded == last_snapshot_json:
+		return true
+
+	var persisted_snapshot: Dictionary = stable_snapshot.duplicate(true)
+	persisted_snapshot["captured_at_unix"] = int(Time.get_unix_time_from_system())
+	var encoded := JSON.stringify(persisted_snapshot)
+
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file == null:
+		last_save_error = "Could not open autosave file"
+		return false
+	file.store_string(encoded)
+	file.flush()
+	file.close()
+	last_snapshot_json = stable_encoded
+	return true
+
+
+func _capture_snapshot() -> Dictionary:
+	var snapshot: Dictionary = super._capture_snapshot()
+	# The base V1 schema historically put capture time inside the runtime snapshot.
+	# Keep the persisted field for compatibility, but exclude it from dirty-state
+	# comparison. save_now() adds a fresh timestamp only on an actual disk write.
+	snapshot.erase("captured_at_unix")
+	return snapshot
 
 
 func _resume_from_disk() -> bool:
