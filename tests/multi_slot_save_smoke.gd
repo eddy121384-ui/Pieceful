@@ -29,12 +29,26 @@ func _run() -> void:
 		_fail("startup should expose exactly one unfinished game")
 		return
 
+	# Reshuffle resets the current puzzle in place. It must not manufacture a new
+	# unfinished save row just because the board was restarted.
 	main.call("_restart")
+	for _frame in range(3):
+		await process_frame
+	if str(coordinator.active_game()) != first_id:
+		_fail("Reshuffle unexpectedly changed the active game id")
+		return
+	if coordinator.list_unfinished_games().size() != 1:
+		_fail("Reshuffle unexpectedly created another unfinished game")
+		return
+
+	# Start New is the explicit multi-slot boundary: preserve the current puzzle,
+	# create a fresh runtime, and allocate a second durable game id.
+	main.call("_start_new_game_slot")
 	for _frame in range(3):
 		await process_frame
 	var second_id := str(coordinator.active_game())
 	if second_id.is_empty() or second_id == first_id:
-		_fail("Start new / reshuffle did not allocate a second game id")
+		_fail("Start new did not allocate a second game id")
 		return
 	if coordinator.list_unfinished_games().size() != 2:
 		_fail("previous unfinished game was not preserved after Start new")
