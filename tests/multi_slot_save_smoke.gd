@@ -54,6 +54,25 @@ func _run() -> void:
 		_fail("previous unfinished game was not preserved after Start new")
 		return
 
+	# Kill the entire product scene and rebuild it from disk. Multi-slot only
+	# counts if both unfinished puzzles and the active identity survive relaunch.
+	main.queue_free()
+	await process_frame
+	main = MainScene.instantiate()
+	root.add_child(main)
+	for _frame in range(10):
+		await process_frame
+	coordinator = main.get_node_or_null("SaveCoordinator")
+	if coordinator == null:
+		_fail("SaveCoordinator missing after relaunch")
+		return
+	if coordinator.list_unfinished_games().size() != 2:
+		_fail("relaunch did not preserve both unfinished games")
+		return
+	if str(coordinator.active_game()) != second_id:
+		_fail("relaunch did not resume the previously active game")
+		return
+
 	if not await coordinator.resume_game(first_id):
 		_fail("could not resume the first unfinished game")
 		return
