@@ -7,6 +7,7 @@ const INDEX_VERSION := 1
 
 var active_game_id := ""
 var games_index: Dictionary = {}
+var runtime_completed := false
 
 
 func _bootstrap() -> void:
@@ -53,6 +54,11 @@ func _capture_snapshot() -> Dictionary:
 
 
 func _write_stable_snapshot(stable_snapshot: Dictionary, force_write: bool) -> bool:
+	# Completion retires the unfinished slot. The autosave timer keeps running,
+	# so explicitly suppress writes until a new runtime/slot is created; otherwise
+	# the next 2.5-second tick would resurrect the completed puzzle as unfinished.
+	if runtime_completed and active_game_id.is_empty():
+		return true
 	if active_game_id.is_empty():
 		active_game_id = _new_game_id()
 
@@ -80,6 +86,7 @@ func _write_stable_snapshot(stable_snapshot: Dictionary, force_write: bool) -> b
 
 
 func create_slot_for_current_runtime() -> String:
+	runtime_completed = false
 	active_game_id = _new_game_id()
 	last_snapshot_json = ""
 	if not save_now(true):
@@ -151,6 +158,7 @@ func delete_game(game_id: String) -> bool:
 
 
 func mark_active_completed() -> bool:
+	runtime_completed = true
 	if active_game_id.is_empty():
 		return true
 	var completed_id := active_game_id
@@ -205,6 +213,7 @@ func _resume_game_from_disk(game_id: String) -> bool:
 		last_resume_error = "Save runtime state missing: %s" % game_id
 		return false
 
+	runtime_completed = false
 	active_game_id = game_id
 	_restore_clusters(board_state)
 	_restore_piece_runtime(board_state, workspace_state)
