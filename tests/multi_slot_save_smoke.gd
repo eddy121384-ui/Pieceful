@@ -90,11 +90,68 @@ func _run() -> void:
 		_fail("delete did not remove inactive unfinished game")
 		return
 
+	# Device users already have the #3-A/#3-B single-slot file. Reuse the current
+	# valid Schema V1 payload as a legacy autosave fixture, erase the new index,
+	# and prove a fresh boot imports that file into the new multi-slot directory.
+	if not coordinator.save_now(true):
+		_fail("could not create migration fixture")
+		return
+	var legacy_fixture := _read_text(SAVE_DIR.path_join("%s.json" % first_id))
+	if legacy_fixture.is_empty():
+		_fail("migration fixture slot is empty")
+		return
+
+	main.queue_free()
+	await process_frame
+	_clear_test_saves()
+	if not _write_text(LEGACY_SAVE, legacy_fixture):
+		_fail("could not write legacy autosave fixture")
+		return
+
+	main = MainScene.instantiate()
+	root.add_child(main)
+	for _frame in range(10):
+		await process_frame
+	coordinator = main.get_node_or_null("SaveCoordinator")
+	if coordinator == null:
+		_fail("SaveCoordinator missing after legacy migration boot")
+		return
+	var migrated_games := coordinator.list_unfinished_games()
+	if migrated_games.size() != 1:
+		_fail("legacy autosave did not migrate into exactly one unfinished slot")
+		return
+	var migrated_id := str(coordinator.active_game())
+	if migrated_id.is_empty() or migrated_id == "autosave":
+		_fail("legacy autosave did not receive a durable game id")
+		return
+	if not FileAccess.file_exists(SAVE_DIR.path_join("%s.json" % migrated_id)):
+		_fail("migrated game slot file is missing")
+		return
+
 	main.queue_free()
 	await process_frame
 	_clear_test_saves()
 	print("PASS multi_slot_save_smoke")
 	quit(0)
+
+
+func _read_text(path: String) -> String:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return ""
+	var value := file.get_as_text()
+	file.close()
+	return value
+
+
+func _write_text(path: String, value: String) -> bool:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		return false
+	file.store_string(value)
+	file.flush()
+	file.close()
+	return true
 
 
 func _clear_test_saves() -> void:
