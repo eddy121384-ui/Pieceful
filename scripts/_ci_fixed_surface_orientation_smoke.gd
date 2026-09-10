@@ -19,13 +19,8 @@ func _near_vec(a: Vector2, b: Vector2, tolerance := 1.5) -> bool:
 	return a.distance_to(b) <= tolerance
 
 
-func _polygon_centroid(points: PackedVector2Array) -> Vector2:
-	if points.is_empty():
-		return Vector2.ZERO
-	var sum := Vector2.ZERO
-	for point in points:
-		sum += point
-	return sum / float(points.size())
+func _piece_center(piece) -> Vector2:
+	return Vector2(piece.piece_size) * 0.5
 
 
 func _first_visible_loose_piece(board, workspace):
@@ -41,7 +36,7 @@ func _first_visible_loose_piece(board, workspace):
 
 
 func _surface_point_for_world_piece(piece) -> Vector2:
-	return piece.get_global_transform_with_canvas() * _polygon_centroid(piece.polygon_points)
+	return piece.get_global_transform_with_canvas() * _piece_center(piece)
 
 
 func _run() -> void:
@@ -149,7 +144,7 @@ func _run() -> void:
 	var rail_piece_index := int(rail.visual_nodes.keys()[0])
 	var rail_piece = board.pieces[rail_piece_index]
 	var rail_local := Vector2(rail._piece_position(rail_piece_index))
-	rail_local += _polygon_centroid(rail_piece.polygon_points) * float(rail.visual_scale())
+	rail_local += _piece_center(rail_piece) * float(rail.visual_scale())
 	var rail_surface: Vector2 = rail.get_global_transform_with_canvas() * rail_local
 	if int(rail._top_piece_at(rail_surface)) != rail_piece_index:
 		_fail("Fixed-surface smoke: Rail hit-test is offset after portrait compensation", 198)
@@ -175,7 +170,7 @@ func _run() -> void:
 		_fail("Fixed-surface smoke: Tray did not materialize assigned piece", 201)
 		return
 	var tray_local := Vector2(workspace.state.tray_piece_position(tray_id, rail_piece_index))
-	tray_local += _polygon_centroid(rail_piece.polygon_points) * float(tray.visual_scale())
+	tray_local += _piece_center(rail_piece) * float(tray.visual_scale())
 	var tray_surface: Vector2 = tray.get_global_transform_with_canvas() * tray_local
 	if int(tray._top_piece_at(tray_surface)) != rail_piece_index:
 		_fail("Fixed-surface smoke: Tray hit-test is offset after portrait compensation", 202)
