@@ -237,7 +237,9 @@ func _add_session_row(entry: Dictionary) -> void:
 func _format_last_played(unix_time: int) -> String:
 	if unix_time <= 0:
 		return "not saved yet"
-	var value := Time.get_datetime_dict_from_unix_time(unix_time)
+	var timezone := Time.get_time_zone_from_system()
+	var offset_seconds := int(timezone.get("bias", 0)) * 60
+	var value := Time.get_datetime_dict_from_unix_time(unix_time + offset_seconds)
 	return "%02d/%02d %02d:%02d" % [
 		int(value.get("month", 0)),
 		int(value.get("day", 0)),
@@ -268,7 +270,19 @@ func _on_delete_game_pressed(game_id: String) -> void:
 
 func _on_start_new_pressed() -> void:
 	_close_sessions_panel()
-	_restart()
+	_start_new_game_slot()
+
+
+func _start_new_game_slot() -> void:
+	if save_coordinator != null and save_coordinator.has_active_game():
+		save_coordinator.save_now(true)
+	# Start New is the only same-difficulty action that creates another unfinished
+	# slot. The existing Reshuffle control remains an in-place reset of the current
+	# game and must not grow the save list.
+	super._restart()
+	if save_coordinator != null:
+		save_coordinator.create_slot_for_current_runtime()
+		_refresh_sessions_list()
 
 
 func _on_difficulty_selected(index: int) -> void:
@@ -290,11 +304,14 @@ func _on_difficulty_selected(index: int) -> void:
 
 
 func _restart() -> void:
-	if save_coordinator != null and save_coordinator.has_active_game():
-		save_coordinator.save_now(true)
+	# The product already labels this action Reshuffle. Keep that contract: reset
+	# the current puzzle in place instead of manufacturing a new unfinished slot.
 	super._restart()
 	if save_coordinator != null:
-		save_coordinator.create_slot_for_current_runtime()
+		if save_coordinator.has_active_game():
+			save_coordinator.save_now(true)
+		else:
+			save_coordinator.create_slot_for_current_runtime()
 		_refresh_sessions_list()
 
 
