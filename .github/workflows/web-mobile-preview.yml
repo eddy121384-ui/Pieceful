@@ -6,7 +6,6 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
-      - feat/issue-3c-multi-slot-saves
   workflow_dispatch:
 
 permissions:
