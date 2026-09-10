@@ -1,6 +1,7 @@
 extends "res://scripts/cluster_safe_chaos_order_spatial_layout_dock_ui.gd"
 
 const TrayReflowCanvasScript = preload("res://scripts/tray_reflow_play_canvas.gd")
+const FixedSurfaceRailCanvasScript = preload("res://scripts/fixed_surface_optimized_rail_canvas.gd")
 const FIXED_SURFACE_SIZE := Vector2(720.0, 720.0)
 
 var fixed_surface_virtual_size := FIXED_SURFACE_SIZE
@@ -43,6 +44,35 @@ func _apply_fixed_surface_ui_transform() -> void:
 		Vector2(0.0, scale.y),
 		Vector2.ZERO
 	)
+
+
+func _install_scrollable_rail_canvas() -> void:
+	if rail_canvas == null:
+		return
+	var rail_box: Node = rail_canvas.get_parent() as Node
+	if rail_box == null:
+		return
+	var old_index: int = int(rail_canvas.get_index())
+	var old_canvas: Node = rail_canvas as Node
+	rail_box.remove_child(old_canvas)
+	old_canvas.queue_free()
+
+	rail_scroll = ScrollContainer.new()
+	rail_scroll.name = "LoosePieceRailScroll"
+	rail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	rail_scroll.mouse_filter = Control.MOUSE_FILTER_STOP
+	rail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	rail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	rail_box.add_child(rail_scroll)
+	rail_box.move_child(rail_scroll, old_index)
+
+	rail_canvas = FixedSurfaceRailCanvasScript.new()
+	rail_canvas.name = "LoosePieceRailCanvas"
+	rail_canvas.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rail_canvas.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	rail_canvas.group_dragged_out.connect(_on_rail_group_dragged_out)
+	rail_scroll.add_child(rail_canvas)
 
 
 func _install_reflow_tray_canvas() -> void:
