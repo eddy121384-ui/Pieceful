@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-3b-tray-placement-reflow
   workflow_dispatch:
 
 permissions:
