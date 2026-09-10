@@ -124,3 +124,144 @@ func _prepare_tray_for_current_canvas(tray_id: String) -> void:
 		tray_id,
 		target_size
 	)
+
+
+func _control_contains_surface_point(control: Control, surface_point: Vector2) -> bool:
+	if control == null or not is_instance_valid(control):
+		return false
+	var local_point := control.get_global_transform_with_canvas().affine_inverse() * surface_point
+	return Rect2(Vector2.ZERO, control.size).has_point(local_point)
+
+
+func try_store_drag_release(piece) -> bool:
+	if (
+		active_tray_id.is_empty()
+		or tray_play_canvas == null
+		or not detail_panel.visible
+		or piece == null
+		or not is_instance_valid(piece)
+	):
+		return false
+
+	var drop_position := Vector2(piece.last_pointer_screen_position)
+	if not _control_contains_surface_point(tray_play_canvas, drop_position):
+		return false
+
+	var members: Array = _loose_group_members_for_piece(int(piece.piece_index))
+	if members.is_empty():
+		return false
+	if not state.assign_pieces_to_tray(members, active_tray_id):
+		return false
+
+	for value in members:
+		_stash_piece(int(value))
+	tray_play_canvas.accept_world_drop(
+		members,
+		int(piece.piece_index),
+		drop_position
+	)
+	_refresh_ui()
+	_refresh_tray_detail()
+	return true
+
+
+func _tray_id_at_screen_point(screen_position: Vector2) -> String:
+	for tray_id_value in tray_drop_targets.keys():
+		var target = tray_drop_targets[tray_id_value]
+		if not is_instance_valid(target) or not target.visible:
+			continue
+		if _control_contains_surface_point(target, screen_position):
+			return str(tray_id_value)
+	return ""
+
+
+func try_store_rail_drop(piece) -> bool:
+	if (
+		loose_layout_mode != LAYOUT_RAIL
+		or rail_panel == null
+		or rail_canvas == null
+		or not rail_panel.visible
+		or piece == null
+		or not is_instance_valid(piece)
+		or piece.solved
+	):
+		return false
+
+	var drop_position := Vector2(piece.last_pointer_screen_position)
+	if not _control_contains_surface_point(rail_canvas, drop_position):
+		return false
+
+	var groups: Array = []
+	if selection_mode_active() and is_piece_selected(int(piece.piece_index)):
+		groups = _selected_groups()
+	else:
+		var members := _loose_group_members_for_piece(int(piece.piece_index))
+		if members.is_empty():
+			return false
+		groups.append(members)
+
+	var moved_any := false
+	for group in groups:
+		if not (group is Array) or group.is_empty():
+			continue
+		var anchor_index := int(group[0])
+		var cluster_id := int(
+			board.cluster_for_piece.get(anchor_index, anchor_index)
+		)
+		var members := _loose_members_for_cluster(cluster_id)
+		if members.is_empty():
+			continue
+		rail_cluster_ids[cluster_id] = true
+		for value in members:
+			_stash_piece(int(value))
+		moved_any = true
+
+	if not moved_any:
+		return false
+	selected_clusters.clear()
+	_apply_selection_visuals()
+	_refresh_ui()
+	return true
+
+
+func _on_rail_group_dragged_out(
+	member_indexes: Array,
+	anchor_piece_index: int,
+	screen_position: Vector2,
+	anchor_pointer_offset: Vector2
+) -> void:
+	if member_indexes.is_empty():
+		return
+	if anchor_piece_index < 0 or anchor_piece_index >= board.pieces.size():
+		return
+
+	var cluster_id := int(
+		board.cluster_for_piece.get(anchor_piece_index, anchor_piece_index)
+	)
+	rail_cluster_ids.erase(cluster_id)
+
+	if (
+		not active_tray_id.is_empty()
+		and detail_panel != null
+		and detail_panel.visible
+		and tray_play_canvas != null
+		and _control_contains_surface_point(tray_play_canvas, screen_position)
+	):
+		if state.assign_pieces_to_tray(member_indexes, active_tray_id):
+			for value in member_indexes:
+				_stash_piece(int(value))
+			tray_play_canvas.accept_world_drop(
+				member_indexes,
+				anchor_piece_index,
+				screen_position
+			)
+			_refresh_ui()
+			_refresh_tray_detail()
+		return
+
+	_release_rail_group_to_main_table(
+		member_indexes,
+		anchor_piece_index,
+		screen_position,
+		anchor_pointer_offset
+	)
