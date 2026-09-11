@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18233d"/>
+      <stop offset="0.48" stop-color="#6a4d6f"/>
+      <stop offset="1" stop-color="#e39a7b"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#40506c"/>
+      <stop offset="1" stop-color="#142335"/>
+    </linearGradient>
+    <linearGradient id="moon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff4d6"/>
+      <stop offset="1" stop-color="#ffd8a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#sky)"/>
+  <circle cx="760" cy="118" r="58" fill="url(#moon)" opacity="0.96"/>
+  <circle cx="738" cy="101" r="7" fill="#e6c996" opacity="0.45"/>
+  <circle cx="784" cy="131" r="10" fill="#e6c996" opacity="0.35"/>
+  <path d="M0 332 L118 218 L205 284 L310 164 L436 302 L542 214 L682 314 L816 236 L960 336 L960 420 L0 420 Z" fill="#27334b"/>
+  <path d="M0 358 L142 286 L250 342 L380 250 L506 348 L635 280 L760 350 L866 302 L960 360 L960 430 L0 430 Z" fill="#1b293b"/>
+  <rect y="398" width="960" height="202" fill="url(#water)"/>
+  <path d="M0 420 C150 402 270 430 410 414 C560 398 704 432 960 410" fill="none" stroke="#f2b08c" stroke-width="5" opacity="0.34"/>
+  <path d="M40 468 C180 454 270 480 430 466 C585 451 720 486 918 464" fill="none" stroke="#8aa5bd" stroke-width="3" opacity="0.36"/>
+  <path d="M90 526 C240 510 374 542 556 522 C714 505 815 534 944 520" fill="none" stroke="#668398" stroke-width="2" opacity="0.34"/>
+  <ellipse cx="760" cy="448" rx="58" ry="8" fill="#ffd8a8" opacity="0.30"/>
+  <ellipse cx="760" cy="476" rx="40" ry="6" fill="#ffd8a8" opacity="0.20"/>
+  <path d="M0 548 C120 518 184 542 284 524 C380 505 478 538 570 520 C662 500 758 534 960 510 L960 600 L0 600 Z" fill="#0d1724"/>
+  <g fill="#101c28">
+    <path d="M72 522 l22-72 22 72z"/><rect x="91" y="514" width="7" height="44"/>
+    <path d="M132 528 l28-92 28 92z"/><rect x="157" y="518" width="7" height="50"/>
+    <path d="M842 524 l24-80 24 80z"/><rect x="863" y="516" width="7" height="48"/>
+    <path d="M895 530 l30-98 30 98z"/><rect x="922" y="518" width="7" height="54"/>
+  </g>
+</svg>
