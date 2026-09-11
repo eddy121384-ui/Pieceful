@@ -2,6 +2,7 @@ extends SceneTree
 
 const MainScene = preload("res://main.tscn")
 const GalleryStateStoreScript = preload("res://scripts/gallery_state_store.gd")
+const AppUiMetricsScript = preload("res://scripts/app_ui_metrics.gd")
 const SAVE_DIR := "user://saves"
 const LEGACY_SAVE := "user://pieceful_autosave_v1.json"
 const GALLERY_STATE := "user://pieceful_gallery_state_v1.json"
@@ -102,6 +103,32 @@ func _run() -> void:
 		return
 	if str(board.active_pattern_id()) == "Classic_150_A":
 		_fail("portrait puzzle incorrectly reused the 1.6:1 Standard die")
+		return
+
+	# A tall artwork must fit between the product chrome at the default fitted
+	# view. This is the regression caught by real-device/desktop validation: the
+	# top row used to sit underneath the translucent progress banner.
+	var viewport_size: Vector2 = main.get_viewport().get_visible_rect().size
+	var canvas_transform: Transform2D = main.get_viewport().get_canvas_transform()
+	var board_top_left: Vector2 = canvas_transform * board.board_rect.position
+	var board_bottom_right: Vector2 = canvas_transform * board.board_rect.end
+	var top_bar: Rect2 = AppUiMetricsScript.top_bar_rect(viewport_size)
+	var dock: Rect2 = AppUiMetricsScript.dock_rect(viewport_size)
+	if board_top_left.y < top_bar.end.y + 12.0:
+		_fail("portrait board still overlaps top app chrome: %.1f < %.1f" % [board_top_left.y, top_bar.end.y + 12.0])
+		return
+	if board_bottom_right.y > dock.position.y - 12.0:
+		_fail("portrait board overlaps bottom dock: %.1f > %.1f" % [board_bottom_right.y, dock.position.y - 12.0])
+		return
+
+	# The persistent runtime Difficulty control must report the same resolved
+	# count as the actual puzzle, not the legacy target/catalog count (150).
+	var expected_count := int(grid.get("piece_count", 0))
+	var difficulty_text := ""
+	if main.difficulty_select != null and main.difficulty_select.get_item_count() > 0:
+		difficulty_text = main.difficulty_select.get_item_text(main.difficulty_select.selected)
+	if not difficulty_text.ends_with("· %d" % expected_count):
+		_fail("runtime difficulty selector is stale: '%s' vs %d pieces" % [difficulty_text, expected_count])
 		return
 
 	main.call("_on_start_new_pressed")
