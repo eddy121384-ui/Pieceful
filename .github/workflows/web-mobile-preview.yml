@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-3f-puzzle-selection-flow
   workflow_dispatch:
 
 permissions:
@@ -98,6 +99,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/content_identity_save_smoke.gd
+
+      - name: Puzzle selection flow smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_selection_flow_smoke.gd
 
       - name: Export Web build
         shell: bash
