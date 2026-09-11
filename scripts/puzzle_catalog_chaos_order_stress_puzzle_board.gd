@@ -71,9 +71,11 @@ func select_content_by_identity(identity) -> bool:
 		var entry: Dictionary = CONTENTS[content_id]
 		if str(entry.get("source_id", "")) != source_id:
 			continue
-		if not select_content(content_id):
-			return false
-		return content_identity_matches(identity)
+		# This method resolves which local artwork the save refers to. Fingerprint
+		# equality remains the durable-content guard's responsibility after the
+		# source is selected, so a known source with tampered bytes is classified as
+		# content-identity-mismatch rather than being conflated with unavailable art.
+		return select_content(content_id)
 	return false
 
 
