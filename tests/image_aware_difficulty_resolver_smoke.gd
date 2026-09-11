@@ -1,9 +1,11 @@
 extends SceneTree
 
 const ResolverScript = preload("res://scripts/puzzle_layout_resolver.gd")
+const CutPatternAssetScript = preload("res://scripts/cut_pattern_asset.gd")
 const MainScene = preload("res://main.tscn")
 const SAVE_DIR := "user://saves"
 const LEGACY_SAVE := "user://pieceful_autosave_v1.json"
+const SYNTHETIC_PATTERN := "user://pieceful_patterns/Pieceful_CI_square_standard_v16_A.json"
 
 
 func _init() -> void:
@@ -14,6 +16,7 @@ func _run() -> void:
 	if not _check_resolver_geometry():
 		return
 	_clear_test_saves()
+	_remove_synthetic_pattern()
 
 	var main = MainScene.instantiate()
 	root.add_child(main)
@@ -60,6 +63,9 @@ func _run() -> void:
 			_fail("1.6:1 compatibility mapping changed for %s: %s" % [difficulty_id, layout])
 			return
 
+	if not _check_runtime_pattern_generation(board):
+		return
+
 	# Start the first real slot as Hard. The 1.6:1 built-in art must preserve the
 	# approved Classic_286_A die so pre-#37 saves remain resumable.
 	main.call("_on_content_card_pressed", "garden")
@@ -93,6 +99,7 @@ func _run() -> void:
 	main.queue_free()
 	await process_frame
 	_clear_test_saves()
+	_remove_synthetic_pattern()
 	print("PASS image_aware_difficulty_resolver_smoke")
 	quit(0)
 
@@ -136,6 +143,40 @@ func _check_resolver_geometry() -> bool:
 	return true
 
 
+func _check_runtime_pattern_generation(board) -> bool:
+	var layout: Dictionary = board.resolved_layout_for_aspect(1.0, "standard")
+	if layout.is_empty():
+		_fail("could not resolve synthetic 1:1 Standard layout")
+		return false
+	var profile := layout.duplicate(true)
+	profile["difficulty_id"] = "standard"
+	profile["pattern_id"] = "Pieceful_CI_square_standard_v16_A"
+	profile["cut_pattern_path"] = SYNTHETIC_PATTERN
+	profile["runtime_generated"] = true
+	profile["seed"] = 37001
+	if not board.call("_ensure_runtime_pattern", profile):
+		_fail("runtime generator could not create synthetic 1:1 CutPattern")
+		return false
+	var pattern = CutPatternAssetScript.load_json(SYNTHETIC_PATTERN)
+	if pattern == null:
+		_fail("generated synthetic CutPattern did not load")
+		return false
+	if (
+		int(pattern.columns) != int(layout.get("columns", -1))
+		or int(pattern.rows) != int(layout.get("rows", -1))
+	):
+		_fail("generated CutPattern grid differs from resolver output")
+		return false
+	var authored_layout = pattern.authoring.get("layout", {})
+	if not (authored_layout is Dictionary):
+		_fail("generated CutPattern omitted resolver provenance")
+		return false
+	if str(authored_layout.get("resolver", "")) != "image_aware_runtime_v1":
+		_fail("generated CutPattern has wrong resolver provenance")
+		return false
+	return true
+
+
 func _board_size_for_aspect(aspect: float) -> Vector2:
 	if aspect >= 1.0:
 		return Vector2(600.0, 600.0 / aspect)
@@ -159,6 +200,11 @@ func _read_json(path: String):
 	var value: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	return value
+
+
+func _remove_synthetic_pattern() -> void:
+	if FileAccess.file_exists(SYNTHETIC_PATTERN):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SYNTHETIC_PATTERN))
 
 
 func _clear_test_saves() -> void:
