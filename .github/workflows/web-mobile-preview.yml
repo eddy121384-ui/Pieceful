@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-3d-save-robustness
   workflow_dispatch:
 
 permissions:
@@ -86,6 +87,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/multi_slot_save_smoke.gd
+
+      - name: Save robustness smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/save_robustness_smoke.gd
 
       - name: Export Web build
         shell: bash
