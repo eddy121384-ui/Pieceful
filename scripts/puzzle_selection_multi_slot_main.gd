@@ -247,7 +247,16 @@ func _start_selected_puzzle() -> void:
 	var difficulty_id := str(
 		puzzle_selection_difficulty.get_item_metadata(puzzle_selection_difficulty.selected)
 	)
-	if save_coordinator != null and save_coordinator.has_active_game():
+	var committing_initial := (
+		save_coordinator != null
+		and save_coordinator.has_method("needs_new_game_selection")
+		and save_coordinator.needs_new_game_selection()
+	)
+	if (
+		save_coordinator != null
+		and save_coordinator.has_active_game()
+		and not committing_initial
+	):
 		if not save_coordinator.save_now(true):
 			_show_selection_error("Could not preserve the current puzzle.")
 			return
@@ -269,7 +278,12 @@ func _start_selected_puzzle() -> void:
 	completion_panel.visible = false
 
 	if save_coordinator != null:
-		save_coordinator.create_slot_for_current_runtime()
+		if committing_initial and save_coordinator.has_method("commit_initial_selection"):
+			if not save_coordinator.commit_initial_selection():
+				_show_selection_error("Could not save the selected puzzle.")
+				return
+		else:
+			save_coordinator.create_slot_for_current_runtime()
 		_refresh_sessions_list()
 	puzzle_selection_overlay.visible = false
 
