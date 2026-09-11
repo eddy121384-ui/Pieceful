@@ -49,12 +49,12 @@ func import_image_bytes(bytes: PackedByteArray, original_name: String = "") -> D
 		last_error = "The selected photo is empty."
 		return {}
 
-	var image := _decode_image(bytes)
+	var image: Image = _decode_image(bytes)
 	if image == null or image.is_empty():
 		last_error = "Pieceful could not read this image. Try PNG, JPEG, or WebP."
 		return {}
 
-	var size := image.get_size()
+	var size: Vector2i = image.get_size()
 	if size.x <= 0 or size.y <= 0:
 		last_error = "The selected photo has invalid dimensions."
 		return {}
@@ -69,7 +69,7 @@ func import_image_bytes(bytes: PackedByteArray, original_name: String = "") -> D
 		image.resize(target.x, target.y, Image.INTERPOLATE_LANCZOS)
 		size = image.get_size()
 
-	var canonical_bytes := image.save_png_to_buffer()
+	var canonical_bytes: PackedByteArray = image.save_png_to_buffer()
 	if canonical_bytes.is_empty():
 		last_error = "Pieceful could not prepare this photo for local storage."
 		return {}
@@ -135,7 +135,7 @@ func remove(content_id: String) -> bool:
 	return true
 
 
-func _decode_image(bytes: PackedByteArray):
+func _decode_image(bytes: PackedByteArray) -> Image:
 	var image := Image.new()
 	if image.load_png_from_buffer(bytes) == OK:
 		return image
