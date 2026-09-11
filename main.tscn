@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/image_aware_puzzle_selection_main.gd" id="1_main"]
-[ext_resource type="Script" path="res://scripts/image_aware_puzzle_catalog_board.gd" id="2_board"]
+[ext_resource type="Script" path="res://scripts/gallery_image_aware_main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/gallery_puzzle_catalog_board.gd" id="2_board"]
 [ext_resource type="Script" path="res://scripts/puzzle_camera_controller.gd" id="3_camera"]
 [ext_resource type="Script" path="res://scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gd" id="4_sorting"]
 [ext_resource type="Script" path="res://scripts/image_aware_puzzle_catalog_save_coordinator.gd" id="5_save"]
