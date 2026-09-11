@@ -6,7 +6,6 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
-      - feat/issue-3d-save-robustness
   workflow_dispatch:
 
 permissions:
