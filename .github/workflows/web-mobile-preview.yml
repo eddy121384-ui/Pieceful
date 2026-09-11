@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-4-gallery-metadata-foundation
   workflow_dispatch:
 
 permissions:
@@ -110,6 +111,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/image_aware_difficulty_resolver_smoke.gd
+
+      - name: Gallery flow smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd
 
       - name: Export Web build
         shell: bash
