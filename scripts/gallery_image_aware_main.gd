@@ -292,11 +292,25 @@ func _unfinished_entry_for_content(content_id: String) -> Dictionary:
 	var source_id := str(metadata.get("source_id", ""))
 	if source_id.is_empty():
 		return {}
+
+	# Clean bootstrap intentionally owns one provisional Garden slot so the save
+	# coordinator always has a durable place to commit the player's first choice.
+	# That technical placeholder is not a player-started puzzle and must never be
+	# surfaced as Continue · 0% in the Gallery.
+	var provisional_game_id := ""
+	if (
+		save_coordinator.has_method("needs_new_game_selection")
+		and bool(save_coordinator.needs_new_game_selection())
+	):
+		provisional_game_id = str(save_coordinator.active_game())
+
 	var best: Dictionary = {}
 	for entry_value in save_coordinator.list_unfinished_games():
 		if not (entry_value is Dictionary):
 			continue
 		var entry: Dictionary = entry_value
+		if not provisional_game_id.is_empty() and str(entry.get("game_id", "")) == provisional_game_id:
+			continue
 		if str(entry.get("content_source_id", "")) != source_id:
 			continue
 		if best.is_empty() or int(entry.get("last_played_unix", 0)) > int(best.get("last_played_unix", 0)):
