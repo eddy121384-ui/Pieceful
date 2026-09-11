@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-5-puzzle-me-local-photo
   workflow_dispatch:
 
 permissions:
@@ -122,6 +123,18 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/startup_resume_presentation_smoke.gd
+
+      - name: Puzzle Me store smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_me_store_smoke.gd
+
+      - name: Puzzle Me flow smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_me_flow_smoke.gd
 
       - name: Export Web build
         shell: bash
