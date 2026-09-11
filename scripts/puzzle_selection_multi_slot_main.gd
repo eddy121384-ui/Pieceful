@@ -247,10 +247,10 @@ func _start_selected_puzzle() -> void:
 	var difficulty_id := str(
 		puzzle_selection_difficulty.get_item_metadata(puzzle_selection_difficulty.selected)
 	)
-	var committing_initial := (
+	var committing_initial: bool = (
 		save_coordinator != null
 		and save_coordinator.has_method("needs_new_game_selection")
-		and save_coordinator.needs_new_game_selection()
+		and bool(save_coordinator.needs_new_game_selection())
 	)
 	if (
 		save_coordinator != null
