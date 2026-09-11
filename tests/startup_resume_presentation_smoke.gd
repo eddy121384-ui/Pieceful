@@ -96,12 +96,59 @@ func _run() -> void:
 		return
 	if int(second_board.get("resume_runtime_reuse_hits")) != 1:
 		_fail(
-			"resume runtime was rebuilt instead of reused exactly once: %s"
+			"startup resume runtime was rebuilt instead of reused exactly once: %s"
 			% second_board.get("resume_runtime_reuse_hits")
 		)
 		return
 	if second.startup_curtain_layer != null:
 		_fail("startup curtain did not release after resolved resume")
+		return
+
+	# Manual Resume is a separate product entry point. Move to a different puzzle
+	# so the portrait slot becomes inactive, then resume it through the real UI
+	# handler. The transition curtain must guard that restore too, and the same
+	# preflight runtime reuse optimization should remain active.
+	second.call("_on_content_card_pressed", "garden")
+	_select_picker_difficulty(second, "relaxed")
+	second.call("_start_selected_puzzle")
+	for _frame in range(8):
+		await process_frame
+	if str(second_coordinator.active_game()) == saved_game_id:
+		_fail("manual-resume fixture did not create a different active slot")
+		return
+	if str(second_board.active_content_id()) != "garden":
+		_fail("manual-resume fixture did not switch to Garden")
+		return
+
+	await second.call("_on_resume_game_pressed", saved_game_id)
+	if int(second.get("manual_resume_transition_count")) != 1:
+		_fail("manual Resume did not pass through the loading curtain gate")
+		return
+	if str(second_coordinator.active_game()) != saved_game_id:
+		_fail("manual Resume did not reactivate the requested slot")
+		return
+	if str(second_board.active_content_id()) != "crane_pine_scroll":
+		_fail("manual Resume restored wrong artwork")
+		return
+	if str(second_board.active_difficulty_id()) != "standard":
+		_fail("manual Resume restored wrong difficulty")
+		return
+	if str(second_board.active_pattern_id()) != saved_pattern_id:
+		_fail("manual Resume restored wrong CutPattern")
+		return
+	if int(second_board.active_piece_count()) != saved_piece_count:
+		_fail("manual Resume restored wrong piece count")
+		return
+	if int(second_board.get("resume_runtime_reuse_hits")) != 2:
+		_fail(
+			"manual Resume did not reuse the preflight runtime: %s"
+			% second_board.get("resume_runtime_reuse_hits")
+		)
+		return
+	for _frame in range(16):
+		await process_frame
+	if second.startup_curtain_layer != null:
+		_fail("manual Resume curtain did not release after final state settled")
 		return
 
 	second.queue_free()
