@@ -2,15 +2,17 @@ class_name PuzzleLayoutResolver
 extends RefCounted
 
 # Converts a desired puzzle difficulty + frame aspect ratio into a practical
-# rows/columns grid. The target piece count is intentionally approximate:
-# preserving sane piece proportions is more important than forcing an exact
-# count such as 72 or 288 on every image shape.
+# rows/columns grid. Difficulty describes target density, not an exact count.
+# Runtime callers may also provide the logical board size and a touch/readability
+# floor so extreme source ratios cannot create unusably thin pieces.
 
 const MIN_TARGET_PIECES := 36
 const MAX_TARGET_PIECES := 1200
 const MIN_AXIS := 2
 const MAX_AXIS := 64
 
+const MIN_FRAME_ASPECT := 0.20
+const MAX_FRAME_ASPECT := 5.00
 const MIN_CELL_ASPECT := 0.82
 const MAX_CELL_ASPECT := 1.22
 const COUNT_WEIGHT := 5.0
@@ -35,28 +37,74 @@ const ASPECT_PRESETS := [
 ]
 
 
-func resolve(frame_aspect_ratio: float, target_piece_count: int) -> Dictionary:
-	var safe_aspect := clampf(frame_aspect_ratio, 0.50, 2.00)
+func resolve(
+	frame_aspect_ratio: float,
+	target_piece_count: int,
+	board_size: Vector2 = Vector2.ZERO,
+	min_piece_short_edge: float = 0.0
+) -> Dictionary:
+	var safe_aspect := clampf(frame_aspect_ratio, MIN_FRAME_ASPECT, MAX_FRAME_ASPECT)
 	var safe_target := clampi(target_piece_count, MIN_TARGET_PIECES, MAX_TARGET_PIECES)
+	var safe_board_size := Vector2(maxf(board_size.x, 0.0), maxf(board_size.y, 0.0))
+	var safe_piece_floor := maxf(min_piece_short_edge, 0.0)
 
-	var best := _search(safe_aspect, safe_target, true)
+	var best := _search(
+		safe_aspect,
+		safe_target,
+		safe_board_size,
+		safe_piece_floor,
+		true
+	)
 	if best.is_empty():
-		# Custom aspect ratios should normally find a candidate inside the preferred
-		# cell-aspect band. This fallback guarantees a result without making the
-		# resolver depend on a fixed list of image shapes.
-		best = _search(safe_aspect, safe_target, false)
+		# Keep the touch/readability floor mandatory, but relax the preferred
+		# near-square cell band when an unusual frame cannot satisfy both.
+		best = _search(
+			safe_aspect,
+			safe_target,
+			safe_board_size,
+			safe_piece_floor,
+			false
+		)
+	if best.is_empty() and safe_piece_floor > 0.0:
+		# A caller can supply an impossibly small board. Return a deterministic
+		# geometry result rather than crashing, but mark that the touch floor could
+		# not be satisfied so product/UI layers can diagnose the fallback.
+		best = _search(safe_aspect, safe_target, safe_board_size, 0.0, false)
+		best["touch_floor_satisfied"] = false
+
+	if best.is_empty():
+		return {}
 
 	best["frame_aspect_ratio"] = safe_aspect
 	best["target_piece_count"] = safe_target
 	best["piece_count_error_ratio"] = (
 		absf(float(best["piece_count"]) - float(safe_target)) / float(safe_target)
 	)
+	best["min_piece_short_edge"] = safe_piece_floor
+	if not best.has("touch_floor_satisfied"):
+		best["touch_floor_satisfied"] = true
 	return best
 
 
-func _search(frame_aspect_ratio: float, target_piece_count: int, enforce_cell_band: bool) -> Dictionary:
-	var minimum_count := maxi(MIN_AXIS * MIN_AXIS, int(floor(float(target_piece_count) * 0.60)))
-	var maximum_count := mini(MAX_AXIS * MAX_AXIS, int(ceil(float(target_piece_count) * 1.40)))
+func _search(
+	frame_aspect_ratio: float,
+	target_piece_count: int,
+	board_size: Vector2,
+	min_piece_short_edge: float,
+	enforce_cell_band: bool
+) -> Dictionary:
+	# When a touch floor is active, allow the resolver to move materially below
+	# the nominal count. This is what keeps panoramas / tall scroll-like works
+	# playable instead of forcing hundreds of needle-thin pieces.
+	var minimum_count := (
+		MIN_AXIS * MIN_AXIS
+		if min_piece_short_edge > 0.0
+		else maxi(MIN_AXIS * MIN_AXIS, int(floor(float(target_piece_count) * 0.60)))
+	)
+	var maximum_count := mini(
+		MAX_AXIS * MAX_AXIS,
+		int(ceil(float(target_piece_count) * 1.40))
+	)
 	var best_score := INF
 	var best := {}
 
@@ -71,6 +119,15 @@ func _search(frame_aspect_ratio: float, target_piece_count: int, enforce_cell_ba
 				cell_aspect < MIN_CELL_ASPECT or cell_aspect > MAX_CELL_ASPECT
 			):
 				continue
+
+			var piece_short_edge := INF
+			if board_size.x > 0.0 and board_size.y > 0.0:
+				piece_short_edge = minf(
+					board_size.x / float(columns),
+					board_size.y / float(rows)
+				)
+				if min_piece_short_edge > 0.0 and piece_short_edge < min_piece_short_edge:
+					continue
 
 			var count_error := log(float(piece_count) / float(target_piece_count))
 			var cell_aspect_error := log(cell_aspect)
@@ -97,6 +154,7 @@ func _search(frame_aspect_ratio: float, target_piece_count: int, enforce_cell_ba
 					"rows": rows,
 					"piece_count": piece_count,
 					"cell_aspect_ratio": cell_aspect,
+					"piece_short_edge": piece_short_edge,
 					"score": score,
 					"preferred_cell_band": enforce_cell_band,
 				}

@@ -105,6 +105,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/puzzle_selection_flow_smoke.gd
 
+      - name: Image-aware difficulty resolver smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/image_aware_difficulty_resolver_smoke.gd
+
       - name: Export Web build
         shell: bash
         run: |
