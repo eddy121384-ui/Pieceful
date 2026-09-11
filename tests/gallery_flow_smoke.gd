@@ -23,6 +23,9 @@ func _run() -> void:
 	if board == null or coordinator == null:
 		_fail("gallery runtime nodes missing")
 		return
+	if str(main.call("_gallery_status_for", "garden")) != "new":
+		_fail("clean bootstrap provisional Garden slot leaked as Continue")
+		return
 
 	var presets: Array = board.content_presets()
 	if presets.size() != 3:
