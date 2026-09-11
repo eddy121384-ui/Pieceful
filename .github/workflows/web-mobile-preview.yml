@@ -75,6 +75,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
 
+      - name: Stable autosave smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/save_stable_snapshot_smoke.gd
+
       - name: Export Web build
         shell: bash
         run: |
