@@ -158,7 +158,7 @@ func _read_json(path: String):
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return null
-	var value := JSON.parse_string(file.get_as_text())
+	var value: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	return value
 
