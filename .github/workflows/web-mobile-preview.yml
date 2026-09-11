@@ -6,7 +6,6 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
-      - feat/issue-3e-durable-content-identity
   workflow_dispatch:
 
 permissions:
