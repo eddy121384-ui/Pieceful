@@ -4,7 +4,6 @@ const ChaosOrderPilePolicyScript = preload("res://scripts/chaos_order_pile_polic
 const ChaosIcons = preload("res://scripts/ui_icon_catalog.gd")
 const ChaosMetrics = preload("res://scripts/app_ui_metrics.gd")
 
-const CHAOS_DIFFICULTY_ID := "hard"
 const CHAOS_MIN_PIECES := 250
 const SPREAD_RADIUS_SCREEN := 118.0
 const SPREAD_MIN_STEP_SCREEN := 9.0
@@ -50,7 +49,7 @@ func _build_spread_control() -> void:
 		20
 	)
 	# Keep an explicit text label in the prototype. An icon-only action was too
-	# easy to miss on a dense Hard workspace, and the atlas glyph can disappear
+	# easy to miss on a dense workspace, and the atlas glyph can disappear
 	# visually against the pile depending on display scale.
 	spread_button.text = "Spread"
 	spread_button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -97,11 +96,10 @@ func _randomize_runtime_scatter() -> void:
 
 
 func _chaos_runtime_active() -> bool:
-	return (
-		board != null
-		and board.active_difficulty_id() == CHAOS_DIFFICULTY_ID
-		and board.active_piece_count() >= CHAOS_MIN_PIECES
-	)
+	# High-density behavior is a scalability policy, not a named-difficulty rule.
+	# This lets the experimental Stress 400 preset exercise the exact same pile /
+	# Spread path as Hard 286 without forking gameplay semantics.
+	return board != null and board.active_piece_count() >= CHAOS_MIN_PIECES
 
 
 func _on_spread_mode_toggled(enabled: bool) -> void:
@@ -261,24 +259,20 @@ func _handle_spread_mouse_button(event: InputEventMouseButton) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
 	if event.pressed:
-		spread_mouse_active = not _screen_hits_playable_piece(event.position)
-		if spread_mouse_active:
-			_spread_at_screen(event.position, SPREAD_MIN_STEP_SCREEN)
-			get_viewport().set_input_as_handled()
+		if _screen_hits_playable_piece(event.position):
+			return
+		spread_mouse_active = true
+		get_viewport().set_input_as_handled()
+	else:
+		spread_mouse_active = false
+		get_viewport().set_input_as_handled()
 
 
 func _handle_spread_mouse_motion(event: InputEventMouseMotion) -> void:
-	if not spread_mouse_active:
+	if not spread_mouse_active or (event.button_mask & MOUSE_BUTTON_MASK_LEFT) == 0:
 		return
-	if (event.button_mask & MOUSE_BUTTON_MASK_LEFT) == 0:
-		spread_mouse_active = false
-		return
-	var step_screen: float = clampf(
-		event.relative.length() * 0.95,
-		SPREAD_MIN_STEP_SCREEN,
-		SPREAD_MAX_STEP_SCREEN
-	)
-	_spread_at_screen(event.position, step_screen)
+	var step := clampf(event.relative.length(), SPREAD_MIN_STEP_SCREEN, SPREAD_MAX_STEP_SCREEN)
+	_spread_at_screen(event.position, step)
 	get_viewport().set_input_as_handled()
 
 
@@ -287,53 +281,119 @@ func _handle_spread_touch(event: InputEventScreenTouch) -> void:
 		if _screen_hits_playable_piece(event.position):
 			return
 		spread_touch_ids[event.index] = true
-		_spread_at_screen(event.position, SPREAD_MIN_STEP_SCREEN)
+		get_viewport().set_input_as_handled()
+	else:
+		spread_touch_ids.erase(event.index)
 		get_viewport().set_input_as_handled()
 
 
 func _handle_spread_drag(event: InputEventScreenDrag) -> void:
 	if not spread_touch_ids.has(event.index):
 		return
-	var step_screen: float = clampf(
-		event.relative.length() * 0.95,
-		SPREAD_MIN_STEP_SCREEN,
-		SPREAD_MAX_STEP_SCREEN
-	)
-	_spread_at_screen(event.position, step_screen)
+	var step := clampf(event.relative.length(), SPREAD_MIN_STEP_SCREEN, SPREAD_MAX_STEP_SCREEN)
+	_spread_at_screen(event.position, step)
 	get_viewport().set_input_as_handled()
-
-
-func _spread_at_screen(screen_position: Vector2, step_screen: float) -> void:
-	if board == null or puzzle_camera == null:
-		return
-	var zoom_scale: float = maxf(float(puzzle_camera.zoom.x), 0.01)
-	var world_position: Vector2 = (
-		get_viewport().get_canvas_transform().affine_inverse() * screen_position
-	)
-	pile_policy.spread_at_world(
-		board,
-		world_position,
-		SPREAD_RADIUS_SCREEN / zoom_scale,
-		step_screen / zoom_scale
-	)
 
 
 func _screen_hits_playable_piece(screen_position: Vector2) -> bool:
 	if board == null:
 		return false
-	var world_position: Vector2 = (
-		get_viewport().get_canvas_transform().affine_inverse() * screen_position
-	)
 	for piece_value in board.pieces:
 		var piece = piece_value
-		if (
-			not is_instance_valid(piece)
-			or bool(piece.solved)
-			or not bool(piece.visible)
-			or not bool(piece.input_pickable)
-		):
+		if not is_instance_valid(piece) or bool(piece.solved) or not bool(piece.visible):
 			continue
+		var world_position := (
+			get_viewport().get_canvas_transform().affine_inverse() * screen_position
+		)
 		var local_point: Vector2 = piece.to_local(world_position)
 		if Geometry2D.is_point_in_polygon(local_point, piece.polygon_points):
 			return true
 	return false
+
+
+func _spread_at_screen(screen_position: Vector2, step_screen: float) -> void:
+	if board == null or board.definition == null:
+		return
+	var world_transform := get_viewport().get_canvas_transform()
+	var pointer_world: Vector2 = world_transform.affine_inverse() * screen_position
+	var zoom_scale := maxf(world_transform.get_scale().x, 0.01)
+	var radius_world := SPREAD_RADIUS_SCREEN / zoom_scale
+	var step_world := step_screen / zoom_scale
+	var affected_clusters: Dictionary = {}
+
+	for piece_value in board.pieces:
+		var piece = piece_value
+		if not is_instance_valid(piece) or bool(piece.solved) or not bool(piece.visible):
+			continue
+		var piece_index: int = int(piece.piece_index)
+		var cluster_id: int = int(board.cluster_for_piece.get(piece_index, piece_index))
+		if affected_clusters.has(cluster_id):
+			continue
+		if piece.position.distance_to(pointer_world) > radius_world:
+			continue
+		affected_clusters[cluster_id] = true
+
+	for cluster_id_value in affected_clusters.keys():
+		var cluster_id: int = int(cluster_id_value)
+		var members: Array = board.cluster_members.get(cluster_id, [])
+		if members.is_empty():
+			continue
+		var centroid := Vector2.ZERO
+		var valid_members := 0
+		for member_value in members:
+			var member_index: int = int(member_value)
+			if member_index < 0 or member_index >= board.pieces.size():
+				continue
+			var member = board.pieces[member_index]
+			if not is_instance_valid(member) or bool(member.solved):
+				continue
+			centroid += member.position
+			valid_members += 1
+		if valid_members <= 0:
+			continue
+		centroid /= float(valid_members)
+		var direction := centroid - pointer_world
+		if direction.length_squared() < 0.0001:
+			direction = Vector2.RIGHT.rotated(float(cluster_id % 12) / 12.0 * TAU)
+		else:
+			direction = direction.normalized()
+		_translate_cluster_within_workspace(cluster_id, direction * step_world)
+
+
+func _translate_cluster_within_workspace(cluster_id: int, delta: Vector2) -> void:
+	var raw_members = board.cluster_members.get(cluster_id, [])
+	if not (raw_members is Array) or raw_members.is_empty():
+		return
+	var bounds := Rect2()
+	var initialized := false
+	var member_indexes: Array[int] = []
+	for value in raw_members:
+		var piece_index: int = int(value)
+		if piece_index < 0 or piece_index >= board.pieces.size():
+			continue
+		var piece = board.pieces[piece_index]
+		if not is_instance_valid(piece) or bool(piece.solved):
+			continue
+		member_indexes.append(piece_index)
+		var piece_rect := Rect2(piece.position, piece.piece_size)
+		if not initialized:
+			bounds = piece_rect
+			initialized = true
+		else:
+			bounds = bounds.merge(piece_rect)
+	if member_indexes.is_empty():
+		return
+
+	var workspace: Rect2 = Rect2(board.navigation_rect).grow(-18.0)
+	var target_bounds := Rect2(bounds.position + delta, bounds.size)
+	if target_bounds.position.x < workspace.position.x:
+		delta.x += workspace.position.x - target_bounds.position.x
+	elif target_bounds.end.x > workspace.end.x:
+		delta.x -= target_bounds.end.x - workspace.end.x
+	if target_bounds.position.y < workspace.position.y:
+		delta.y += workspace.position.y - target_bounds.position.y
+	elif target_bounds.end.y > workspace.end.y:
+		delta.y -= target_bounds.end.y - workspace.end.y
+
+	for piece_index in member_indexes:
+		board.pieces[piece_index].position += delta
