@@ -16,6 +16,39 @@ func _show_puzzle_selection(can_cancel: bool) -> void:
 	_refresh_picker_difficulties(pending_content_id, str(board.active_difficulty_id()))
 
 
+func _refresh_difficulty_control() -> void:
+	if difficulty_select == null or board == null:
+		return
+
+	var active_id := str(board.active_difficulty_id())
+	var presets: Array = []
+	if board.has_method("difficulty_presets_for_content") and board.has_method("active_content_id"):
+		presets = board.difficulty_presets_for_content(str(board.active_content_id()))
+	else:
+		presets = board.difficulty_presets()
+
+	difficulty_select.set_block_signals(true)
+	difficulty_select.clear()
+	for preset_value in presets:
+		if not (preset_value is Dictionary):
+			continue
+		var preset: Dictionary = preset_value
+		var difficulty_id := str(preset.get("id", ""))
+		var count := int(preset.get("resolved_piece_count", 0))
+		if difficulty_id.is_empty() or count <= 0:
+			continue
+		var item_index := difficulty_select.get_item_count()
+		difficulty_select.add_item(
+			"%s · %d" % [str(preset.get("label", difficulty_id)), count]
+		)
+		difficulty_select.set_item_metadata(item_index, difficulty_id)
+		var available := board.difficulty_available(difficulty_id)
+		difficulty_select.set_item_disabled(item_index, not available)
+		if difficulty_id == active_id:
+			difficulty_select.select(item_index)
+	difficulty_select.set_block_signals(false)
+
+
 func _refresh_picker_difficulties(content_id: String, preferred_difficulty: String) -> void:
 	if puzzle_selection_difficulty == null or board == null:
 		return

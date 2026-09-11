@@ -111,6 +111,18 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/image_aware_difficulty_resolver_smoke.gd
 
+      - name: Gallery flow smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd
+
+      - name: Startup resume presentation smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/startup_resume_presentation_smoke.gd
+
       - name: Export Web build
         shell: bash
         run: |

@@ -28,12 +28,13 @@ func _run() -> void:
 	if main.puzzle_selection_overlay == null or not main.puzzle_selection_overlay.visible:
 		_fail("clean boot chooser is not visible")
 		return
-	if main.content_buttons.size() != 2:
-		_fail("chooser does not expose exactly two built-in artworks")
+	if main.content_buttons.size() != 3:
+		_fail("gallery does not expose the three built-in artwork fixtures")
 		return
-	if not main.content_buttons.has("garden") or not main.content_buttons.has("twilight_lake"):
-		_fail("expected Garden and Twilight Lake cards")
-		return
+	for expected_id in ["garden", "twilight_lake", "crane_pine_scroll"]:
+		if not main.content_buttons.has(expected_id):
+			_fail("missing expected gallery artwork: %s" % expected_id)
+			return
 
 	var provisional_id := str(coordinator.active_game())
 	if provisional_id.is_empty() or coordinator.list_unfinished_games().size() != 1:
@@ -67,10 +68,10 @@ func _run() -> void:
 		_fail("Twilight Lake identity did not persist a SHA-256")
 		return
 
-	# Start New now uses the same chooser but preserves the first unfinished game.
+	# Start New now uses the same gallery but preserves the first unfinished game.
 	main.call("_on_start_new_pressed")
 	if not main.puzzle_selection_overlay.visible or not main.puzzle_selection_cancel.visible:
-		_fail("Start new did not open a cancellable chooser")
+		_fail("Start new did not open a cancellable gallery")
 		return
 	main.call("_on_content_card_pressed", "garden")
 	main.call("_start_selected_puzzle")
@@ -129,7 +130,7 @@ func _run() -> void:
 		_fail("relaunch resumed slot state onto the wrong artwork")
 		return
 	if main.puzzle_selection_overlay.visible:
-		_fail("existing unfinished game should resume directly instead of reopening chooser")
+		_fail("existing unfinished game should resume directly instead of reopening gallery")
 		return
 	if coordinator.list_unfinished_games().size() != 2:
 		_fail("relaunch did not preserve both artwork saves")

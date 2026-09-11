@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "metadata_version": 1,
+  "tag_schema_version": 1,
+  "contents": [
+    {
+      "id": "garden",
+      "label": "Garden",
+      "source_id": "builtin:demo_garden",
+      "path": "res://assets/demo_garden.svg",
+      "category": "nature",
+      "subject": ["garden", "flowers", "path"],
+      "region_culture": ["global"],
+      "mood": ["calm", "bright"],
+      "visual": ["landscape", "green", "detailed"],
+      "style": ["illustration"],
+      "scene": ["outdoor", "day"],
+      "puzzleability": {"score": 0.86, "notes": "Clear regions with moderate texture variety."},
+      "suggested_difficulty": "standard",
+      "tags": [
+        {"id": "nature", "weight": 1.0},
+        {"id": "garden", "weight": 1.0},
+        {"id": "flowers", "weight": 0.9},
+        {"id": "relaxing", "weight": 0.7}
+      ],
+      "attribution": {"creator": "Pieceful Demo Art", "license": "project-fixture", "source_url": ""}
+    },
+    {
+      "id": "twilight_lake",
+      "label": "Twilight Lake",
+      "source_id": "builtin:demo_twilight_lake",
+      "path": "res://assets/demo_twilight_lake.svg",
+      "category": "landscape",
+      "subject": ["lake", "mountains", "sky"],
+      "region_culture": ["global"],
+      "mood": ["quiet", "twilight", "dreamy"],
+      "visual": ["landscape", "water", "gradient"],
+      "style": ["illustration"],
+      "scene": ["outdoor", "evening"],
+      "puzzleability": {"score": 0.74, "notes": "Large gradient areas make sky and water more demanding."},
+      "suggested_difficulty": "relaxed",
+      "tags": [
+        {"id": "landscape", "weight": 1.0},
+        {"id": "lake", "weight": 1.0},
+        {"id": "twilight", "weight": 0.9},
+        {"id": "water", "weight": 0.8}
+      ],
+      "attribution": {"creator": "Pieceful Demo Art", "license": "project-fixture", "source_url": ""}
+    },
+    {
+      "id": "crane_pine_scroll",
+      "label": "Crane & Pine Scroll",
+      "source_id": "builtin:demo_crane_pine_scroll",
+      "path": "res://assets/demo_crane_pine_scroll.svg",
+      "category": "culture",
+      "subject": ["crane", "pine", "moon", "scroll"],
+      "region_culture": ["japan", "east_asia"],
+      "mood": ["serene", "contemplative", "night"],
+      "visual": ["portrait", "ink", "negative-space"],
+      "style": ["ink-inspired", "illustration"],
+      "scene": ["nature", "night"],
+      "puzzleability": {"score": 0.68, "notes": "Portrait composition and quiet negative space stress shape recognition."},
+      "suggested_difficulty": "standard",
+      "tags": [
+        {"id": "culture", "weight": 1.0},
+        {"id": "japan", "weight": 0.9},
+        {"id": "crane", "weight": 1.0},
+        {"id": "pine", "weight": 0.9},
+        {"id": "portrait", "weight": 0.8},
+        {"id": "ink", "weight": 0.8}
+      ],
+      "attribution": {"creator": "Pieceful Demo Art", "license": "project-fixture", "source_url": ""}
+    }
+  ]
+}
