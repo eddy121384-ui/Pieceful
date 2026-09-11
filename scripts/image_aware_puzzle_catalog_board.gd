@@ -2,7 +2,6 @@ class_name ImageAwarePuzzleCatalogBoard
 extends "res://scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gd"
 
 const PuzzleLayoutResolverScript = preload("res://scripts/puzzle_layout_resolver.gd")
-const CutPatternGeneratorV16Script = preload("res://scripts/cut_pattern_generator_v16.gd")
 const PuzzleDefinitionRuntimeScript = preload("res://scripts/puzzle_definition.gd")
 
 const PLAYER_DIFFICULTY_IDS := ["relaxed", "standard", "hard"]
