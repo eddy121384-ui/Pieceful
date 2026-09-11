@@ -60,12 +60,28 @@ func _run() -> void:
 	main.gallery_search.text = ""
 	main.call("_on_gallery_search_changed", "")
 
-	# Favorite state must survive a fresh store instance.
+	# Category filter is independent from search.
+	_select_option_metadata(main.gallery_category_filter, "culture")
+	main.call("_on_gallery_filter_changed", main.gallery_category_filter.selected)
+	if not bool(main.gallery_cards["crane_pine_scroll"].visible) or bool(main.gallery_cards["garden"].visible):
+		_fail("culture category filter did not isolate cultural artwork")
+		return
+	_select_option_metadata(main.gallery_category_filter, "all")
+	main.call("_on_gallery_filter_changed", main.gallery_category_filter.selected)
+
+	# Favorite state must survive a fresh store instance and drive state filtering.
 	main.call("_on_favorite_pressed", "crane_pine_scroll")
 	var reloaded_store = GalleryStateStoreScript.new()
 	if not reloaded_store.is_favorite("crane_pine_scroll"):
 		_fail("favorite did not persist locally")
 		return
+	_select_option_metadata(main.gallery_status_filter, "favorites")
+	main.call("_on_gallery_filter_changed", main.gallery_status_filter.selected)
+	if not bool(main.gallery_cards["crane_pine_scroll"].visible) or bool(main.gallery_cards["twilight_lake"].visible):
+		_fail("Favorites filter did not use persisted favorite state")
+		return
+	_select_option_metadata(main.gallery_status_filter, "all")
+	main.call("_on_gallery_filter_changed", main.gallery_status_filter.selected)
 
 	# Start the portrait artwork through the real chooser and confirm #37 now
 	# resolves a real non-1.6 runtime rather than falling back to Classic_150_A.
@@ -119,6 +135,15 @@ func _select_picker_difficulty(main, difficulty_id: String) -> void:
 	for index in range(picker.get_item_count()):
 		if str(picker.get_item_metadata(index)) == difficulty_id:
 			picker.select(index)
+			return
+
+
+func _select_option_metadata(button: OptionButton, value: String) -> void:
+	if button == null:
+		return
+	for index in range(button.get_item_count()):
+		if str(button.get_item_metadata(index)) == value:
+			button.select(index)
 			return
 
 
