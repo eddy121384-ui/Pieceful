@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "metadata_version": 1,
+  "tag_schema_version": 1,
   "contents": [
     {
       "id": "garden",
