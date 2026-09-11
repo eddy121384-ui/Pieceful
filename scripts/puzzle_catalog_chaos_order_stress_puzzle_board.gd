@@ -176,6 +176,13 @@ func _build_board_visuals() -> void:
 	add_child(frame)
 	board_visuals.append(frame)
 
+	# Preserve the RuntimePuzzleBoard visual hooks that normally run after the
+	# base board visuals are created. This subclass replaces only the artwork.
+	preview_sprite = preview
+	preview_sprite.z_index = BOARD_PREVIEW_Z_INDEX
+	_apply_preview_state()
+	_ensure_hint_visuals()
+
 
 func _build_pieces() -> void:
 	var texture := active_puzzle_texture()
