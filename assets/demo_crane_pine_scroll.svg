@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9e2d1"/>
+      <stop offset="1" stop-color="#cfc5b0"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff9dc" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#e6d89d" stop-opacity="0.72"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#paper)"/>
+  <rect x="26" y="24" width="548" height="752" rx="6" fill="none" stroke="#3f443d" stroke-opacity="0.25" stroke-width="2"/>
+  <circle cx="430" cy="160" r="78" fill="url(#moon)"/>
+  <path d="M95 765 C120 670, 120 590, 162 505 C195 438, 170 360, 213 292 C242 245, 254 190, 246 96" fill="none" stroke="#26322d" stroke-width="26" stroke-linecap="round"/>
+  <path d="M165 510 C242 474, 300 451, 378 428" fill="none" stroke="#26322d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M205 306 C285 282, 332 252, 394 210" fill="none" stroke="#26322d" stroke-width="15" stroke-linecap="round"/>
+  <g fill="#35483d" opacity="0.95">
+    <path d="M145 570 C210 530, 265 526, 320 545 C265 566, 220 582, 145 570Z"/>
+    <path d="M160 535 C217 492, 276 489, 334 506 C280 532, 226 544, 160 535Z"/>
+    <path d="M184 490 C236 453, 300 450, 355 468 C301 494, 244 503, 184 490Z"/>
+    <path d="M239 337 C297 302, 350 296, 409 309 C358 336, 306 348, 239 337Z"/>
+    <path d="M252 300 C309 263, 365 258, 422 272 C370 299, 313 312, 252 300Z"/>
+    <path d="M248 260 C306 226, 361 219, 417 232 C364 260, 307 272, 248 260Z"/>
+  </g>
+  <g transform="translate(330 390) rotate(-8)">
+    <path d="M0 10 C42 -18, 78 -15, 110 8 C82 7, 62 14, 48 30 C37 43, 33 64, 32 88 C18 62, 12 36, 0 10Z" fill="#f4f1e8" stroke="#3a403c" stroke-width="4"/>
+    <path d="M45 29 C63 46, 74 68, 78 104" fill="none" stroke="#3a403c" stroke-width="4"/>
+    <path d="M77 104 C86 122, 100 132, 123 134" fill="none" stroke="#3a403c" stroke-width="4"/>
+    <path d="M31 86 C24 119, 18 150, 12 187" fill="none" stroke="#3a403c" stroke-width="4"/>
+    <path d="M79 102 C72 136, 66 164, 58 198" fill="none" stroke="#3a403c" stroke-width="4"/>
+    <circle cx="86" cy="5" r="4" fill="#1f2421"/>
+    <path d="M106 10 L138 18 L109 24Z" fill="#9a6b3c"/>
+  </g>
+  <g fill="#7e4c40" opacity="0.85">
+    <circle cx="470" cy="640" r="8"/><circle cx="492" cy="658" r="6"/><circle cx="446" cy="668" r="5"/>
+  </g>
+  <text x="58" y="92" font-family="serif" font-size="20" fill="#2f342f" opacity="0.62">CRANE · PINE · MOON</text>
+</svg>
