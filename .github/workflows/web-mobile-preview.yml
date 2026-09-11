@@ -6,7 +6,6 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
-      - feat/issue-37-image-aware-difficulty-resolver
   workflow_dispatch:
 
 permissions:
