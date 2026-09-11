@@ -6,7 +6,6 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
-      - feat/issue-4-gallery-metadata-foundation
   workflow_dispatch:
 
 permissions:
