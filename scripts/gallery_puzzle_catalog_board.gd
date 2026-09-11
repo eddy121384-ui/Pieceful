@@ -2,6 +2,11 @@ class_name GalleryPuzzleCatalogBoard
 extends "res://scripts/image_aware_puzzle_catalog_board.gd"
 
 const CATALOG_PATH := "res://content/catalog_v1.json"
+# Vertical and square artwork needs a shorter canonical long edge than landscape
+# content. At the 1280x720 product baseline this keeps the fitted board (including
+# normal jigsaw-tab overhang) below the top app bar and above the bottom dock.
+# 480 also keeps a 3:4 Hard 15x20 grid at the resolver's 24 px touch floor.
+const VERTICAL_BOARD_LONG_EDGE := 480.0
 
 var _gallery_entries: Dictionary = {}
 var _gallery_order: Array[String] = []
@@ -9,6 +14,14 @@ var _gallery_order: Array[String] = []
 
 func _init() -> void:
 	_load_gallery_catalog()
+
+
+func _board_size_for_aspect(frame_aspect_ratio: float) -> Vector2:
+	var base_size: Vector2 = super._board_size_for_aspect(frame_aspect_ratio)
+	if base_size.y < base_size.x:
+		return base_size
+	var scale := minf(1.0, VERTICAL_BOARD_LONG_EDGE / maxf(base_size.y, 1.0))
+	return base_size * scale
 
 
 func content_presets() -> Array:
