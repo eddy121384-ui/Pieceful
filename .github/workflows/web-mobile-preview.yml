@@ -81,6 +81,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/save_stable_snapshot_smoke.gd
 
+      - name: Multi-slot save smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/multi_slot_save_smoke.gd
+
       - name: Export Web build
         shell: bash
         run: |

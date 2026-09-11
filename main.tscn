@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/chaos_order_spatial_main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/multi_slot_chaos_order_spatial_main.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/chaos_order_stress_puzzle_board.gd" id="2_board"]
 [ext_resource type="Script" path="res://scripts/puzzle_camera_controller.gd" id="3_camera"]
 [ext_resource type="Script" path="res://scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gd" id="4_sorting"]
-[ext_resource type="Script" path="res://scripts/tray_reflow_single_slot_save_coordinator.gd" id="5_save"]
+[ext_resource type="Script" path="res://scripts/multi_slot_save_coordinator.gd" id="5_save"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
