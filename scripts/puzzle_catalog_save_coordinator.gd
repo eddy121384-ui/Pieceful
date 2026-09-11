@@ -5,58 +5,34 @@ var waiting_for_new_game_selection := false
 
 
 func _bootstrap() -> void:
-	board = get_parent().get_node_or_null("PuzzleBoard")
-	workspace = get_parent().get_node_or_null("SortingWorkspace")
-	if board == null or workspace == null:
-		last_resume_error = "Save coordinator could not find PuzzleBoard / SortingWorkspace"
-		bootstrapping = false
-		return
-
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-
-	_ensure_save_directory()
-	_load_index()
-	_import_legacy_single_slot_if_needed()
-
-	resume_attempted = true
-	for game_id_value in _candidate_game_ids():
-		var game_id := str(game_id_value)
-		if await _resume_game_from_disk(game_id):
-			resume_succeeded = true
-			break
-		_remove_game_metadata(game_id)
-		_save_index()
-
-	bootstrapping = false
-	_start_autosave_timer()
-
-	if resume_succeeded:
-		waiting_for_new_game_selection = false
-		last_snapshot_json = JSON.stringify(_capture_snapshot())
-	else:
-		# Product flow now starts with artwork + difficulty selection. Do not create
-		# a phantom Garden save merely because the empty app runtime exists behind
-		# the chooser. The first durable slot is allocated only after Start Puzzle.
-		active_game_id = ""
-		waiting_for_new_game_selection = true
-		last_snapshot_json = ""
+	var had_existing_save := _had_existing_save_before_boot()
+	await super._bootstrap()
+	# Keep the established multi-slot invariant that a clean boot owns one durable
+	# slot, but mark that automatically-created Garden slot as provisional. The
+	# chooser will rewrite this same slot with the player's actual artwork and
+	# difficulty rather than creating a second phantom game.
+	waiting_for_new_game_selection = (
+		not had_existing_save
+		and not resume_succeeded
+		and not active_game_id.is_empty()
+	)
 
 
-func _write_stable_snapshot(stable_snapshot: Dictionary, force_write: bool) -> bool:
-	if waiting_for_new_game_selection and active_game_id.is_empty():
-		return true
-	return super._write_stable_snapshot(stable_snapshot, force_write)
+func needs_new_game_selection() -> bool:
+	return waiting_for_new_game_selection and not active_game_id.is_empty()
+
+
+func commit_initial_selection() -> bool:
+	if not waiting_for_new_game_selection:
+		return false
+	waiting_for_new_game_selection = false
+	last_snapshot_json = ""
+	return save_now(true)
 
 
 func create_slot_for_current_runtime() -> String:
 	waiting_for_new_game_selection = false
 	return super.create_slot_for_current_runtime()
-
-
-func needs_new_game_selection() -> bool:
-	return waiting_for_new_game_selection and active_game_id.is_empty()
 
 
 func _resume_game_from_disk(game_id: String) -> bool:
@@ -82,3 +58,15 @@ func _resume_game_from_disk(game_id: String) -> bool:
 	if restored:
 		waiting_for_new_game_selection = false
 	return restored
+
+
+func _had_existing_save_before_boot() -> bool:
+	if FileAccess.file_exists(SAVE_PATH) or FileAccess.file_exists(INDEX_PATH):
+		return true
+	var dir := DirAccess.open(SAVE_DIR)
+	if dir == null:
+		return false
+	for filename in dir.get_files():
+		if filename.begins_with("game_") and filename.ends_with(".json"):
+			return true
+	return false
