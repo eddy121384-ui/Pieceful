@@ -38,7 +38,18 @@ func _resume_game_from_disk(game_id: String) -> bool:
 					)
 					return false
 
-	return await super._resume_game_from_disk(game_id)
+				# The parent restore chain validates the same difficulty again before
+				# applying saved piece/workspace state. The preflight runtime above is
+				# already the exact content + grid + CutPattern we need, so allow the
+				# board to reuse it for that one immediate request instead of building
+				# the same puzzle twice during startup.
+				if board.has_method("arm_resume_runtime_reuse"):
+					board.arm_resume_runtime_reuse(difficulty_id)
+
+	var restored: bool = await super._resume_game_from_disk(game_id)
+	if board != null and board.has_method("clear_resume_runtime_reuse_hint"):
+		board.clear_resume_runtime_reuse_hint()
+	return restored
 
 
 func _preflight_content_selection(puzzle: Dictionary) -> bool:
