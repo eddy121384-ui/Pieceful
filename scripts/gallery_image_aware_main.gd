@@ -36,8 +36,14 @@ func _build_puzzle_selection_ui() -> void:
 	gallery_scroll.name = "GalleryScroll"
 	gallery_scroll.custom_minimum_size = Vector2(0.0, 230.0)
 	gallery_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	gallery_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	# Mobile-first gallery rail: keep horizontal scrolling enabled but hide the
+	# desktop-style scrollbar. ScrollContainer supplies native touch dragging on
+	# iOS/Android/Web; a small deadzone keeps card taps from becoming accidental
+	# swipes. Desktop mouse wheels still move the horizontal rail by default.
+	gallery_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	gallery_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	gallery_scroll.scroll_deadzone = 10
+	gallery_scroll.scroll_horizontal_by_default = true
 	outer.add_child(gallery_scroll)
 	outer.move_child(gallery_scroll, card_index)
 	gallery_scroll.add_child(puzzle_selection_cards)
