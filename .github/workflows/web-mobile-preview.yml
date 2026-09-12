@@ -106,6 +106,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/completion_event_contract_smoke.gd
 
+      - name: Puzzle Journal store smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_journal_store_smoke.gd
+
       - name: Puzzle selection flow smoke
         shell: bash
         run: |
