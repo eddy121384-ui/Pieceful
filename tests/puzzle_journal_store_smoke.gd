@@ -26,7 +26,6 @@ func _run() -> void:
 		_fail("first append was not reported as new")
 		return
 
-	# Same game id with different caller data must remain the first immutable fact.
 	var duplicate: Dictionary = first.duplicate(true)
 	duplicate["elapsed_seconds"] = 99999
 	if not store.append_completion(duplicate):
@@ -49,8 +48,6 @@ func _run() -> void:
 		_fail("journal fixture count mismatch")
 		return
 
-	# Reconstruct the store from disk to verify this is durable history, not only
-	# one RefCounted object's in-memory state.
 	store = JournalStoreScript.new()
 	if store.completion_count() != 3:
 		_fail("journal history did not survive reload")
@@ -114,7 +111,7 @@ func _record(game_id: String, completed_at: int, elapsed: int, hints: int) -> Di
 
 func _clear_journal() -> void:
 	for suffix in ["", ".tmp", ".bak"]:
-		var path := JOURNAL_PATH + suffix
+		var path: String = JOURNAL_PATH + str(suffix)
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
