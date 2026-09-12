@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-5-puzzle-me-local-photo
   workflow_dispatch:
 
 permissions:
@@ -25,7 +26,7 @@ env:
 
 jobs:
   build-web:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +37,7 @@ jobs:
         with:
           path: |
             .godot-ci
-            ~/.local/share/godot/export_templates/4.7.2-stable
+            ~/.local/share/godot/export_templates/4.7.2.stable
           key: pieceful-godot-${{ runner.os }}-4.7.2-stable-web
 
       - name: Install Godot 4.7.2 and export templates
@@ -171,7 +172,7 @@ jobs:
 
   deploy-pages:
     needs: build-web
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: ${{ github.ref_name == 'main' && 'github-pages' || 'pieceful-mobile-preview' }}
       url: ${{ steps.deployment.outputs.page_url }}
