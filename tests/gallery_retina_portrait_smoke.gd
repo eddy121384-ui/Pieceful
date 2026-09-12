@@ -17,27 +17,56 @@ func _run() -> void:
 	for _frame in range(16):
 		await process_frame
 
-	# Regression from an actual iPhone Safari screenshot. Web/Retina exports can
-	# expose a canvas much wider than CSS logical pixels, so portrait behavior
-	# must depend on orientation, not a <=700px width assumption.
-	main.call("_layout_ui", Vector2(1125.0, 2436.0))
+	# Real iPhone/Safari regression: Pieceful intentionally renders through a
+	# fixed 1280x720 logical Godot viewport while the browser is visibly portrait.
+	# The browser orientation, not the Godot logical viewport, must select the
+	# two-column vertical Gallery.
+	main.call(
+		"_apply_gallery_layout_for_orientation",
+		Vector2(1280.0, 720.0),
+		Vector2(390.0, 844.0)
+	)
 	if str(main.call("gallery_layout_mode")) != "portrait_grid":
-		_fail("1125x2436 Retina portrait did not use the two-column Gallery grid")
+		_fail("portrait Safari with a 1280x720 Godot viewport did not use the two-column Gallery grid")
 		return
 	if main.gallery_grid == null or int(main.gallery_grid.columns) != 2:
-		_fail("Retina portrait Gallery lost its two-column grid")
+		_fail("portrait Safari Gallery lost its two-column grid")
 		return
 	if main.gallery_cards["garden"].get_parent() != main.gallery_grid:
-		_fail("Retina portrait cards were not reparented into the grid")
+		_fail("portrait Safari cards were not reparented into the grid")
+		return
+	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+		_fail("portrait Safari Gallery still allows horizontal scrolling")
+		return
+	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("portrait Safari Gallery did not enable hidden-scrollbar vertical swiping")
 		return
 	var picture = main.content_buttons.get("garden")
 	if not (picture is TextureButton) or picture.mouse_filter != Control.MOUSE_FILTER_PASS:
-		_fail("Retina portrait artwork does not forward swipe gestures")
+		_fail("portrait Safari artwork does not forward swipe gestures")
 		return
 
-	main.call("_layout_ui", Vector2(2436.0, 1125.0))
+	# Retina-sized browser dimensions must produce the same product mode.
+	main.call(
+		"_apply_gallery_layout_for_orientation",
+		Vector2(1280.0, 720.0),
+		Vector2(1125.0, 2436.0)
+	)
+	if str(main.call("gallery_layout_mode")) != "portrait_grid":
+		_fail("1125x2436 Retina browser viewport did not keep the portrait Gallery grid")
+		return
+
+	# Rotate the browser while the internal Godot viewport remains unchanged.
+	main.call(
+		"_apply_gallery_layout_for_orientation",
+		Vector2(1280.0, 720.0),
+		Vector2(844.0, 390.0)
+	)
 	if str(main.call("gallery_layout_mode")) != "wide_rail":
-		_fail("landscape Retina canvas did not restore horizontal Gallery rail")
+		_fail("landscape Safari did not restore the horizontal Gallery rail")
+		return
+	if main.gallery_cards["garden"].get_parent() != main.puzzle_selection_cards:
+		_fail("landscape Safari cards did not return to the horizontal rail")
 		return
 
 	main.queue_free()
