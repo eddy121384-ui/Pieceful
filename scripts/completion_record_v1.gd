@@ -15,6 +15,7 @@ static func build(
 	hints_used: int,
 	completed_at_unix: int
 ) -> Dictionary:
+	var completed_piece_count := maxi(0, piece_count)
 	return {
 		"record_version": RECORD_VERSION,
 		"game_id": game_id,
@@ -25,7 +26,10 @@ static func build(
 		"source_sha256": str(content_identity.get("sha256", "")),
 		"difficulty_id": difficulty_id,
 		"pattern_id": pattern_id,
-		"piece_count": maxi(0, piece_count),
+		"piece_count": completed_piece_count,
+		# At the immutable completion boundary every piece is placed. Keep the
+		# explicit field because Journal/share consumers should not have to infer it.
+		"pieces_placed": completed_piece_count,
 		"elapsed_seconds": maxi(0, int(round(elapsed_seconds))),
 		"hints_used": maxi(0, hints_used),
 		"hint_free": hints_used <= 0,
@@ -52,7 +56,10 @@ static func structurally_valid(record) -> bool:
 		return false
 	if str(record.get("pattern_id", "")).is_empty():
 		return false
-	if int(record.get("piece_count", 0)) <= 0:
+	var piece_count := int(record.get("piece_count", 0))
+	if piece_count <= 0:
+		return false
+	if int(record.get("pieces_placed", -1)) != piece_count:
 		return false
 	if int(record.get("elapsed_seconds", -1)) < 0:
 		return false
