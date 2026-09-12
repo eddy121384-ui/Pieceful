@@ -40,7 +40,7 @@ func toggle_favorite(content_id: String) -> bool:
 	return set_favorite(content_id, not is_favorite(content_id))
 
 
-func mark_completed(content_id: String, difficulty_id: String) -> bool:
+func mark_completed(content_id: String, difficulty_id: String, game_id: String = "") -> bool:
 	if content_id.is_empty():
 		return false
 	var completed = state.get("completed", {})
@@ -49,6 +49,19 @@ func mark_completed(content_id: String, difficulty_id: String) -> bool:
 	var entry = completed.get(content_id, {})
 	if not (entry is Dictionary):
 		entry = {}
+
+	var game_ids: Array = []
+	var raw_game_ids = entry.get("game_ids", [])
+	if raw_game_ids is Array:
+		for value in raw_game_ids:
+			var existing_game_id := str(value)
+			if not existing_game_id.is_empty() and not game_ids.has(existing_game_id):
+				game_ids.append(existing_game_id)
+	if not game_id.is_empty() and game_ids.has(game_id):
+		# Journal replays/retries may ask Gallery to reflect the same durable fact.
+		# Treat that as idempotent success instead of incrementing Completed · N×.
+		return true
+
 	var difficulties: Array = []
 	var raw_difficulties = entry.get("difficulties", [])
 	if raw_difficulties is Array:
@@ -59,9 +72,13 @@ func mark_completed(content_id: String, difficulty_id: String) -> bool:
 	if not difficulty_id.is_empty() and not difficulties.has(difficulty_id):
 		difficulties.append(difficulty_id)
 	difficulties.sort()
+	if not game_id.is_empty():
+		game_ids.append(game_id)
+		game_ids.sort()
 	entry["count"] = int(entry.get("count", 0)) + 1
 	entry["last_completed_unix"] = int(Time.get_unix_time_from_system())
 	entry["difficulties"] = difficulties
+	entry["game_ids"] = game_ids
 	completed[content_id] = entry
 	state["completed"] = completed
 	return _save()
