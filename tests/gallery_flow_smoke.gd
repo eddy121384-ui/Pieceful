@@ -24,6 +24,18 @@ func _run() -> void:
 	if board == null or coordinator == null:
 		_fail("gallery runtime nodes missing")
 		return
+	if main.gallery_scroll == null:
+		_fail("Gallery scroll rail missing")
+		return
+	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("Gallery rail exposed a desktop-style horizontal scrollbar")
+		return
+	if int(main.gallery_scroll.scroll_deadzone) < 8:
+		_fail("Gallery touch scroll deadzone is too small for reliable card taps")
+		return
+	if not bool(main.gallery_scroll.scroll_horizontal_by_default):
+		_fail("Gallery rail lost desktop wheel fallback after hiding the scrollbar")
+		return
 	if str(main.call("_gallery_status_for", "garden")) != "new":
 		_fail("clean bootstrap provisional Garden slot leaked as Continue")
 		return
