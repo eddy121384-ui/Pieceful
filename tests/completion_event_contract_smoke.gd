@@ -35,9 +35,6 @@ func _run() -> void:
 		_fail("startup did not allocate a durable game id")
 		return
 
-	# Completion metrics are additive save metadata. Pin deterministic values, save,
-	# rebuild the scene, and verify they survive the same browser-style resume path
-	# used by the rest of Pieceful.
 	coordinator.active_elapsed_seconds = 41.4
 	coordinator.active_hints_used = 1
 	if not coordinator.save_now(true):
@@ -64,8 +61,6 @@ func _run() -> void:
 		_fail("hint usage did not survive resume")
 		return
 
-	# A real target-region hint exposure must increment the completion metric. This
-	# tests the board -> coordinator bridge instead of only mutating test state.
 	var first_piece = board.pieces[0] if not board.pieces.is_empty() else null
 	if first_piece == null:
 		_fail("runtime has no piece available for hint instrumentation")
@@ -76,8 +71,6 @@ func _run() -> void:
 		_fail("real hint exposure was not counted")
 		return
 
-	# Pin time before completion so the record value is deterministic enough for a
-	# contract assertion while still allowing a few process frames of drift.
 	coordinator.active_elapsed_seconds = 125.4
 	var content_id := str(board.active_content_id())
 	main.call("_on_completed")
@@ -115,7 +108,6 @@ func _run() -> void:
 		_fail("completion was not appended to Puzzle Journal exactly once")
 		return
 
-	# Reconstruct Journal from disk: the immutable fact must outlive this runtime.
 	var reloaded_journal = JournalStoreScript.new()
 	if reloaded_journal.completion_count() != 1:
 		_fail("completion Journal did not survive reload")
@@ -133,8 +125,6 @@ func _run() -> void:
 		_fail("Gallery did not retain completion game identity")
 		return
 
-	# Re-deliver the presentation callback. This is the core Issue #6 contract:
-	# the same game id must never manufacture a second immutable completion fact.
 	main.call("_on_completed")
 	await process_frame
 	completion = main.gallery_state.completion_for(content_id)
@@ -148,8 +138,6 @@ func _run() -> void:
 		_fail("completed game emitted a second completion record")
 		return
 
-	# Callers receive copies. Mutating a UI-facing dictionary must not rewrite the
-	# immutable fact retained by the completion coordinator.
 	var caller_copy: Dictionary = coordinator.latest_completion_record()
 	caller_copy["elapsed_seconds"] = 999999
 	if int(coordinator.latest_completion_record().get("elapsed_seconds", 0)) == 999999:
@@ -169,7 +157,7 @@ func _clear_test_state() -> void:
 	if FileAccess.file_exists(GALLERY_STATE):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(GALLERY_STATE))
 	for suffix in ["", ".tmp", ".bak"]:
-		var journal_path := JOURNAL_PATH + suffix
+		var journal_path: String = JOURNAL_PATH + str(suffix)
 		if FileAccess.file_exists(journal_path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(journal_path))
 	var dir := DirAccess.open(SAVE_DIR)
