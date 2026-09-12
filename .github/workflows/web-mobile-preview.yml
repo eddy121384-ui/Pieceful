@@ -111,17 +111,41 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/image_aware_difficulty_resolver_smoke.gd
 
+      - name: Touch gesture arbitration smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
+
       - name: Gallery flow smoke
         shell: bash
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd
 
+      - name: Gallery Retina portrait smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/gallery_retina_portrait_smoke.gd
+
       - name: Startup resume presentation smoke
         shell: bash
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/startup_resume_presentation_smoke.gd
+
+      - name: Puzzle Me store smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_me_store_smoke.gd
+
+      - name: Puzzle Me flow smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_me_flow_smoke.gd
 
       - name: Export Web build
         shell: bash

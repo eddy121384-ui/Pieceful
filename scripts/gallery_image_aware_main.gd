@@ -2,16 +2,19 @@ class_name GalleryImageAwareMain
 extends "res://scripts/image_aware_puzzle_selection_main.gd"
 
 const GalleryStateStoreScript = preload("res://scripts/gallery_state_store.gd")
+const MOBILE_PORTRAIT_MAX_WIDTH := 700.0
 
 var gallery_state = GalleryStateStoreScript.new()
 var gallery_search: LineEdit = null
 var gallery_category_filter: OptionButton = null
 var gallery_status_filter: OptionButton = null
 var gallery_scroll: ScrollContainer = null
+var gallery_grid: GridContainer = null
 var gallery_cards: Dictionary = {}
 var gallery_status_labels: Dictionary = {}
 var gallery_favorite_buttons: Dictionary = {}
 var gallery_continue_buttons: Dictionary = {}
+var _gallery_portrait_grid := false
 
 
 func _build_puzzle_selection_ui() -> void:
@@ -36,11 +39,17 @@ func _build_puzzle_selection_ui() -> void:
 	gallery_scroll.name = "GalleryScroll"
 	gallery_scroll.custom_minimum_size = Vector2(0.0, 230.0)
 	gallery_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	gallery_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	gallery_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	gallery_scroll.scroll_deadzone = 10
 	outer.add_child(gallery_scroll)
 	outer.move_child(gallery_scroll, card_index)
 	gallery_scroll.add_child(puzzle_selection_cards)
+
+	gallery_grid = GridContainer.new()
+	gallery_grid.name = "GalleryGrid"
+	gallery_grid.columns = 2
+	gallery_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	gallery_grid.add_theme_constant_override("h_separation", 10)
+	gallery_grid.add_theme_constant_override("v_separation", 12)
 
 	var filters := VBoxContainer.new()
 	filters.name = "GalleryFilters"
@@ -93,6 +102,7 @@ func _build_puzzle_selection_ui() -> void:
 	gallery_status_filter.item_selected.connect(_on_gallery_filter_changed)
 	filter_row.add_child(gallery_status_filter)
 
+	_apply_gallery_layout(get_viewport().get_visible_rect().size)
 	_refresh_gallery_cards()
 
 
@@ -106,15 +116,20 @@ func _add_content_card(preset: Dictionary) -> void:
 	card.name = "GalleryCard_%s" % content_id
 	card.custom_minimum_size = Vector2(188.0, 218.0)
 	card.add_theme_constant_override("separation", 5)
-	puzzle_selection_cards.add_child(card)
+	_active_gallery_host().add_child(card)
 	gallery_cards[content_id] = card
 
 	var picture := TextureButton.new()
 	picture.name = "Artwork_%s" % content_id
 	picture.custom_minimum_size = Vector2(188.0, 128.0)
+	picture.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	picture.ignore_texture_size = true
 	picture.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	picture.toggle_mode = true
+	# A gallery image is both a tappable artwork and the most natural place to
+	# begin a swipe. PASS lets the button keep tap selection while forwarding the
+	# drag stream to the surrounding ScrollContainer.
+	picture.mouse_filter = Control.MOUSE_FILTER_PASS
 	var texture = load(path)
 	if texture is Texture2D:
 		picture.texture_normal = texture
@@ -160,6 +175,8 @@ func _add_content_card(preset: Dictionary) -> void:
 	card.add_child(continue_button)
 	gallery_continue_buttons[content_id] = continue_button
 
+	_apply_gallery_card_metrics(card, picture, _gallery_portrait_grid)
+
 
 func _layout_ui(viewport_size: Vector2) -> void:
 	super._layout_ui(viewport_size)
@@ -174,10 +191,73 @@ func _layout_ui(viewport_size: Vector2) -> void:
 		(viewport_size.x - panel_size.x) * 0.5,
 		(viewport_size.y - panel_size.y) * 0.5
 	)
+	_apply_gallery_layout(viewport_size)
+
+
+func _apply_gallery_layout(viewport_size: Vector2) -> void:
+	if gallery_scroll == null or puzzle_selection_cards == null or gallery_grid == null:
+		return
+	var use_portrait_grid := (
+		viewport_size.y > viewport_size.x
+		and viewport_size.x <= MOBILE_PORTRAIT_MAX_WIDTH
+	)
+	_gallery_portrait_grid = use_portrait_grid
+
+	var target: Container = gallery_grid if use_portrait_grid else puzzle_selection_cards
+	var inactive: Container = puzzle_selection_cards if use_portrait_grid else gallery_grid
+	if target.get_parent() == null:
+		gallery_scroll.add_child(target)
+
+	for content_id_value in gallery_cards.keys():
+		var card = gallery_cards.get(content_id_value)
+		if card is Control and card.get_parent() != target:
+			(card as Control).reparent(target)
+		var picture = content_buttons.get(str(content_id_value))
+		if picture is TextureButton:
+			_apply_gallery_card_metrics(card as Control, picture as TextureButton, use_portrait_grid)
+
+	if inactive.get_parent() == gallery_scroll:
+		gallery_scroll.remove_child(inactive)
+
+	if use_portrait_grid:
+		gallery_grid.columns = 2
+		gallery_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		gallery_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+		gallery_scroll.scroll_horizontal_by_default = false
+	else:
+		gallery_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+		gallery_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		gallery_scroll.scroll_horizontal_by_default = true
+
+
+func _apply_gallery_card_metrics(card: Control, picture: TextureButton, use_portrait_grid: bool) -> void:
+	if card == null or picture == null:
+		return
+	if use_portrait_grid:
+		card.custom_minimum_size = Vector2(0.0, 206.0)
+		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		picture.custom_minimum_size = Vector2(0.0, 132.0)
+		picture.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	else:
+		card.custom_minimum_size = Vector2(188.0, 218.0)
+		card.size_flags_horizontal = Control.SIZE_FILL
+		picture.custom_minimum_size = Vector2(188.0, 128.0)
+		picture.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+
+func _active_gallery_host() -> Container:
+	if _gallery_portrait_grid and gallery_grid != null:
+		return gallery_grid
+	return puzzle_selection_cards
+
+
+func gallery_layout_mode() -> String:
+	return "portrait_grid" if _gallery_portrait_grid else "wide_rail"
 
 
 func _show_puzzle_selection(can_cancel: bool) -> void:
 	super._show_puzzle_selection(can_cancel)
+	_apply_gallery_layout(get_viewport().get_visible_rect().size)
 	_refresh_gallery_cards()
 
 

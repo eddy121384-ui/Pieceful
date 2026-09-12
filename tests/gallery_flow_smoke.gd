@@ -24,6 +24,66 @@ func _run() -> void:
 	if board == null or coordinator == null:
 		_fail("gallery runtime nodes missing")
 		return
+	if main.gallery_scroll == null:
+		_fail("Gallery scroll container missing")
+		return
+	if int(main.gallery_scroll.scroll_deadzone) < 8:
+		_fail("Gallery touch scroll deadzone is too small for reliable card taps")
+		return
+
+	# Real-device regression: portrait phones are a two-column vertical artwork
+	# wall, not a desktop horizontal strip squeezed into a narrow viewport. The
+	# artwork itself must forward touch drags to the ScrollContainer because that
+	# is where a human naturally starts a swipe.
+	main.call("_layout_ui", Vector2(390.0, 844.0))
+	if str(main.call("gallery_layout_mode")) != "portrait_grid":
+		_fail("390x844 did not switch Gallery to portrait grid")
+		return
+	if main.gallery_grid == null or int(main.gallery_grid.columns) != 2:
+		_fail("portrait Gallery is not a two-column grid")
+		return
+	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+		_fail("portrait Gallery still allows horizontal scrolling")
+		return
+	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("portrait Gallery did not enable hidden-scrollbar vertical swiping")
+		return
+	if bool(main.gallery_scroll.scroll_horizontal_by_default):
+		_fail("portrait Gallery kept desktop horizontal wheel behavior")
+		return
+	var garden_picture = main.content_buttons.get("garden")
+	if not (garden_picture is TextureButton):
+		_fail("Garden artwork button missing")
+		return
+	if (garden_picture as TextureButton).mouse_filter != Control.MOUSE_FILTER_PASS:
+		_fail("artwork still consumes swipe input instead of forwarding it to Gallery scroll")
+		return
+	if main.gallery_cards["garden"].get_parent() != main.gallery_grid:
+		_fail("portrait Gallery cards were not reparented into the two-column grid")
+		return
+
+	# Wide layouts retain the efficient horizontal rail and hidden scrollbar.
+	main.call("_layout_ui", Vector2(1024.0, 640.0))
+	if str(main.call("gallery_layout_mode")) != "wide_rail":
+		_fail("wide viewport did not restore Gallery rail")
+		return
+	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("wide Gallery rail exposed a desktop-style horizontal scrollbar")
+		return
+	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+		_fail("wide Gallery rail unexpectedly kept vertical scrolling")
+		return
+	if not bool(main.gallery_scroll.scroll_horizontal_by_default):
+		_fail("wide Gallery rail lost desktop wheel fallback")
+		return
+	if main.gallery_cards["garden"].get_parent() != main.puzzle_selection_cards:
+		_fail("wide Gallery cards did not return to the horizontal rail")
+		return
+
+	# Restore the actual headless viewport before the remaining runtime geometry
+	# checks so fake responsive dimensions cannot affect camera/chrome assertions.
+	main.call("_layout_ui", main.get_viewport().get_visible_rect().size)
+
 	if str(main.call("_gallery_status_for", "garden")) != "new":
 		_fail("clean bootstrap provisional Garden slot leaked as Continue")
 		return

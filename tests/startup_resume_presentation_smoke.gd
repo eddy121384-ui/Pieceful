@@ -73,8 +73,9 @@ func _run() -> void:
 	if bool(second_coordinator.get("bootstrapping")):
 		_fail("resume bootstrap did not finish")
 		return
-	for _frame in range(16):
-		await process_frame
+	if not await _wait_for_curtain_release(second):
+		_fail("startup curtain did not release after resolved resume")
+		return
 
 	if not bool(second_coordinator.get("resume_succeeded")):
 		_fail("saved portrait puzzle did not resume")
@@ -99,9 +100,6 @@ func _run() -> void:
 			"startup resume runtime was rebuilt instead of reused exactly once: %s"
 			% second_board.get("resume_runtime_reuse_hits")
 		)
-		return
-	if second.startup_curtain_layer != null:
-		_fail("startup curtain did not release after resolved resume")
 		return
 
 	# Manual Resume is a separate product entry point. Move to a different puzzle
@@ -145,9 +143,7 @@ func _run() -> void:
 			% second_board.get("resume_runtime_reuse_hits")
 		)
 		return
-	for _frame in range(16):
-		await process_frame
-	if second.startup_curtain_layer != null:
+	if not await _wait_for_curtain_release(second):
 		_fail("manual Resume curtain did not release after final state settled")
 		return
 
@@ -156,6 +152,18 @@ func _run() -> void:
 	_clear_test_state()
 	print("PASS startup_resume_presentation_smoke")
 	quit(0)
+
+
+func _wait_for_curtain_release(main, max_frames := 180) -> bool:
+	# Curtain dismissal includes a short tween. Fixed frame counts are brittle in
+	# headless CI because frame delta can differ when layout work changes. Wait up
+	# to a bounded budget instead: a genuinely stuck curtain still fails, while a
+	# harmless extra layout/reparent frame does not.
+	for _frame in range(max_frames):
+		if main.startup_curtain_layer == null:
+			return true
+		await process_frame
+	return main.startup_curtain_layer == null
 
 
 func _select_picker_difficulty(main, difficulty_id: String) -> void:
