@@ -16,7 +16,7 @@ func _on_completed() -> void:
 	# Do not call the inherited Gallery completion chain here. Before V0-08 that
 	# chain independently incremented Gallery state and retired the save slot,
 	# which meant a duplicate completion callback could count the same game twice.
-	# The completion-aware save coordinator now owns the one-shot boundary.
+	# The completion-aware save coordinator now owns the durable one-shot boundary.
 	if save_coordinator == null or not save_coordinator.has_method("complete_active_game_once"):
 		super._on_completed()
 		return
@@ -29,6 +29,7 @@ func _on_completed() -> void:
 
 	var content_id := str(record.get("content_id", ""))
 	var difficulty_id := str(record.get("difficulty_id", ""))
+	var game_id := str(record.get("game_id", ""))
 	if not content_id.is_empty():
-		gallery_state.mark_completed(content_id, difficulty_id)
+		gallery_state.mark_completed(content_id, difficulty_id, game_id)
 	_refresh_gallery_cards()
