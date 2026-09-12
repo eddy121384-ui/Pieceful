@@ -53,6 +53,40 @@ func _run() -> void:
 		_fail("completion date is not presented")
 		return
 
+	# Regression for iPhone Safari: Pieceful intentionally keeps a 1280x720
+	# logical Godot viewport, so the completion card must use browser orientation
+	# rather than assume this logical rectangle means landscape.
+	main.call(
+		"_apply_completion_layout_for_orientation",
+		Vector2(1280.0, 720.0),
+		Vector2(390.0, 844.0)
+	)
+	snapshot = main.completion_presentation_snapshot()
+	var portrait_panel: Vector2 = snapshot.get("panel_size", Vector2.ZERO)
+	var portrait_artwork: Vector2 = snapshot.get("artwork_minimum_size", Vector2.ZERO)
+	if portrait_panel.x > 312.0:
+		_fail("portrait Safari completion card is too wide: %s" % portrait_panel)
+		return
+	if portrait_panel.y > 502.0:
+		_fail("portrait Safari completion card is too tall: %s" % portrait_panel)
+		return
+	if portrait_artwork.x > 280.0:
+		_fail("portrait Safari completion artwork is too wide: %s" % portrait_artwork)
+		return
+
+	# Landscape / desktop keeps the larger presentation rather than permanently
+	# inheriting the compact mobile metrics after an orientation change.
+	main.call(
+		"_apply_completion_layout_for_orientation",
+		Vector2(1280.0, 720.0),
+		Vector2(844.0, 390.0)
+	)
+	snapshot = main.completion_presentation_snapshot()
+	var landscape_panel: Vector2 = snapshot.get("panel_size", Vector2.ZERO)
+	if landscape_panel.x < 500.0:
+		_fail("landscape completion card did not restore wide layout")
+		return
+
 	main.call("_on_completion_next_pressed")
 	await process_frame
 	if main.completion_panel.visible:
