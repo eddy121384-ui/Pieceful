@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-5-puzzle-me-local-photo
   workflow_dispatch:
 
 permissions:
