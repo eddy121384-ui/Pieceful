@@ -48,7 +48,7 @@ func _run() -> void:
 		_fail("padded touch probe unexpectedly landed inside exact polygon")
 		return
 	var probe_world: Vector2 = target.to_global(local_probe)
-	var probe_screen: Vector2 = get_viewport().get_canvas_transform() * probe_world
+	var probe_screen: Vector2 = target.get_viewport().get_canvas_transform() * probe_world
 	if not bool(board.try_begin_touch_piece_drag(3, probe_screen)):
 		_fail("finger-friendly padded hit did not claim the puzzle piece")
 		return
@@ -64,7 +64,7 @@ func _run() -> void:
 		_fail("touch fixture unexpectedly solved after padded-hit release")
 		return
 	var center_world: Vector2 = target.to_global(bounds.get_center())
-	var center_screen: Vector2 = get_viewport().get_canvas_transform() * center_world
+	var center_screen: Vector2 = target.get_viewport().get_canvas_transform() * center_world
 	var piece_touch := InputEventScreenTouch.new()
 	piece_touch.index = 4
 	piece_touch.position = center_screen
