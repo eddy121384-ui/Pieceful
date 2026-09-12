@@ -1,7 +1,7 @@
 class_name CompletionSummaryMain
 extends "res://scripts/completion_event_main.gd"
 
-const MOBILE_PORTRAIT_CARD_WIDTH := 310.0
+const MOBILE_PORTRAIT_CARD_WIDTH := 304.0
 const MOBILE_PORTRAIT_CARD_HEIGHT := 500.0
 
 var completion_artwork: TextureRect = null
@@ -64,16 +64,12 @@ func _apply_completion_layout_for_orientation(
 		panel_width = minf(560.0, maxf(330.0, logical_viewport_size.x - 28.0))
 		panel_height = minf(560.0, maxf(500.0, logical_viewport_size.y - 30.0))
 
-	completion_panel.custom_minimum_size = Vector2(panel_width, panel_height)
-	completion_panel.size = Vector2(panel_width, panel_height)
-	completion_panel.position = Vector2(
-		(logical_viewport_size.x - panel_width) * 0.5,
-		(logical_viewport_size.y - panel_height) * 0.5
-	)
-
+	# Shrink child minimums before sizing the PanelContainer. If the panel is
+	# resized first, Godot clamps it against the previous 500px artwork minimum
+	# and portrait Safari still ends up with a ~508px-wide completion card.
 	if completion_artwork != null:
 		var artwork_width := (
-			panel_width - 32.0
+			panel_width - 44.0
 			if browser_portrait
 			else maxf(270.0, panel_width - 52.0)
 		)
@@ -90,6 +86,14 @@ func _apply_completion_layout_for_orientation(
 		completion_artwork_label.add_theme_font_size_override("font_size", 15 if browser_portrait else 17)
 	if completion_primary_stats != null:
 		completion_primary_stats.add_theme_font_size_override("font_size", 14 if browser_portrait else 16)
+
+	completion_panel.custom_minimum_size = Vector2(panel_width, panel_height)
+	completion_panel.reset_size()
+	completion_panel.size = Vector2(panel_width, panel_height)
+	completion_panel.position = Vector2(
+		(logical_viewport_size.x - panel_width) * 0.5,
+		(logical_viewport_size.y - panel_height) * 0.5
+	)
 
 
 func _completion_orientation_size(fallback: Vector2) -> Vector2:
