@@ -126,7 +126,7 @@ func _run() -> void:
 
 	# Callers receive copies. Mutating a UI-facing dictionary must not rewrite the
 	# immutable fact retained by the completion coordinator.
-	var caller_copy := coordinator.latest_completion_record()
+	var caller_copy: Dictionary = coordinator.latest_completion_record()
 	caller_copy["elapsed_seconds"] = 999999
 	if int(coordinator.latest_completion_record().get("elapsed_seconds", 0)) == 999999:
 		_fail("completion record was mutable through a returned dictionary")
