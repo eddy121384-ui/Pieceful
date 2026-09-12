@@ -2,9 +2,11 @@ extends SceneTree
 
 const MainScene = preload("res://main.tscn")
 const CompletionRecordScript = preload("res://scripts/completion_record_v1.gd")
+const JournalStoreScript = preload("res://scripts/puzzle_journal_store.gd")
 const SAVE_DIR := "user://saves"
 const LEGACY_SAVE := "user://pieceful_autosave_v1.json"
 const GALLERY_STATE := "user://pieceful_gallery_state_v1.json"
+const JOURNAL_PATH := "user://pieceful_journal_v1.json"
 
 
 func _init() -> void:
@@ -94,6 +96,9 @@ func _run() -> void:
 	if int(record.get("piece_count", 0)) != int(board.active_piece_count()):
 		_fail("completion record piece count mismatch")
 		return
+	if int(record.get("pieces_placed", 0)) != int(board.active_piece_count()):
+		_fail("completion record pieces-placed mismatch")
+		return
 	if int(record.get("elapsed_seconds", 0)) < 125:
 		_fail("completion record elapsed time mismatch")
 		return
@@ -106,10 +111,26 @@ func _run() -> void:
 	if not coordinator.list_unfinished_games().is_empty():
 		_fail("completed game still appears in unfinished history")
 		return
+	if coordinator.journal_completion_count() != 1:
+		_fail("completion was not appended to Puzzle Journal exactly once")
+		return
+
+	# Reconstruct Journal from disk: the immutable fact must outlive this runtime.
+	var reloaded_journal = JournalStoreScript.new()
+	if reloaded_journal.completion_count() != 1:
+		_fail("completion Journal did not survive reload")
+		return
+	if str(reloaded_journal.completion_for_game(game_id).get("game_id", "")) != game_id:
+		_fail("reloaded Journal lost completed game identity")
+		return
 
 	var completion = main.gallery_state.completion_for(content_id)
 	if int(completion.get("count", 0)) != 1:
 		_fail("first completion did not update Gallery exactly once")
+		return
+	var gallery_game_ids = completion.get("game_ids", [])
+	if not (gallery_game_ids is Array) or not gallery_game_ids.has(game_id):
+		_fail("Gallery did not retain completion game identity")
 		return
 
 	# Re-deliver the presentation callback. This is the core Issue #6 contract:
@@ -119,6 +140,9 @@ func _run() -> void:
 	completion = main.gallery_state.completion_for(content_id)
 	if int(completion.get("count", 0)) != 1:
 		_fail("duplicate completion callback incremented Gallery twice")
+		return
+	if coordinator.journal_completion_count() != 1:
+		_fail("duplicate completion callback appended Journal twice")
 		return
 	if not coordinator.complete_active_game_once().is_empty():
 		_fail("completed game emitted a second completion record")
@@ -144,6 +168,10 @@ func _clear_test_state() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(LEGACY_SAVE))
 	if FileAccess.file_exists(GALLERY_STATE):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(GALLERY_STATE))
+	for suffix in ["", ".tmp", ".bak"]:
+		var journal_path := JOURNAL_PATH + suffix
+		if FileAccess.file_exists(journal_path):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(journal_path))
 	var dir := DirAccess.open(SAVE_DIR)
 	if dir == null:
 		return
