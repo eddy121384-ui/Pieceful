@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-5-puzzle-me-local-photo
   workflow_dispatch:
 
 permissions:
@@ -116,6 +117,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd
+
+      - name: Gallery Retina portrait smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/gallery_retina_portrait_smoke.gd
 
       - name: Startup resume presentation smoke
         shell: bash
