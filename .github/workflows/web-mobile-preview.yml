@@ -6,6 +6,7 @@ on:
     branches:
       - infra/web-mobile-preview
       - main
+      - feat/issue-6-completion-contract
   workflow_dispatch:
 
 permissions:
@@ -98,6 +99,30 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/content_identity_save_smoke.gd
+
+      - name: Completion event contract smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/completion_event_contract_smoke.gd
+
+      - name: Puzzle Journal store smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_journal_store_smoke.gd
+
+      - name: Completion presentation smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/completion_presentation_smoke.gd
+
+      - name: Puzzle Journal UI smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_journal_ui_smoke.gd
 
       - name: Puzzle selection flow smoke
         shell: bash
