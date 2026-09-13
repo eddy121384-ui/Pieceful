@@ -1,8 +1,8 @@
 class_name CompletionSummaryMain
 extends "res://scripts/completion_event_main.gd"
 
-const MOBILE_PORTRAIT_CARD_WIDTH := 304.0
-const MOBILE_PORTRAIT_CARD_HEIGHT := 500.0
+const MOBILE_PORTRAIT_CARD_WIDTH := 360.0
+const MOBILE_PORTRAIT_CARD_HEIGHT := 552.0
 
 var completion_artwork: TextureRect = null
 var completion_heading: Label = null
@@ -52,40 +52,40 @@ func _apply_completion_layout_for_orientation(
 	var panel_height: float
 	if browser_portrait:
 		# Web exports intentionally retain a 1280x720 logical Godot viewport even on
-		# portrait Safari. The visible browser slice is much narrower than 560 Godot
-		# units, so use a compact fixed logical width when the browser itself says
-		# portrait. This mirrors the Gallery's browser-orientation contract.
+		# portrait Safari. Use browser orientation, but let the finished artwork own
+		# noticeably more of the portrait card: completion should feel like a reveal,
+		# not a thumbnail tucked into a stats sheet.
 		panel_width = MOBILE_PORTRAIT_CARD_WIDTH
 		panel_height = minf(
 			MOBILE_PORTRAIT_CARD_HEIGHT,
-			maxf(450.0, logical_viewport_size.y - 42.0)
+			maxf(500.0, logical_viewport_size.y - 42.0)
 		)
 	else:
 		panel_width = minf(560.0, maxf(330.0, logical_viewport_size.x - 28.0))
 		panel_height = minf(560.0, maxf(500.0, logical_viewport_size.y - 30.0))
 
 	# Shrink child minimums before sizing the PanelContainer. If the panel is
-	# resized first, Godot clamps it against the previous 500px artwork minimum
-	# and portrait Safari still ends up with a ~508px-wide completion card.
+	# resized first, Godot clamps it against the previous artwork minimum and a
+	# portrait Safari card can silently grow wider than the intended envelope.
 	if completion_artwork != null:
 		var artwork_width := (
-			panel_width - 44.0
+			panel_width - 24.0
 			if browser_portrait
 			else maxf(270.0, panel_width - 52.0)
 		)
 		var artwork_height := (
-			minf(205.0, maxf(160.0, panel_height * 0.38))
+			minf(250.0, maxf(210.0, panel_height * 0.44))
 			if browser_portrait
 			else minf(270.0, maxf(180.0, panel_height * 0.43))
 		)
 		completion_artwork.custom_minimum_size = Vector2(artwork_width, artwork_height)
 
 	if completion_heading != null:
-		completion_heading.add_theme_font_size_override("font_size", 24 if browser_portrait else 28)
+		completion_heading.add_theme_font_size_override("font_size", 26 if browser_portrait else 28)
 	if completion_artwork_label != null:
-		completion_artwork_label.add_theme_font_size_override("font_size", 15 if browser_portrait else 17)
+		completion_artwork_label.add_theme_font_size_override("font_size", 16 if browser_portrait else 17)
 	if completion_primary_stats != null:
-		completion_primary_stats.add_theme_font_size_override("font_size", 14 if browser_portrait else 16)
+		completion_primary_stats.add_theme_font_size_override("font_size", 15 if browser_portrait else 16)
 
 	completion_panel.custom_minimum_size = Vector2(panel_width, panel_height)
 	completion_panel.reset_size()
