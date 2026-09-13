@@ -53,10 +53,11 @@ func _run() -> void:
 		_fail("completion date is not presented")
 		return
 
-	# Regression for iPhone Safari: Pieceful intentionally keeps a 1280x720
-	# logical Godot viewport, so browser portrait must opt into a deliberately
-	# generous completion reveal. The finished artwork should own most of the card
-	# instead of looking like a thumbnail inside a stats panel.
+	# Regression for iPhone Safari: browser orientation and Godot logical sizing
+	# are two separate concerns. Pieceful keeps a 1280x720 logical viewport on Web,
+	# so a portrait completion reveal must be sized as a fraction of those logical
+	# units; fixed values such as 360/620 render as only a small fraction of the
+	# phone canvas.
 	main.call(
 		"_apply_completion_layout_for_orientation",
 		Vector2(1280.0, 720.0),
@@ -65,23 +66,34 @@ func _run() -> void:
 	snapshot = main.completion_presentation_snapshot()
 	var portrait_panel: Vector2 = snapshot.get("panel_size", Vector2.ZERO)
 	var portrait_artwork: Vector2 = snapshot.get("artwork_minimum_size", Vector2.ZERO)
-	if portrait_panel.x < 610.0 or portrait_panel.x > 624.0:
-		_fail("portrait Safari completion card width drifted: %s" % portrait_panel)
+	var panel_width_fraction := portrait_panel.x / 1280.0
+	if panel_width_fraction < 0.91 or panel_width_fraction > 0.93:
+		_fail("portrait Safari completion card no longer tracks logical viewport width: %s" % portrait_panel)
 		return
-	if portrait_panel.y < 632.0 or portrait_panel.y > 644.0:
+	if portrait_panel.y < 680.0 or portrait_panel.y > 700.0:
 		_fail("portrait Safari completion card height drifted: %s" % portrait_panel)
 		return
-	if portrait_artwork.x < 586.0 or portrait_artwork.x > 596.0:
-		_fail("portrait Safari completion artwork is not wide enough: %s" % portrait_artwork)
-		return
-	if portrait_artwork.y < 350.0 or portrait_artwork.y > 362.0:
-		_fail("portrait Safari completion artwork height drifted: %s" % portrait_artwork)
-		return
-	if portrait_artwork.x / portrait_panel.x < 0.94:
+	if portrait_artwork.x / portrait_panel.x < 0.96:
 		_fail("portrait Safari completion artwork no longer owns the card: panel=%s artwork=%s" % [
 			portrait_panel,
 			portrait_artwork,
 		])
+		return
+	if portrait_artwork.y < 410.0 or portrait_artwork.y > 430.0:
+		_fail("portrait Safari completion artwork height drifted: %s" % portrait_artwork)
+		return
+
+	# Also prove that portrait sizing is proportional rather than another magic
+	# fixed width hidden behind the browser-orientation branch.
+	main.call(
+		"_apply_completion_layout_for_orientation",
+		Vector2(1000.0, 720.0),
+		Vector2(390.0, 844.0)
+	)
+	snapshot = main.completion_presentation_snapshot()
+	var narrower_panel: Vector2 = snapshot.get("panel_size", Vector2.ZERO)
+	if narrower_panel.x < 910.0 or narrower_panel.x > 930.0:
+		_fail("portrait completion card did not scale with logical viewport: %s" % narrower_panel)
 		return
 
 	# Landscape / desktop keeps the larger presentation rather than permanently
