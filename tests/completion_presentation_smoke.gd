@@ -53,6 +53,21 @@ func _run() -> void:
 		_fail("completion date is not presented")
 		return
 
+	# Hint assistance is a boolean completion fact, not a count of how often the
+	# renderer happened to draw hint feedback for pieces.
+	var assisted_record: Dictionary = coordinator.latest_completion_record()
+	assisted_record["hints_used"] = 1
+	assisted_record["hint_free"] = false
+	main.call("_present_completion", assisted_record)
+	snapshot = main.completion_presentation_snapshot()
+	secondary = str(snapshot.get("secondary_stats", ""))
+	if not secondary.contains("Hint used"):
+		_fail("hint-assisted completion fact is not presented")
+		return
+	if secondary.contains("1 hint") or secondary.contains("hints used"):
+		_fail("completion UI leaked renderer-style hint counts: %s" % secondary)
+		return
+
 	# Regression for iPhone Safari: browser orientation and Godot logical sizing
 	# are two separate concerns. Pieceful keeps a 1280x720 logical viewport on Web,
 	# so a portrait completion reveal must be sized as a fraction of those logical
