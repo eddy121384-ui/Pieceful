@@ -257,7 +257,7 @@ func _present_completion(record: Dictionary) -> void:
 		]
 
 	var hints := int(record.get("hints_used", 0))
-	var hint_copy := "Hint-free" if hints == 0 else "%d hint%s used" % [hints, "" if hints == 1 else "s"]
+	var hint_copy := "Hint-free" if hints == 0 else "Hint used"
 	if completion_secondary_stats != null:
 		completion_secondary_stats.text = "%s · %s" % [
 			_local_completion_date(int(record.get("completed_at_unix", 0))),
