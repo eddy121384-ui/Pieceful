@@ -54,10 +54,9 @@ func _run() -> void:
 		return
 
 	# Regression for iPhone Safari: Pieceful intentionally keeps a 1280x720
-	# logical Godot viewport, so the completion card must use browser orientation
-	# rather than assume this logical rectangle means landscape. The reveal should
-	# also stay generous enough that the finished artwork feels like the reward,
-	# not a tiny thumbnail.
+	# logical Godot viewport, so browser portrait must opt into a deliberately
+	# generous completion reveal. The finished artwork should own most of the card
+	# instead of looking like a thumbnail inside a stats panel.
 	main.call(
 		"_apply_completion_layout_for_orientation",
 		Vector2(1280.0, 720.0),
@@ -66,17 +65,23 @@ func _run() -> void:
 	snapshot = main.completion_presentation_snapshot()
 	var portrait_panel: Vector2 = snapshot.get("panel_size", Vector2.ZERO)
 	var portrait_artwork: Vector2 = snapshot.get("artwork_minimum_size", Vector2.ZERO)
-	if portrait_panel.x < 356.0 or portrait_panel.x > 364.0:
+	if portrait_panel.x < 610.0 or portrait_panel.x > 624.0:
 		_fail("portrait Safari completion card width drifted: %s" % portrait_panel)
 		return
-	if portrait_panel.y < 546.0 or portrait_panel.y > 554.0:
+	if portrait_panel.y < 632.0 or portrait_panel.y > 644.0:
 		_fail("portrait Safari completion card height drifted: %s" % portrait_panel)
 		return
-	if portrait_artwork.x < 332.0 or portrait_artwork.x > 340.0:
-		_fail("portrait Safari completion artwork is not prominent enough: %s" % portrait_artwork)
+	if portrait_artwork.x < 586.0 or portrait_artwork.x > 596.0:
+		_fail("portrait Safari completion artwork is not wide enough: %s" % portrait_artwork)
 		return
-	if portrait_artwork.y < 238.0 or portrait_artwork.y > 248.0:
+	if portrait_artwork.y < 350.0 or portrait_artwork.y > 362.0:
 		_fail("portrait Safari completion artwork height drifted: %s" % portrait_artwork)
+		return
+	if portrait_artwork.x / portrait_panel.x < 0.94:
+		_fail("portrait Safari completion artwork no longer owns the card: panel=%s artwork=%s" % [
+			portrait_panel,
+			portrait_artwork,
+		])
 		return
 
 	# Landscape / desktop keeps the larger presentation rather than permanently
