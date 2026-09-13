@@ -36,7 +36,9 @@ func _run() -> void:
 		return
 
 	coordinator.active_elapsed_seconds = 41.4
-	coordinator.active_hints_used = 1
+	# Simulate an older V0-08 runtime that accumulated renderer exposures. The
+	# persisted/resumed session must normalize this to one hint-assisted fact.
+	coordinator.active_hints_used = 37
 	if not coordinator.save_now(true):
 		_fail("could not persist completion session metrics")
 		return
@@ -58,17 +60,20 @@ func _run() -> void:
 		_fail("elapsed play time did not survive resume")
 		return
 	if int(metrics.get("hints_used", -1)) != 1:
-		_fail("hint usage did not survive resume")
+		_fail("hint assist state did not normalize/survive resume")
 		return
 
 	var first_piece = board.pieces[0] if not board.pieces.is_empty() else null
 	if first_piece == null:
 		_fail("runtime has no piece available for hint instrumentation")
 		return
+	# Repeated per-piece hint rendering must remain idempotent. The completion
+	# contract records whether the game used assistance, not renderer call count.
+	board.call("_show_hint_for_piece", first_piece)
 	board.call("_show_hint_for_piece", first_piece)
 	metrics = coordinator.completion_session_metrics()
-	if int(metrics.get("hints_used", -1)) != 2:
-		_fail("real hint exposure was not counted")
+	if int(metrics.get("hints_used", -1)) != 1:
+		_fail("repeated hint exposure inflated the assist fact")
 		return
 
 	coordinator.active_elapsed_seconds = 125.4
@@ -95,8 +100,8 @@ func _run() -> void:
 	if int(record.get("elapsed_seconds", 0)) < 125:
 		_fail("completion record elapsed time mismatch")
 		return
-	if int(record.get("hints_used", 0)) != 2 or bool(record.get("hint_free", true)):
-		_fail("completion record hint facts mismatch")
+	if int(record.get("hints_used", 0)) != 1 or bool(record.get("hint_free", true)):
+		_fail("completion record hint-assist facts mismatch")
 		return
 	if not str(coordinator.active_game()).is_empty():
 		_fail("completed game still owns an active unfinished slot")
