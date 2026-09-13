@@ -6,6 +6,10 @@ const PuzzleJournalStoreScript = preload("res://scripts/puzzle_journal_store.gd"
 
 var journal_store = PuzzleJournalStoreScript.new()
 var active_elapsed_seconds := 0.0
+# CompletionRecord V1 keeps the legacy `hints_used` field, but V0-08 product
+# semantics are assist/no-assist rather than renderer exposure counts. Keep this
+# value normalized to 0/1 so repeated per-piece hint rendering cannot create
+# meaningless numbers such as "50 hints used".
 var active_hints_used := 0
 var last_completion_record: Dictionary = {}
 var last_completion_was_new := false
@@ -20,7 +24,7 @@ func _capture_snapshot() -> Dictionary:
 	var snapshot: Dictionary = super._capture_snapshot()
 	snapshot["completion_session"] = {
 		"elapsed_seconds": maxi(0, int(round(active_elapsed_seconds))),
-		"hints_used": maxi(0, active_hints_used),
+		"hints_used": 1 if active_hints_used > 0 else 0,
 	}
 	return snapshot
 
@@ -46,7 +50,9 @@ func _resume_game_from_disk(game_id: String) -> bool:
 	var restored: bool = await super._resume_game_from_disk(game_id)
 	if restored:
 		active_elapsed_seconds = maxf(0.0, float(session.get("elapsed_seconds", 0.0)))
-		active_hints_used = maxi(0, int(session.get("hints_used", 0)))
+		# Older V0-08 saves may contain renderer exposure counts > 1. Normalize
+		# them on resume into the new assist/no-assist contract.
+		active_hints_used = 1 if int(session.get("hints_used", 0)) > 0 else 0
 		last_completion_record = {}
 		last_completion_was_new = false
 		# Parent resume snapshots are captured before this additive V0-08 session
@@ -59,7 +65,9 @@ func _resume_game_from_disk(game_id: String) -> bool:
 func record_hint_use(_piece_index: int) -> void:
 	if not _completion_metrics_should_run():
 		return
-	active_hints_used += 1
+	# `_show_hint_for_piece()` may run repeatedly while the player works. For the
+	# Journal/completion contract we only care whether the game was hint-assisted.
+	active_hints_used = 1
 
 
 func complete_active_game_once() -> Dictionary:
@@ -119,7 +127,7 @@ func latest_completion_record() -> Dictionary:
 func completion_session_metrics() -> Dictionary:
 	return {
 		"elapsed_seconds": active_elapsed_seconds,
-		"hints_used": active_hints_used,
+		"hints_used": 1 if active_hints_used > 0 else 0,
 	}
 
 
@@ -159,7 +167,7 @@ func _build_active_completion_record() -> Dictionary:
 		str(board.active_pattern_id()),
 		int(board.active_piece_count()),
 		active_elapsed_seconds,
-		active_hints_used,
+		1 if active_hints_used > 0 else 0,
 		int(Time.get_unix_time_from_system())
 	)
 
