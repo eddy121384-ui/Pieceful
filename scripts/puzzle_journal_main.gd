@@ -2,6 +2,7 @@ class_name PuzzleJournalMain
 extends "res://scripts/completion_summary_main.gd"
 
 const JournalIcons = preload("res://scripts/ui_icon_catalog.gd")
+const JOURNAL_ENTRY_SIZE := Vector2(96.0, 42.0)
 
 var journal_button: Button = null
 var journal_overlay: ColorRect = null
@@ -20,7 +21,16 @@ func _build_ui() -> void:
 func _layout_ui(viewport_size: Vector2) -> void:
 	super._layout_ui(viewport_size)
 	if journal_button != null and top_bar != null:
-		journal_button.position = top_bar.position + Vector2(164.0, 7.0)
+		# Keep Journal in the same left-side top-bar cluster as Unfinished puzzles,
+		# but derive its position from the actual Games button instead of another
+		# magic x offset. This makes the entry survive spacing/size changes and keeps
+		# it discoverable on the fixed 1280-wide Web logical canvas used by phones.
+		var entry_x := top_bar.position.x + 164.0
+		if games_button != null:
+			entry_x = games_button.position.x + games_button.size.x + 6.0
+		journal_button.size = JOURNAL_ENTRY_SIZE
+		journal_button.custom_minimum_size = JOURNAL_ENTRY_SIZE
+		journal_button.position = Vector2(entry_x, top_bar.position.y + 7.0)
 	if journal_overlay == null or journal_panel == null:
 		return
 	journal_overlay.position = Vector2.ZERO
@@ -49,6 +59,10 @@ func journal_presentation_snapshot() -> Dictionary:
 		"week": journal_week.text if journal_week != null else "",
 		"recent_count": _journal_recent_card_count(),
 		"empty_visible": journal_empty != null and journal_empty.visible,
+		"entry_text": journal_button.text if journal_button != null else "",
+		"entry_rect": journal_button.get_rect() if journal_button != null else Rect2(),
+		"games_rect": games_button.get_rect() if games_button != null else Rect2(),
+		"recent_text": _journal_recent_text(),
 	}
 
 
@@ -61,13 +75,19 @@ func _build_journal_ui() -> void:
 
 	journal_button = Button.new()
 	journal_button.name = "JournalButton"
+	# The original replay glyph looked like undo/restart on a phone. Keep the soft
+	# Pieceful button styling, but make the global destination explicit in text.
 	JournalIcons.apply_button(
 		journal_button,
 		JournalIcons.IconId.REPLAY,
 		"Puzzle Journal",
-		Vector2(42.0, 42.0),
-		20
+		JOURNAL_ENTRY_SIZE,
+		18
 	)
+	journal_button.icon = null
+	journal_button.text = "Journal"
+	journal_button.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	journal_button.tooltip_text = "Puzzle Journal"
 	journal_button.pressed.connect(_toggle_journal)
 	layer.add_child(journal_button)
 
@@ -291,7 +311,7 @@ func _add_journal_record(record: Dictionary) -> void:
 	var label := content_id.capitalize()
 	if board != null and board.has_method("content_label_for_id"):
 		label = str(board.content_label_for_id(content_id))
-	var hint_copy := "Hint-free" if bool(record.get("hint_free", false)) else "%d hints" % int(record.get("hints_used", 0))
+	var hint_copy := "Hint-free" if bool(record.get("hint_free", false)) else "Hint used"
 	var copy := Label.new()
 	copy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -316,3 +336,18 @@ func _journal_recent_card_count() -> int:
 		if child is PanelContainer and child.name.begins_with("JournalRecord_"):
 			count += 1
 	return count
+
+
+func _journal_recent_text() -> String:
+	if journal_recent_list == null:
+		return ""
+	var lines: Array[String] = []
+	_collect_label_text(journal_recent_list, lines)
+	return "\n".join(lines)
+
+
+func _collect_label_text(node: Node, lines: Array[String]) -> void:
+	if node is Label:
+		lines.append((node as Label).text)
+	for child in node.get_children():
+		_collect_label_text(child, lines)
