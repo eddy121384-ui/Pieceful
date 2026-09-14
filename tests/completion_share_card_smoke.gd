@@ -25,7 +25,12 @@ func _run() -> void:
 		_fail("Share-card artwork contain helper is not wired")
 		return
 
-	for source_size in [Vector2(1600, 900), Vector2(900, 1600), Vector2(1200, 1600)]:
+	var source_sizes: Array[Vector2] = [
+		Vector2(1600, 900),
+		Vector2(900, 1600),
+		Vector2(1200, 1600),
+	]
+	for source_size: Vector2 in source_sizes:
 		var fitted: Rect2 = main.share_artwork_fit_rect_for_source(source_size)
 		if fitted.position.x < 23.99 or fitted.position.y < 23.99:
 			_fail("Share-card artwork escaped the contain box origin")
@@ -36,8 +41,8 @@ func _run() -> void:
 		if fitted.size.x <= 0.0 or fitted.size.y <= 0.0:
 			_fail("Share-card artwork contain size became empty")
 			return
-		var source_aspect := source_size.x / source_size.y
-		var fitted_aspect := fitted.size.x / fitted.size.y
+		var source_aspect: float = source_size.x / source_size.y
+		var fitted_aspect: float = fitted.size.x / fitted.size.y
 		if absf(source_aspect - fitted_aspect) > 0.001:
 			_fail("Share-card artwork aspect ratio drifted")
 			return
