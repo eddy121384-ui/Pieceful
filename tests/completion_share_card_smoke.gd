@@ -38,6 +38,12 @@ func _run() -> void:
 	main.call("_on_completed")
 	await process_frame
 
+	var record: Dictionary = coordinator.latest_completion_record()
+	var expected_pieces := int(record.get("pieces_placed", record.get("piece_count", 0)))
+	if expected_pieces <= 0:
+		_fail("Completion record did not expose a valid piece count")
+		return
+
 	var snapshot: Dictionary = main.share_card_presentation_snapshot()
 	var payload_value = snapshot.get("payload", {})
 	if not (payload_value is Dictionary):
@@ -47,8 +53,8 @@ func _run() -> void:
 	if str(payload.get("title", "")) != "Puzzle complete":
 		_fail("Share-card title drifted")
 		return
-	if not str(payload.get("primary", "")).contains("35 pieces"):
-		_fail("Share-card primary stats omitted piece count")
+	if not str(payload.get("primary", "")).contains("%d pieces" % expected_pieces):
+		_fail("Share-card primary stats omitted image-aware piece count")
 		return
 	if not str(payload.get("primary", "")).contains("2m 05s"):
 		_fail("Share-card primary stats omitted elapsed time")
