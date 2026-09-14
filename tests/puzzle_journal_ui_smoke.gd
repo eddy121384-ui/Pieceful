@@ -23,8 +23,29 @@ func _run() -> void:
 		_fail("Puzzle Journal presentation is not wired")
 		return
 
+	# The global Journal destination must be recognizable without guessing an
+	# icon, and it must occupy its own slot beside Unfinished puzzles.
+	var entry_snapshot: Dictionary = main.journal_presentation_snapshot()
+	if str(entry_snapshot.get("entry_text", "")) != "Journal":
+		_fail("Journal top-bar entry is not explicitly labeled")
+		return
+	var entry_rect: Rect2 = entry_snapshot.get("entry_rect", Rect2())
+	var games_rect: Rect2 = entry_snapshot.get("games_rect", Rect2())
+	if entry_rect.size.x < 90.0 or entry_rect.size.y < 40.0:
+		_fail("Journal top-bar entry is too small to discover/tap: %s" % entry_rect)
+		return
+	if games_rect.size.x > 0.0 and entry_rect.intersects(games_rect):
+		_fail("Journal top-bar entry overlaps Unfinished puzzles: journal=%s games=%s" % [
+			entry_rect,
+			games_rect,
+		])
+		return
+	if games_rect.size.x > 0.0 and entry_rect.position.x <= games_rect.end.x:
+		_fail("Journal top-bar entry is not laid out after Unfinished puzzles")
+		return
+
 	coordinator.active_elapsed_seconds = 185.0
-	coordinator.active_hints_used = 0
+	coordinator.active_hints_used = 1
 	main.call("_on_completed")
 	await process_frame
 	main.call("_toggle_journal")
@@ -48,6 +69,13 @@ func _run() -> void:
 		return
 	if bool(snapshot.get("empty_visible", true)):
 		_fail("empty Journal state remained visible with history")
+		return
+	var recent_text := str(snapshot.get("recent_text", ""))
+	if not recent_text.contains("Hint used"):
+		_fail("Journal did not use hint-assist wording: %s" % recent_text)
+		return
+	if recent_text.contains("1 hints") or recent_text.contains("hints used"):
+		_fail("Journal leaked legacy numeric hint wording: %s" % recent_text)
 		return
 
 	main.call("_close_journal")
