@@ -21,6 +21,30 @@ func _run() -> void:
 	if not main.has_method("share_card_presentation_snapshot"):
 		_fail("Completion share-card presentation is not wired")
 		return
+	if not main.has_method("share_artwork_fit_rect_for_source"):
+		_fail("Share-card artwork contain helper is not wired")
+		return
+
+	for source_size in [Vector2(1600, 900), Vector2(900, 1600), Vector2(1200, 1600)]:
+		var fitted: Rect2 = main.share_artwork_fit_rect_for_source(source_size)
+		if fitted.position.x < 23.99 or fitted.position.y < 23.99:
+			_fail("Share-card artwork escaped the contain box origin")
+			return
+		if fitted.end.x > 912.01 or fitted.end.y > 746.01:
+			_fail("Share-card artwork was cropped outside the contain box")
+			return
+		if fitted.size.x <= 0.0 or fitted.size.y <= 0.0:
+			_fail("Share-card artwork contain size became empty")
+			return
+		var source_aspect := source_size.x / source_size.y
+		var fitted_aspect := fitted.size.x / fitted.size.y
+		if absf(source_aspect - fitted_aspect) > 0.001:
+			_fail("Share-card artwork aspect ratio drifted")
+			return
+		if fitted.size.x < 887.0 and fitted.size.y < 721.0:
+			_fail("Share-card artwork did not use the available contain box")
+			return
+
 	var initial: Dictionary = main.share_card_presentation_snapshot()
 	if not bool(initial.get("button_exists", false)):
 		_fail("Share result button was not created")
