@@ -118,6 +118,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/completion_presentation_smoke.gd
 
+      - name: Completion share card smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/completion_share_card_smoke.gd
+
       - name: Puzzle Journal UI smoke
         shell: bash
         run: |
