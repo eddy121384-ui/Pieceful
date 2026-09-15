@@ -136,6 +136,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/timelapse_replay_smoke.gd
 
+      - name: Timelapse 9:16 video export smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/timelapse_video_export_smoke.gd
+
       - name: Puzzle Journal UI smoke
         shell: bash
         run: |
