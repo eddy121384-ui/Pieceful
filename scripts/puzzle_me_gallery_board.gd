@@ -61,14 +61,14 @@ func content_search_text(content_id: String) -> String:
 func content_label_for_id(content_id: String) -> String:
 	var local := puzzle_me_store.entry(content_id)
 	if not local.is_empty():
-		return str(local.get("label", "My Photo"))
+		return _display_label_for_local(local)
 	return super.content_label_for_id(content_id)
 
 
 func content_label_for_source_id(source_id: String) -> String:
 	var local := puzzle_me_store.entry_for_source_id(source_id)
 	if not local.is_empty():
-		return str(local.get("label", "My Photo"))
+		return _display_label_for_local(local)
 	return super.content_label_for_source_id(source_id)
 
 
@@ -161,8 +161,32 @@ func _local_texture(local: Dictionary) -> Texture2D:
 	return texture
 
 
+func _display_label_for_local(local: Dictionary) -> String:
+	var label := str(local.get("label", "My Photo")).strip_edges()
+	if label.is_empty() or _looks_like_uuid_label(label):
+		return "My Photo"
+	return label
+
+
+func _looks_like_uuid_label(label: String) -> bool:
+	if label.length() != 36:
+		return false
+	if label.substr(8, 1) != "-" or label.substr(13, 1) != "-":
+		return false
+	if label.substr(18, 1) != "-" or label.substr(23, 1) != "-":
+		return false
+	var hex_chars := "0123456789abcdefABCDEF"
+	for index in range(label.length()):
+		if index in [8, 13, 18, 23]:
+			continue
+		if not hex_chars.contains(label.substr(index, 1)):
+			return false
+	return true
+
+
 func _gallery_metadata_for_local(local: Dictionary) -> Dictionary:
 	var result: Dictionary = local.duplicate(true)
+	result["label"] = _display_label_for_local(local)
 	result["category"] = "my_photos"
 	result["subject"] = ["personal", "photo"]
 	result["region_culture"] = []

@@ -26,6 +26,19 @@ func _run() -> void:
 		_fail("first launch runtime nodes missing")
 		return
 
+	if str(first_board.call(
+		"_display_label_for_local",
+		{"label": "C2858233-A16A-4FAA-AE4C-D516250D8B48"}
+	)) != "My Photo":
+		_fail("iOS temporary UUID photo label leaked into player-facing copy")
+		return
+	if str(first_board.call(
+		"_display_label_for_local",
+		{"label": "IMG_7481"}
+	)) != "IMG_7481":
+		_fail("normal local photo label was unnecessarily replaced")
+		return
+
 	var bytes := _portrait_png_bytes()
 	first.call("_prepare_puzzle_me_import", bytes, "My Taiwan Trip.jpg")
 	for _frame in range(16):
