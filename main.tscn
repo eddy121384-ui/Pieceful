@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
-[ext_resource type="Script" path="res://scripts/timelapse_video_export_main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/analytics_main.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/completion_event_puzzle_board.gd" id="2_board"]
 [ext_resource type="Script" path="res://scripts/touch_priority_puzzle_camera_controller.gd" id="3_camera"]
-[ext_resource type="Script" path="res://scripts/timelapse_sorting_workspace.gd" id="4_sorting"]
-[ext_resource type="Script" path="res://scripts/timelapse_completion_event_save_coordinator.gd" id="5_save"]
+[ext_resource type="Script" path="res://scripts/analytics_sorting_workspace.gd" id="4_sorting"]
+[ext_resource type="Script" path="res://scripts/analytics_save_coordinator.gd" id="5_save"]
+[ext_resource type="Script" path="res://scripts/analytics_service.gd" id="6_analytics"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -22,3 +23,6 @@ script = ExtResource("4_sorting")
 
 [node name="SaveCoordinator" type="Node" parent="."]
 script = ExtResource("5_save")
+
+[node name="Analytics" type="Node" parent="."]
+script = ExtResource("6_analytics")
