@@ -93,7 +93,7 @@ func _run() -> void:
 		_fail("metadata catalog did not expose three official fixtures")
 		return
 	var crane: Dictionary = board.content_metadata("crane_pine_scroll")
-	if str(crane.get("category", "")) != "culture":
+	if str(crane.get("category", "")) != "art_culture":
 		_fail("portrait fixture metadata category missing")
 		return
 	if not str(board.content_search_text("crane_pine_scroll")).contains("japan"):
@@ -125,10 +125,10 @@ func _run() -> void:
 	main.call("_on_gallery_search_changed", "")
 
 	# Category filter is independent from search.
-	_select_option_metadata(main.gallery_category_filter, "culture")
+	_select_option_metadata(main.gallery_category_filter, "art_culture")
 	main.call("_on_gallery_filter_changed", main.gallery_category_filter.selected)
 	if not bool(main.gallery_cards["crane_pine_scroll"].visible) or bool(main.gallery_cards["garden"].visible):
-		_fail("culture category filter did not isolate cultural artwork")
+		_fail("art_culture category filter did not isolate cultural artwork")
 		return
 	_select_option_metadata(main.gallery_category_filter, "all")
 	main.call("_on_gallery_filter_changed", main.gallery_category_filter.selected)
