@@ -32,7 +32,20 @@ func _run() -> void:
 		return
 
 	var categories := _string_set(taxonomy.get("primary_categories", []))
+	var facet_rules: Dictionary = taxonomy.get("facet_rules", {})
 	var controlled: Dictionary = taxonomy.get("controlled_values", {})
+	var completeness: Dictionary = taxonomy.get("completeness_contract", {})
+	var status_values := _string_set(completeness.get("status_values", []))
+	var published_status_values := _string_set(completeness.get("published_allowed_status_values", []))
+	var contract_facets = completeness.get("facet_fields", [])
+	if not (contract_facets is Array) or contract_facets.size() != FACET_FIELDS.size():
+		_fail("completeness contract facet list is incomplete")
+		return
+	for field in FACET_FIELDS:
+		if not contract_facets.has(field):
+			_fail("completeness contract missing facet %s" % field)
+			return
+
 	var difficulties := _string_set(taxonomy.get("difficulty_values", []))
 	var puzzleability_contract: Dictionary = taxonomy.get("puzzleability", {})
 	var required_metrics = puzzleability_contract.get("required_metrics", [])
@@ -73,12 +86,52 @@ func _run() -> void:
 			_fail("%s uses unknown suggested difficulty %s" % [content_id, difficulty])
 			return
 
+		var facet_status = entry.get("facet_status", {})
+		if not (facet_status is Dictionary):
+			_fail("%s facet_status missing" % content_id)
+			return
+		if facet_status.size() != FACET_FIELDS.size():
+			_fail("%s facet_status must describe every semantic facet" % content_id)
+			return
+
 		var allowed_tag_ids := {category: true}
 		for field in FACET_FIELDS:
-			var values = entry.get(field, [])
-			if not (values is Array) or values.is_empty():
-				_fail("%s has empty facet %s" % [content_id, field])
+			if not entry.has(field):
+				_fail("%s missing facet field %s" % [content_id, field])
 				return
+			if not facet_status.has(field):
+				_fail("%s missing facet_status for %s" % [content_id, field])
+				return
+
+			var status := str(facet_status.get(field, ""))
+			if not status_values.has(status):
+				_fail("%s has unknown %s status %s" % [content_id, field, status])
+				return
+			if not published_status_values.has(status):
+				_fail("%s published metadata still has unresolved %s" % [content_id, field])
+				return
+
+			var values = entry.get(field, [])
+			if not (values is Array):
+				_fail("%s facet %s is not an array" % [content_id, field])
+				return
+
+			var rule: Dictionary = facet_rules.get(field, {})
+			var max_values := int(rule.get("max_values", 999))
+			if values.size() > max_values:
+				_fail("%s facet %s exceeds max_values %d" % [content_id, field, max_values])
+				return
+
+			if status == "present" and values.is_empty():
+				_fail("%s marks %s present but has no values" % [content_id, field])
+				return
+			if status != "present" and not values.is_empty():
+				_fail("%s marks %s %s but still stores values" % [content_id, field, status])
+				return
+			if bool(rule.get("published_must_be_present", false)) and status != "present":
+				_fail("%s published facet %s must be present" % [content_id, field])
+				return
+
 			var local_seen := {}
 			for raw_value in values:
 				var value := str(raw_value)
@@ -146,7 +199,7 @@ func _run() -> void:
 				_fail("%s attribution %s is empty" % [content_id, field])
 				return
 
-	print("PASS content_taxonomy_smoke: %d fixtures conform to taxonomy v1" % contents.size())
+	print("PASS content_taxonomy_smoke: %d published fixtures have complete facet status + taxonomy v1 metadata" % contents.size())
 	quit(0)
 
 

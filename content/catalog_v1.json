@@ -15,9 +15,7 @@
         "flowers",
         "path"
       ],
-      "region_culture": [
-        "global"
-      ],
+      "region_culture": [],
       "mood": [
         "calm",
         "joyful"
@@ -34,6 +32,14 @@
         "outdoor",
         "day"
       ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
       "puzzleability": {
         "score": 0.86,
         "clear_regions": 0.85,
@@ -85,9 +91,7 @@
         "mountains",
         "sky"
       ],
-      "region_culture": [
-        "global"
-      ],
+      "region_culture": [],
       "mood": [
         "calm",
         "dreamy",
@@ -106,6 +110,14 @@
         "dawn_dusk",
         "waterside"
       ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
       "puzzleability": {
         "score": 0.74,
         "clear_regions": 0.62,
@@ -180,6 +192,14 @@
         "outdoor",
         "night"
       ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
       "puzzleability": {
         "score": 0.68,
         "clear_regions": 0.55,

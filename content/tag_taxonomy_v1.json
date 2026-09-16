@@ -19,33 +19,65 @@
     "subject": {
       "type": "multi_open_canonical",
       "required": true,
-      "max_values": 8
+      "max_values": 8,
+      "published_must_be_present": true
     },
     "region_culture": {
       "type": "multi_open_canonical",
       "required": true,
-      "max_values": 6
+      "max_values": 6,
+      "published_must_be_present": false
     },
     "mood": {
       "type": "multi_controlled",
       "required": true,
-      "max_values": 4
+      "max_values": 4,
+      "published_must_be_present": false
     },
     "visual": {
       "type": "multi_controlled",
       "required": true,
-      "max_values": 6
+      "max_values": 6,
+      "published_must_be_present": true
     },
     "style": {
       "type": "multi_controlled",
       "required": true,
-      "max_values": 3
+      "max_values": 3,
+      "published_must_be_present": true
     },
     "scene": {
       "type": "multi_controlled",
       "required": true,
-      "max_values": 5
+      "max_values": 5,
+      "published_must_be_present": false
     }
+  },
+  "completeness_contract": {
+    "status_field": "facet_status",
+    "facet_fields": [
+      "subject",
+      "region_culture",
+      "mood",
+      "visual",
+      "style",
+      "scene"
+    ],
+    "status_values": [
+      "present",
+      "not_applicable",
+      "unresolved"
+    ],
+    "published_allowed_status_values": [
+      "present",
+      "not_applicable"
+    ],
+    "semantics": {
+      "present": "The facet array must exist and contain at least one canonical value.",
+      "not_applicable": "The facet array must exist and be empty because this dimension does not meaningfully apply to the image.",
+      "unresolved": "The facet array must exist and be empty because authoring has not decided the value yet. This status is forbidden in the published catalog."
+    },
+    "rule": "Every facet dimension has an explicit status. Empty arrays are valid only when paired with not_applicable or unresolved; published content may not ship unresolved."
   },
   "controlled_values": {
     "mood": [
