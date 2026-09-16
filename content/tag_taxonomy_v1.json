@@ -1,0 +1,167 @@
+{
+  "taxonomy_version": 1,
+  "purpose": "Canonical metadata vocabulary for Pieceful catalog search, filters, recommendations, and content authoring.",
+  "primary_categories": [
+    "nature",
+    "animals",
+    "places",
+    "art_culture",
+    "food",
+    "objects",
+    "people",
+    "abstract"
+  ],
+  "facet_rules": {
+    "category": {
+      "type": "single_controlled",
+      "required": true
+    },
+    "subject": {
+      "type": "multi_open_canonical",
+      "required": true,
+      "max_values": 8
+    },
+    "region_culture": {
+      "type": "multi_open_canonical",
+      "required": true,
+      "max_values": 6
+    },
+    "mood": {
+      "type": "multi_controlled",
+      "required": true,
+      "max_values": 4
+    },
+    "visual": {
+      "type": "multi_controlled",
+      "required": true,
+      "max_values": 6
+    },
+    "style": {
+      "type": "multi_controlled",
+      "required": true,
+      "max_values": 3
+    },
+    "scene": {
+      "type": "multi_controlled",
+      "required": true,
+      "max_values": 5
+    }
+  },
+  "controlled_values": {
+    "mood": [
+      "calm",
+      "cozy",
+      "joyful",
+      "dreamy",
+      "contemplative",
+      "mysterious",
+      "dramatic",
+      "romantic",
+      "nostalgic",
+      "playful",
+      "energetic",
+      "melancholic"
+    ],
+    "visual": [
+      "clear_regions",
+      "detailed",
+      "fine_texture",
+      "repetitive_texture",
+      "negative_space",
+      "flat_areas",
+      "strong_edges",
+      "soft_gradients",
+      "high_contrast",
+      "low_contrast",
+      "colorful",
+      "muted",
+      "monochrome",
+      "symmetrical"
+    ],
+    "style": [
+      "photo",
+      "illustration",
+      "digital_art",
+      "painting",
+      "watercolor",
+      "oil_painting",
+      "ink",
+      "print",
+      "poster",
+      "collage"
+    ],
+    "scene": [
+      "indoor",
+      "outdoor",
+      "day",
+      "night",
+      "dawn_dusk",
+      "urban",
+      "rural",
+      "wilderness",
+      "waterside",
+      "architectural",
+      "still_life"
+    ]
+  },
+  "difficulty_values": [
+    "relaxed",
+    "standard",
+    "hard"
+  ],
+  "canonical_id_rule": "lower_snake_case_ascii; no spaces; stable after publication",
+  "puzzleability": {
+    "scale": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "score_semantics": "Higher means the image has clearer, more varied visual structure for jigsaw solving. It is not a difficulty score.",
+    "required_metrics": [
+      "score",
+      "clear_regions",
+      "repetitive_texture",
+      "flat_area",
+      "landmark_density",
+      "color_variety",
+      "edge_density",
+      "gradient_area"
+    ]
+  },
+  "weighted_tags": {
+    "weight_range": [
+      0.0,
+      1.0
+    ],
+    "rule": "Every weighted tag id must also exist in category or one of the entry facets. Do not introduce free-floating synonyms only in tags.",
+    "default_weight_guidance": {
+      "category": 1.0,
+      "subject": 1.0,
+      "region_culture": 0.9,
+      "mood": 0.7,
+      "visual": 0.7,
+      "style": 0.8,
+      "scene": 0.6
+    }
+  },
+  "attribution": {
+    "required_fields": [
+      "creator",
+      "license",
+      "source_url"
+    ],
+    "optional_fields": [
+      "license_url",
+      "attribution_required"
+    ],
+    "license_examples": [
+      "project_fixture",
+      "public_domain",
+      "cc0",
+      "cc_by_4_0",
+      "cc_by_sa_4_0",
+      "licensed",
+      "commissioned",
+      "owned"
+    ]
+  }
+}
