@@ -1,0 +1,32 @@
+name: Content Ingestion Smoke
+
+on:
+  push:
+    branches:
+      - feat/issue-9-content-ingestion-v0
+  pull_request:
+    paths:
+      - "tools/content_ingestion/**"
+      - "content/source_providers_v1.json"
+      - "tests/content_ingestion_smoke.py"
+      - ".github/workflows/content-ingestion-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Python
+        run: python --version
+
+      - name: Content ingestion smoke
+        run: python tests/content_ingestion_smoke.py
+
+      - name: Compile ingestion tool
+        run: python -m py_compile tools/content_ingestion/ingest.py

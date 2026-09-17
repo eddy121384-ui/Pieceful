@@ -1,0 +1,15 @@
+{
+  "plan_version": 1,
+  "provider": "met",
+  "purpose": "Issue #9 taxonomy stress-test sample: 40 intentionally varied museum image candidates.",
+  "queries": [
+    {"query": "landscape", "target": 5},
+    {"query": "flowers", "target": 5},
+    {"query": "animal", "target": 5},
+    {"query": "portrait", "target": 5},
+    {"query": "architecture", "target": 5},
+    {"query": "night", "target": 5},
+    {"query": "Japan", "target": 5},
+    {"query": "still life", "target": 5}
+  ]
+}
