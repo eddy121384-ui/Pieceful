@@ -45,3 +45,7 @@ jobs:
             $errors | ForEach-Object { Write-Error $_.Message }
             exit 1
           }
+
+      - name: Self-test PowerShell ingestion URL construction
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/content_ingestion/ingest.ps1 -SelfTest
