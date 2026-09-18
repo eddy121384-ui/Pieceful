@@ -9,36 +9,33 @@ echo   Pieceful Content Ingestion
 echo ========================================
 echo.
 
-if not exist "tools\content_ingestion\ingest.py" (
-  echo ERROR: tools\content_ingestion\ingest.py was not found.
-  echo Make sure this file is inside the Pieceful repo.
+if not exist "tools\content_ingestion\ingest.ps1" (
+  echo ERROR: tools\content_ingestion\ingest.ps1 was not found.
+  echo Run git pull, then double-click this file again.
   echo.
   pause
   exit /b 1
 )
 
-set "PY_CMD="
-
-where py >nul 2>nul
-if %errorlevel%==0 (
-  set "PY_CMD=py -3"
-) else (
-  where python >nul 2>nul
-  if %errorlevel%==0 set "PY_CMD=python"
-)
-
-if not defined PY_CMD (
-  echo ERROR: Python 3 was not found.
-  echo Install Python 3, then double-click this file again.
-  echo.
-  pause
-  exit /b 1
+set "PS_CMD=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+if not exist "%PS_CMD%" (
+  where pwsh >nul 2>nul
+  if %errorlevel%==0 (
+    set "PS_CMD=pwsh"
+  ) else (
+    echo ERROR: PowerShell was not found.
+    echo This Windows installation is missing the built-in PowerShell runtime.
+    echo.
+    pause
+    exit /b 1
+  )
 )
 
 echo Running Content Ingestion v0...
+echo No Python installation is required.
 echo.
 
-%PY_CMD% tools\content_ingestion\ingest.py
+"%PS_CMD%" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "tools\content_ingestion\ingest.ps1"
 set "INGEST_EXIT=%errorlevel%"
 
 echo.
