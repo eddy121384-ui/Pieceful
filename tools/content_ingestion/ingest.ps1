@@ -1,7 +1,8 @@
 param(
     [switch]$MetadataOnly,
     [int]$CandidatesPerQuery = 100,
-    [int]$RequestDelayMs = 50
+    [int]$RequestDelayMs = 50,
+    [switch]$SelfTest
 )
 
 $ErrorActionPreference = "Stop"
@@ -16,6 +17,11 @@ $FacetNames = @("subject", "region_culture", "mood", "visual", "style", "scene")
 $RepoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $PlanPath = Join-Path $PSScriptRoot "sample_plan_v0.json"
 $StagingRoot = Join-Path $RepoRoot ".pieceful-content"
+
+function New-MetSearchUrl([string]$Query, [int]$Limit) {
+    $encoded = [uri]::EscapeDataString($Query)
+    return "${MetSearchUrl}?q=${encoded}&hasImages=true&limit=${Limit}&offset=0"
+}
 
 function Get-Json([string]$Url) {
     return Invoke-RestMethod -Uri $Url -Headers @{
@@ -140,6 +146,20 @@ if ($CandidatesPerQuery -lt 1 -or $CandidatesPerQuery -gt 500) {
 if ($RequestDelayMs -lt 0) {
     throw "RequestDelayMs cannot be negative."
 }
+
+if ($SelfTest) {
+    $testUrl = New-MetSearchUrl -Query "still life" -Limit 100
+    $testUri = [uri]$testUrl
+    if ($testUri.Scheme -ne "https" -or $testUri.Host -ne "collectionapi.metmuseum.org") {
+        throw "Met search URL self-test produced an invalid host: $testUrl"
+    }
+    if ($testUrl -notmatch "q=still%20life" -or $testUrl -notmatch "limit=100") {
+        throw "Met search URL self-test produced an invalid query: $testUrl"
+    }
+    Write-Host "PASS PowerShell ingestion URL self-test: $testUrl"
+    exit 0
+}
+
 if (-not (Test-Path $PlanPath)) {
     throw "Sample plan not found: $PlanPath"
 }
@@ -164,8 +184,7 @@ foreach ($row in $plan.queries) {
     Write-Host ""
     Write-Host "Searching The Met: $query (target $target)" -ForegroundColor Cyan
 
-    $encoded = [uri]::EscapeDataString($query)
-    $searchUrl = "$MetSearchUrl?q=$encoded&hasImages=true&limit=$CandidatesPerQuery&offset=0"
+    $searchUrl = New-MetSearchUrl -Query $query -Limit $CandidatesPerQuery
 
     try {
         $search = Get-Json $searchUrl
