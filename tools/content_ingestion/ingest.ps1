@@ -44,13 +44,29 @@ function Get-RetryDelaySeconds([int]$Attempt) {
     return [math]::Min(60, [math]::Max(1, $delay))
 }
 
+function Convert-Utf8JsonBytes([byte[]]$Bytes) {
+    $text = [System.Text.Encoding]::UTF8.GetString($Bytes)
+    return $text | ConvertFrom-Json
+}
+
 function Get-Json([string]$Url) {
     for ($attempt = 0; $attempt -le $MaxRetries; $attempt++) {
         try {
-            return Invoke-RestMethod -Uri $Url -Headers @{
+            $response = Invoke-WebRequest -Uri $Url -UseBasicParsing -Headers @{
                 "User-Agent" = $UserAgent
                 "Accept" = "application/json"
             } -TimeoutSec 30
+
+            $stream = $response.RawContentStream
+            $stream.Position = 0
+            $memory = New-Object System.IO.MemoryStream
+            try {
+                $stream.CopyTo($memory)
+                return Convert-Utf8JsonBytes $memory.ToArray()
+            }
+            finally {
+                $memory.Dispose()
+            }
         }
         catch {
             $status = Get-HttpStatusCode $_
@@ -223,7 +239,17 @@ if ($SelfTest) {
     if ((Get-RetryDelaySeconds 0) -lt 1 -or (Get-RetryDelaySeconds 10) -gt 60) {
         throw "Retry backoff self-test failed."
     }
-    Write-Host "PASS PowerShell ingestion self-test: URL construction and retry backoff validated."
+
+    $utf8Fixture = '{"title":"Koto (箏)","date":"1489–90","creator":"Louis-Rémy"}'
+    $utf8Bytes = [System.Text.Encoding]::UTF8.GetBytes($utf8Fixture)
+    $decodedFixture = Convert-Utf8JsonBytes $utf8Bytes
+    if ($decodedFixture.title -ne "Koto (箏)" -or
+        $decodedFixture.date -ne "1489–90" -or
+        $decodedFixture.creator -ne "Louis-Rémy") {
+        throw "UTF-8 JSON self-test failed."
+    }
+
+    Write-Host "PASS PowerShell ingestion self-test: URL construction, retry backoff, and UTF-8 JSON decoding validated."
     exit 0
 }
 
@@ -247,6 +273,7 @@ New-Item -ItemType Directory -Force -Path $ManifestDir | Out-Null
 $entries = New-Object System.Collections.ArrayList
 $queryResults = New-Object System.Collections.ArrayList
 $seenIds = New-Object 'System.Collections.Generic.HashSet[string]'
+$seenAssetUrls = New-Object 'System.Collections.Generic.HashSet[string]'
 
 if (-not $NoResume) {
     $latestManifest = Get-ChildItem -Path $ManifestDir -Filter "met_sample_*.json" -File -ErrorAction SilentlyContinue |
@@ -274,7 +301,15 @@ if (-not $NoResume) {
                         }
                     }
 
-                    if ($keepEntry -and $seenIds.Add([string]$entry.id)) {
+                    $assetUrl = [string]$entry.asset.remote_game_candidate_url
+                    if ([string]::IsNullOrWhiteSpace($assetUrl)) {
+                        $keepEntry = $false
+                    }
+
+                    if ($keepEntry -and
+                        -not $seenAssetUrls.Contains($assetUrl) -and
+                        $seenIds.Add([string]$entry.id)) {
+                        $null = $seenAssetUrls.Add($assetUrl)
                         $null = $entries.Add($entry)
                     }
                 }
@@ -359,6 +394,12 @@ foreach ($row in $plan.queries) {
 
         if ($null -eq $candidate) { continue }
 
+        $candidateAssetUrl = [string]$candidate.asset.remote_game_candidate_url
+        if ($seenAssetUrls.Contains($candidateAssetUrl)) {
+            Write-Host "  skipped duplicate image asset for $candidateId" -ForegroundColor DarkGray
+            continue
+        }
+
         $relativePath = "processed/met/$candidateId.jpg"
         $candidate.asset.local_game_candidate_path = $relativePath
         $candidate | Add-Member -NotePropertyName ingestion_query -NotePropertyValue $query
@@ -376,6 +417,7 @@ foreach ($row in $plan.queries) {
         }
 
         $null = $seenIds.Add($candidateId)
+        $null = $seenAssetUrls.Add($candidateAssetUrl)
         $null = $entries.Add($candidate)
         $accepted++
         Write-Host "  accepted $candidateId : $($candidate.title)" -ForegroundColor Green
@@ -410,7 +452,13 @@ $manifest = [pscustomobject][ordered]@{
     entries = @($entries)
 }
 
-$manifest | ConvertTo-Json -Depth 12 | Set-Content -Encoding UTF8 $manifestPath
+$manifestJson = $manifest | ConvertTo-Json -Depth 12
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText(
+    $manifestPath,
+    $manifestJson + [Environment]::NewLine,
+    $utf8NoBom
+)
 
 Write-Host ""
 Write-Host "Wrote $($entries.Count)/$expectedTotal entries to:" -ForegroundColor Cyan
