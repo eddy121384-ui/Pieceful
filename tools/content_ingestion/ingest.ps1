@@ -187,6 +187,7 @@ function Convert-MetObject($Payload) {
             remote_game_candidate_url = $gameUrl
             local_game_candidate_path = ""
         }
+        source_metadata_encoding = "utf8_v1"
         source_metadata = [pscustomobject][ordered]@{
             artist_display_name = [string]$Payload.artistDisplayName
             artist_nationality = [string]$Payload.artistNationality
@@ -307,10 +308,32 @@ if (-not $NoResume) {
                     }
 
                     if ($keepEntry -and
-                        -not $seenAssetUrls.Contains($assetUrl) -and
-                        $seenIds.Add([string]$entry.id)) {
-                        $null = $seenAssetUrls.Add($assetUrl)
-                        $null = $entries.Add($entry)
+                        -not $seenAssetUrls.Contains($assetUrl)) {
+
+                        $resumeEntry = $entry
+                        if ([string]$entry.source_metadata_encoding -ne "utf8_v1") {
+                            try {
+                                if ($RequestDelayMs -gt 0) {
+                                    Start-Sleep -Milliseconds $RequestDelayMs
+                                }
+                                $payload = Get-Json ($MetObjectUrl -f $entry.source_item_id)
+                                $refreshed = Convert-MetObject $payload
+                                if ($null -ne $refreshed) {
+                                    $refreshed.asset.local_game_candidate_path = [string]$entry.asset.local_game_candidate_path
+                                    $refreshed | Add-Member -NotePropertyName ingestion_query -NotePropertyValue ([string]$entry.ingestion_query)
+                                    $resumeEntry = $refreshed
+                                    Write-Host "  refreshed UTF-8 metadata for $($entry.id)" -ForegroundColor DarkGray
+                                }
+                            }
+                            catch {
+                                Write-Warning "Could not refresh metadata for $($entry.id); keeping resumed metadata: $($_.Exception.Message)"
+                            }
+                        }
+
+                        if ($seenIds.Add([string]$resumeEntry.id)) {
+                            $null = $seenAssetUrls.Add([string]$resumeEntry.asset.remote_game_candidate_url)
+                            $null = $entries.Add($resumeEntry)
+                        }
                     }
                 }
 
