@@ -1,7 +1,10 @@
 param(
     [switch]$MetadataOnly,
     [int]$CandidatesPerQuery = 100,
-    [int]$RequestDelayMs = 50,
+    [int]$RequestDelayMs = 250,
+    [int]$MaxRetries = 4,
+    [int]$InitialRetrySeconds = 5,
+    [switch]$NoResume,
     [switch]$SelfTest
 )
 
@@ -11,37 +14,92 @@ $ErrorActionPreference = "Stop"
 $MetSearchUrl = "https://collectionapi.metmuseum.org/public/collection/v1.1/search"
 $MetObjectUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/{0}"
 $MetLicenseUrl = "https://www.metmuseum.org/policies/image-resources"
-$UserAgent = "PiecefulContentIngestion/0.1 (+https://github.com/eddy121384-ui/Pieceful)"
+$UserAgent = "PiecefulContentIngestion/0.2 (+https://github.com/eddy121384-ui/Pieceful)"
 $FacetNames = @("subject", "region_culture", "mood", "visual", "style", "scene")
+$RetryableStatusCodes = @(403, 429, 500, 502, 503, 504)
 
 $RepoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $PlanPath = Join-Path $PSScriptRoot "sample_plan_v0.json"
 $StagingRoot = Join-Path $RepoRoot ".pieceful-content"
+$ManifestDir = Join-Path $StagingRoot "manifests"
 
 function New-MetSearchUrl([string]$Query, [int]$Limit) {
     $encoded = [uri]::EscapeDataString($Query)
     return "${MetSearchUrl}?q=${encoded}&hasImages=true&limit=${Limit}&offset=0"
 }
 
+function Get-HttpStatusCode($ErrorRecord) {
+    try {
+        if ($null -ne $ErrorRecord.Exception.Response -and
+            $null -ne $ErrorRecord.Exception.Response.StatusCode) {
+            return [int]$ErrorRecord.Exception.Response.StatusCode
+        }
+    }
+    catch {}
+    return $null
+}
+
+function Get-RetryDelaySeconds([int]$Attempt) {
+    $delay = [int]($InitialRetrySeconds * [math]::Pow(2, $Attempt))
+    return [math]::Min(60, [math]::Max(1, $delay))
+}
+
 function Get-Json([string]$Url) {
-    return Invoke-RestMethod -Uri $Url -Headers @{
-        "User-Agent" = $UserAgent
-        "Accept" = "application/json"
-    } -TimeoutSec 30
+    for ($attempt = 0; $attempt -le $MaxRetries; $attempt++) {
+        try {
+            return Invoke-RestMethod -Uri $Url -Headers @{
+                "User-Agent" = $UserAgent
+                "Accept" = "application/json"
+            } -TimeoutSec 30
+        }
+        catch {
+            $status = Get-HttpStatusCode $_
+            $canRetry = ($attempt -lt $MaxRetries) -and ($RetryableStatusCodes -contains $status)
+            if (-not $canRetry) {
+                throw
+            }
+            $delay = Get-RetryDelaySeconds $attempt
+            Write-Warning "The Met returned HTTP $status. Cooling down for $delay second(s), then retrying ($($attempt + 1)/$MaxRetries)..."
+            Start-Sleep -Seconds $delay
+        }
+    }
 }
 
 function Download-File([string]$Url, [string]$Destination) {
     $parent = Split-Path -Parent $Destination
     New-Item -ItemType Directory -Force -Path $parent | Out-Null
+
+    if ((Test-Path $Destination) -and (Get-Item $Destination).Length -gt 0) {
+        return
+    }
+
     $tmp = "$Destination.tmp"
     try {
-        Invoke-WebRequest -Uri $Url -OutFile $tmp -UseBasicParsing -Headers @{
-            "User-Agent" = $UserAgent
-        } -TimeoutSec 60
-        if (-not (Test-Path $tmp) -or (Get-Item $tmp).Length -le 0) {
-            throw "Downloaded file is empty: $Url"
+        for ($attempt = 0; $attempt -le $MaxRetries; $attempt++) {
+            try {
+                Invoke-WebRequest -Uri $Url -OutFile $tmp -UseBasicParsing -Headers @{
+                    "User-Agent" = $UserAgent
+                } -TimeoutSec 60
+                if (-not (Test-Path $tmp) -or (Get-Item $tmp).Length -le 0) {
+                    throw "Downloaded file is empty: $Url"
+                }
+                Move-Item -Force $tmp $Destination
+                return
+            }
+            catch {
+                if (Test-Path $tmp) {
+                    Remove-Item -Force $tmp -ErrorAction SilentlyContinue
+                }
+                $status = Get-HttpStatusCode $_
+                $canRetry = ($attempt -lt $MaxRetries) -and ($RetryableStatusCodes -contains $status)
+                if (-not $canRetry) {
+                    throw
+                }
+                $delay = Get-RetryDelaySeconds $attempt
+                Write-Warning "Image server returned HTTP $status. Cooling down for $delay second(s), then retrying ($($attempt + 1)/$MaxRetries)..."
+                Start-Sleep -Seconds $delay
+            }
         }
-        Move-Item -Force $tmp $Destination
     }
     finally {
         if (Test-Path $tmp) {
@@ -146,6 +204,12 @@ if ($CandidatesPerQuery -lt 1 -or $CandidatesPerQuery -gt 500) {
 if ($RequestDelayMs -lt 0) {
     throw "RequestDelayMs cannot be negative."
 }
+if ($MaxRetries -lt 0 -or $MaxRetries -gt 10) {
+    throw "MaxRetries must be between 0 and 10."
+}
+if ($InitialRetrySeconds -lt 1 -or $InitialRetrySeconds -gt 60) {
+    throw "InitialRetrySeconds must be between 1 and 60."
+}
 
 if ($SelfTest) {
     $testUrl = New-MetSearchUrl -Query "still life" -Limit 100
@@ -156,7 +220,10 @@ if ($SelfTest) {
     if ($testUrl -notmatch "q=still%20life" -or $testUrl -notmatch "limit=100") {
         throw "Met search URL self-test produced an invalid query: $testUrl"
     }
-    Write-Host "PASS PowerShell ingestion URL self-test: $testUrl"
+    if ((Get-RetryDelaySeconds 0) -lt 1 -or (Get-RetryDelaySeconds 10) -gt 60) {
+        throw "Retry backoff self-test failed."
+    }
+    Write-Host "PASS PowerShell ingestion self-test: URL construction and retry backoff validated."
     exit 0
 }
 
@@ -169,20 +236,84 @@ if ($plan.provider -ne "met") {
     throw "Content Ingestion v0 currently implements provider=met only."
 }
 
+$expectedTotal = 0
+foreach ($row in $plan.queries) {
+    $expectedTotal += [int]$row.target
+}
+
 New-Item -ItemType Directory -Force -Path $StagingRoot | Out-Null
+New-Item -ItemType Directory -Force -Path $ManifestDir | Out-Null
+
 $entries = New-Object System.Collections.ArrayList
 $queryResults = New-Object System.Collections.ArrayList
 $seenIds = New-Object 'System.Collections.Generic.HashSet[string]'
 
+if (-not $NoResume) {
+    $latestManifest = Get-ChildItem -Path $ManifestDir -Filter "met_sample_*.json" -File -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTimeUtc -Descending |
+        Select-Object -First 1
+
+    if ($null -ne $latestManifest) {
+        try {
+            $previous = Get-Content -Raw -Encoding UTF8 $latestManifest.FullName | ConvertFrom-Json
+            if ($previous.kind -eq "pieceful_content_ingestion_manifest" -and $previous.provider -eq "met") {
+                foreach ($entry in @($previous.entries)) {
+                    if ($null -eq $entry -or [string]::IsNullOrWhiteSpace([string]$entry.id)) {
+                        continue
+                    }
+
+                    $keepEntry = $true
+                    if (-not $MetadataOnly) {
+                        $relativePath = [string]$entry.asset.local_game_candidate_path
+                        if ([string]::IsNullOrWhiteSpace($relativePath)) {
+                            $keepEntry = $false
+                        }
+                        else {
+                            $localPath = Join-Path $StagingRoot ($relativePath -replace "/", "\")
+                            $keepEntry = (Test-Path $localPath) -and ((Get-Item $localPath).Length -gt 0)
+                        }
+                    }
+
+                    if ($keepEntry -and $seenIds.Add([string]$entry.id)) {
+                        $null = $entries.Add($entry)
+                    }
+                }
+
+                if ($entries.Count -gt 0) {
+                    Write-Host "Resuming from $($latestManifest.Name) with $($entries.Count)/$expectedTotal accepted item(s)." -ForegroundColor Yellow
+                }
+            }
+        }
+        catch {
+            Write-Warning "Could not resume from $($latestManifest.Name): $($_.Exception.Message)"
+        }
+    }
+}
+
 foreach ($row in $plan.queries) {
     $query = [string]$row.query
     $target = [int]$row.target
-    $accepted = 0
+    $acceptedBefore = @($entries | Where-Object { [string]$_.ingestion_query -eq $query }).Count
+    $accepted = $acceptedBefore
     $inspected = 0
     $errors = 0
 
     Write-Host ""
-    Write-Host "Searching The Met: $query (target $target)" -ForegroundColor Cyan
+    Write-Host "Searching The Met: $query (target $target, already have $acceptedBefore)" -ForegroundColor Cyan
+
+    if ($accepted -ge $target) {
+        Write-Host "  already complete; skipping API search." -ForegroundColor DarkGray
+        $null = $queryResults.Add([pscustomobject]@{
+            query = $query
+            target = $target
+            accepted = $accepted
+            resumed = $acceptedBefore
+            newly_accepted = 0
+            inspected = 0
+            errors = 0
+        })
+        continue
+    }
 
     $searchUrl = New-MetSearchUrl -Query $query -Limit $CandidatesPerQuery
 
@@ -193,7 +324,13 @@ foreach ($row in $plan.queries) {
     catch {
         Write-Warning "Search failed for '$query': $($_.Exception.Message)"
         $null = $queryResults.Add([pscustomobject]@{
-            query = $query; target = $target; accepted = 0; inspected = 0; errors = 1
+            query = $query
+            target = $target
+            accepted = $accepted
+            resumed = $acceptedBefore
+            newly_accepted = 0
+            inspected = 0
+            errors = 1
         })
         continue
     }
@@ -248,15 +385,15 @@ foreach ($row in $plan.queries) {
         query = $query
         target = $target
         accepted = $accepted
+        resumed = $acceptedBefore
+        newly_accepted = ($accepted - $acceptedBefore)
         inspected = $inspected
         errors = $errors
     })
 }
 
 $stamp = (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ")
-$manifestDir = Join-Path $StagingRoot "manifests"
-New-Item -ItemType Directory -Force -Path $manifestDir | Out-Null
-$manifestPath = Join-Path $manifestDir "met_sample_$stamp.json"
+$manifestPath = Join-Path $ManifestDir "met_sample_$stamp.json"
 
 $manifest = [pscustomobject][ordered]@{
     schema_version = 1
@@ -266,6 +403,9 @@ $manifest = [pscustomobject][ordered]@{
     taxonomy_status = "authoring_unresolved"
     download_mode = $(if ($MetadataOnly) { "metadata_only" } else { "game_candidate" })
     plan_version = [int]$plan.plan_version
+    expected_total = $expectedTotal
+    accepted_total = $entries.Count
+    complete = ($entries.Count -ge $expectedTotal)
     query_results = @($queryResults)
     entries = @($entries)
 }
@@ -273,12 +413,19 @@ $manifest = [pscustomobject][ordered]@{
 $manifest | ConvertTo-Json -Depth 12 | Set-Content -Encoding UTF8 $manifestPath
 
 Write-Host ""
-Write-Host "Wrote $($entries.Count) entries to:" -ForegroundColor Cyan
+Write-Host "Wrote $($entries.Count)/$expectedTotal entries to:" -ForegroundColor Cyan
 Write-Host "  $manifestPath"
 
 if ($entries.Count -eq 0) {
-    throw "No rights-safe image candidates were accepted."
+    Write-Error "No rights-safe image candidates were accepted."
+    exit 3
+}
+
+if ($entries.Count -lt $expectedTotal) {
+    Write-Warning "Partial ingestion: $($entries.Count)/$expectedTotal accepted. Wait a little, then run the launcher again; it will resume instead of starting over."
+    exit 4
 }
 
 Write-Host ""
-Write-Host "Content ingestion finished successfully." -ForegroundColor Green
+Write-Host "Content ingestion completed: $($entries.Count)/$expectedTotal accepted." -ForegroundColor Green
+exit 0
