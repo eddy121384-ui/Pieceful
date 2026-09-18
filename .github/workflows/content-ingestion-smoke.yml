@@ -9,6 +9,7 @@ on:
       - "tools/content_ingestion/**"
       - "content/source_providers_v1.json"
       - "tests/content_ingestion_smoke.py"
+      - "RUN_CONTENT_INGESTION.bat"
       - ".github/workflows/content-ingestion-smoke.yml"
   workflow_dispatch:
 
@@ -28,5 +29,19 @@ jobs:
       - name: Content ingestion smoke
         run: python tests/content_ingestion_smoke.py
 
-      - name: Compile ingestion tool
+      - name: Compile Python ingestion tool
         run: python -m py_compile tools/content_ingestion/ingest.py
+
+      - name: Parse PowerShell ingestion tool
+        shell: pwsh
+        run: |
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path "tools/content_ingestion/ingest.ps1"),
+            [ref]$null,
+            [ref]$errors
+          )
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
