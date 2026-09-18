@@ -167,6 +167,7 @@ def ingest_met(
 ) -> dict[str, Any]:
     entries: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
+    seen_asset_urls: set[str] = set()
     query_results: list[dict[str, Any]] = []
 
     for row in plan["queries"]:
@@ -204,6 +205,11 @@ def ingest_met(
             if candidate is None:
                 continue
 
+            candidate_asset_url = candidate["asset"]["remote_game_candidate_url"]
+            if candidate_asset_url in seen_asset_urls:
+                print(f"skipped duplicate image asset for {candidate_id}")
+                continue
+
             local_rel = Path("processed") / "met" / f"{candidate_id}.jpg"
             candidate["asset"]["local_game_candidate_path"] = local_rel.as_posix()
             candidate["ingestion_query"] = query
@@ -220,6 +226,7 @@ def ingest_met(
                     continue
 
             seen_ids.add(candidate_id)
+            seen_asset_urls.add(candidate_asset_url)
             entries.append(candidate)
             accepted += 1
             print(f"accepted {candidate_id}: {candidate['title']}")
