@@ -1,0 +1,750 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_runtime_asset_manifest",
+  "provider": "met",
+  "asset_version": 1,
+  "puzzle_long_edge": 1800,
+  "thumbnail_long_edge": 420,
+  "jpeg_quality": {
+    "puzzle": 88,
+    "thumbnail": 82
+  },
+  "materialized_count": 35,
+  "entries": [
+    {
+      "id": "met_10181",
+      "source_item_id": "10181",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/ap29.35.jpg",
+      "source_width": 2463,
+      "source_height": 1759,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_10181.jpg",
+        "width": 1800,
+        "height": 1286,
+        "bytes": 695464,
+        "sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10181.jpg",
+        "width": 420,
+        "height": 300,
+        "bytes": 34278,
+        "sha256": "8a4122f67245133addb2a7b13e804c1f7c6f1dbbe41582c79b5e67d911be7130"
+      }
+    },
+    {
+      "id": "met_359362",
+      "source_item_id": "359362",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP815958.jpg",
+      "source_width": 3869,
+      "source_height": 2896,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_359362.jpg",
+        "width": 1800,
+        "height": 1347,
+        "bytes": 585863,
+        "sha256": "bc432477e887045db110d318d83d19cee990de254e7edb350df3d11137a23a73"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_359362.jpg",
+        "width": 420,
+        "height": 314,
+        "bytes": 24133,
+        "sha256": "8d73234493435cb7e1ccf12ed8fd76be0a8b23527fa167d2607434d7a40691fb"
+      }
+    },
+    {
+      "id": "met_335112",
+      "source_item_id": "335112",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP801186.jpg",
+      "source_width": 3934,
+      "source_height": 2563,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_335112.jpg",
+        "width": 1800,
+        "height": 1173,
+        "bytes": 547510,
+        "sha256": "5b6c3305f6cc74a0cec7d572e0d304ce47fe4ea5ea3821f9c280e8a000482660"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_335112.jpg",
+        "width": 420,
+        "height": 274,
+        "bytes": 21033,
+        "sha256": "7671c1763bc068312ae11ee4a800870f5b9d2080b921c335aeffe7bcb39f3b7b"
+      }
+    },
+    {
+      "id": "met_11181",
+      "source_item_id": "11181",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/06.170.jpg",
+      "source_width": 680,
+      "source_height": 543,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_11181.jpg",
+        "width": 680,
+        "height": 543,
+        "bytes": 106563,
+        "sha256": "62a2b04baa4d2340013f31ce6af192d64f5828d6db46ad4217524dfecc77250d"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_11181.jpg",
+        "width": 420,
+        "height": 335,
+        "bytes": 31059,
+        "sha256": "d37405920ab18c13a0b779627a7f9f3b37a05e85176f61d4a5f082e61a3673fb"
+      }
+    },
+    {
+      "id": "met_394043",
+      "source_item_id": "394043",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/1934.jpg",
+      "source_width": 513,
+      "source_height": 700,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_394043.jpg",
+        "width": 513,
+        "height": 700,
+        "bytes": 92467,
+        "sha256": "3d71b49cb22dd9d377fbae50e28804a697b1a7b260346004ec8c8196dc5d0d4f"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394043.jpg",
+        "width": 308,
+        "height": 420,
+        "bytes": 31790,
+        "sha256": "b3de9fa6c161985661815c8b7eb8a7c220d3f3a43d8afa74f4d2b7983b929a0d"
+      }
+    },
+    {
+      "id": "met_438031",
+      "source_item_id": "438031",
+      "source_url": "https://images.metmuseum.org/CRDImages/ep/original/DT4204.jpg",
+      "source_width": 3807,
+      "source_height": 3119,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_438031.jpg",
+        "width": 1800,
+        "height": 1475,
+        "bytes": 947179,
+        "sha256": "c525273972f04d3c8545694f4d906afe7ad8a4b76b3c377727c972113c18b193"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_438031.jpg",
+        "width": 420,
+        "height": 344,
+        "bytes": 34485,
+        "sha256": "1506dab7409839d8530e9f9516a38a383b1f9709c3584ae8aa069febf63dd194"
+      }
+    },
+    {
+      "id": "met_12802",
+      "source_item_id": "12802",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/ap1984.252.1.jpg",
+      "source_width": 2541,
+      "source_height": 1569,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_12802.jpg",
+        "width": 1800,
+        "height": 1111,
+        "bytes": 505386,
+        "sha256": "4d286f96d473c36d0005d828066a9bf9974533452befef3a19f31161d9735228"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_12802.jpg",
+        "width": 420,
+        "height": 259,
+        "bytes": 18090,
+        "sha256": "741f37c926961870da7fc83d7f29286767cc54b8228dc8677b2085fc75ace616"
+      }
+    },
+    {
+      "id": "met_312624",
+      "source_item_id": "312624",
+      "source_url": "https://images.metmuseum.org/CRDImages/ao/original/1979.206.404.JPG",
+      "source_width": 2366,
+      "source_height": 2132,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_312624.jpg",
+        "width": 1800,
+        "height": 1622,
+        "bytes": 299939,
+        "sha256": "5cc2145bfe4a259c3bc930fbcea0e0ea2b1fac9a629ac69b43f2994ebc76cadf"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_312624.jpg",
+        "width": 420,
+        "height": 378,
+        "bytes": 19294,
+        "sha256": "ad1f3c358e75dd358b629ce83e39c34a6862fce27a57036485b9b765bf4992d8"
+      }
+    },
+    {
+      "id": "met_478746",
+      "source_item_id": "478746",
+      "source_url": "https://images.metmuseum.org/CRDImages/md/original/cop0467s1.jpg",
+      "source_width": 2351,
+      "source_height": 1820,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_478746.jpg",
+        "width": 1800,
+        "height": 1393,
+        "bytes": 442423,
+        "sha256": "dec4f86bee552c8df40b64fc199062eed0ab374add82cf1013b2eaa96653a938"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_478746.jpg",
+        "width": 420,
+        "height": 325,
+        "bytes": 19614,
+        "sha256": "66484394911db2beb37c51c7dc5197a63c167366ac9c131309046abefe800a02"
+      }
+    },
+    {
+      "id": "met_478425",
+      "source_item_id": "478425",
+      "source_url": "https://images.metmuseum.org/CRDImages/md/original/cop0240.jpg",
+      "source_width": 2560,
+      "source_height": 1920,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_478425.jpg",
+        "width": 1800,
+        "height": 1350,
+        "bytes": 304799,
+        "sha256": "fed0b632c3c04861a4fb8c2d9d67b42a522d77b3d3174ed0ec6c50262bcc4494"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_478425.jpg",
+        "width": 420,
+        "height": 315,
+        "bytes": 14506,
+        "sha256": "41e7aa5728bcf1cb16575a8691542847b0da5b98ceb77c041e5378591b0abf8e"
+      }
+    },
+    {
+      "id": "met_226943",
+      "source_item_id": "226943",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/127800.jpg",
+      "source_width": 2257,
+      "source_height": 2665,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_226943.jpg",
+        "width": 1524,
+        "height": 1800,
+        "bytes": 908481,
+        "sha256": "3a292aafd2ebac6cb8c5b58e4f33a42a053ee192ca624f8cfb420982d7b5899d"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_226943.jpg",
+        "width": 356,
+        "height": 420,
+        "bytes": 37568,
+        "sha256": "2d687f4ab2959bb3c6cb6b2476ac06858b881de59148c7937ff409bfabffff66"
+      }
+    },
+    {
+      "id": "met_191566",
+      "source_item_id": "191566",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/17618.jpg",
+      "source_width": 1504,
+      "source_height": 1948,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_191566.jpg",
+        "width": 1390,
+        "height": 1800,
+        "bytes": 301929,
+        "sha256": "9c2dce24a6836aed2b627eae98ee3ba46da0e476707375d3808375ab8e33e303"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_191566.jpg",
+        "width": 324,
+        "height": 420,
+        "bytes": 18980,
+        "sha256": "bfb450f8353d45a70cebfe338aa2bfd1839a65604fcf3e7b630f657e5b89d6df"
+      }
+    },
+    {
+      "id": "met_191567",
+      "source_item_id": "191567",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/17619.jpg",
+      "source_width": 1472,
+      "source_height": 1928,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_191567.jpg",
+        "width": 1374,
+        "height": 1800,
+        "bytes": 314730,
+        "sha256": "0afc5c13cc0bc6b716620d575d599dc992a69da86024dc048be2d8f4e2ef0865"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_191567.jpg",
+        "width": 321,
+        "height": 420,
+        "bytes": 20327,
+        "sha256": "010356c41c7fccf31f8ff8aeeeef2be0e5d7ae7081790339b3f14a465b11a75b"
+      }
+    },
+    {
+      "id": "met_340070",
+      "source_item_id": "340070",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP802992.jpg",
+      "source_width": 2872,
+      "source_height": 3623,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_340070.jpg",
+        "width": 1427,
+        "height": 1800,
+        "bytes": 570367,
+        "sha256": "f390a4fa43808594aea59db484192ea2f3299a70fdaed2e50cf2f556a774200d"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_340070.jpg",
+        "width": 333,
+        "height": 420,
+        "bytes": 24218,
+        "sha256": "bf5612ac726b348167ab9a80a8c75e4cc58b681f781a8a93b0e0329a03a5a0ec"
+      }
+    },
+    {
+      "id": "met_21209",
+      "source_item_id": "21209",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/DP701353.jpg",
+      "source_width": 2725,
+      "source_height": 3872,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_21209.jpg",
+        "width": 1267,
+        "height": 1800,
+        "bytes": 313447,
+        "sha256": "45fdb4ed94d69433cd9acbafa72fcb3f91c7138b909d7bc25cd90bdbd3072b3d"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_21209.jpg",
+        "width": 296,
+        "height": 420,
+        "bytes": 14699,
+        "sha256": "545abafb57935b2e35dc0661a1c6ebad122c5d55c45fe73142b0504ecda1205c"
+      }
+    },
+    {
+      "id": "met_399581",
+      "source_item_id": "399581",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP841055.jpg",
+      "source_width": 3593,
+      "source_height": 2482,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_399581.jpg",
+        "width": 1800,
+        "height": 1243,
+        "bytes": 575300,
+        "sha256": "2b59146f4a74e965464b11e34c4e6c26bb80fee31489b92a77bd3aaa7138145f"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_399581.jpg",
+        "width": 420,
+        "height": 290,
+        "bytes": 25503,
+        "sha256": "29b65d44620b39335edd81bb5eb68203946c169969cd9f6144f1218107c4a35c"
+      }
+    },
+    {
+      "id": "met_202696",
+      "source_item_id": "202696",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/ES4785.jpg",
+      "source_width": 1772,
+      "source_height": 1124,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_202696.jpg",
+        "width": 1772,
+        "height": 1124,
+        "bytes": 377825,
+        "sha256": "60745622169418b1f643dbceb237d97d9b73e4fa198ea58e64218a53ad982dea"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_202696.jpg",
+        "width": 420,
+        "height": 266,
+        "bytes": 22727,
+        "sha256": "958901a991130698dbd919341ceca1b3e397e2e9fd4b46d3c070d97d0aa5f56a"
+      }
+    },
+    {
+      "id": "met_399347",
+      "source_item_id": "399347",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP834098.jpg",
+      "source_width": 2221,
+      "source_height": 3087,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_399347.jpg",
+        "width": 1295,
+        "height": 1800,
+        "bytes": 856021,
+        "sha256": "ee20af5081e002469aef1063c918ef33bd5685a50b63a06eec0419753c97d47c"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_399347.jpg",
+        "width": 302,
+        "height": 420,
+        "bytes": 36670,
+        "sha256": "b014c53a3fd153d6f2c53783e53610fe1cf27fb46dbbaa622cf4be4d4c323745"
+      }
+    },
+    {
+      "id": "met_394310",
+      "source_item_id": "394310",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP825975.jpg",
+      "source_width": 3847,
+      "source_height": 2724,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_394310.jpg",
+        "width": 1800,
+        "height": 1275,
+        "bytes": 700322,
+        "sha256": "222ac7f96f7cf10e7f03f8ec5a9595902b0165470d286c1c8c4094dd5ef115cf"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394310.jpg",
+        "width": 420,
+        "height": 297,
+        "bytes": 25993,
+        "sha256": "bd42abcb93b2b203190facbb2b6a45e817c3b6bcc3cccdbb544b52a0c0345265"
+      }
+    },
+    {
+      "id": "met_394709",
+      "source_item_id": "394709",
+      "source_url": "https://images.metmuseum.org/CRDImages/dp/original/DP826240.jpg",
+      "source_width": 3558,
+      "source_height": 2535,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_394709.jpg",
+        "width": 1800,
+        "height": 1282,
+        "bytes": 688083,
+        "sha256": "71cc38161c14ac8ff69fc86b3673f861f09a51c38dc420070a06ee9168dd7d7d"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394709.jpg",
+        "width": 420,
+        "height": 299,
+        "bytes": 27646,
+        "sha256": "fd29fbf10ce85ce7ae9aa2f17d2b2bef3777e840efe60a8ed275e2c1f38b8487"
+      }
+    },
+    {
+      "id": "met_5410",
+      "source_item_id": "5410",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/192563.jpg",
+      "source_width": 1580,
+      "source_height": 2424,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_5410.jpg",
+        "width": 1173,
+        "height": 1800,
+        "bytes": 223546,
+        "sha256": "72e7f15464582cb05f0b1ab3fcafe7fc37f9b74609ee9b53c5ae38546bb28f6c"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_5410.jpg",
+        "width": 274,
+        "height": 420,
+        "bytes": 15050,
+        "sha256": "952d1013aed04e12ce6f333f47d71d10764484fdf0ae53da39933e6b482ce469"
+      }
+    },
+    {
+      "id": "met_221706",
+      "source_item_id": "221706",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/DP159780.jpg",
+      "source_width": 4000,
+      "source_height": 2953,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_221706.jpg",
+        "width": 1800,
+        "height": 1329,
+        "bytes": 518278,
+        "sha256": "d0ee3703bf12c29e594a67da46d0c56ca76dcc0976e8309c5a58468a315f0d44"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_221706.jpg",
+        "width": 420,
+        "height": 310,
+        "bytes": 23921,
+        "sha256": "bf3d85f9ffbe8d434122d7b572a4f6c7eb8dee1e6b8ca8a795dfa6eacf66cf5a"
+      }
+    },
+    {
+      "id": "met_54393",
+      "source_item_id": "54393",
+      "source_url": "https://images.metmuseum.org/CRDImages/as/original/DP143400.jpg",
+      "source_width": 3226,
+      "source_height": 3520,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_54393.jpg",
+        "width": 1650,
+        "height": 1800,
+        "bytes": 802094,
+        "sha256": "20c4760e82a00e808963efc2fd1c29287b878cede548aa5ba1518d10251d0bc7"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54393.jpg",
+        "width": 385,
+        "height": 420,
+        "bytes": 40017,
+        "sha256": "7d7659bc0805122c637e20dac77da56c030afd235e684a74ee65c9a81eda9f8c"
+      }
+    },
+    {
+      "id": "met_215356",
+      "source_item_id": "215356",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/4572.jpg",
+      "source_width": 1485,
+      "source_height": 2000,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_215356.jpg",
+        "width": 1336,
+        "height": 1800,
+        "bytes": 579484,
+        "sha256": "26a85faad4b9d29be35757611f5ab0c28f835c775b7180aa9e89e69c74e0209c"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_215356.jpg",
+        "width": 312,
+        "height": 420,
+        "bytes": 25725,
+        "sha256": "c2120bb27a9153a0359c8c55831ddadb6e4b72052b1e85ec738f62252fe0733b"
+      }
+    },
+    {
+      "id": "met_228950",
+      "source_item_id": "228950",
+      "source_url": "https://images.metmuseum.org/CRDImages/es/original/DP159788.jpg",
+      "source_width": 4000,
+      "source_height": 3000,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_228950.jpg",
+        "width": 1800,
+        "height": 1350,
+        "bytes": 352249,
+        "sha256": "c730174d51fee9aa9079b36b4d4d5da4d86890d0b3657c44c539a2bfdbd08996"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_228950.jpg",
+        "width": 420,
+        "height": 315,
+        "bytes": 17475,
+        "sha256": "6f2f17e59dfa3c4a9c7d539c068f910e5014114923e8e2db1466af7779376e4a"
+      }
+    },
+    {
+      "id": "met_505626",
+      "source_item_id": "505626",
+      "source_url": "https://images.metmuseum.org/CRDImages/mi/original/DP148476.jpg",
+      "source_width": 4000,
+      "source_height": 2539,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_505626.jpg",
+        "width": 1800,
+        "height": 1143,
+        "bytes": 305516,
+        "sha256": "87a8057ccc2f5baa88514781e29f3700e0fd4b2da4573672288bf43607fc7bb5"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_505626.jpg",
+        "width": 420,
+        "height": 267,
+        "bytes": 19206,
+        "sha256": "cf0f5b52a092fbfa628165d057299902b5e4f94a8ebcac6a79b0ded32ff51ea5"
+      }
+    },
+    {
+      "id": "met_728305",
+      "source_item_id": "728305",
+      "source_url": "https://images.metmuseum.org/CRDImages/ph/original/DP-17301-116.jpg",
+      "source_width": 4000,
+      "source_height": 3148,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_728305.jpg",
+        "width": 1800,
+        "height": 1417,
+        "bytes": 391889,
+        "sha256": "fbc75f20a662a9683d95a90d262e667ec11e89c306848d21e48414c62dd3da01"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_728305.jpg",
+        "width": 420,
+        "height": 331,
+        "bytes": 20091,
+        "sha256": "f15ec00a6e0fec6a2652629ea31bf61613733bfe800f5fcb94cf1aa26e6c3f3f"
+      }
+    },
+    {
+      "id": "met_764802",
+      "source_item_id": "764802",
+      "source_url": "https://images.metmuseum.org/CRDImages/ph/original/DP-15801-105.jpg",
+      "source_width": 3172,
+      "source_height": 2045,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_764802.jpg",
+        "width": 1800,
+        "height": 1160,
+        "bytes": 448805,
+        "sha256": "7e4cc05d4cb397d7d98943d39abad09b78e93a0ff335c7d6c749b41f1093347f"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_764802.jpg",
+        "width": 420,
+        "height": 271,
+        "bytes": 21460,
+        "sha256": "b0186da56515624217e4b15aa0885f42c3c81e330b06ddc948961a4cbac4e86b"
+      }
+    },
+    {
+      "id": "met_10189",
+      "source_item_id": "10189",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/DT210801.jpg",
+      "source_width": 3807,
+      "source_height": 3103,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_10189.jpg",
+        "width": 1800,
+        "height": 1467,
+        "bytes": 770240,
+        "sha256": "1b9e252b35ff02252fab96b62d84d9d7781bfee9276b8ac816b5604847b41e51"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10189.jpg",
+        "width": 420,
+        "height": 342,
+        "bytes": 40071,
+        "sha256": "8767afada8665e80f8b3b1751ba6e61f1ee637e2f65efe494141b57f3f47ba44"
+      }
+    },
+    {
+      "id": "met_436305",
+      "source_item_id": "436305",
+      "source_url": "https://images.metmuseum.org/CRDImages/ep/original/DP-25893-001.jpg",
+      "source_width": 4000,
+      "source_height": 3120,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_436305.jpg",
+        "width": 1800,
+        "height": 1404,
+        "bytes": 453858,
+        "sha256": "e4c4386a55e201b55389476d0a8d8c31c2f9c8784a05136c8cb0b8535149369e"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_436305.jpg",
+        "width": 420,
+        "height": 328,
+        "bytes": 21059,
+        "sha256": "f0200ba3468aafae4041f32d11543e917d934bac04abd2cb00301191dbba50bf"
+      }
+    },
+    {
+      "id": "met_10996",
+      "source_item_id": "10996",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/ap67.155.1.jpg",
+      "source_width": 2137,
+      "source_height": 1771,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_10996.jpg",
+        "width": 1800,
+        "height": 1492,
+        "bytes": 798549,
+        "sha256": "9a5ec0407887e3a5176653c43b3ebc7abefe510f14d7b41392d133211d072489"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10996.jpg",
+        "width": 420,
+        "height": 348,
+        "bytes": 28342,
+        "sha256": "05f1293f259d558556760776a7085524e30e9701fe788b4d18b0b59cb164b12a"
+      }
+    },
+    {
+      "id": "met_286248",
+      "source_item_id": "286248",
+      "source_url": "https://images.metmuseum.org/CRDImages/ph/original/DP214798.jpg",
+      "source_width": 2848,
+      "source_height": 4000,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_286248.jpg",
+        "width": 1282,
+        "height": 1800,
+        "bytes": 349002,
+        "sha256": "f67a325cd3feae2c8f010f9b6105ff60e4b8096a89deb448531f2b5000476f36"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_286248.jpg",
+        "width": 299,
+        "height": 420,
+        "bytes": 16708,
+        "sha256": "d99642ba82ed69cc94ad440f942a35619d35eaf4cd435841794858b87b2e2e21"
+      }
+    },
+    {
+      "id": "met_898372",
+      "source_item_id": "898372",
+      "source_url": "https://images.metmuseum.org/CRDImages/ad/original/DP-29793-001.jpg",
+      "source_width": 3743,
+      "source_height": 4000,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_898372.jpg",
+        "width": 1684,
+        "height": 1800,
+        "bytes": 647801,
+        "sha256": "98dbb27595504e253958477763c657d88f71c141429f08878579b8740f1624bb"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_898372.jpg",
+        "width": 393,
+        "height": 420,
+        "bytes": 22221,
+        "sha256": "0dd2c73385951ce10fa55690ffdd8f4d8c625f6f4836e2e79a4d25b2d40f3b53"
+      }
+    },
+    {
+      "id": "met_54333",
+      "source_item_id": "54333",
+      "source_url": "https://images.metmuseum.org/CRDImages/as/original/DP143992.jpg",
+      "source_width": 3198,
+      "source_height": 3644,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_54333.jpg",
+        "width": 1580,
+        "height": 1800,
+        "bytes": 731599,
+        "sha256": "f16a798f881d74218401e6cd85c3410ee802f057294839c23d0a72299b003a0a"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54333.jpg",
+        "width": 369,
+        "height": 420,
+        "bytes": 27015,
+        "sha256": "a42f99ef5308302c60ffbb8026fcd44e69ffe7729c6f4292a0343b9b9acfa28c"
+      }
+    },
+    {
+      "id": "met_54988",
+      "source_item_id": "54988",
+      "source_url": "https://images.metmuseum.org/CRDImages/as/original/DP138328.jpg",
+      "source_width": 3832,
+      "source_height": 2967,
+      "puzzle": {
+        "path": "assets/museum/met_v0/puzzles/met_54988.jpg",
+        "width": 1800,
+        "height": 1394,
+        "bytes": 486391,
+        "sha256": "c00d30e47a8d1f4bd290da37de537ed81130d044731f54565c54a6c1d5cc9ae9"
+      },
+      "thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54988.jpg",
+        "width": 420,
+        "height": 325,
+        "bytes": 19302,
+        "sha256": "e565095dbdcb181d8b5548f5f5dbabec2a2067e32666e34f2ba9ea142abf60b6"
+      }
+    }
+  ]
+}
