@@ -905,14 +905,14 @@
         "puzzle": {
           "width": 513,
           "height": 700,
-          "bytes": 92467,
-          "sha256": "3d71b49cb22dd9d377fbae50e28804a697b1a7b260346004ec8c8196dc5d0d4f"
+          "bytes": 92434,
+          "sha256": "dc2d8fa662b31aa395373d2d2d6f2b0cb94592c1f6663f9ec7def64a1200e1a8"
         },
         "thumbnail": {
           "width": 308,
           "height": 420,
-          "bytes": 31790,
-          "sha256": "b3de9fa6c161985661815c8b7eb8a7c220d3f3a43d8afa74f4d2b7983b929a0d"
+          "bytes": 31757,
+          "sha256": "798b48f825dcd5939a08a497889a445a6d0508be1b471651579f5abb32ec8abc"
         }
       }
     },
@@ -1292,14 +1292,14 @@
         "puzzle": {
           "width": 1800,
           "height": 1622,
-          "bytes": 299939,
-          "sha256": "5cc2145bfe4a259c3bc930fbcea0e0ea2b1fac9a629ac69b43f2994ebc76cadf"
+          "bytes": 299906,
+          "sha256": "5cad2f18fb6453f622830c779bd15aa372f35b1742408934901d1ee51d1777be"
         },
         "thumbnail": {
           "width": 420,
           "height": 378,
-          "bytes": 19294,
-          "sha256": "ad1f3c358e75dd358b629ce83e39c34a6862fce27a57036485b9b765bf4992d8"
+          "bytes": 19261,
+          "sha256": "f83fcc27cbd8a113cd1bbf809fba96216aed83316824a95651af6c99593cea74"
         }
       }
     },
@@ -1410,14 +1410,14 @@
         "puzzle": {
           "width": 1800,
           "height": 1393,
-          "bytes": 442423,
-          "sha256": "dec4f86bee552c8df40b64fc199062eed0ab374add82cf1013b2eaa96653a938"
+          "bytes": 442390,
+          "sha256": "ae3d97229b322f49a0883942227e4c741378c052b0a61202469f7b9c1528dfc5"
         },
         "thumbnail": {
           "width": 420,
           "height": 325,
-          "bytes": 19614,
-          "sha256": "66484394911db2beb37c51c7dc5197a63c167366ac9c131309046abefe800a02"
+          "bytes": 19581,
+          "sha256": "d38f07646e413dbc1ebebb3685d7aa6ca25b905bc904dabd0217da731ad172a0"
         }
       }
     },
@@ -1523,14 +1523,14 @@
         "puzzle": {
           "width": 1800,
           "height": 1350,
-          "bytes": 304799,
-          "sha256": "fed0b632c3c04861a4fb8c2d9d67b42a522d77b3d3174ed0ec6c50262bcc4494"
+          "bytes": 304766,
+          "sha256": "b201adcf4ae714323289ac908beb3c3784b17914b1b4bcc25e8647f2a593b9d1"
         },
         "thumbnail": {
           "width": 420,
           "height": 315,
-          "bytes": 14506,
-          "sha256": "41e7aa5728bcf1cb16575a8691542847b0da5b98ceb77c041e5378591b0abf8e"
+          "bytes": 14473,
+          "sha256": "06eed4ba1d6a1c0205862d8eeb94b1305aa22f1863589afdf54143b9f15e2b6a"
         }
       }
     },
@@ -3630,14 +3630,14 @@
         "puzzle": {
           "width": 1800,
           "height": 1160,
-          "bytes": 448805,
-          "sha256": "7e4cc05d4cb397d7d98943d39abad09b78e93a0ff335c7d6c749b41f1093347f"
+          "bytes": 448786,
+          "sha256": "1b986ae8639e1cd460b3e91446a8dde92b144a85f2c57506db6e47bbc88dd55c"
         },
         "thumbnail": {
           "width": 420,
           "height": 271,
-          "bytes": 21460,
-          "sha256": "b0186da56515624217e4b15aa0885f42c3c81e330b06ddc948961a4cbac4e86b"
+          "bytes": 21441,
+          "sha256": "a7b8f275175488ae6f498e4c2132f63998d85a6a60c35ac5d0a26b0f2b21875a"
         }
       }
     },
