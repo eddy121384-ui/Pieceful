@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_ai_curator_run_request",
+  "note": "Update this file with a [curate] or [curate-all] commit message to trigger cloud curation on this branch."
+}
