@@ -109,6 +109,7 @@ func _build_puzzle_selection_ui() -> void:
 func _add_content_card(preset: Dictionary) -> void:
 	var content_id := str(preset.get("id", ""))
 	var path := str(preset.get("path", ""))
+	var thumbnail_path := str(preset.get("thumbnail_path", path))
 	if content_id.is_empty() or path.is_empty():
 		return
 
@@ -130,7 +131,12 @@ func _add_content_card(preset: Dictionary) -> void:
 	# begin a swipe. PASS lets the button keep tap selection while forwarding the
 	# drag stream to the surrounding ScrollContainer.
 	picture.mouse_filter = Control.MOUSE_FILTER_PASS
-	var texture = load(path)
+	# Museum runtime assets carry a small dedicated Gallery derivative. Loading
+	# 35 full-resolution puzzle textures just to draw the card wall would waste
+	# substantial mobile memory, so cards prefer thumbnail_path and fall back to
+	# the puzzle path for legacy bundled fixtures.
+	var card_texture_path := thumbnail_path if ResourceLoader.exists(thumbnail_path) else path
+	var texture = load(card_texture_path)
 	if texture is Texture2D:
 		picture.texture_normal = texture
 		picture.texture_pressed = texture
