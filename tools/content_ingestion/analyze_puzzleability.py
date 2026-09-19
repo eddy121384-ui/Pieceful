@@ -187,14 +187,20 @@ def analyze_array(arr: np.ndarray, original_size: tuple[int, int]) -> dict[str, 
     reasons: list[str] = []
     if score < 0.43:
         reasons.append("low_puzzleability_score")
-    if flat_area > 0.78:
+    if flat_area > 0.72:
         reasons.append("large_flat_area")
     if repetitive_texture > 0.76:
         reasons.append("high_repetitive_texture")
     if variety < 0.18 and edge_density < 0.06:
         reasons.append("low_visual_variety")
+
+    # The current Met sample intentionally uses primaryImageSmall/web-large as
+    # a cheap authoring derivative. Resolution is an asset-pipeline concern,
+    # not a puzzleability verdict. The production-asset stage will fetch a
+    # higher-resolution derivative before runtime publication.
+    asset_warnings: list[str] = []
     if min(width, height) < 480 or max(width, height) < 720:
-        reasons.append("low_source_resolution")
+        asset_warnings.append("authoring_derivative_low_resolution")
 
     review_required = bool(reasons)
 
@@ -235,6 +241,7 @@ def analyze_array(arr: np.ndarray, original_size: tuple[int, int]) -> dict[str, 
             "working_width": int(arr.shape[1]),
             "working_height": int(arr.shape[0]),
             "challenge_index": round4(challenge),
+            "asset_warnings": asset_warnings,
         },
     }
 
