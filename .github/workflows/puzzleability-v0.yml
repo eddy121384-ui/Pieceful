@@ -1,4 +1,6 @@
-name: Puzzleability v0\n\n# v0.1: authoring thumbnail resolution is non-blocking
+name: Puzzleability v0
+
+# v0.1: authoring thumbnail resolution is non-blocking
 
 on:
   workflow_dispatch:
