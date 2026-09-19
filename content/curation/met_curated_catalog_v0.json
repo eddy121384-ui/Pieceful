@@ -1,0 +1,4593 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_curated_authoring_catalog",
+  "generated_at": "2026-09-19T22:04:45Z",
+  "taxonomy_version": 1,
+  "provider": "met",
+  "catalog_status": "curated_needs_puzzleability",
+  "summary": {
+    "total": 40,
+    "semantic_complete": 40,
+    "rights_verified": 40,
+    "runtime_publishable": 0,
+    "blocked_on_puzzleability": 40,
+    "blocked_on_production_asset": 40
+  },
+  "contents": [
+    {
+      "id": "met_340468",
+      "label": "Landscape (recto); Landscape (verso)",
+      "source_id": "met:340468",
+      "provider": "met",
+      "source_item_id": "340468",
+      "category": "nature",
+      "subject": [
+        "landscape",
+        "trees"
+      ],
+      "region_culture": [],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "muted",
+        "low_contrast",
+        "detailed",
+        "soft_gradients"
+      ],
+      "style": [
+        "watercolor"
+      ],
+      "scene": [
+        "outdoor",
+        "wilderness"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "trees",
+          "weight": 1.0
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "low_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "watercolor",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "wilderness",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Perugino (Pietro di Cristoforo Vannucci)",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/340468",
+        "credit_line": "Purchase, Lila Acheson Wallace Gift, 1993",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP811071.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP811071.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "landscape",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_10181",
+      "label": "Landscape",
+      "source_id": "met:10181",
+      "provider": "met",
+      "source_item_id": "10181",
+      "category": "nature",
+      "subject": [
+        "landscape",
+        "trees"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "clear_regions",
+        "detailed",
+        "muted",
+        "soft_gradients"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "outdoor",
+        "wilderness"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "trees",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "wilderness",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Ralph Albert Blakelock",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10181",
+        "credit_line": "Gift of the nieces of Harmon W. Hendricks, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap29.35.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap29.35.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "landscape",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_359362",
+      "label": "Landscape",
+      "source_id": "met:359362",
+      "provider": "met",
+      "source_item_id": "359362",
+      "category": "nature",
+      "subject": [
+        "landscape",
+        "hills"
+      ],
+      "region_culture": [],
+      "mood": [
+        "calm",
+        "dreamy"
+      ],
+      "visual": [
+        "clear_regions",
+        "muted",
+        "low_contrast",
+        "soft_gradients"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [
+        "outdoor",
+        "wilderness"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "hills",
+          "weight": 1.0
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "dreamy",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "low_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "wilderness",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Edgar Degas",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/359362",
+        "credit_line": "Purchase, Mr. and Mrs. Richard J. Bernhard Gift, 1972",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP815958.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP815958.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "landscape",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_335112",
+      "label": "Landscape",
+      "source_id": "met:335112",
+      "provider": "met",
+      "source_item_id": "335112",
+      "category": "nature",
+      "subject": [
+        "landscape",
+        "trees",
+        "mountains"
+      ],
+      "region_culture": [],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "detailed",
+        "muted",
+        "low_contrast"
+      ],
+      "style": [
+        "ink",
+        "watercolor"
+      ],
+      "scene": [
+        "outdoor",
+        "wilderness"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "trees",
+          "weight": 1.0
+        },
+        {
+          "id": "mountains",
+          "weight": 1.0
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "low_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "ink",
+          "weight": 0.8
+        },
+        {
+          "id": "watercolor",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "wilderness",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Gillis van Coninxloo",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/335112",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP801186.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP801186.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "landscape",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_11181",
+      "label": "Landscape",
+      "source_id": "met:11181",
+      "provider": "met",
+      "source_item_id": "11181",
+      "category": "nature",
+      "subject": [
+        "landscape",
+        "trees",
+        "people"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [
+        "calm",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "high_contrast",
+        "strong_edges"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "outdoor",
+        "rural"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "trees",
+          "weight": 1.0
+        },
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "high_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "rural",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "William Morris Hunt",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/11181",
+        "credit_line": "Rogers Fund, 1906",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/06.170.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/06.170.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "landscape",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_394043",
+      "label": "Flowers",
+      "source_id": "met:394043",
+      "provider": "met",
+      "source_item_id": "394043",
+      "category": "nature",
+      "subject": [
+        "flowers",
+        "botanical"
+      ],
+      "region_culture": [],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "strong_edges"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "flowers",
+          "weight": 1.0
+        },
+        {
+          "id": "botanical",
+          "weight": 1.0
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "still_life",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Jean Pillement",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394043",
+        "credit_line": "The Lesley and Emma Sheafer Collection, Bequest of Emma A. Sheafer, 1973",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/1934.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/1934.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "flowers",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_242768",
+      "label": "Necklace flowers",
+      "source_id": "met:242768",
+      "provider": "met",
+      "source_item_id": "242768",
+      "category": "art_culture",
+      "subject": [
+        "flower_motif",
+        "necklace",
+        "jewelry"
+      ],
+      "region_culture": [
+        "cypriot"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "symmetrical"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "flower_motif",
+          "weight": 1.0
+        },
+        {
+          "id": "necklace",
+          "weight": 1.0
+        },
+        {
+          "id": "jewelry",
+          "weight": 1.0
+        },
+        {
+          "id": "cypriot",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/242768",
+        "credit_line": "The Cesnola Collection, Purchased by subscription, 1874–76",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/gr/web-large/sf74513333-35.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/gr/web-large/sf74513333-35.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "flowers",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_438031",
+      "label": "Summer Flowers",
+      "source_id": "met:438031",
+      "provider": "met",
+      "source_item_id": "438031",
+      "category": "nature",
+      "subject": [
+        "flowers",
+        "bouquet"
+      ],
+      "region_culture": [],
+      "mood": [
+        "calm",
+        "romantic"
+      ],
+      "visual": [
+        "clear_regions",
+        "detailed",
+        "muted"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "flowers",
+          "weight": 1.0
+        },
+        {
+          "id": "bouquet",
+          "weight": 1.0
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "romantic",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "still_life",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Henri Fantin-Latour",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/438031",
+        "credit_line": "Gift of Susan S. Dillon, 1997",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ep/web-large/DT4204.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ep/web-large/DT4204.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "flowers",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_12802",
+      "label": "Summer Flowers",
+      "source_id": "met:12802",
+      "provider": "met",
+      "source_item_id": "12802",
+      "category": "nature",
+      "subject": [
+        "flowers",
+        "people",
+        "rural_landscape"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [
+        "calm",
+        "nostalgic"
+      ],
+      "visual": [
+        "detailed",
+        "muted",
+        "soft_gradients"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "outdoor",
+        "rural",
+        "day"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "flowers",
+          "weight": 1.0
+        },
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "rural_landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "rural",
+          "weight": 0.6
+        },
+        {
+          "id": "day",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Jerome B. Thompson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/12802",
+        "credit_line": "Gift of Madeleine T. Edmonds, 1984",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap1984.252.1.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap1984.252.1.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "flowers",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_774277",
+      "label": "Wheellock Rifle",
+      "source_id": "met:774277",
+      "provider": "met",
+      "source_item_id": "774277",
+      "category": "art_culture",
+      "subject": [
+        "firearm",
+        "weapon",
+        "decorative_arts"
+      ],
+      "region_culture": [
+        "austrian"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "detailed",
+        "strong_edges"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "firearm",
+          "weight": 1.0
+        },
+        {
+          "id": "weapon",
+          "weight": 1.0
+        },
+        {
+          "id": "decorative_arts",
+          "weight": 1.0
+        },
+        {
+          "id": "austrian",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Master of the Animal-Head Scroll (Meister der Tierkopfranke)",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/774277",
+        "credit_line": "Purchase, Arthur Ochs Sulzberger Gift and Harris Brisbane Dick Fund, 2018",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/aa/web-large/DP-15498-037.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/aa/web-large/DP-15498-037.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "animal",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_312624",
+      "label": "Animal",
+      "source_id": "met:312624",
+      "provider": "met",
+      "source_item_id": "312624",
+      "category": "art_culture",
+      "subject": [
+        "animal",
+        "animal_figure",
+        "ceramic_sculpture"
+      ],
+      "region_culture": [
+        "nayarit"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "strong_edges",
+        "muted"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "animal",
+          "weight": 1.0
+        },
+        {
+          "id": "animal_figure",
+          "weight": 1.0
+        },
+        {
+          "id": "ceramic_sculpture",
+          "weight": 1.0
+        },
+        {
+          "id": "nayarit",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/312624",
+        "credit_line": "The Michael C. Rockefeller Memorial Collection, Bequest of Nelson A. Rockefeller, 1979",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ao/web-large/1979.206.404.JPG",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ao/web-large/1979.206.404.JPG",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "animal",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_478467",
+      "label": "Animal",
+      "source_id": "met:478467",
+      "provider": "met",
+      "source_item_id": "478467",
+      "category": "art_culture",
+      "subject": [
+        "animal",
+        "animal_figure",
+        "statuette"
+      ],
+      "region_culture": [
+        "coptic"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "strong_edges",
+        "muted"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "animal",
+          "weight": 1.0
+        },
+        {
+          "id": "animal_figure",
+          "weight": 1.0
+        },
+        {
+          "id": "statuette",
+          "weight": 1.0
+        },
+        {
+          "id": "coptic",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478467",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/md/web-large/Cop0275.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/md/web-large/Cop0275.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "animal",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_478746",
+      "label": "Animal",
+      "source_id": "met:478746",
+      "provider": "met",
+      "source_item_id": "478746",
+      "category": "art_culture",
+      "subject": [
+        "animal",
+        "animal_figure",
+        "statuette"
+      ],
+      "region_culture": [
+        "coptic"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "strong_edges",
+        "muted"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "animal",
+          "weight": 1.0
+        },
+        {
+          "id": "animal_figure",
+          "weight": 1.0
+        },
+        {
+          "id": "statuette",
+          "weight": 1.0
+        },
+        {
+          "id": "coptic",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478746",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/md/web-large/cop0467s1.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/md/web-large/cop0467s1.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "animal",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_478425",
+      "label": "Animal (?)",
+      "source_id": "met:478425",
+      "provider": "met",
+      "source_item_id": "478425",
+      "category": "art_culture",
+      "subject": [
+        "animal",
+        "animal_figure",
+        "statuette"
+      ],
+      "region_culture": [
+        "coptic"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "muted"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "animal",
+          "weight": 1.0
+        },
+        {
+          "id": "animal_figure",
+          "weight": 1.0
+        },
+        {
+          "id": "statuette",
+          "weight": 1.0
+        },
+        {
+          "id": "coptic",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478425",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/md/web-large/cop0240.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/md/web-large/cop0240.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "animal",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_226943",
+      "label": "Portrait",
+      "source_id": "met:226943",
+      "provider": "met",
+      "source_item_id": "226943",
+      "category": "people",
+      "subject": [
+        "portrait",
+        "seated_man"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "symmetrical",
+        "strong_edges"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "portrait",
+          "weight": 1.0
+        },
+        {
+          "id": "seated_man",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "A. Bois",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/226943",
+        "credit_line": "Rogers Fund, 1942",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/127800.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/127800.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "portrait",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_191566",
+      "label": "Portrait",
+      "source_id": "met:191566",
+      "provider": "met",
+      "source_item_id": "191566",
+      "category": "people",
+      "subject": [
+        "portrait",
+        "woman"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "clear_regions",
+        "strong_edges"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "portrait",
+          "weight": 1.0
+        },
+        {
+          "id": "woman",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191566",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/17618.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/17618.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "portrait",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_191567",
+      "label": "Portrait",
+      "source_id": "met:191567",
+      "provider": "met",
+      "source_item_id": "191567",
+      "category": "people",
+      "subject": [
+        "portrait",
+        "woman"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "clear_regions",
+        "strong_edges"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "portrait",
+          "weight": 1.0
+        },
+        {
+          "id": "woman",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191567",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/17619.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/17619.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "portrait",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_340070",
+      "label": "Portrait",
+      "source_id": "met:340070",
+      "provider": "met",
+      "source_item_id": "340070",
+      "category": "people",
+      "subject": [
+        "portrait",
+        "woman"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "muted",
+        "low_contrast",
+        "clear_regions"
+      ],
+      "style": [
+        "illustration"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "portrait",
+          "weight": 1.0
+        },
+        {
+          "id": "woman",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "low_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "illustration",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Ercole Procaccini The Younger",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/340070",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP802992.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP802992.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "portrait",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_21209",
+      "label": "Self Portrait",
+      "source_id": "met:21209",
+      "provider": "met",
+      "source_item_id": "21209",
+      "category": "people",
+      "subject": [
+        "self_portrait",
+        "man",
+        "artist"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "clear_regions",
+        "muted",
+        "strong_edges"
+      ],
+      "style": [
+        "watercolor"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "self_portrait",
+          "weight": 1.0
+        },
+        {
+          "id": "man",
+          "weight": 1.0
+        },
+        {
+          "id": "artist",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "watercolor",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Unknown Artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/21209",
+        "credit_line": "Dale T. Johnson Fund, 2014",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DP701353.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DP701353.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "portrait",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_399581",
+      "label": "Architecture",
+      "source_id": "met:399581",
+      "provider": "met",
+      "source_item_id": "399581",
+      "category": "art_culture",
+      "subject": [
+        "architecture",
+        "architectural_ornament",
+        "design_study"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "detailed",
+        "muted",
+        "strong_edges"
+      ],
+      "style": [
+        "ink",
+        "illustration"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture",
+          "weight": 1.0
+        },
+        {
+          "id": "architectural_ornament",
+          "weight": 1.0
+        },
+        {
+          "id": "design_study",
+          "weight": 1.0
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "ink",
+          "weight": 0.8
+        },
+        {
+          "id": "illustration",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Michelangelo Colonna",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399581",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP841055.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP841055.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "architecture",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_202696",
+      "label": "Architecture",
+      "source_id": "met:202696",
+      "provider": "met",
+      "source_item_id": "202696",
+      "category": "art_culture",
+      "subject": [
+        "architecture_allegory",
+        "figures",
+        "relief"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "detailed",
+        "monochrome",
+        "soft_gradients"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture_allegory",
+          "weight": 1.0
+        },
+        {
+          "id": "figures",
+          "weight": 1.0
+        },
+        {
+          "id": "relief",
+          "weight": 1.0
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Clodion (Claude Michel)",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/202696",
+        "credit_line": "Gift of Mrs. Barbara Lowe Fallass, 1962",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/ES4785.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/ES4785.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "architecture",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_399347",
+      "label": "Architecture (Arquitraicture)",
+      "source_id": "met:399347",
+      "provider": "met",
+      "source_item_id": "399347",
+      "category": "art_culture",
+      "subject": [
+        "architecture_allegory",
+        "architectural_ornament",
+        "figure"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "detailed",
+        "monochrome",
+        "strong_edges",
+        "symmetrical"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture_allegory",
+          "weight": 1.0
+        },
+        {
+          "id": "architectural_ornament",
+          "weight": 1.0
+        },
+        {
+          "id": "figure",
+          "weight": 1.0
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Etienne Delaune",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399347",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP834098.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP834098.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "architecture",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_394310",
+      "label": "Architecture",
+      "source_id": "met:394310",
+      "provider": "met",
+      "source_item_id": "394310",
+      "category": "art_culture",
+      "subject": [
+        "architecture_allegory",
+        "putti",
+        "monument"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "detailed",
+        "monochrome",
+        "strong_edges"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture_allegory",
+          "weight": 1.0
+        },
+        {
+          "id": "putti",
+          "weight": 1.0
+        },
+        {
+          "id": "monument",
+          "weight": 1.0
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Johann Georg Hertel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394310",
+        "credit_line": "Gift of Harry G. Friedman, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP825975.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP825975.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "architecture",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_394709",
+      "label": "Architecture",
+      "source_id": "met:394709",
+      "provider": "met",
+      "source_item_id": "394709",
+      "category": "art_culture",
+      "subject": [
+        "architecture_allegory",
+        "putti",
+        "monument"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "detailed",
+        "monochrome",
+        "strong_edges"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture_allegory",
+          "weight": 1.0
+        },
+        {
+          "id": "putti",
+          "weight": 1.0
+        },
+        {
+          "id": "monument",
+          "weight": 1.0
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Louis Félix de La Rue",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394709",
+        "credit_line": "Harris Brisbane Dick Fund, 1953",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP826240.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP826240.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "architecture",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_5410",
+      "label": "Night Table",
+      "source_id": "met:5410",
+      "provider": "met",
+      "source_item_id": "5410",
+      "category": "art_culture",
+      "subject": [
+        "night_table",
+        "furniture",
+        "decorative_arts"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "detailed",
+        "symmetrical"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "night_table",
+          "weight": 1.0
+        },
+        {
+          "id": "furniture",
+          "weight": 1.0
+        },
+        {
+          "id": "decorative_arts",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Herter Brothers",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/5410",
+        "credit_line": "Gift of Paul Martini, 1969",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/192563.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/192563.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "night",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_221706",
+      "label": "Night cap",
+      "source_id": "met:221706",
+      "provider": "met",
+      "source_item_id": "221706",
+      "category": "art_culture",
+      "subject": [
+        "nightcap",
+        "textile",
+        "embroidery"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "detailed",
+        "symmetrical"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "nightcap",
+          "weight": 1.0
+        },
+        {
+          "id": "textile",
+          "weight": 1.0
+        },
+        {
+          "id": "embroidery",
+          "weight": 1.0
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/221706",
+        "credit_line": "Rogers Fund, 1926",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/DP159780.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/DP159780.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "night",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_54393",
+      "label": "Night Scene",
+      "source_id": "met:54393",
+      "provider": "met",
+      "source_item_id": "54393",
+      "category": "people",
+      "subject": [
+        "women",
+        "night_scene",
+        "japanese_print"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [
+        "mysterious",
+        "nostalgic"
+      ],
+      "visual": [
+        "detailed",
+        "muted",
+        "clear_regions"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [
+        "outdoor",
+        "night"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "women",
+          "weight": 1.0
+        },
+        {
+          "id": "night_scene",
+          "weight": 1.0
+        },
+        {
+          "id": "japanese_print",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "mysterious",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "night",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Yashima Gakutei",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54393",
+        "credit_line": "Rogers Fund, 1923",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP143400.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP143400.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "night",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_215356",
+      "label": "Night cap",
+      "source_id": "met:215356",
+      "provider": "met",
+      "source_item_id": "215356",
+      "category": "art_culture",
+      "subject": [
+        "nightcap",
+        "textile",
+        "clothing_accessory"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "monochrome",
+        "clear_regions",
+        "strong_edges"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "nightcap",
+          "weight": 1.0
+        },
+        {
+          "id": "textile",
+          "weight": 1.0
+        },
+        {
+          "id": "clothing_accessory",
+          "weight": 1.0
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/215356",
+        "credit_line": "Gift of the Family of Thomas Coutts, 1908",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/4572.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/4572.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "night",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_228950",
+      "label": "Night cap",
+      "source_id": "met:228950",
+      "provider": "met",
+      "source_item_id": "228950",
+      "category": "art_culture",
+      "subject": [
+        "nightcap",
+        "textile",
+        "embroidery"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "detailed",
+        "symmetrical"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "nightcap",
+          "weight": 1.0
+        },
+        {
+          "id": "textile",
+          "weight": 1.0
+        },
+        {
+          "id": "embroidery",
+          "weight": 1.0
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/228950",
+        "credit_line": "Gift of Irwin Untermyer, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/es/web-large/DP159788.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/es/web-large/DP159788.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "night",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_505626",
+      "label": "Koto (箏)",
+      "source_id": "met:505626",
+      "provider": "met",
+      "source_item_id": "505626",
+      "category": "art_culture",
+      "subject": [
+        "koto",
+        "musical_instrument",
+        "decorative_arts"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [],
+      "visual": [
+        "clear_regions",
+        "detailed",
+        "colorful",
+        "negative_space"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "art_culture",
+          "weight": 1.0
+        },
+        {
+          "id": "koto",
+          "weight": 1.0
+        },
+        {
+          "id": "musical_instrument",
+          "weight": 1.0
+        },
+        {
+          "id": "decorative_arts",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "colorful",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Metalwork by Goto Teijo, 9th generation Goto master, Japan",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/505626",
+        "credit_line": "Purchase, Amati Gifts, 2007",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/mi/web-large/DP148476.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/mi/web-large/DP148476.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "Japan",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_353912",
+      "label": "Japan lamp for ceiling",
+      "source_id": "met:353912",
+      "provider": "met",
+      "source_item_id": "353912",
+      "category": "objects",
+      "subject": [
+        "ceiling_lamp",
+        "lighting_design",
+        "technical_drawing"
+      ],
+      "region_culture": [],
+      "mood": [],
+      "visual": [
+        "monochrome",
+        "negative_space",
+        "strong_edges",
+        "symmetrical"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "not_applicable",
+        "visual": "present",
+        "style": "present",
+        "scene": "not_applicable"
+      },
+      "tags": [
+        {
+          "id": "objects",
+          "weight": 1.0
+        },
+        {
+          "id": "ceiling_lamp",
+          "weight": 1.0
+        },
+        {
+          "id": "lighting_design",
+          "weight": 1.0
+        },
+        {
+          "id": "technical_drawing",
+          "weight": 1.0
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "symmetrical",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Matthew Boulton",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/353912",
+        "credit_line": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1954",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP102717.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP102717.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "Japan",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_728305",
+      "label": "Temple of Kamakura, Japan",
+      "source_id": "met:728305",
+      "provider": "met",
+      "source_item_id": "728305",
+      "category": "places",
+      "subject": [
+        "temple",
+        "architecture",
+        "kamakura"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "clear_regions"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [
+        "outdoor",
+        "architectural",
+        "day"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "places",
+          "weight": 1.0
+        },
+        {
+          "id": "temple",
+          "weight": 1.0
+        },
+        {
+          "id": "architecture",
+          "weight": 1.0
+        },
+        {
+          "id": "kamakura",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "architectural",
+          "weight": 0.6
+        },
+        {
+          "id": "day",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "John Thomson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/728305",
+        "credit_line": "Gilman Collection, Purchase, Cynthia Hazen Polsky Gift, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-17301-116.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-17301-116.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "Japan",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_764802",
+      "label": "[Japanese Infantry, Yokohama, Japan]",
+      "source_id": "met:764802",
+      "provider": "met",
+      "source_item_id": "764802",
+      "category": "people",
+      "subject": [
+        "soldiers",
+        "infantry",
+        "military_group",
+        "yokohama"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "clear_regions"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [
+        "outdoor",
+        "day"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "soldiers",
+          "weight": 1.0
+        },
+        {
+          "id": "infantry",
+          "weight": 1.0
+        },
+        {
+          "id": "military_group",
+          "weight": 1.0
+        },
+        {
+          "id": "yokohama",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "day",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Unknown",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/764802",
+        "credit_line": "The Horace W. Goldsmith Foundation Fund, through Joyce and Robert Menschel, 2017",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-15801-105.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-15801-105.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "Japan",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_10189",
+      "label": "Street Scene in Ikao, Japan",
+      "source_id": "met:10189",
+      "provider": "met",
+      "source_item_id": "10189",
+      "category": "places",
+      "subject": [
+        "street_scene",
+        "ikao",
+        "people",
+        "shops"
+      ],
+      "region_culture": [
+        "japan",
+        "american"
+      ],
+      "mood": [
+        "nostalgic",
+        "energetic"
+      ],
+      "visual": [
+        "detailed",
+        "colorful",
+        "clear_regions"
+      ],
+      "style": [
+        "watercolor"
+      ],
+      "scene": [
+        "outdoor",
+        "urban",
+        "day"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "places",
+          "weight": 1.0
+        },
+        {
+          "id": "street_scene",
+          "weight": 1.0
+        },
+        {
+          "id": "ikao",
+          "weight": 1.0
+        },
+        {
+          "id": "people",
+          "weight": 1.0
+        },
+        {
+          "id": "shops",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "energetic",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "colorful",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "watercolor",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "urban",
+          "weight": 0.6
+        },
+        {
+          "id": "day",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Robert Frederick Blum",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10189",
+        "credit_line": "Gift of William J. Baer, 1904",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DT210801.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DT210801.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "Japan",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_436305",
+      "label": "Still Life",
+      "source_id": "met:436305",
+      "provider": "met",
+      "source_item_id": "436305",
+      "category": "food",
+      "subject": [
+        "still_life",
+        "bread",
+        "olives",
+        "lemon",
+        "vessels"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "clear_regions",
+        "detailed",
+        "high_contrast"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "food",
+          "weight": 1.0
+        },
+        {
+          "id": "still_life",
+          "weight": 1.0
+        },
+        {
+          "id": "bread",
+          "weight": 1.0
+        },
+        {
+          "id": "olives",
+          "weight": 1.0
+        },
+        {
+          "id": "lemon",
+          "weight": 1.0
+        },
+        {
+          "id": "vessels",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "high_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Georg Flegel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/436305",
+        "credit_line": "Gift of Dr. W. Bopp, 1921",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-25893-001.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-25893-001.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "still life",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_10996",
+      "label": "Still Life",
+      "source_id": "met:10996",
+      "provider": "met",
+      "source_item_id": "10996",
+      "category": "objects",
+      "subject": [
+        "still_life",
+        "books",
+        "papers",
+        "vessels"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "monochrome",
+        "detailed",
+        "high_contrast",
+        "strong_edges"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "objects",
+          "weight": 1.0
+        },
+        {
+          "id": "still_life",
+          "weight": 1.0
+        },
+        {
+          "id": "books",
+          "weight": 1.0
+        },
+        {
+          "id": "papers",
+          "weight": 1.0
+        },
+        {
+          "id": "vessels",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "monochrome",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "high_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "William Michael Harnett",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10996",
+        "credit_line": "Bequest of Susan Vanderpoel Clark, 1967",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap67.155.1.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/ap67.155.1.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "still life",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_286248",
+      "label": "[Still Life]",
+      "source_id": "met:286248",
+      "provider": "met",
+      "source_item_id": "286248",
+      "category": "objects",
+      "subject": [
+        "still_life",
+        "animal_skull",
+        "stool"
+      ],
+      "region_culture": [],
+      "mood": [
+        "contemplative",
+        "melancholic"
+      ],
+      "visual": [
+        "muted",
+        "negative_space",
+        "strong_edges",
+        "clear_regions"
+      ],
+      "style": [
+        "photo"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "not_applicable",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "objects",
+          "weight": 1.0
+        },
+        {
+          "id": "still_life",
+          "weight": 1.0
+        },
+        {
+          "id": "animal_skull",
+          "weight": 1.0
+        },
+        {
+          "id": "stool",
+          "weight": 1.0
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "melancholic",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "strong_edges",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "photo",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Louis-Rémy Robert",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/286248",
+        "credit_line": "Gilman Collection, Purchase, Anonymous Gifts, by exchange, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP214798.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ph/web-large/DP214798.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "still life",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_898372",
+      "label": "Still Life",
+      "source_id": "met:898372",
+      "provider": "met",
+      "source_item_id": "898372",
+      "category": "nature",
+      "subject": [
+        "still_life",
+        "flowers",
+        "ferns"
+      ],
+      "region_culture": [
+        "american"
+      ],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "colorful",
+        "negative_space",
+        "clear_regions",
+        "high_contrast"
+      ],
+      "style": [
+        "painting",
+        "oil_painting"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "still_life",
+          "weight": 1.0
+        },
+        {
+          "id": "flowers",
+          "weight": 1.0
+        },
+        {
+          "id": "ferns",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "colorful",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "high_contrast",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Fidelia Bridges",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/898372",
+        "credit_line": "Purchase, John Osgood and Elizabeth Amis Cameron Blanchard Memorial Fund, 2023",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DP-29793-001.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/ad/web-large/DP-29793-001.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "still life",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_54333",
+      "label": "Still life",
+      "source_id": "met:54333",
+      "provider": "met",
+      "source_item_id": "54333",
+      "category": "objects",
+      "subject": [
+        "still_life",
+        "furniture",
+        "boxes",
+        "decorative_objects"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [
+        "contemplative",
+        "nostalgic"
+      ],
+      "visual": [
+        "muted",
+        "negative_space",
+        "detailed",
+        "clear_regions"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "objects",
+          "weight": 1.0
+        },
+        {
+          "id": "still_life",
+          "weight": 1.0
+        },
+        {
+          "id": "furniture",
+          "weight": 1.0
+        },
+        {
+          "id": "boxes",
+          "weight": 1.0
+        },
+        {
+          "id": "decorative_objects",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "nostalgic",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        }
+      ],
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54333",
+        "credit_line": "Rogers Fund, 1919",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP143992.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP143992.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "still life",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    },
+    {
+      "id": "met_54988",
+      "label": "Cherry Flowers",
+      "source_id": "met:54988",
+      "provider": "met",
+      "source_item_id": "54988",
+      "category": "nature",
+      "subject": [
+        "flowers",
+        "cherry_blossoms"
+      ],
+      "region_culture": [
+        "japan"
+      ],
+      "mood": [
+        "calm",
+        "contemplative"
+      ],
+      "visual": [
+        "clear_regions",
+        "negative_space",
+        "muted"
+      ],
+      "style": [
+        "print"
+      ],
+      "scene": [
+        "still_life"
+      ],
+      "facet_status": {
+        "subject": "present",
+        "region_culture": "present",
+        "mood": "present",
+        "visual": "present",
+        "style": "present",
+        "scene": "present"
+      },
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "flowers",
+          "weight": 1.0
+        },
+        {
+          "id": "cherry_blossoms",
+          "weight": 1.0
+        },
+        {
+          "id": "japan",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "negative_space",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "print",
+          "weight": 0.8
+        },
+        {
+          "id": "still_life",
+          "weight": 0.6
+        }
+      ],
+      "attribution": {
+        "creator": "Kikuchi Yōsai",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54988",
+        "credit_line": "H. O. Havemeyer Collection, Bequest of Mrs. H. O. Havemeyer, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      },
+      "asset": {
+        "thumbnail_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP138328.jpg",
+        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/as/web-large/DP138328.jpg",
+        "production_path": null,
+        "image_version": 0
+      },
+      "curation": {
+        "authority": "curator_reviewed_baseline",
+        "ingestion_query": "flowers",
+        "semantic_status": "complete"
+      },
+      "promotion": {
+        "status": "blocked",
+        "blockers": [
+          "puzzleability_missing",
+          "production_asset_not_materialized"
+        ]
+      },
+      "puzzleability": null,
+      "suggested_difficulty": null
+    }
+  ]
+}
