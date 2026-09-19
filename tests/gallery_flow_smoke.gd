@@ -89,8 +89,12 @@ func _run() -> void:
 		return
 
 	var presets: Array = board.content_presets()
-	if presets.size() != 3:
-		_fail("metadata catalog did not expose three official fixtures")
+	if presets.size() < 38:
+		_fail("metadata catalog did not expose the three fixtures plus 35 curated museum puzzles")
+		return
+	var museum: Dictionary = board.content_metadata("met_10181")
+	if str(museum.get("source_id", "")) != "met:10181" or str(museum.get("path", "")).is_empty():
+		_fail("curated Met runtime entry is missing from Gallery catalog")
 		return
 	var crane: Dictionary = board.content_metadata("crane_pine_scroll")
 	if str(crane.get("category", "")) != "art_culture":
