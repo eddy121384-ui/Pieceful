@@ -24,6 +24,7 @@ on:
       - "content/curation/met_curator_sample_v0.json"
       - "content/curation/met_gold_set_v0.json"
       - "content/tag_taxonomy_v1.json"
+      - "content/curation/run_request.json"
 
 permissions:
   contents: write
@@ -47,7 +48,7 @@ jobs:
 
   curate:
     needs: validate
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[curate]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[curate')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -81,11 +82,16 @@ jobs:
             ADJUDICATOR="${{ inputs.adjudicator_model }}"
             EXTRA=()
           else
-            # Push-trigger is a cheap live canary only. Full runs are explicit.
-            MAX_ITEMS="5"
             PRIMARY="gpt-5.6-luna"
             ADJUDICATOR="gpt-5.6-sol"
-            EXTRA=(--fail-fast)
+            if [[ "${{ github.event.head_commit.message }}" == *"[curate-all]"* ]]; then
+              MAX_ITEMS="0"
+              EXTRA=()
+            else
+              # Ordinary [curate] push is a cheap live canary.
+              MAX_ITEMS="5"
+              EXTRA=(--fail-fast)
+            fi
           fi
           python tools/content_tagging/curate_cloud.py \
             --max-items "$MAX_ITEMS" \
