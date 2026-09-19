@@ -1,170 +1,14 @@
 {
   "schema_version": 1,
-  "kind": "pieceful_curated_authoring_catalog",
-  "generated_at": "2026-09-19T22:04:45Z",
+  "kind": "pieceful_runtime_candidate_catalog_v0",
   "taxonomy_version": 1,
   "provider": "met",
-  "catalog_status": "curated_needs_production_assets",
   "summary": {
-    "total": 40,
-    "semantic_complete": 40,
-    "rights_verified": 40,
-    "runtime_publishable": 0,
-    "blocked_on_puzzleability": 0,
-    "blocked_on_production_asset": 35,
-    "puzzleability_analyzed": 40,
-    "puzzleability_accepted": 30,
-    "puzzleability_review": 10,
-    "puzzleability_curator_accepted": 35,
-    "puzzleability_curator_excluded": 5,
-    "runtime_candidate_count": 35
+    "candidate_count": 35,
+    "excluded_count": 5,
+    "publication_blocker": "production_asset_not_materialized"
   },
   "contents": [
-    {
-      "id": "met_340468",
-      "label": "Landscape (recto); Landscape (verso)",
-      "source_id": "met:340468",
-      "provider": "met",
-      "source_item_id": "340468",
-      "category": "nature",
-      "subject": [
-        "landscape",
-        "trees"
-      ],
-      "region_culture": [],
-      "mood": [
-        "calm",
-        "contemplative"
-      ],
-      "visual": [
-        "muted",
-        "low_contrast",
-        "detailed",
-        "soft_gradients"
-      ],
-      "style": [
-        "watercolor"
-      ],
-      "scene": [
-        "outdoor",
-        "wilderness"
-      ],
-      "facet_status": {
-        "subject": "present",
-        "region_culture": "not_applicable",
-        "mood": "present",
-        "visual": "present",
-        "style": "present",
-        "scene": "present"
-      },
-      "tags": [
-        {
-          "id": "nature",
-          "weight": 1.0
-        },
-        {
-          "id": "landscape",
-          "weight": 1.0
-        },
-        {
-          "id": "trees",
-          "weight": 1.0
-        },
-        {
-          "id": "calm",
-          "weight": 0.7
-        },
-        {
-          "id": "contemplative",
-          "weight": 0.7
-        },
-        {
-          "id": "muted",
-          "weight": 0.7
-        },
-        {
-          "id": "low_contrast",
-          "weight": 0.7
-        },
-        {
-          "id": "detailed",
-          "weight": 0.7
-        },
-        {
-          "id": "soft_gradients",
-          "weight": 0.7
-        },
-        {
-          "id": "watercolor",
-          "weight": 0.8
-        },
-        {
-          "id": "outdoor",
-          "weight": 0.6
-        },
-        {
-          "id": "wilderness",
-          "weight": 0.6
-        }
-      ],
-      "attribution": {
-        "creator": "Perugino (Pietro di Cristoforo Vannucci)",
-        "license": "cc0",
-        "license_url": "https://www.metmuseum.org/policies/image-resources",
-        "source_url": "https://www.metmuseum.org/art/collection/search/340468",
-        "credit_line": "Purchase, Lila Acheson Wallace Gift, 1993",
-        "attribution_required": false,
-        "provider_rights_signal": {
-          "field": "isPublicDomain",
-          "value": true
-        }
-      },
-      "asset": {
-        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP811071.jpg",
-        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP811071.jpg",
-        "production_path": null,
-        "image_version": 0
-      },
-      "curation": {
-        "authority": "curator_reviewed_baseline",
-        "ingestion_query": "landscape",
-        "semantic_status": "complete",
-        "puzzleability_status": "excluded_curator_review",
-        "puzzleability_review_reasons": [
-          "low_puzzleability_score"
-        ],
-        "puzzleability_analysis": {
-          "analyzer": "pieceful_puzzleability_v0",
-          "source_width": 600,
-          "source_height": 439,
-          "working_width": 320,
-          "working_height": 234,
-          "challenge_index": 0.4193,
-          "asset_warnings": [
-            "authoring_derivative_low_resolution"
-          ]
-        },
-        "puzzleability_curator_decision": "exclude",
-        "puzzleability_curator_rationale": "Extremely low-contrast monochrome landscape study has weak location cues across large areas even at low piece counts."
-      },
-      "promotion": {
-        "status": "excluded",
-        "blockers": [
-          "curator_rejected_puzzleability"
-        ]
-      },
-      "puzzleability": {
-        "score": 0.3751,
-        "clear_regions": 0.4419,
-        "repetitive_texture": 0.0869,
-        "flat_area": 0.4811,
-        "landmark_density": 0.0574,
-        "color_variety": 0.2826,
-        "edge_density": 0.0374,
-        "gradient_area": 0.4815
-      },
-      "suggested_difficulty": "relaxed"
-    },
     {
       "id": "met_10181",
       "label": "Landscape",
@@ -900,136 +744,6 @@
       "suggested_difficulty": "standard"
     },
     {
-      "id": "met_242768",
-      "label": "Necklace flowers",
-      "source_id": "met:242768",
-      "provider": "met",
-      "source_item_id": "242768",
-      "category": "art_culture",
-      "subject": [
-        "flower_motif",
-        "necklace",
-        "jewelry"
-      ],
-      "region_culture": [
-        "cypriot"
-      ],
-      "mood": [],
-      "visual": [
-        "clear_regions",
-        "negative_space",
-        "symmetrical"
-      ],
-      "style": [
-        "photo"
-      ],
-      "scene": [],
-      "facet_status": {
-        "subject": "present",
-        "region_culture": "present",
-        "mood": "not_applicable",
-        "visual": "present",
-        "style": "present",
-        "scene": "not_applicable"
-      },
-      "tags": [
-        {
-          "id": "art_culture",
-          "weight": 1.0
-        },
-        {
-          "id": "flower_motif",
-          "weight": 1.0
-        },
-        {
-          "id": "necklace",
-          "weight": 1.0
-        },
-        {
-          "id": "jewelry",
-          "weight": 1.0
-        },
-        {
-          "id": "cypriot",
-          "weight": 0.9
-        },
-        {
-          "id": "clear_regions",
-          "weight": 0.7
-        },
-        {
-          "id": "negative_space",
-          "weight": 0.7
-        },
-        {
-          "id": "symmetrical",
-          "weight": 0.7
-        },
-        {
-          "id": "photo",
-          "weight": 0.8
-        }
-      ],
-      "attribution": {
-        "creator": "",
-        "license": "cc0",
-        "license_url": "https://www.metmuseum.org/policies/image-resources",
-        "source_url": "https://www.metmuseum.org/art/collection/search/242768",
-        "credit_line": "The Cesnola Collection, Purchased by subscription, 1874–76",
-        "attribution_required": false,
-        "provider_rights_signal": {
-          "field": "isPublicDomain",
-          "value": true
-        }
-      },
-      "asset": {
-        "thumbnail_url": "https://images.metmuseum.org/CRDImages/gr/web-large/sf74513333-35.jpg",
-        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/gr/web-large/sf74513333-35.jpg",
-        "production_path": null,
-        "image_version": 0
-      },
-      "curation": {
-        "authority": "curator_reviewed_baseline",
-        "ingestion_query": "flowers",
-        "semantic_status": "complete",
-        "puzzleability_status": "excluded_curator_review",
-        "puzzleability_review_reasons": [
-          "low_puzzleability_score",
-          "large_flat_area"
-        ],
-        "puzzleability_analysis": {
-          "analyzer": "pieceful_puzzleability_v0",
-          "source_width": 600,
-          "source_height": 420,
-          "working_width": 320,
-          "working_height": 224,
-          "challenge_index": 0.5367,
-          "asset_warnings": [
-            "authoring_derivative_low_resolution"
-          ]
-        },
-        "puzzleability_curator_decision": "exclude",
-        "puzzleability_curator_rationale": "Three tiny flower-shaped necklace elements occupy a very small portion of a large uniform background."
-      },
-      "promotion": {
-        "status": "excluded",
-        "blockers": [
-          "curator_rejected_puzzleability"
-        ]
-      },
-      "puzzleability": {
-        "score": 0.2678,
-        "clear_regions": 0.8672,
-        "repetitive_texture": 0.0311,
-        "flat_area": 0.9263,
-        "landmark_density": 0.2356,
-        "color_variety": 0.248,
-        "edge_density": 0.0238,
-        "gradient_area": 0.0499
-      },
-      "suggested_difficulty": "relaxed"
-    },
-    {
       "id": "met_438031",
       "label": "Summer Flowers",
       "source_id": "met:438031",
@@ -1323,141 +1037,6 @@
       "suggested_difficulty": "standard"
     },
     {
-      "id": "met_774277",
-      "label": "Wheellock Rifle",
-      "source_id": "met:774277",
-      "provider": "met",
-      "source_item_id": "774277",
-      "category": "art_culture",
-      "subject": [
-        "firearm",
-        "weapon",
-        "decorative_arts"
-      ],
-      "region_culture": [
-        "austrian"
-      ],
-      "mood": [],
-      "visual": [
-        "clear_regions",
-        "negative_space",
-        "detailed",
-        "strong_edges"
-      ],
-      "style": [
-        "photo"
-      ],
-      "scene": [],
-      "facet_status": {
-        "subject": "present",
-        "region_culture": "present",
-        "mood": "not_applicable",
-        "visual": "present",
-        "style": "present",
-        "scene": "not_applicable"
-      },
-      "tags": [
-        {
-          "id": "art_culture",
-          "weight": 1.0
-        },
-        {
-          "id": "firearm",
-          "weight": 1.0
-        },
-        {
-          "id": "weapon",
-          "weight": 1.0
-        },
-        {
-          "id": "decorative_arts",
-          "weight": 1.0
-        },
-        {
-          "id": "austrian",
-          "weight": 0.9
-        },
-        {
-          "id": "clear_regions",
-          "weight": 0.7
-        },
-        {
-          "id": "negative_space",
-          "weight": 0.7
-        },
-        {
-          "id": "detailed",
-          "weight": 0.7
-        },
-        {
-          "id": "strong_edges",
-          "weight": 0.7
-        },
-        {
-          "id": "photo",
-          "weight": 0.8
-        }
-      ],
-      "attribution": {
-        "creator": "Master of the Animal-Head Scroll (Meister der Tierkopfranke)",
-        "license": "cc0",
-        "license_url": "https://www.metmuseum.org/policies/image-resources",
-        "source_url": "https://www.metmuseum.org/art/collection/search/774277",
-        "credit_line": "Purchase, Arthur Ochs Sulzberger Gift and Harris Brisbane Dick Fund, 2018",
-        "attribution_required": false,
-        "provider_rights_signal": {
-          "field": "isPublicDomain",
-          "value": true
-        }
-      },
-      "asset": {
-        "thumbnail_url": "https://images.metmuseum.org/CRDImages/aa/web-large/DP-15498-037.jpg",
-        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/aa/web-large/DP-15498-037.jpg",
-        "production_path": null,
-        "image_version": 0
-      },
-      "curation": {
-        "authority": "curator_reviewed_baseline",
-        "ingestion_query": "animal",
-        "semantic_status": "complete",
-        "puzzleability_status": "excluded_curator_review",
-        "puzzleability_review_reasons": [
-          "low_puzzleability_score",
-          "large_flat_area"
-        ],
-        "puzzleability_analysis": {
-          "analyzer": "pieceful_puzzleability_v0",
-          "source_width": 599,
-          "source_height": 246,
-          "working_width": 320,
-          "working_height": 131,
-          "challenge_index": 0.4904,
-          "asset_warnings": [
-            "authoring_derivative_low_resolution"
-          ]
-        },
-        "puzzleability_curator_decision": "exclude",
-        "puzzleability_curator_rationale": "A long rifle is isolated against a broad uniform studio background; most pieces would be background-only."
-      },
-      "promotion": {
-        "status": "excluded",
-        "blockers": [
-          "curator_rejected_puzzleability"
-        ]
-      },
-      "puzzleability": {
-        "score": 0.3638,
-        "clear_regions": 0.895,
-        "repetitive_texture": 0.0077,
-        "flat_area": 0.8707,
-        "landmark_density": 0.3237,
-        "color_variety": 0.3256,
-        "edge_density": 0.0461,
-        "gradient_area": 0.0833
-      },
-      "suggested_difficulty": "relaxed"
-    },
-    {
       "id": "met_312624",
       "label": "Animal",
       "source_id": "met:312624",
@@ -1586,140 +1165,6 @@
         "gradient_area": 0.2963
       },
       "suggested_difficulty": "standard"
-    },
-    {
-      "id": "met_478467",
-      "label": "Animal",
-      "source_id": "met:478467",
-      "provider": "met",
-      "source_item_id": "478467",
-      "category": "art_culture",
-      "subject": [
-        "animal",
-        "animal_figure",
-        "statuette"
-      ],
-      "region_culture": [
-        "coptic"
-      ],
-      "mood": [],
-      "visual": [
-        "clear_regions",
-        "negative_space",
-        "strong_edges",
-        "muted"
-      ],
-      "style": [
-        "photo"
-      ],
-      "scene": [],
-      "facet_status": {
-        "subject": "present",
-        "region_culture": "present",
-        "mood": "not_applicable",
-        "visual": "present",
-        "style": "present",
-        "scene": "not_applicable"
-      },
-      "tags": [
-        {
-          "id": "art_culture",
-          "weight": 1.0
-        },
-        {
-          "id": "animal",
-          "weight": 1.0
-        },
-        {
-          "id": "animal_figure",
-          "weight": 1.0
-        },
-        {
-          "id": "statuette",
-          "weight": 1.0
-        },
-        {
-          "id": "coptic",
-          "weight": 0.9
-        },
-        {
-          "id": "clear_regions",
-          "weight": 0.7
-        },
-        {
-          "id": "negative_space",
-          "weight": 0.7
-        },
-        {
-          "id": "strong_edges",
-          "weight": 0.7
-        },
-        {
-          "id": "muted",
-          "weight": 0.7
-        },
-        {
-          "id": "photo",
-          "weight": 0.8
-        }
-      ],
-      "attribution": {
-        "creator": "",
-        "license": "cc0",
-        "license_url": "https://www.metmuseum.org/policies/image-resources",
-        "source_url": "https://www.metmuseum.org/art/collection/search/478467",
-        "credit_line": "Rogers Fund, 1925",
-        "attribution_required": false,
-        "provider_rights_signal": {
-          "field": "isPublicDomain",
-          "value": true
-        }
-      },
-      "asset": {
-        "thumbnail_url": "https://images.metmuseum.org/CRDImages/md/web-large/Cop0275.jpg",
-        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/md/web-large/Cop0275.jpg",
-        "production_path": null,
-        "image_version": 0
-      },
-      "curation": {
-        "authority": "curator_reviewed_baseline",
-        "ingestion_query": "animal",
-        "semantic_status": "complete",
-        "puzzleability_status": "excluded_curator_review",
-        "puzzleability_review_reasons": [
-          "large_flat_area"
-        ],
-        "puzzleability_analysis": {
-          "analyzer": "pieceful_puzzleability_v0",
-          "source_width": 600,
-          "source_height": 450,
-          "working_width": 320,
-          "working_height": 240,
-          "challenge_index": 0.4496,
-          "asset_warnings": [
-            "authoring_derivative_low_resolution"
-          ]
-        },
-        "puzzleability_curator_decision": "exclude",
-        "puzzleability_curator_rationale": "Single terracotta animal figure sits on a broad uniform studio backdrop; usable only at very low piece counts and not strong enough for the core catalog."
-      },
-      "promotion": {
-        "status": "excluded",
-        "blockers": [
-          "curator_rejected_puzzleability"
-        ]
-      },
-      "puzzleability": {
-        "score": 0.4361,
-        "clear_regions": 0.8777,
-        "repetitive_texture": 0.0183,
-        "flat_area": 0.764,
-        "landmark_density": 0.496,
-        "color_variety": 0.3347,
-        "edge_density": 0.0064,
-        "gradient_area": 0.2296
-      },
-      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_478746",
@@ -4000,135 +3445,6 @@
       "suggested_difficulty": "standard"
     },
     {
-      "id": "met_353912",
-      "label": "Japan lamp for ceiling",
-      "source_id": "met:353912",
-      "provider": "met",
-      "source_item_id": "353912",
-      "category": "objects",
-      "subject": [
-        "ceiling_lamp",
-        "lighting_design",
-        "technical_drawing"
-      ],
-      "region_culture": [],
-      "mood": [],
-      "visual": [
-        "monochrome",
-        "negative_space",
-        "strong_edges",
-        "symmetrical"
-      ],
-      "style": [
-        "print"
-      ],
-      "scene": [],
-      "facet_status": {
-        "subject": "present",
-        "region_culture": "not_applicable",
-        "mood": "not_applicable",
-        "visual": "present",
-        "style": "present",
-        "scene": "not_applicable"
-      },
-      "tags": [
-        {
-          "id": "objects",
-          "weight": 1.0
-        },
-        {
-          "id": "ceiling_lamp",
-          "weight": 1.0
-        },
-        {
-          "id": "lighting_design",
-          "weight": 1.0
-        },
-        {
-          "id": "technical_drawing",
-          "weight": 1.0
-        },
-        {
-          "id": "monochrome",
-          "weight": 0.7
-        },
-        {
-          "id": "negative_space",
-          "weight": 0.7
-        },
-        {
-          "id": "strong_edges",
-          "weight": 0.7
-        },
-        {
-          "id": "symmetrical",
-          "weight": 0.7
-        },
-        {
-          "id": "print",
-          "weight": 0.8
-        }
-      ],
-      "attribution": {
-        "creator": "Matthew Boulton",
-        "license": "cc0",
-        "license_url": "https://www.metmuseum.org/policies/image-resources",
-        "source_url": "https://www.metmuseum.org/art/collection/search/353912",
-        "credit_line": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1954",
-        "attribution_required": false,
-        "provider_rights_signal": {
-          "field": "isPublicDomain",
-          "value": true
-        }
-      },
-      "asset": {
-        "thumbnail_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP102717.jpg",
-        "puzzle_candidate_url": "https://images.metmuseum.org/CRDImages/dp/web-large/DP102717.jpg",
-        "production_path": null,
-        "image_version": 0
-      },
-      "curation": {
-        "authority": "curator_reviewed_baseline",
-        "ingestion_query": "Japan",
-        "semantic_status": "complete",
-        "puzzleability_status": "excluded_curator_review",
-        "puzzleability_review_reasons": [
-          "low_puzzleability_score",
-          "large_flat_area"
-        ],
-        "puzzleability_analysis": {
-          "analyzer": "pieceful_puzzleability_v0",
-          "source_width": 395,
-          "source_height": 625,
-          "working_width": 202,
-          "working_height": 320,
-          "challenge_index": 0.5752,
-          "asset_warnings": [
-            "authoring_derivative_low_resolution"
-          ]
-        },
-        "puzzleability_curator_decision": "exclude",
-        "puzzleability_curator_rationale": "Technical ceiling-lamp drawing leaves most of the frame as nearly blank paper; too few distributed visual anchors for a satisfying jigsaw."
-      },
-      "promotion": {
-        "status": "excluded",
-        "blockers": [
-          "curator_rejected_puzzleability"
-        ]
-      },
-      "puzzleability": {
-        "score": 0.2557,
-        "clear_regions": 0.4054,
-        "repetitive_texture": 0.1297,
-        "flat_area": 0.7603,
-        "landmark_density": 0.1791,
-        "color_variety": 0.1477,
-        "edge_density": 0.0981,
-        "gradient_area": 0.1416
-      },
-      "suggested_difficulty": "relaxed"
-    },
-    {
       "id": "met_728305",
       "label": "Temple of Kamakura, Japan",
       "source_id": "met:728305",
@@ -5467,6 +4783,33 @@
         "gradient_area": 0.3509
       },
       "suggested_difficulty": "relaxed"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "met_340468",
+      "label": "Landscape (recto); Landscape (verso)",
+      "reason": "Extremely low-contrast monochrome landscape study has weak location cues across large areas even at low piece counts."
+    },
+    {
+      "id": "met_242768",
+      "label": "Necklace flowers",
+      "reason": "Three tiny flower-shaped necklace elements occupy a very small portion of a large uniform background."
+    },
+    {
+      "id": "met_774277",
+      "label": "Wheellock Rifle",
+      "reason": "A long rifle is isolated against a broad uniform studio background; most pieces would be background-only."
+    },
+    {
+      "id": "met_478467",
+      "label": "Animal",
+      "reason": "Single terracotta animal figure sits on a broad uniform studio backdrop; usable only at very low piece counts and not strong enough for the core catalog."
+    },
+    {
+      "id": "met_353912",
+      "label": "Japan lamp for ceiling",
+      "reason": "Technical ceiling-lamp drawing leaves most of the frame as nearly blank paper; too few distributed visual anchors for a satisfying jigsaw."
     }
   ]
 }
