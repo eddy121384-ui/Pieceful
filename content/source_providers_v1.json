@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "purpose": "Authoritative source registry for Pieceful content ingestion. Rights are evaluated per provider and, where required, per item.",
+  "providers": {
+    "met": {
+      "display_name": "The Metropolitan Museum of Art",
+      "status": "active_v0",
+      "ingestion_mode": "rest_api",
+      "api_docs_url": "https://metmuseum.github.io/",
+      "rights_policy_url": "https://www.metmuseum.org/policies/image-resources",
+      "accepted_rights": ["cc0"],
+      "rights_gate": "Require API isPublicDomain=true and a non-empty primary image before accepting an item.",
+      "attribution_required": false,
+      "notes": "The Met marks Open Access public-domain artwork images as CC0. Pieceful still preserves creator, source URL and credit-line metadata."
+    },
+    "npm": {
+      "display_name": "National Palace Museum, Taipei",
+      "status": "planned",
+      "ingestion_mode": "open_data_iiif",
+      "api_docs_url": "https://digitalarchive.npm.gov.tw/opendata",
+      "rights_policy_url": "https://digitalarchive.npm.gov.tw/opendata",
+      "accepted_rights": ["cc0", "cc_by_4_0"],
+      "rights_gate": "Verify the downloadable image tier and its item-level licence before accepting it; do not infer rights from visual content.",
+      "attribution_required": "depends_on_image_tier",
+      "notes": "Low-resolution open images are published under CC0; medium-resolution images are published under CC BY 4.0 and require the museum credit format."
+    },
+    "rijksmuseum": {
+      "display_name": "Rijksmuseum",
+      "status": "planned",
+      "ingestion_mode": "collection_data_iiif",
+      "api_docs_url": "https://data.rijksmuseum.nl/docs/iiif/",
+      "rights_policy_url": "https://data.rijksmuseum.nl/policy",
+      "accepted_rights": ["public_domain_mark", "cc0", "cc_by_4_0"],
+      "rights_gate": "Accept only records whose published copyright/licence notice is one of the approved open-rights values.",
+      "attribution_required": "depends_on_item_licence",
+      "notes": "The collection contains open and restricted material, so Pieceful must preserve and evaluate the record-level rights statement."
+    }
+  }
+}

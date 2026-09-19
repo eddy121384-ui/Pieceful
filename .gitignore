@@ -5,6 +5,9 @@
 .godot-ci/
 build/
 
+# Local content-ingestion workspace (downloaded museum images + generated manifests)
+.pieceful-content/
+
 # OS/editor noise
 .DS_Store
 Thumbs.db
