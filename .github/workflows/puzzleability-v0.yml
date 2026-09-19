@@ -11,6 +11,8 @@ on:
       - ".github/workflows/puzzleability-v0.yml"
       - "tools/content_ingestion/analyze_puzzleability.py"
       - "content/curation/met_curated_catalog_v0.json"
+      - "content/curation/met_puzzleability_review_v0.json"
+      - "tools/content_ingestion/finalize_puzzleability.py"
 
 permissions:
   contents: write
@@ -40,9 +42,19 @@ jobs:
       - name: Puzzleability self-test
         run: python tools/content_ingestion/analyze_puzzleability.py --self-test
 
+      - name: Compile finalizer
+        run: python -m py_compile tools/content_ingestion/finalize_puzzleability.py
+
+      - name: Curator finalization self-test
+        run: python tools/content_ingestion/finalize_puzzleability.py --self-test
+
       - name: Analyze 40 curated images
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[puzzleability]')
         run: python tools/content_ingestion/analyze_puzzleability.py
+
+      - name: Apply curator Puzzleability review
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[puzzleability]')
+        run: python tools/content_ingestion/finalize_puzzleability.py
 
       - name: Upload report artifact
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[puzzleability]')
@@ -52,6 +64,7 @@ jobs:
           path: |
             content/curation/met_curated_catalog_v0.json
             content/curation/met_puzzleability_report_v0.json
+            content/curation/met_runtime_candidates_v0.json
           if-no-files-found: error
           retention-days: 14
 
@@ -62,7 +75,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/curation/met_curated_catalog_v0.json content/curation/met_puzzleability_report_v0.json
+          git add content/curation/met_curated_catalog_v0.json content/curation/met_puzzleability_report_v0.json content/curation/met_runtime_candidates_v0.json
           if git diff --cached --quiet; then
             echo "Puzzleability results unchanged."
             exit 0
