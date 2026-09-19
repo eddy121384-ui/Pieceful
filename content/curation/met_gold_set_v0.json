@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "kind": "pieceful_gold_set",
-  "authority": "human_reviewed_baseline",
-  "purpose": "One-time sanity-check set for AI Curator behavior. Gold labels are never included in model prompts.",
+  "authority": "curator_reviewed_baseline",
+  "purpose": "Curator-reviewed semantic reference set for the first 40 Met candidates. It is the curation source for Catalog Promotion v0 and is not model-generated output.",
   "entries": [
     {
       "id": "met_340468",
