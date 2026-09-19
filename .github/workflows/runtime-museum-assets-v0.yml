@@ -9,6 +9,7 @@ on:
       - ".github/workflows/runtime-museum-assets-v0.yml"
       - "tools/content_ingestion/materialize_runtime_assets.py"
       - "content/curation/met_runtime_candidates_v0.json"
+      - "scripts/gallery_image_aware_main.gd"
       - "tests/gallery_flow_smoke.gd"
       - "tests/puzzle_selection_flow_smoke.gd"
 
