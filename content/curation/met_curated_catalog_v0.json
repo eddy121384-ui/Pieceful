@@ -4,14 +4,17 @@
   "generated_at": "2026-09-19T22:04:45Z",
   "taxonomy_version": 1,
   "provider": "met",
-  "catalog_status": "curated_needs_puzzleability",
+  "catalog_status": "curated_needs_puzzleability_review_and_assets",
   "summary": {
     "total": 40,
     "semantic_complete": 40,
     "rights_verified": 40,
     "runtime_publishable": 0,
     "blocked_on_puzzleability": 40,
-    "blocked_on_production_asset": 40
+    "blocked_on_production_asset": 40,
+    "puzzleability_analyzed": 40,
+    "puzzleability_accepted": 0,
+    "puzzleability_review": 40
   },
   "contents": [
     {
@@ -122,17 +125,39 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "landscape",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 439,
+          "working_width": 320,
+          "working_height": 234,
+          "challenge_index": 0.4193
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.3751,
+        "clear_regions": 0.4419,
+        "repetitive_texture": 0.0869,
+        "flat_area": 0.4811,
+        "landmark_density": 0.0574,
+        "color_variety": 0.2826,
+        "edge_density": 0.0374,
+        "gradient_area": 0.4815
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_10181",
@@ -253,17 +278,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "landscape",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 428,
+          "working_width": 320,
+          "working_height": 229,
+          "challenge_index": 0.2378
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7968,
+        "clear_regions": 0.7692,
+        "repetitive_texture": 0.2273,
+        "flat_area": 0.1374,
+        "landmark_density": 1.0,
+        "color_variety": 0.4739,
+        "edge_density": 0.2034,
+        "gradient_area": 0.6592
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_359362",
@@ -373,17 +419,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "landscape",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 449,
+          "working_width": 320,
+          "working_height": 239,
+          "challenge_index": 0.2928
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5803,
+        "clear_regions": 0.6755,
+        "repetitive_texture": 0.0591,
+        "flat_area": 0.3381,
+        "landmark_density": 0.4793,
+        "color_variety": 0.4447,
+        "edge_density": 0.0233,
+        "gradient_area": 0.6386
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_335112",
@@ -498,17 +565,39 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "landscape",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 390,
+          "working_width": 320,
+          "working_height": 208,
+          "challenge_index": 0.3733
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4114,
+        "clear_regions": 0.3614,
+        "repetitive_texture": 0.1051,
+        "flat_area": 0.3428,
+        "landmark_density": 0.0388,
+        "color_variety": 0.3097,
+        "edge_density": 0.0726,
+        "gradient_area": 0.5845
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_11181",
@@ -634,17 +723,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "landscape",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 479,
+          "working_width": 320,
+          "working_height": 255,
+          "challenge_index": 0.3652
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7106,
+        "clear_regions": 0.7778,
+        "repetitive_texture": 0.295,
+        "flat_area": 0.3304,
+        "landmark_density": 1.0,
+        "color_variety": 0.2956,
+        "edge_density": 0.2223,
+        "gradient_area": 0.4473
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_394043",
@@ -749,17 +859,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "flowers",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 458,
+          "source_height": 625,
+          "working_width": 234,
+          "working_height": 320,
+          "challenge_index": 0.4463
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4956,
+        "clear_regions": 0.5058,
+        "repetitive_texture": 0.3714,
+        "flat_area": 0.3609,
+        "landmark_density": 0.5217,
+        "color_variety": 0.2406,
+        "edge_density": 0.223,
+        "gradient_area": 0.4161
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_242768",
@@ -853,17 +984,40 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "flowers",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "large_flat_area",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 420,
+          "working_width": 320,
+          "working_height": 224,
+          "challenge_index": 0.5367
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.2678,
+        "clear_regions": 0.8672,
+        "repetitive_texture": 0.0311,
+        "flat_area": 0.9263,
+        "landmark_density": 0.2356,
+        "color_variety": 0.248,
+        "edge_density": 0.0238,
+        "gradient_area": 0.0499
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_438031",
@@ -968,17 +1122,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "flowers",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 491,
+          "working_width": 320,
+          "working_height": 262,
+          "challenge_index": 0.2574
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6811,
+        "clear_regions": 0.6325,
+        "repetitive_texture": 0.1781,
+        "flat_area": 0.1538,
+        "landmark_density": 0.6325,
+        "color_variety": 0.4281,
+        "edge_density": 0.1337,
+        "gradient_area": 0.7125
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_12802",
@@ -1104,17 +1279,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "flowers",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 370,
+          "working_width": 320,
+          "working_height": 198,
+          "challenge_index": 0.3309
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7582,
+        "clear_regions": 0.9421,
+        "repetitive_texture": 0.0702,
+        "flat_area": 0.5181,
+        "landmark_density": 1.0,
+        "color_variety": 0.4657,
+        "edge_density": 0.038,
+        "gradient_area": 0.4439
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_774277",
@@ -1213,17 +1409,40 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "animal",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "large_flat_area",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 246,
+          "working_width": 320,
+          "working_height": 131,
+          "challenge_index": 0.4904
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.3638,
+        "clear_regions": 0.895,
+        "repetitive_texture": 0.0077,
+        "flat_area": 0.8707,
+        "landmark_density": 0.3237,
+        "color_variety": 0.3256,
+        "edge_density": 0.0461,
+        "gradient_area": 0.0833
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_312624",
@@ -1322,17 +1541,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "animal",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 540,
+          "working_width": 320,
+          "working_height": 288,
+          "challenge_index": 0.4033
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6519,
+        "clear_regions": 0.8923,
+        "repetitive_texture": 0.0757,
+        "flat_area": 0.6688,
+        "landmark_density": 1.0,
+        "color_variety": 0.4621,
+        "edge_density": 0.0349,
+        "gradient_area": 0.2963
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_478467",
@@ -1431,17 +1671,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "animal",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 450,
+          "working_width": 320,
+          "working_height": 240,
+          "challenge_index": 0.4496
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4361,
+        "clear_regions": 0.8777,
+        "repetitive_texture": 0.0183,
+        "flat_area": 0.764,
+        "landmark_density": 0.496,
+        "color_variety": 0.3347,
+        "edge_density": 0.0064,
+        "gradient_area": 0.2296
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_478746",
@@ -1540,17 +1801,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "animal",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 464,
+          "working_width": 320,
+          "working_height": 248,
+          "challenge_index": 0.358
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6205,
+        "clear_regions": 0.8262,
+        "repetitive_texture": 0.0496,
+        "flat_area": 0.5279,
+        "landmark_density": 0.6728,
+        "color_variety": 0.3873,
+        "edge_density": 0.0204,
+        "gradient_area": 0.4517
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_478425",
@@ -1644,17 +1926,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "animal",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 450,
+          "working_width": 320,
+          "working_height": 240,
+          "challenge_index": 0.4259
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4385,
+        "clear_regions": 0.8471,
+        "repetitive_texture": 0.0369,
+        "flat_area": 0.6817,
+        "landmark_density": 0.3252,
+        "color_variety": 0.326,
+        "edge_density": 0.0163,
+        "gradient_area": 0.302
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_226943",
@@ -1753,17 +2056,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "portrait",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 529,
+          "source_height": 625,
+          "working_width": 271,
+          "working_height": 320,
+          "challenge_index": 0.4101
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6065,
+        "clear_regions": 0.6336,
+        "repetitive_texture": 0.3381,
+        "flat_area": 0.3713,
+        "landmark_density": 1.0,
+        "color_variety": 0.3237,
+        "edge_density": 0.268,
+        "gradient_area": 0.3607
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_191566",
@@ -1857,17 +2181,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "portrait",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 482,
+          "source_height": 625,
+          "working_width": 247,
+          "working_height": 320,
+          "challenge_index": 0.4389
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.625,
+        "clear_regions": 0.6918,
+        "repetitive_texture": 0.1692,
+        "flat_area": 0.5501,
+        "landmark_density": 0.8097,
+        "color_variety": 0.2668,
+        "edge_density": 0.1019,
+        "gradient_area": 0.348
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_191567",
@@ -1961,17 +2306,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "portrait",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 477,
+          "source_height": 625,
+          "working_width": 244,
+          "working_height": 320,
+          "challenge_index": 0.4362
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6056,
+        "clear_regions": 0.6604,
+        "repetitive_texture": 0.215,
+        "flat_area": 0.4994,
+        "landmark_density": 0.6826,
+        "color_variety": 0.2582,
+        "edge_density": 0.111,
+        "gradient_area": 0.3896
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_340070",
@@ -2065,17 +2431,39 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "portrait",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 495,
+          "source_height": 625,
+          "working_width": 253,
+          "working_height": 320,
+          "challenge_index": 0.3485
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.41,
+        "clear_regions": 0.4527,
+        "repetitive_texture": 0.0915,
+        "flat_area": 0.3101,
+        "landmark_density": 0.0413,
+        "color_variety": 0.2752,
+        "edge_density": 0.0514,
+        "gradient_area": 0.6384
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_21209",
@@ -2174,17 +2562,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "portrait",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 439,
+          "source_height": 624,
+          "working_width": 225,
+          "working_height": 320,
+          "challenge_index": 0.4063
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6495,
+        "clear_regions": 0.8405,
+        "repetitive_texture": 0.0605,
+        "flat_area": 0.6623,
+        "landmark_density": 1.0,
+        "color_variety": 0.4444,
+        "edge_density": 0.0453,
+        "gradient_area": 0.2924
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_399581",
@@ -2277,17 +2686,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "architecture",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 414,
+          "working_width": 320,
+          "working_height": 221,
+          "challenge_index": 0.3566
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.461,
+        "clear_regions": 0.4643,
+        "repetitive_texture": 0.1484,
+        "flat_area": 0.309,
+        "landmark_density": 0.0501,
+        "color_variety": 0.3107,
+        "edge_density": 0.1015,
+        "gradient_area": 0.5896
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_202696",
@@ -2380,17 +2810,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "architecture",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 380,
+          "working_width": 320,
+          "working_height": 203,
+          "challenge_index": 0.3537
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6048,
+        "clear_regions": 0.5294,
+        "repetitive_texture": 0.1895,
+        "flat_area": 0.3443,
+        "landmark_density": 0.4822,
+        "color_variety": 0.4366,
+        "edge_density": 0.1397,
+        "gradient_area": 0.5159
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_399347",
@@ -2483,17 +2934,40 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "architecture",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "high_repetitive_texture",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 449,
+          "source_height": 625,
+          "working_width": 230,
+          "working_height": 320,
+          "challenge_index": 0.4269
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4173,
+        "clear_regions": 0.4721,
+        "repetitive_texture": 0.7652,
+        "flat_area": 0.1064,
+        "landmark_density": 0.4358,
+        "color_variety": 0.4119,
+        "edge_density": 0.2843,
+        "gradient_area": 0.6093
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_394310",
@@ -2581,17 +3055,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "architecture",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 424,
+          "working_width": 320,
+          "working_height": 226,
+          "challenge_index": 0.3619
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5055,
+        "clear_regions": 0.5276,
+        "repetitive_texture": 0.1298,
+        "flat_area": 0.3632,
+        "landmark_density": 0.1299,
+        "color_variety": 0.332,
+        "edge_density": 0.1421,
+        "gradient_area": 0.4947
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_394709",
@@ -2679,17 +3174,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "architecture",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 427,
+          "working_width": 320,
+          "working_height": 228,
+          "challenge_index": 0.4295
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4483,
+        "clear_regions": 0.5242,
+        "repetitive_texture": 0.2578,
+        "flat_area": 0.435,
+        "landmark_density": 0.1915,
+        "color_variety": 0.3253,
+        "edge_density": 0.2106,
+        "gradient_area": 0.3543
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_5410",
@@ -2788,17 +3304,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "night",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 407,
+          "source_height": 624,
+          "working_width": 209,
+          "working_height": 320,
+          "challenge_index": 0.4649
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6287,
+        "clear_regions": 0.7944,
+        "repetitive_texture": 0.0681,
+        "flat_area": 0.6936,
+        "landmark_density": 1.0,
+        "color_variety": 0.214,
+        "edge_density": 0.1317,
+        "gradient_area": 0.1747
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_221706",
@@ -2891,17 +3428,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "night",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 442,
+          "working_width": 320,
+          "working_height": 236,
+          "challenge_index": 0.4323
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5587,
+        "clear_regions": 0.6212,
+        "repetitive_texture": 0.1501,
+        "flat_area": 0.5935,
+        "landmark_density": 0.5615,
+        "color_variety": 0.4499,
+        "edge_density": 0.1823,
+        "gradient_area": 0.2242
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_54393",
@@ -3017,17 +3575,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "night",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 572,
+          "source_height": 624,
+          "working_width": 293,
+          "working_height": 320,
+          "challenge_index": 0.3562
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7389,
+        "clear_regions": 0.653,
+        "repetitive_texture": 0.3719,
+        "flat_area": 0.2903,
+        "landmark_density": 0.9537,
+        "color_variety": 0.4906,
+        "edge_density": 0.174,
+        "gradient_area": 0.5356
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_215356",
@@ -3115,17 +3694,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "night",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 464,
+          "source_height": 625,
+          "working_width": 238,
+          "working_height": 320,
+          "challenge_index": 0.4402
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6721,
+        "clear_regions": 0.5659,
+        "repetitive_texture": 0.2486,
+        "flat_area": 0.4671,
+        "landmark_density": 1.0,
+        "color_variety": 0.2896,
+        "edge_density": 0.1297,
+        "gradient_area": 0.4032
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_228950",
@@ -3218,17 +3818,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "night",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 450,
+          "working_width": 320,
+          "working_height": 240,
+          "challenge_index": 0.4528
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5346,
+        "clear_regions": 0.7736,
+        "repetitive_texture": 0.0599,
+        "flat_area": 0.6994,
+        "landmark_density": 0.5806,
+        "color_variety": 0.3092,
+        "edge_density": 0.1208,
+        "gradient_area": 0.1798
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_505626",
@@ -3327,17 +3948,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "Japan",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 380,
+          "working_width": 320,
+          "working_height": 203,
+          "challenge_index": 0.4041
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7204,
+        "clear_regions": 0.8165,
+        "repetitive_texture": 0.1341,
+        "flat_area": 0.5845,
+        "landmark_density": 1.0,
+        "color_variety": 0.4038,
+        "edge_density": 0.1188,
+        "gradient_area": 0.2967
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_353912",
@@ -3430,17 +4072,39 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "Japan",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 395,
+          "source_height": 625,
+          "working_width": 202,
+          "working_height": 320,
+          "challenge_index": 0.5752
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.2557,
+        "clear_regions": 0.4054,
+        "repetitive_texture": 0.1297,
+        "flat_area": 0.7603,
+        "landmark_density": 0.1791,
+        "color_variety": 0.1477,
+        "edge_density": 0.0981,
+        "gradient_area": 0.1416
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_728305",
@@ -3561,17 +4225,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "Japan",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 472,
+          "working_width": 320,
+          "working_height": 252,
+          "challenge_index": 0.3979
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.719,
+        "clear_regions": 0.891,
+        "repetitive_texture": 0.1184,
+        "flat_area": 0.6248,
+        "landmark_density": 1.0,
+        "color_variety": 0.4561,
+        "edge_density": 0.1011,
+        "gradient_area": 0.2741
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_764802",
@@ -3692,17 +4377,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "Japan",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 386,
+          "working_width": 320,
+          "working_height": 206,
+          "challenge_index": 0.3516
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7679,
+        "clear_regions": 0.7271,
+        "repetitive_texture": 0.1716,
+        "flat_area": 0.4307,
+        "landmark_density": 1.0,
+        "color_variety": 0.4723,
+        "edge_density": 0.1332,
+        "gradient_area": 0.4361
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_10189",
@@ -3833,17 +4539,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "Japan",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 489,
+          "working_width": 320,
+          "working_height": 261,
+          "challenge_index": 0.3362
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6848,
+        "clear_regions": 0.5977,
+        "repetitive_texture": 0.4782,
+        "flat_area": 0.1627,
+        "landmark_density": 1.0,
+        "color_variety": 0.5145,
+        "edge_density": 0.247,
+        "gradient_area": 0.5903
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_436305",
@@ -3959,17 +4686,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "still life",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 468,
+          "working_width": 320,
+          "working_height": 250,
+          "challenge_index": 0.3945
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.6216,
+        "clear_regions": 0.6951,
+        "repetitive_texture": 0.0932,
+        "flat_area": 0.5257,
+        "landmark_density": 0.8023,
+        "color_variety": 0.3442,
+        "edge_density": 0.0435,
+        "gradient_area": 0.4308
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_10996",
@@ -4091,17 +4839,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "still life",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 600,
+          "source_height": 497,
+          "working_width": 320,
+          "working_height": 265,
+          "challenge_index": 0.3011
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.7483,
+        "clear_regions": 0.742,
+        "repetitive_texture": 0.137,
+        "flat_area": 0.2699,
+        "landmark_density": 1.0,
+        "color_variety": 0.2919,
+        "edge_density": 0.0885,
+        "gradient_area": 0.6416
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_286248",
@@ -4207,17 +4976,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "still life",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 445,
+          "source_height": 625,
+          "working_width": 228,
+          "working_height": 320,
+          "challenge_index": 0.4712
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5546,
+        "clear_regions": 0.6305,
+        "repetitive_texture": 0.0975,
+        "flat_area": 0.6887,
+        "landmark_density": 0.9587,
+        "color_variety": 0.3566,
+        "edge_density": 0.0539,
+        "gradient_area": 0.2574
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_898372",
@@ -4334,17 +5124,40 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "still life",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_visual_variety",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 584,
+          "source_height": 624,
+          "working_width": 299,
+          "working_height": 320,
+          "challenge_index": 0.4502
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.3648,
+        "clear_regions": 0.5384,
+        "repetitive_texture": 0.0782,
+        "flat_area": 0.5489,
+        "landmark_density": 0.1027,
+        "color_variety": 0.1679,
+        "edge_density": 0.0372,
+        "gradient_area": 0.4138
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_54333",
@@ -4461,17 +5274,38 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "still life",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 548,
+          "source_height": 624,
+          "working_width": 281,
+          "working_height": 320,
+          "challenge_index": 0.3656
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.5758,
+        "clear_regions": 0.6608,
+        "repetitive_texture": 0.1238,
+        "flat_area": 0.4339,
+        "landmark_density": 0.4375,
+        "color_variety": 0.3672,
+        "edge_density": 0.0781,
+        "gradient_area": 0.488
+      },
+      "suggested_difficulty": "relaxed"
     },
     {
       "id": "met_54988",
@@ -4577,17 +5411,39 @@
       "curation": {
         "authority": "curator_reviewed_baseline",
         "ingestion_query": "flowers",
-        "semantic_status": "complete"
+        "semantic_status": "complete",
+        "puzzleability_status": "review",
+        "puzzleability_review_reasons": [
+          "low_puzzleability_score",
+          "low_source_resolution"
+        ],
+        "puzzleability_analysis": {
+          "analyzer": "pieceful_puzzleability_v0",
+          "source_width": 599,
+          "source_height": 464,
+          "working_width": 320,
+          "working_height": 248,
+          "challenge_index": 0.4453
+        }
       },
       "promotion": {
         "status": "blocked",
         "blockers": [
-          "puzzleability_missing",
+          "puzzleability_review",
           "production_asset_not_materialized"
         ]
       },
-      "puzzleability": null,
-      "suggested_difficulty": null
+      "puzzleability": {
+        "score": 0.4099,
+        "clear_regions": 0.6486,
+        "repetitive_texture": 0.0849,
+        "flat_area": 0.5951,
+        "landmark_density": 0.1857,
+        "color_variety": 0.2353,
+        "edge_density": 0.054,
+        "gradient_area": 0.3509
+      },
+      "suggested_difficulty": "relaxed"
     }
   ]
 }
