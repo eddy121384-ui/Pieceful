@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feat/issue-9-content-taxonomy
+      - feat/issue-8-local-recommendation-v1
   workflow_dispatch:
 
 permissions:
@@ -188,6 +188,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd
+
+      - name: Local recommendation smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/local_recommendation_smoke.gd
 
       - name: Gallery Retina portrait smoke
         shell: bash

@@ -2,9 +2,12 @@ class_name GalleryImageAwareMain
 extends "res://scripts/image_aware_puzzle_selection_main.gd"
 
 const GalleryStateStoreScript = preload("res://scripts/gallery_state_store.gd")
+const LocalRecommendationStoreScript = preload("res://scripts/local_recommendation_store.gd")
 const MOBILE_PORTRAIT_MAX_WIDTH := 700.0
+const FOR_YOU_LIMIT := 12
 
 var gallery_state = GalleryStateStoreScript.new()
+var recommendation_store = LocalRecommendationStoreScript.new()
 var gallery_search: LineEdit = null
 var gallery_category_filter: OptionButton = null
 var gallery_status_filter: OptionButton = null
@@ -89,6 +92,7 @@ func _build_puzzle_selection_ui() -> void:
 	gallery_status_filter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for row in [
 		["All states", "all"],
+		["For You", "for_you"],
 		["Favorites", "favorites"],
 		["Continue", "continue"],
 		["Completed", "completed"],
@@ -280,6 +284,18 @@ func _on_favorite_pressed(content_id: String) -> void:
 	_refresh_gallery_cards()
 
 
+func _start_selected_puzzle() -> void:
+	var requested_content := pending_content_id
+	var requested_difficulty := _picker_selected_difficulty_id()
+	super._start_selected_puzzle()
+	if puzzle_selection_overlay == null or puzzle_selection_overlay.visible:
+		return
+	if board == null or str(board.active_content_id()) != requested_content:
+		return
+	var metadata: Dictionary = board.content_metadata(requested_content)
+	recommendation_store.record_start(metadata, requested_difficulty)
+
+
 func _on_continue_pressed(content_id: String) -> void:
 	var entry := _unfinished_entry_for_content(content_id)
 	var game_id := str(entry.get("game_id", ""))
@@ -307,9 +323,15 @@ func _refresh_sessions_list() -> void:
 func _refresh_gallery_cards() -> void:
 	if gallery_cards.is_empty():
 		return
+	_sync_recommendation_history()
 	var query := gallery_search.text.strip_edges().to_lower() if gallery_search != null else ""
 	var category := _selected_filter_value(gallery_category_filter, "all")
 	var status_filter := _selected_filter_value(gallery_status_filter, "all")
+	var for_you_ids: Array = []
+	if status_filter == "for_you":
+		for entry_value in recommendations_for_you(FOR_YOU_LIMIT):
+			if entry_value is Dictionary:
+				for_you_ids.append(str((entry_value as Dictionary).get("id", "")))
 
 	for content_id_value in gallery_cards.keys():
 		var content_id := str(content_id_value)
@@ -331,6 +353,7 @@ func _refresh_gallery_cards() -> void:
 		var gallery_status := _gallery_status_for(content_id)
 		var status_matches := (
 			status_filter == "all"
+			or (status_filter == "for_you" and for_you_ids.has(content_id))
 			or (status_filter == "favorites" and gallery_state.is_favorite(content_id))
 			or status_filter == gallery_status
 		)
@@ -348,7 +371,70 @@ func _refresh_gallery_cards() -> void:
 		if continue_button is Button:
 			(continue_button as Button).visible = gallery_status == "continue"
 
+	if status_filter == "for_you":
+		_apply_gallery_order(for_you_ids)
+	else:
+		_apply_gallery_order(_catalog_order())
 	_refresh_content_card_state()
+
+
+func recommendations_for_you(limit: int = FOR_YOU_LIMIT) -> Array:
+	if board == null or not board.has_method("content_presets"):
+		return []
+	return recommendation_store.rank_for_you(board.content_presets(), limit)
+
+
+func more_like_recommendations(content_id: String, limit: int = 6) -> Array:
+	if board == null or not board.has_method("content_metadata") or not board.has_method("content_presets"):
+		return []
+	var source: Dictionary = board.content_metadata(content_id)
+	return recommendation_store.more_like(source, board.content_presets(), limit)
+
+
+func recommendation_profile_snapshot() -> Dictionary:
+	return recommendation_store.profile_snapshot()
+
+
+func _sync_recommendation_history() -> void:
+	if board == null or not board.has_method("content_presets"):
+		return
+	var completion_counts: Dictionary = {}
+	for entry_value in board.content_presets():
+		if not (entry_value is Dictionary):
+			continue
+		var content_id := str((entry_value as Dictionary).get("id", ""))
+		if content_id.is_empty():
+			continue
+		var completion := gallery_state.completion_for(content_id)
+		if not completion.is_empty():
+			completion_counts[content_id] = int(completion.get("count", 0))
+	recommendation_store.sync_history(
+		board.content_presets(),
+		gallery_state.favorites(),
+		completion_counts
+	)
+
+
+func _catalog_order() -> Array:
+	var result: Array = []
+	if board == null or not board.has_method("content_presets"):
+		return result
+	for entry_value in board.content_presets():
+		if entry_value is Dictionary:
+			result.append(str((entry_value as Dictionary).get("id", "")))
+	return result
+
+
+func _apply_gallery_order(content_ids: Array) -> void:
+	var host := _active_gallery_host()
+	if host == null:
+		return
+	var index := 0
+	for content_id_value in content_ids:
+		var card = gallery_cards.get(str(content_id_value))
+		if card is Control and card.get_parent() == host:
+			host.move_child(card, index)
+			index += 1
 
 
 func _gallery_status_for(content_id: String) -> String:
