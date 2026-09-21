@@ -100,6 +100,9 @@ func _on_delete_game_pressed(game_id: String) -> void:
 	properties["game_id"] = game_id
 	properties["orientation"] = _analytics_orientation(get_viewport().get_visible_rect().size)
 	_analytics_track("puzzle_abandon", properties)
+	var metadata := _recommendation_metadata_for_saved_entry(entry)
+	if not metadata.is_empty():
+		recommendation_store.record_abandon(metadata, float(entry.get("progress", 0.0)))
 
 
 func _on_difficulty_selected(index: int) -> void:
@@ -184,6 +187,30 @@ func _on_analytics_hint_assist_recorded(game_id: String) -> void:
 	var properties := _analytics_active_runtime_properties()
 	properties["game_id"] = game_id
 	_analytics_track_once("hint_used", game_id, properties)
+	if board != null and board.has_method("active_content_id") and board.has_method("content_metadata"):
+		var content_id := str(board.active_content_id())
+		var metadata: Dictionary = board.content_metadata(content_id)
+		if not metadata.is_empty():
+			recommendation_store.record_hint(
+				metadata,
+				str(board.active_difficulty_id()) if board.has_method("active_difficulty_id") else ""
+			)
+
+
+func _on_timelapse_replay_pressed() -> void:
+	var previous_serial := int(timelapse_play_serial)
+	super._on_timelapse_replay_pressed()
+	if int(timelapse_play_serial) == previous_serial:
+		return
+	if save_coordinator == null or not save_coordinator.has_method("latest_completion_record"):
+		return
+	var record: Dictionary = save_coordinator.latest_completion_record()
+	var content_id := str(record.get("content_id", ""))
+	if content_id.is_empty() or board == null or not board.has_method("content_metadata"):
+		return
+	var metadata: Dictionary = board.content_metadata(content_id)
+	if not metadata.is_empty():
+		recommendation_store.record_replay(metadata)
 
 
 func _on_analytics_sorting_table_opened(tray_count: int, piece_count: int) -> void:
@@ -278,6 +305,23 @@ func _analytics_saved_entry_properties(entry: Dictionary) -> Dictionary:
 		"piece_count": piece_count,
 		"progress_bucket": _analytics_progress_bucket(solved_count, piece_count),
 	}
+
+
+func _recommendation_metadata_for_saved_entry(entry: Dictionary) -> Dictionary:
+	if board == null or not board.has_method("content_presets"):
+		return {}
+	if str(entry.get("content_source_kind", "")) == "local_photo":
+		return {}
+	var source_id := str(entry.get("content_source_id", ""))
+	if source_id.is_empty():
+		return {}
+	for entry_value in board.content_presets():
+		if not (entry_value is Dictionary):
+			continue
+		var metadata: Dictionary = entry_value
+		if str(metadata.get("source_id", "")) == source_id:
+			return metadata.duplicate(true)
+	return {}
 
 
 func _analytics_piece_count() -> int:
