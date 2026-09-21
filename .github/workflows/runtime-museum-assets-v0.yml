@@ -1,0 +1,122 @@
+name: Runtime Museum Assets v0
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/issue-9-content-ingestion-v0
+    paths:
+      - ".github/workflows/runtime-museum-assets-v0.yml"
+      - "tools/content_ingestion/materialize_runtime_assets.py"
+      - "tools/content_ingestion/configure_museum_texture_imports.py"
+      - "content/curation/met_runtime_candidates_v0.json"
+      - "scripts/gallery_image_aware_main.gd"
+      - "tests/gallery_flow_smoke.gd"
+      - "tests/puzzle_selection_flow_smoke.gd"
+      - "tests/museum_runtime_flow_smoke.gd"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pieceful-runtime-museum-assets-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  GODOT_RELEASE: "4.7.2-stable"
+  GODOT_BIN_DIR: "${{ github.workspace }}/.godot-ci"
+  GODOT_BIN: "${{ github.workspace }}/.godot-ci/Godot_v4.7.2-stable_linux.x86_64"
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Verify Python
+        run: python --version
+
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check --no-cache-dir pillow
+
+      - name: Compile materializer
+        run: python -m py_compile tools/content_ingestion/materialize_runtime_assets.py
+
+      - name: Materializer self-test
+        run: python tools/content_ingestion/materialize_runtime_assets.py --self-test
+
+      - name: Materialize 35 approved museum puzzles
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: python tools/content_ingestion/materialize_runtime_assets.py
+
+      - name: Validate materialized assets
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: python tools/content_ingestion/materialize_runtime_assets.py --validate-only
+
+      - name: Install Godot editor
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p "${GODOT_BIN_DIR}"
+          curl -L --fail --retry 3             "https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_linux.x86_64.zip"             -o /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d "${GODOT_BIN_DIR}"
+          chmod +x "${GODOT_BIN}"
+          "${GODOT_BIN}" --version
+
+      - name: Import generated image resources
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --editor --quit'
+
+      - name: Configure museum texture imports
+        run: |
+          python tools/content_ingestion/configure_museum_texture_imports.py --self-test
+          python tools/content_ingestion/configure_museum_texture_imports.py
+          "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Validate published taxonomy contract
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --script tests/content_taxonomy_smoke.gd'
+
+      - name: Validate Gallery flow with museum catalog
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd'
+
+      - name: Validate puzzle selection with museum catalog
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --script tests/puzzle_selection_flow_smoke.gd'
+
+      - name: Validate museum playable flow
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --script tests/museum_runtime_flow_smoke.gd'
+
+      - name: Upload runtime asset artifact
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        uses: actions/upload-artifact@v4
+        with:
+          name: pieceful-met-runtime-assets-${{ github.run_id }}
+          path: |
+            assets/museum/met_v0
+            content/runtime/met_v0_manifest.json
+            content/catalog_v1.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Commit runtime assets and catalog
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/museum/met_v0 content/runtime/met_v0_manifest.json content/catalog_v1.json
+          if git diff --cached --quiet; then
+            echo "Runtime museum assets unchanged."
+            exit 0
+          fi
+          git commit -m "Bundle 35 curated Met runtime puzzles [skip ci]"
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"

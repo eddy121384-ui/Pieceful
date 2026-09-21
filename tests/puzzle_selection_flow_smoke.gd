@@ -28,10 +28,10 @@ func _run() -> void:
 	if main.puzzle_selection_overlay == null or not main.puzzle_selection_overlay.visible:
 		_fail("clean boot chooser is not visible")
 		return
-	if main.content_buttons.size() != 3:
+	if main.content_buttons.size() < 38:
 		_fail("gallery does not expose the three built-in artwork fixtures")
 		return
-	for expected_id in ["garden", "twilight_lake", "crane_pine_scroll"]:
+	for expected_id in ["garden", "twilight_lake", "crane_pine_scroll", "met_10181"]:
 		if not main.content_buttons.has(expected_id):
 			_fail("missing expected gallery artwork: %s" % expected_id)
 			return

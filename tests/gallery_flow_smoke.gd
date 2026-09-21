@@ -89,8 +89,24 @@ func _run() -> void:
 		return
 
 	var presets: Array = board.content_presets()
-	if presets.size() != 3:
-		_fail("metadata catalog did not expose three official fixtures")
+	if presets.size() < 38:
+		_fail("metadata catalog did not expose the three fixtures plus 35 curated museum puzzles")
+		return
+	var museum: Dictionary = board.content_metadata("met_10181")
+	if str(museum.get("source_id", "")) != "met:10181" or str(museum.get("path", "")).is_empty():
+		_fail("curated Met runtime entry is missing from Gallery catalog")
+		return
+	var museum_picture = main.content_buttons.get("met_10181")
+	if not (museum_picture is TextureButton):
+		_fail("curated Met Gallery card did not create an artwork button")
+		return
+	var museum_thumb: Texture2D = (museum_picture as TextureButton).texture_normal
+	if museum_thumb == null:
+		_fail("curated Met Gallery card has no thumbnail texture")
+		return
+	var museum_thumb_size := museum_thumb.get_size()
+	if maxf(museum_thumb_size.x, museum_thumb_size.y) > 421.0:
+		_fail("Gallery loaded the full museum puzzle texture instead of the 420px thumbnail")
 		return
 	var crane: Dictionary = board.content_metadata("crane_pine_scroll")
 	if str(crane.get("category", "")) != "art_culture":

@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_curator_source",
+  "provider": "met",
+  "purpose": "Cloud AI Curator v1 source list. Contains discovery provenance only; no semantic ground truth.",
+  "entries": [
+    {
+      "id": "met_340468",
+      "object_id": 340468,
+      "ingestion_query": "landscape"
+    },
+    {
+      "id": "met_10181",
+      "object_id": 10181,
+      "ingestion_query": "landscape"
+    },
+    {
+      "id": "met_359362",
+      "object_id": 359362,
+      "ingestion_query": "landscape"
+    },
+    {
+      "id": "met_335112",
+      "object_id": 335112,
+      "ingestion_query": "landscape"
+    },
+    {
+      "id": "met_11181",
+      "object_id": 11181,
+      "ingestion_query": "landscape"
+    },
+    {
+      "id": "met_394043",
+      "object_id": 394043,
+      "ingestion_query": "flowers"
+    },
+    {
+      "id": "met_242768",
+      "object_id": 242768,
+      "ingestion_query": "flowers"
+    },
+    {
+      "id": "met_438031",
+      "object_id": 438031,
+      "ingestion_query": "flowers"
+    },
+    {
+      "id": "met_12802",
+      "object_id": 12802,
+      "ingestion_query": "flowers"
+    },
+    {
+      "id": "met_774277",
+      "object_id": 774277,
+      "ingestion_query": "animal"
+    },
+    {
+      "id": "met_312624",
+      "object_id": 312624,
+      "ingestion_query": "animal"
+    },
+    {
+      "id": "met_478467",
+      "object_id": 478467,
+      "ingestion_query": "animal"
+    },
+    {
+      "id": "met_478746",
+      "object_id": 478746,
+      "ingestion_query": "animal"
+    },
+    {
+      "id": "met_478425",
+      "object_id": 478425,
+      "ingestion_query": "animal"
+    },
+    {
+      "id": "met_226943",
+      "object_id": 226943,
+      "ingestion_query": "portrait"
+    },
+    {
+      "id": "met_191566",
+      "object_id": 191566,
+      "ingestion_query": "portrait"
+    },
+    {
+      "id": "met_191567",
+      "object_id": 191567,
+      "ingestion_query": "portrait"
+    },
+    {
+      "id": "met_340070",
+      "object_id": 340070,
+      "ingestion_query": "portrait"
+    },
+    {
+      "id": "met_21209",
+      "object_id": 21209,
+      "ingestion_query": "portrait"
+    },
+    {
+      "id": "met_399581",
+      "object_id": 399581,
+      "ingestion_query": "architecture"
+    },
+    {
+      "id": "met_202696",
+      "object_id": 202696,
+      "ingestion_query": "architecture"
+    },
+    {
+      "id": "met_399347",
+      "object_id": 399347,
+      "ingestion_query": "architecture"
+    },
+    {
+      "id": "met_394310",
+      "object_id": 394310,
+      "ingestion_query": "architecture"
+    },
+    {
+      "id": "met_394709",
+      "object_id": 394709,
+      "ingestion_query": "architecture"
+    },
+    {
+      "id": "met_5410",
+      "object_id": 5410,
+      "ingestion_query": "night"
+    },
+    {
+      "id": "met_221706",
+      "object_id": 221706,
+      "ingestion_query": "night"
+    },
+    {
+      "id": "met_54393",
+      "object_id": 54393,
+      "ingestion_query": "night"
+    },
+    {
+      "id": "met_215356",
+      "object_id": 215356,
+      "ingestion_query": "night"
+    },
+    {
+      "id": "met_228950",
+      "object_id": 228950,
+      "ingestion_query": "night"
+    },
+    {
+      "id": "met_505626",
+      "object_id": 505626,
+      "ingestion_query": "Japan"
+    },
+    {
+      "id": "met_353912",
+      "object_id": 353912,
+      "ingestion_query": "Japan"
+    },
+    {
+      "id": "met_728305",
+      "object_id": 728305,
+      "ingestion_query": "Japan"
+    },
+    {
+      "id": "met_764802",
+      "object_id": 764802,
+      "ingestion_query": "Japan"
+    },
+    {
+      "id": "met_10189",
+      "object_id": 10189,
+      "ingestion_query": "Japan"
+    },
+    {
+      "id": "met_436305",
+      "object_id": 436305,
+      "ingestion_query": "still life"
+    },
+    {
+      "id": "met_10996",
+      "object_id": 10996,
+      "ingestion_query": "still life"
+    },
+    {
+      "id": "met_286248",
+      "object_id": 286248,
+      "ingestion_query": "still life"
+    },
+    {
+      "id": "met_898372",
+      "object_id": 898372,
+      "ingestion_query": "still life"
+    },
+    {
+      "id": "met_54333",
+      "object_id": 54333,
+      "ingestion_query": "still life"
+    },
+    {
+      "id": "met_54988",
+      "object_id": 54988,
+      "ingestion_query": "flowers"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+name: AI Curator Cloud
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_items:
+        description: "How many source images to curate (0 = all)"
+        required: false
+        default: "40"
+      primary_model:
+        description: "Primary curator model"
+        required: false
+        default: "gpt-5.6-luna"
+      adjudicator_model:
+        description: "Second-pass adjudicator model"
+        required: false
+        default: "gpt-5.6-sol"
+  push:
+    branches:
+      - feat/issue-9-content-ingestion-v0
+    paths:
+      - ".github/workflows/ai-curator-cloud.yml"
+      - "tools/content_tagging/curate_cloud.py"
+      - "content/curation/met_curator_sample_v0.json"
+      - "content/curation/met_gold_set_v0.json"
+      - "content/tag_taxonomy_v1.json"
+      - "content/curation/run_request.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pieceful-ai-curator-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python version
+        run: python --version
+      - name: Compile cloud curator
+        run: python -m py_compile tools/content_tagging/curate_cloud.py
+      - name: Cloud curator self-test
+        run: python tools/content_tagging/curate_cloud.py --self-test
+
+  curate:
+    needs: validate
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[curate')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Check OpenAI API secret
+        id: secret
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        shell: bash
+        run: |
+          if [ -n "$OPENAI_API_KEY" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::OPENAI_API_KEY is not configured; live curation was skipped."
+          fi
+
+      - name: Run AI curator
+        if: steps.secret.outputs.available == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MAX_ITEMS="${{ inputs.max_items }}"
+            PRIMARY="${{ inputs.primary_model }}"
+            ADJUDICATOR="${{ inputs.adjudicator_model }}"
+            EXTRA=()
+          else
+            PRIMARY="gpt-5.6-luna"
+            ADJUDICATOR="gpt-5.6-sol"
+            if [[ "${{ github.event.head_commit.message }}" == *"[curate-all]"* ]]; then
+              MAX_ITEMS="0"
+              EXTRA=()
+            else
+              # Ordinary [curate] push is a cheap live canary.
+              MAX_ITEMS="5"
+              EXTRA=(--fail-fast)
+            fi
+          fi
+          python tools/content_tagging/curate_cloud.py \
+            --max-items "$MAX_ITEMS" \
+            --primary-model "$PRIMARY" \
+            --adjudicator-model "$ADJUDICATOR" \
+            "${EXTRA[@]}"
+
+      - name: Upload curator result
+        if: steps.secret.outputs.available == 'true' && hashFiles('web/content-lab/data/latest.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: pieceful-ai-curator-${{ github.run_id }}
+          path: web/content-lab/data/latest.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish latest review queue to branch
+        if: steps.secret.outputs.available == 'true' && hashFiles('web/content-lab/data/latest.json') != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/content-lab/data/latest.json
+          if git diff --cached --quiet; then
+            echo "No curator result change to commit."
+            exit 0
+          fi
+          git commit -m "Update AI curator review queue [skip ci]"
+          git push origin "HEAD:${{ github.ref_name }}"

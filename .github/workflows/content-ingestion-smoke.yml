@@ -1,0 +1,72 @@
+name: Content Ingestion Smoke
+
+on:
+  push:
+    branches:
+      - feat/issue-9-content-ingestion-v0
+  pull_request:
+    paths:
+      - "tools/content_ingestion/**"
+      - "tools/content_tagging/**"
+      - "content/source_providers_v1.json"
+      - "content/tag_taxonomy_v1.json"
+      - "tests/content_ingestion_smoke.py"
+      - "RUN_CONTENT_INGESTION.bat"
+      - "RUN_VISION_TAGGING.bat"
+      - ".github/workflows/content-ingestion-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Python
+        run: python --version
+
+      - name: Content ingestion smoke
+        run: python tests/content_ingestion_smoke.py
+
+      - name: Compile Python ingestion tool
+        run: python -m py_compile tools/content_ingestion/ingest.py
+
+      - name: Parse PowerShell ingestion tool
+        shell: pwsh
+        run: |
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path "tools/content_ingestion/ingest.ps1"),
+            [ref]$null,
+            [ref]$errors
+          )
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+
+      - name: Self-test PowerShell ingestion URL construction
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/content_ingestion/ingest.ps1 -SelfTest
+
+      - name: Parse PowerShell vision tagging tool
+        shell: pwsh
+        run: |
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path "tools/content_tagging/tag_vision.ps1"),
+            [ref]$null,
+            [ref]$errors
+          )
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+
+      - name: Self-test Vision Tagging v0 contract
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/content_tagging/tag_vision.ps1 -SelfTest

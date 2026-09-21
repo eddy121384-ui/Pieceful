@@ -1,0 +1,1391 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_gold_set",
+  "authority": "curator_reviewed_baseline",
+  "purpose": "Curator-reviewed semantic reference set for the first 40 Met candidates. It is the curation source for Catalog Promotion v0 and is not model-generated output.",
+  "entries": [
+    {
+      "id": "met_340468",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "trees"
+        ],
+        "region_culture": [],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "muted",
+          "low_contrast",
+          "detailed",
+          "soft_gradients"
+        ],
+        "style": [
+          "watercolor"
+        ],
+        "scene": [
+          "outdoor",
+          "wilderness"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_10181",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "trees"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "muted",
+          "soft_gradients"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "outdoor",
+          "wilderness"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_359362",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "hills"
+        ],
+        "region_culture": [],
+        "mood": [
+          "calm",
+          "dreamy"
+        ],
+        "visual": [
+          "clear_regions",
+          "muted",
+          "low_contrast",
+          "soft_gradients"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [
+          "outdoor",
+          "wilderness"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_335112",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "trees",
+          "mountains"
+        ],
+        "region_culture": [],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "detailed",
+          "muted",
+          "low_contrast"
+        ],
+        "style": [
+          "ink",
+          "watercolor"
+        ],
+        "scene": [
+          "outdoor",
+          "wilderness"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_11181",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "trees",
+          "people"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "calm",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "high_contrast",
+          "strong_edges"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "outdoor",
+          "rural"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_394043",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "flowers",
+          "botanical"
+        ],
+        "region_culture": [],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "strong_edges"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_242768",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "flower_motif",
+          "necklace",
+          "jewelry"
+        ],
+        "region_culture": [
+          "cypriot"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "symmetrical"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_438031",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "flowers",
+          "bouquet"
+        ],
+        "region_culture": [],
+        "mood": [
+          "calm",
+          "romantic"
+        ],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "muted"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_12802",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "flowers",
+          "people",
+          "rural_landscape"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "calm",
+          "nostalgic"
+        ],
+        "visual": [
+          "detailed",
+          "muted",
+          "soft_gradients"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "outdoor",
+          "rural",
+          "day"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_774277",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "firearm",
+          "weapon",
+          "decorative_arts"
+        ],
+        "region_culture": [
+          "austrian"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "detailed",
+          "strong_edges"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_312624",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "animal",
+          "animal_figure",
+          "ceramic_sculpture"
+        ],
+        "region_culture": [
+          "nayarit"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "strong_edges",
+          "muted"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_478467",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "animal",
+          "animal_figure",
+          "statuette"
+        ],
+        "region_culture": [
+          "coptic"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "strong_edges",
+          "muted"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_478746",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "animal",
+          "animal_figure",
+          "statuette"
+        ],
+        "region_culture": [
+          "coptic"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "strong_edges",
+          "muted"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_478425",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "animal",
+          "animal_figure",
+          "statuette"
+        ],
+        "region_culture": [
+          "coptic"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "muted"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_226943",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "portrait",
+          "seated_man"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "symmetrical",
+          "strong_edges"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_191566",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "portrait",
+          "woman"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "clear_regions",
+          "strong_edges"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_191567",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "portrait",
+          "woman"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "clear_regions",
+          "strong_edges"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_340070",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "portrait",
+          "woman"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "muted",
+          "low_contrast",
+          "clear_regions"
+        ],
+        "style": [
+          "illustration"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_21209",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "self_portrait",
+          "man",
+          "artist"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "clear_regions",
+          "muted",
+          "strong_edges"
+        ],
+        "style": [
+          "watercolor"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_399581",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "architecture",
+          "architectural_ornament",
+          "design_study"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "detailed",
+          "muted",
+          "strong_edges"
+        ],
+        "style": [
+          "ink",
+          "illustration"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_202696",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "architecture_allegory",
+          "figures",
+          "relief"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "monochrome",
+          "soft_gradients"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_399347",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "architecture_allegory",
+          "architectural_ornament",
+          "figure"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "detailed",
+          "monochrome",
+          "strong_edges",
+          "symmetrical"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_394310",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "architecture_allegory",
+          "putti",
+          "monument"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "detailed",
+          "monochrome",
+          "strong_edges"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_394709",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "architecture_allegory",
+          "putti",
+          "monument"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "detailed",
+          "monochrome",
+          "strong_edges"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_5410",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "night_table",
+          "furniture",
+          "decorative_arts"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "detailed",
+          "symmetrical"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_221706",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "nightcap",
+          "textile",
+          "embroidery"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "detailed",
+          "symmetrical"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_54393",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "women",
+          "night_scene",
+          "japanese_print"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [
+          "mysterious",
+          "nostalgic"
+        ],
+        "visual": [
+          "detailed",
+          "muted",
+          "clear_regions"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [
+          "outdoor",
+          "night"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_215356",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "nightcap",
+          "textile",
+          "clothing_accessory"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "monochrome",
+          "clear_regions",
+          "strong_edges"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_228950",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "nightcap",
+          "textile",
+          "embroidery"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "detailed",
+          "symmetrical"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_505626",
+      "taxonomy": {
+        "category": "art_culture",
+        "subject": [
+          "koto",
+          "musical_instrument",
+          "decorative_arts"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "colorful",
+          "negative_space"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_353912",
+      "taxonomy": {
+        "category": "objects",
+        "subject": [
+          "ceiling_lamp",
+          "lighting_design",
+          "technical_drawing"
+        ],
+        "region_culture": [],
+        "mood": [],
+        "visual": [
+          "monochrome",
+          "negative_space",
+          "strong_edges",
+          "symmetrical"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "not_applicable",
+          "visual": "present",
+          "style": "present",
+          "scene": "not_applicable"
+        }
+      }
+    },
+    {
+      "id": "met_728305",
+      "taxonomy": {
+        "category": "places",
+        "subject": [
+          "temple",
+          "architecture",
+          "kamakura"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "clear_regions"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [
+          "outdoor",
+          "architectural",
+          "day"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_764802",
+      "taxonomy": {
+        "category": "people",
+        "subject": [
+          "soldiers",
+          "infantry",
+          "military_group",
+          "yokohama"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "clear_regions"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [
+          "outdoor",
+          "day"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_10189",
+      "taxonomy": {
+        "category": "places",
+        "subject": [
+          "street_scene",
+          "ikao",
+          "people",
+          "shops"
+        ],
+        "region_culture": [
+          "japan",
+          "american"
+        ],
+        "mood": [
+          "nostalgic",
+          "energetic"
+        ],
+        "visual": [
+          "detailed",
+          "colorful",
+          "clear_regions"
+        ],
+        "style": [
+          "watercolor"
+        ],
+        "scene": [
+          "outdoor",
+          "urban",
+          "day"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_436305",
+      "taxonomy": {
+        "category": "food",
+        "subject": [
+          "still_life",
+          "bread",
+          "olives",
+          "lemon",
+          "vessels"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "high_contrast"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_10996",
+      "taxonomy": {
+        "category": "objects",
+        "subject": [
+          "still_life",
+          "books",
+          "papers",
+          "vessels"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "monochrome",
+          "detailed",
+          "high_contrast",
+          "strong_edges"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_286248",
+      "taxonomy": {
+        "category": "objects",
+        "subject": [
+          "still_life",
+          "animal_skull",
+          "stool"
+        ],
+        "region_culture": [],
+        "mood": [
+          "contemplative",
+          "melancholic"
+        ],
+        "visual": [
+          "muted",
+          "negative_space",
+          "strong_edges",
+          "clear_regions"
+        ],
+        "style": [
+          "photo"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "not_applicable",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_898372",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "still_life",
+          "flowers",
+          "ferns"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "colorful",
+          "negative_space",
+          "clear_regions",
+          "high_contrast"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_54333",
+      "taxonomy": {
+        "category": "objects",
+        "subject": [
+          "still_life",
+          "furniture",
+          "boxes",
+          "decorative_objects"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [
+          "contemplative",
+          "nostalgic"
+        ],
+        "visual": [
+          "muted",
+          "negative_space",
+          "detailed",
+          "clear_regions"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    },
+    {
+      "id": "met_54988",
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "flowers",
+          "cherry_blossoms"
+        ],
+        "region_culture": [
+          "japan"
+        ],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "clear_regions",
+          "negative_space",
+          "muted"
+        ],
+        "style": [
+          "print"
+        ],
+        "scene": [
+          "still_life"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      }
+    }
+  ]
+}

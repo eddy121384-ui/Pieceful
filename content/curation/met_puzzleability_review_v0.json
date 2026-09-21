@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "kind": "pieceful_puzzleability_curator_review_v0",
+  "authority": "curator_visual_review",
+  "purpose": "Human/curator decisions for Puzzleability v0 exceptions after direct visual inspection. Overrides analyzer review flags without changing objective metrics.",
+  "decisions": [
+    {
+      "id": "met_353912",
+      "decision": "exclude",
+      "rationale": "Technical ceiling-lamp drawing leaves most of the frame as nearly blank paper; too few distributed visual anchors for a satisfying jigsaw."
+    },
+    {
+      "id": "met_242768",
+      "decision": "exclude",
+      "rationale": "Three tiny flower-shaped necklace elements occupy a very small portion of a large uniform background."
+    },
+    {
+      "id": "met_774277",
+      "decision": "exclude",
+      "rationale": "A long rifle is isolated against a broad uniform studio background; most pieces would be background-only."
+    },
+    {
+      "id": "met_340468",
+      "decision": "exclude",
+      "rationale": "Extremely low-contrast monochrome landscape study has weak location cues across large areas even at low piece counts."
+    },
+    {
+      "id": "met_478467",
+      "decision": "exclude",
+      "rationale": "Single terracotta animal figure sits on a broad uniform studio backdrop; usable only at very low piece counts and not strong enough for the core catalog."
+    },
+    {
+      "id": "met_898372",
+      "decision": "accept",
+      "suggested_difficulty": "relaxed",
+      "rationale": "Dark negative space is substantial, but the central flowers and fern silhouettes provide strong, recognizable anchors for a low-piece-count puzzle."
+    },
+    {
+      "id": "met_54988",
+      "decision": "accept",
+      "suggested_difficulty": "relaxed",
+      "rationale": "Pale field is offset by calligraphy, seals, stems, blossoms, and the green lower band, giving enough distributed anchors for Relaxed."
+    },
+    {
+      "id": "met_340070",
+      "decision": "accept",
+      "suggested_difficulty": "relaxed",
+      "rationale": "Monochrome portrait is subtle, but face, clothing linework, hands, and border create stable location cues at a relaxed piece count."
+    },
+    {
+      "id": "met_335112",
+      "decision": "accept",
+      "suggested_difficulty": "relaxed",
+      "rationale": "Muted landscape remains playable because trees, blue architectural forms, terrain, and frame edges distribute recognizable structure."
+    },
+    {
+      "id": "met_399347",
+      "decision": "accept",
+      "suggested_difficulty": "standard",
+      "rationale": "Dense ornamental print is visually repetitive but highly structured; central figure, border, symmetry, text, and motifs make it a good challenging Standard puzzle."
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+name: Museum Mobile Game Preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/issue-9-content-ingestion-v0
+    paths:
+      - ".github/workflows/mobile-museum-preview.yml"
+      - "content/catalog_v1.json"
+      - "assets/museum/met_v0/**"
+      - "scripts/gallery_image_aware_main.gd"
+      - "scripts/gallery_puzzle_catalog_board.gd"
+      - "tests/museum_runtime_flow_smoke.gd"
+      - "export_presets.cfg"
+      - "tools/content_ingestion/configure_museum_texture_imports.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pieceful-museum-mobile-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_RELEASE: "4.7.2-stable"
+  GODOT_BIN_DIR: "${{ github.workspace }}/.godot-ci"
+  GODOT_BIN: "${{ github.workspace }}/.godot-ci/Godot_v4.7.2-stable_linux.x86_64"
+  GODOT_TEMPLATE_DIR: "/home/runner/.local/share/godot/export_templates/4.7.2.stable"
+
+jobs:
+  build-preview:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mobile-preview]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Cache Godot editor and templates
+        id: godot-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .godot-ci
+            ~/.local/share/godot/export_templates/4.7.2.stable
+          key: pieceful-godot-${{ runner.os }}-4.7.2-stable-museum-preview
+
+      - name: Install Godot and export templates
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p "${GODOT_BIN_DIR}" "${GODOT_TEMPLATE_DIR}"
+          curl -L --fail --retry 3             "https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_linux.x86_64.zip"             -o /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d "${GODOT_BIN_DIR}"
+          chmod +x "${GODOT_BIN}"
+          curl -L --fail --retry 3             "https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_export_templates.tpz"             -o /tmp/templates.tpz
+          rm -rf /tmp/godot-templates
+          mkdir -p /tmp/godot-templates
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          cp -R /tmp/godot-templates/templates/. "${GODOT_TEMPLATE_DIR}/"
+
+      - name: Verify Godot
+        run: |
+          chmod +x "${GODOT_BIN}"
+          "${GODOT_BIN}" --version
+          test -f "${GODOT_TEMPLATE_DIR}/web_release.zip"
+
+      - name: Import project
+        run: '"${GODOT_BIN}" --headless --path . --editor --quit'
+
+      - name: Configure museum texture imports
+        run: |
+          python tools/content_ingestion/configure_museum_texture_imports.py --self-test
+          python tools/content_ingestion/configure_museum_texture_imports.py
+          "${GODOT_BIN}" --headless --path . --editor --quit
+
+      - name: Museum playable-flow smoke
+        run: '"${GODOT_BIN}" --headless --path . --script tests/museum_runtime_flow_smoke.gd'
+
+      - name: Gallery flow smoke
+        run: '"${GODOT_BIN}" --headless --path . --script tests/gallery_flow_smoke.gd'
+
+      - name: Export standalone mobile preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          rm -rf web/game-preview
+          mkdir -p web/game-preview
+          "${GODOT_BIN}" --headless --path . --export-release Web web/game-preview/index.html
+          touch web/game-preview/.nojekyll
+          printf '{"branch":"%s","source_sha":"%s","run_id":"%s"}\n'             "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}"             > web/game-preview/build-info.json
+          test -s web/game-preview/index.html
+          test -s web/game-preview/index.wasm
+          test -s web/game-preview/index.pck
+
+      - name: Commit standalone preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f web/game-preview
+          if git diff --cached --quiet; then
+            echo "Preview unchanged."
+            exit 0
+          fi
+          git commit -m "Publish museum mobile game preview [skip ci]"
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"
