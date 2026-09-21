@@ -12,6 +12,7 @@ on:
       - "scripts/gallery_image_aware_main.gd"
       - "tests/gallery_flow_smoke.gd"
       - "tests/puzzle_selection_flow_smoke.gd"
+      - "tests/museum_runtime_flow_smoke.gd"
 
 permissions:
   contents: write
@@ -80,6 +81,10 @@ jobs:
       - name: Validate puzzle selection with museum catalog
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
         run: '"${GODOT_BIN}" --headless --path . --script tests/puzzle_selection_flow_smoke.gd'
+
+      - name: Validate museum playable flow
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
+        run: '"${GODOT_BIN}" --headless --path . --script tests/museum_runtime_flow_smoke.gd'
 
       - name: Upload runtime asset artifact
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
