@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/workflows/runtime-museum-assets-v0.yml"
       - "tools/content_ingestion/materialize_runtime_assets.py"
+      - "tools/content_ingestion/configure_museum_texture_imports.py"
       - "content/curation/met_runtime_candidates_v0.json"
       - "scripts/gallery_image_aware_main.gd"
       - "tests/gallery_flow_smoke.gd"
@@ -70,6 +71,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
         run: '"${GODOT_BIN}" --headless --path . --editor --quit'
 
+      - name: Configure museum texture imports
+        run: |
+          python tools/content_ingestion/configure_museum_texture_imports.py --self-test
+          python tools/content_ingestion/configure_museum_texture_imports.py
+          "${GODOT_BIN}" --headless --path . --editor --quit
+
       - name: Validate published taxonomy contract
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[materialize-assets]')
         run: '"${GODOT_BIN}" --headless --path . --script tests/content_taxonomy_smoke.gd'
@@ -111,4 +118,5 @@ jobs:
             exit 0
           fi
           git commit -m "Bundle 35 curated Met runtime puzzles [skip ci]"
+          git pull --rebase origin "${{ github.ref_name }}"
           git push origin "HEAD:${{ github.ref_name }}"
