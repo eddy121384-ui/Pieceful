@@ -40,19 +40,35 @@ func share_card_presentation_snapshot() -> Dictionary:
 func _install_share_action() -> void:
 	if completion_next_button == null or completion_share_button != null:
 		return
-	var outer := completion_next_button.get_parent() as VBoxContainer
-	if outer == null:
-		return
 
-	var next_index := completion_next_button.get_index()
-	outer.remove_child(completion_next_button)
-
+	var next_parent = completion_next_button.get_parent()
+	var outer: VBoxContainer = null
 	var actions := HBoxContainer.new()
-	actions.name = "CompletionActions"
+	actions.name = "CompletionShareActions"
 	actions.alignment = BoxContainer.ALIGNMENT_CENTER
 	actions.add_theme_constant_override("separation", 12)
-	outer.add_child(actions)
-	outer.move_child(actions, mini(next_index, outer.get_child_count() - 1))
+
+	if next_parent is VBoxContainer:
+		# Legacy completion layout: keep Share and Browse in one row.
+		outer = next_parent as VBoxContainer
+		var next_index := completion_next_button.get_index()
+		outer.remove_child(completion_next_button)
+		outer.add_child(actions)
+		outer.move_child(actions, mini(next_index, outer.get_child_count() - 1))
+	elif next_parent is HBoxContainer:
+		# Recommendation layout already owns the navigation row. Keep Replay /
+		# Share on a separate compact row so the completion card does not become a
+		# six-button horizontal strip on narrow desktop/mobile canvases.
+		outer = next_parent.get_parent() as VBoxContainer
+		if outer == null:
+			actions.queue_free()
+			return
+		var anchor_index := (next_parent as HBoxContainer).get_index()
+		outer.add_child(actions)
+		outer.move_child(actions, mini(anchor_index + 1, outer.get_child_count() - 1))
+	else:
+		actions.queue_free()
+		return
 
 	completion_share_button = Button.new()
 	completion_share_button.name = "CompletionShareResult"
@@ -70,8 +86,9 @@ func _install_share_action() -> void:
 	completion_share_button.pressed.connect(_on_share_result_pressed)
 	actions.add_child(completion_share_button)
 
-	completion_next_button.custom_minimum_size = Vector2(190.0, 42.0)
-	actions.add_child(completion_next_button)
+	if next_parent is VBoxContainer:
+		completion_next_button.custom_minimum_size = Vector2(190.0, 42.0)
+		actions.add_child(completion_next_button)
 
 
 func _begin_share_card_preparation(record: Dictionary) -> void:

@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MainScene = preload("res://main.tscn")
+const RECOMMENDATION_STATE := "user://pieceful_recommendation_v1.json"
 
 
 func _init() -> void:
@@ -8,6 +9,7 @@ func _init() -> void:
 
 
 func _run() -> void:
+	_clear_recommendation_state()
 	var main = MainScene.instantiate()
 	root.add_child(main)
 	for _frame in range(20):
@@ -76,6 +78,11 @@ func _run() -> void:
 	if _event_count(main, "hint_used") != 1:
 		_fail("hint-assisted analytics was not exactly-once per game")
 		return
+	var recommendation_snapshot: Dictionary = main.recommendation_profile_snapshot()
+	var recommendation_events: Dictionary = recommendation_snapshot.get("event_counts", {})
+	if int(recommendation_events.get("hint", 0)) != 1:
+		_fail("first hint was not forwarded to the local recommendation profile")
+		return
 
 	# Create a second durable slot, resume the first, then explicitly delete the
 	# inactive second slot. Explicit deletion is the V0-09 definition of abandon;
@@ -99,6 +106,28 @@ func _run() -> void:
 	if _event_count(main, "puzzle_abandon") != 1:
 		_fail("explicit unfinished-puzzle deletion did not emit puzzle_abandon")
 		return
+	recommendation_snapshot = main.recommendation_profile_snapshot()
+	recommendation_events = recommendation_snapshot.get("event_counts", {})
+	if int(recommendation_events.get("abandon", 0)) != 1:
+		_fail("explicit abandon was not forwarded to the local recommendation profile")
+		return
+
+	# A real completion prepares a semantic replay. Pressing Replay should become
+	# a positive local-preference signal only when replay actually starts.
+	coordinator.call("ensure_timelapse_started")
+	main.call("_on_completed")
+	await process_frame
+	var before_replay_serial := int(main.timelapse_play_serial)
+	main.call("_on_timelapse_replay_pressed")
+	if int(main.timelapse_play_serial) <= before_replay_serial:
+		_fail("replay integration fixture did not start a replay")
+		return
+	recommendation_snapshot = main.recommendation_profile_snapshot()
+	recommendation_events = recommendation_snapshot.get("event_counts", {})
+	if int(recommendation_events.get("replay", 0)) != 1:
+		_fail("replay was not forwarded to the local recommendation profile")
+		return
+	main.call("_close_timelapse_replay")
 
 	if str(main.call("_analytics_progress_bucket", 0, 100)) != "0":
 		_fail("0%% progress bucket is wrong")
@@ -115,6 +144,7 @@ func _run() -> void:
 
 	main.queue_free()
 	await process_frame
+	_clear_recommendation_state()
 	print("PASS analytics_integration_smoke")
 	quit(0)
 
@@ -136,6 +166,12 @@ func _piece_count(main) -> int:
 	return pieces.size() if pieces is Array else 0
 
 
+func _clear_recommendation_state() -> void:
+	if FileAccess.file_exists(RECOMMENDATION_STATE):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(RECOMMENDATION_STATE))
+
+
 func _fail(message: String) -> void:
 	push_error("FAIL analytics_integration_smoke: %s" % message)
+	_clear_recommendation_state()
 	quit(1)

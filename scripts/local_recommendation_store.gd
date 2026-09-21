@@ -6,6 +6,10 @@ const STATE_PATH := "user://pieceful_recommendation_v1.json"
 const FAVORITE_WEIGHT := 3.0
 const COMPLETION_WEIGHT := 2.0
 const START_WEIGHT := 0.65
+const REPLAY_WEIGHT := 0.9
+const EARLY_ABANDON_WEIGHT := -0.55
+const LATE_ABANDON_WEIGHT := -0.25
+const HINT_DIFFICULTY_WEIGHT := -0.15
 const CATEGORY_WEIGHT := 0.65
 const DIVERSITY_PENALTY := 0.35
 
@@ -57,6 +61,36 @@ func record_start(metadata: Dictionary, difficulty_id: String) -> bool:
 	if not difficulty_id.is_empty():
 		_bump_dictionary_weight("difficulty_weights", difficulty_id, 0.25)
 	_bump_event_count("start")
+	return _save()
+
+
+func record_replay(metadata: Dictionary) -> bool:
+	if metadata.is_empty():
+		return false
+	_apply_metadata_weight(metadata, REPLAY_WEIGHT)
+	_bump_event_count("replay")
+	return _save()
+
+
+func record_abandon(metadata: Dictionary, progress: float = 0.0) -> bool:
+	if metadata.is_empty():
+		return false
+	var normalized_progress := clampf(progress, 0.0, 1.0)
+	var delta := EARLY_ABANDON_WEIGHT if normalized_progress < 0.25 else LATE_ABANDON_WEIGHT
+	_apply_metadata_weight(metadata, delta)
+	_bump_event_count("abandon")
+	return _save()
+
+
+func record_hint(metadata: Dictionary, difficulty_id: String) -> bool:
+	if metadata.is_empty():
+		return false
+	# A hint is primarily a difficulty signal, not evidence that the player
+	# dislikes the artwork. Keep content affinity neutral and only soften the
+	# currently selected difficulty preference.
+	if not difficulty_id.is_empty():
+		_bump_dictionary_weight("difficulty_weights", difficulty_id, HINT_DIFFICULTY_WEIGHT)
+	_bump_event_count("hint")
 	return _save()
 
 

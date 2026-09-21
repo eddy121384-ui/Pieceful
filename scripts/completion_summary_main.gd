@@ -10,6 +10,10 @@ var completion_artwork_label: Label = null
 var completion_primary_stats: Label = null
 var completion_secondary_stats: Label = null
 var completion_status: Label = null
+var completion_actions_row: HBoxContainer = null
+var completion_more_like_label: Label = null
+var completion_more_like_buttons: Array[Button] = []
+var completion_more_like_ids: Array[String] = []
 var completion_next_button: Button = null
 var _web_completion_resize_callback = null
 
@@ -146,6 +150,8 @@ func completion_presentation_snapshot() -> Dictionary:
 		"primary_stats": completion_primary_stats.text if completion_primary_stats != null else "",
 		"secondary_stats": completion_secondary_stats.text if completion_secondary_stats != null else "",
 		"status": completion_status.text if completion_status != null else "",
+		"more_like_count": completion_more_like_ids.size(),
+		"more_like_ids": completion_more_like_ids.duplicate(),
 		"has_artwork": completion_artwork != null and completion_artwork.texture != null,
 		"panel_size": completion_panel.size if completion_panel != null else Vector2.ZERO,
 		"artwork_minimum_size": (
@@ -221,12 +227,37 @@ func _upgrade_completion_panel() -> void:
 	completion_secondary_stats.add_theme_font_size_override("font_size", 13)
 	outer.add_child(completion_secondary_stats)
 
+	completion_actions_row = HBoxContainer.new()
+	completion_actions_row.name = "CompletionActions"
+	completion_actions_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	completion_actions_row.add_theme_constant_override("separation", 6)
+	outer.add_child(completion_actions_row)
+
+	completion_more_like_label = Label.new()
+	completion_more_like_label.name = "CompletionMoreLikeLabel"
+	completion_more_like_label.text = "More like this"
+	completion_more_like_label.modulate = Color(1.0, 1.0, 1.0, 0.58)
+	completion_more_like_label.add_theme_font_size_override("font_size", 12)
+	completion_more_like_label.visible = false
+	completion_actions_row.add_child(completion_more_like_label)
+
+	completion_more_like_buttons.clear()
+	for index in range(2):
+		var recommendation_button := Button.new()
+		recommendation_button.name = "CompletionMoreLike%d" % (index + 1)
+		recommendation_button.custom_minimum_size = Vector2(135.0, 38.0)
+		recommendation_button.clip_text = true
+		recommendation_button.visible = false
+		recommendation_button.pressed.connect(_on_completion_recommendation_pressed.bind(index))
+		completion_actions_row.add_child(recommendation_button)
+		completion_more_like_buttons.append(recommendation_button)
+
 	completion_next_button = Button.new()
 	completion_next_button.name = "CompletionNextPuzzle"
-	completion_next_button.text = "Choose next puzzle"
-	completion_next_button.custom_minimum_size = Vector2(190.0, 42.0)
+	completion_next_button.text = "Browse all"
+	completion_next_button.custom_minimum_size = Vector2(105.0, 38.0)
 	completion_next_button.pressed.connect(_on_completion_next_pressed)
-	outer.add_child(completion_next_button)
+	completion_actions_row.add_child(completion_next_button)
 
 	_layout_ui(get_viewport().get_visible_rect().size)
 
@@ -265,6 +296,69 @@ func _present_completion(record: Dictionary) -> void:
 		]
 	if completion_status != null:
 		completion_status.text = "A quiet moment, finished."
+	_refresh_completion_recommendations(content_id)
+
+
+func _refresh_completion_recommendations(content_id: String) -> void:
+	completion_more_like_ids.clear()
+	if completion_more_like_label != null:
+		completion_more_like_label.visible = false
+	for button in completion_more_like_buttons:
+		button.visible = false
+		button.text = ""
+		button.tooltip_text = ""
+
+	if content_id.is_empty() or not has_method("more_like_recommendations"):
+		return
+	var rows = call("more_like_recommendations", content_id, completion_more_like_buttons.size())
+	if not (rows is Array):
+		return
+	for row_value in rows:
+		if not (row_value is Dictionary):
+			continue
+		var metadata: Dictionary = row_value
+		var recommended_id := str(metadata.get("id", ""))
+		if recommended_id.is_empty() or recommended_id == content_id:
+			continue
+		completion_more_like_ids.append(recommended_id)
+		if completion_more_like_ids.size() >= completion_more_like_buttons.size():
+			break
+
+	if completion_more_like_label != null:
+		completion_more_like_label.visible = not completion_more_like_ids.is_empty()
+	for index in range(completion_more_like_ids.size()):
+		var recommended_id := completion_more_like_ids[index]
+		var button: Button = completion_more_like_buttons[index]
+		var label := recommended_id.capitalize()
+		if board != null and board.has_method("content_label_for_id"):
+			label = str(board.content_label_for_id(recommended_id))
+		button.text = _compact_recommendation_label(label)
+		button.tooltip_text = "More like this · %s" % label
+		button.visible = true
+
+
+func _on_completion_recommendation_pressed(index: int) -> void:
+	if index < 0 or index >= completion_more_like_ids.size():
+		return
+	var content_id := completion_more_like_ids[index]
+	if content_id.is_empty():
+		return
+	if completion_panel != null:
+		completion_panel.visible = false
+	_show_puzzle_selection(false)
+	pending_content_id = content_id
+	var preferred := recommendation_store.preferred_difficulty()
+	if preferred.is_empty() and board != null and board.has_method("active_difficulty_id"):
+		preferred = str(board.active_difficulty_id())
+	_refresh_picker_difficulties(content_id, preferred)
+	_refresh_content_card_state()
+
+
+func _compact_recommendation_label(label: String) -> String:
+	var clean := label.strip_edges()
+	if clean.length() <= 22:
+		return clean
+	return clean.substr(0, 21) + "…"
 
 
 func _on_completion_next_pressed() -> void:

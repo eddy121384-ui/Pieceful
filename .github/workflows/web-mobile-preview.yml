@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feat/issue-8-local-recommendation-v1
+      - feat/issue-8-more-like-signals
   workflow_dispatch:
 
 permissions:

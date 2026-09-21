@@ -5,6 +5,7 @@ const SAVE_DIR := "user://saves"
 const LEGACY_SAVE := "user://pieceful_autosave_v1.json"
 const GALLERY_STATE := "user://pieceful_gallery_state_v1.json"
 const JOURNAL_PATH := "user://pieceful_journal_v1.json"
+const RECOMMENDATION_STATE := "user://pieceful_recommendation_v1.json"
 
 
 func _init() -> void:
@@ -51,6 +52,13 @@ func _run() -> void:
 		return
 	if not secondary.contains("."):
 		_fail("completion date is not presented")
+		return
+	var more_like_ids: Array = snapshot.get("more_like_ids", [])
+	if more_like_ids.is_empty():
+		_fail("completion screen did not surface More Like This")
+		return
+	if more_like_ids.has("garden"):
+		_fail("More Like This returned the completed artwork itself")
 		return
 
 	# Hint assistance is a boolean completion fact, not a count of how often the
@@ -124,6 +132,22 @@ func _run() -> void:
 		_fail("landscape completion card did not restore wide layout")
 		return
 
+	var recommended_id := str(more_like_ids[0])
+	main.call("_on_completion_recommendation_pressed", 0)
+	await process_frame
+	if main.completion_panel.visible:
+		_fail("completion card remained visible after choosing a More Like This item")
+		return
+	if main.puzzle_selection_overlay == null or not main.puzzle_selection_overlay.visible:
+		_fail("More Like This did not open the Gallery chooser")
+		return
+	if str(main.pending_content_id) != recommended_id:
+		_fail("More Like This did not preselect its recommended artwork")
+		return
+
+	# Browse all remains available beside the recommendations.
+	main.puzzle_selection_overlay.visible = false
+	main.completion_panel.visible = true
 	main.call("_on_completion_next_pressed")
 	await process_frame
 	if main.completion_panel.visible:
@@ -148,6 +172,8 @@ func _clear_test_state() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(LEGACY_SAVE))
 	if FileAccess.file_exists(GALLERY_STATE):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(GALLERY_STATE))
+	if FileAccess.file_exists(RECOMMENDATION_STATE):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(RECOMMENDATION_STATE))
 	for suffix in ["", ".tmp", ".bak"]:
 		var journal_path: String = JOURNAL_PATH + str(suffix)
 		if FileAccess.file_exists(journal_path):
