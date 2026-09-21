@@ -67,14 +67,37 @@ func _run() -> void:
 		_fail("difficulty preference did not learn from a puzzle start")
 		return
 
+	var before_replay := float(store.score(similar))
+	if not store.record_replay(similar):
+		_fail("replay signal did not persist")
+		return
+	if float(store.score(similar)) <= before_replay:
+		_fail("replay did not strengthen matching content preference")
+		return
+	var after_replay := float(store.score(similar))
+	if not store.record_abandon(similar, 0.05):
+		_fail("abandon signal did not persist")
+		return
+	if float(store.score(similar)) >= after_replay:
+		_fail("early abandon did not soften matching content preference")
+		return
+	if not store.record_hint(similar, "hard"):
+		_fail("hint signal did not persist")
+		return
+	if str(store.preferred_difficulty()) != "hard":
+		_fail("one hint overcorrected the learned difficulty preference")
+		return
+
 	var reloaded = RecommendationStoreScript.new()
 	if float(reloaded.score(similar)) <= float(reloaded.score(unrelated)):
 		_fail("recommendation profile did not survive reload")
 		return
 	var snapshot: Dictionary = reloaded.profile_snapshot()
-	if int((snapshot.get("event_counts", {}) as Dictionary).get("start", 0)) != 1:
-		_fail("start signal count did not persist")
-		return
+	var event_counts: Dictionary = snapshot.get("event_counts", {})
+	for expected_event in ["start", "replay", "abandon", "hint"]:
+		if int(event_counts.get(expected_event, 0)) != 1:
+			_fail("%s signal count did not persist" % expected_event)
+			return
 
 	# Product integration: the current Gallery must expose the local For You
 	# filter and return real catalog entries without any network/runtime AI.
