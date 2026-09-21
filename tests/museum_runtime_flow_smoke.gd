@@ -36,7 +36,7 @@ func _run() -> void:
 		return
 
 	main.call("_on_content_card_pressed", MUSEUM_ID)
-	if str(main.get("_pending_content_id")) != MUSEUM_ID:
+	if str(main.get("pending_content_id")) != MUSEUM_ID:
 		_fail("museum card did not become pending selection")
 		return
 
