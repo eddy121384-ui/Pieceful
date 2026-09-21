@@ -13,6 +13,7 @@ on:
       - "scripts/gallery_puzzle_catalog_board.gd"
       - "tests/museum_runtime_flow_smoke.gd"
       - "export_presets.cfg"
+      - "tools/content_ingestion/configure_museum_texture_imports.py"
 
 permissions:
   contents: write
@@ -70,6 +71,12 @@ jobs:
       - name: Import project
         run: '"${GODOT_BIN}" --headless --path . --editor --quit'
 
+      - name: Configure museum texture imports
+        run: |
+          python tools/content_ingestion/configure_museum_texture_imports.py --self-test
+          python tools/content_ingestion/configure_museum_texture_imports.py
+          "${GODOT_BIN}" --headless --path . --editor --quit
+
       - name: Museum playable-flow smoke
         run: '"${GODOT_BIN}" --headless --path . --script tests/museum_runtime_flow_smoke.gd'
 
@@ -101,4 +108,5 @@ jobs:
             exit 0
           fi
           git commit -m "Publish museum mobile game preview [skip ci]"
+          git pull --rebase origin "${{ github.ref_name }}"
           git push origin "HEAD:${{ github.ref_name }}"
