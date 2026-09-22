@@ -2,6 +2,7 @@ class_name MonetizationMain
 extends "res://scripts/analytics_main.gd"
 
 const MonetizationServiceScript = preload("res://scripts/monetization_service.gd")
+const NativeMobileMonetizationProviderScript = preload("res://scripts/native_mobile_monetization_provider.gd")
 
 var monetization = MonetizationServiceScript.new()
 var monetization_row: HBoxContainer = null
@@ -13,15 +14,28 @@ var _ad_audio_snapshot: Array = []
 
 func _ready() -> void:
 	super._ready()
-	_bind_monetization_provider()
+	var entitlement_cb := Callable(self, "_on_monetization_entitlement_changed")
+	if not monetization.entitlement_changed.is_connected(entitlement_cb):
+		monetization.entitlement_changed.connect(entitlement_cb)
+	if OS.has_feature("android") or OS.has_feature("ios"):
+		var native_provider = NativeMobileMonetizationProviderScript.new()
+		native_provider.attach(self)
+		install_monetization_provider(native_provider)
+	else:
+		_bind_monetization_provider()
 	_install_monetization_controls()
 	_refresh_monetization_controls()
 	call_deferred("_sync_monetization_session_from_runtime")
 
 
+func _process(_delta: float) -> void:
+	if monetization != null and monetization.provider != null:
+		monetization.provider.poll()
+
+
 func install_monetization_provider(provider: MonetizationProvider) -> void:
 	_unbind_monetization_provider()
-	monetization.provider = provider
+	monetization.install_provider(provider)
 	_bind_monetization_provider()
 	_refresh_monetization_controls()
 
@@ -117,6 +131,10 @@ func _on_remove_ads_pressed() -> void:
 
 func _on_restore_purchases_pressed() -> void:
 	monetization.restore_purchases()
+	_refresh_monetization_controls()
+
+
+func _on_monetization_entitlement_changed(_entitled: bool) -> void:
 	_refresh_monetization_controls()
 
 
