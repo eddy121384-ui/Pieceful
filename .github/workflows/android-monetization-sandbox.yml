@@ -28,7 +28,17 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Cache Godot editor and templates
+        id: godot-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .godot-ci
+            ~/.local/share/godot/export_templates/4.7.2.stable
+          key: pieceful-godot-${{ runner.os }}-4.7.2-stable-web
+
       - name: Install Godot 4.7.2 and templates
+        if: steps.godot-cache.outputs.cache-hit != 'true'
         shell: bash
         run: |
           set -euxo pipefail
