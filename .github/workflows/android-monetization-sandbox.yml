@@ -70,21 +70,17 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
 
-      - name: Install Android Gradle build template
-        shell: bash
-        run: |
-          set -euxo pipefail
-          "${GODOT_BIN}" --headless --path . --editor --install-android-build-template --quit
-          test -d android/build
-          find android/build -maxdepth 2 -type f | head -40
-
-      - name: Export Android debug APK
+      - name: Export Android debug APK with Gradle template
         shell: bash
         run: |
           set -euxo pipefail
           mkdir -p build/android
-          "${GODOT_BIN}" --headless --path . --export-debug "Android Debug" build/android/piecepace-debug.apk
+          # Godot 4.7 documents --install-android-build-template as an export
+          # companion flag; combining both operations avoids editor-mode no-op.
+          "${GODOT_BIN}" --headless --path .             --install-android-build-template             --export-debug "Android Debug" build/android/piecepace-debug.apk
+          test -d android/build
           test -s build/android/piecepace-debug.apk
+          find android/build -maxdepth 2 -type f | head -40
           unzip -l build/android/piecepace-debug.apk | grep -E "lib/arm64-v8a|GodotGooglePlayBilling|admob" >/dev/null
 
       - name: Upload Android APK
