@@ -326,6 +326,5 @@ func _process_ios_store_event(event: Dictionary) -> void:
 func _connect_signal(target, signal_name: String, callback: Callable) -> void:
 	if target == null or not target.has_signal(signal_name):
 		return
-	var signal_value: Signal = target.get(signal_name)
-	if not signal_value.is_connected(callback):
-		signal_value.connect(callback)
+	if not target.is_connected(signal_name, callback):
+		target.connect(signal_name, callback)
