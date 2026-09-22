@@ -38,6 +38,16 @@ def find_dir(root: Path, required: set[str]) -> Path:
     return candidates[0]
 
 
+def _copy_contents(source_root: Path, destination_root: Path) -> None:
+    for source in source_root.iterdir():
+        destination = destination_root / source.name
+        if source.is_dir():
+            shutil.copytree(source, destination, dirs_exist_ok=True)
+        else:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+
+
 def install_plugin(name: str, cfg: dict, temp_root: Path) -> None:
     archive = temp_root / cfg["archive"]
     download(cfg["url"], archive)
@@ -50,16 +60,40 @@ def install_plugin(name: str, cfg: dict, temp_root: Path) -> None:
     with zipfile.ZipFile(archive) as zf:
         zf.extractall(unpacked)
 
-    if name == "admob":
-        source = find_dir(unpacked, {"Admob.gd", "plugin.cfg"})
-    else:
-        source = find_dir(unpacked, {"BillingClient.gd", "plugin.cfg"})
-
     target = ROOT / cfg["install_dir"]
     if target.exists():
         shutil.rmtree(target)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(source, target)
+
+    if name == "admob":
+        # The official multi-platform archive is intentionally rooted at res/.
+        # Installing only the AdmobPlugin folder drops addons/GMPShared
+        # (GmpLogger / SpmDependency) and the native platform export payload.
+        # Mirror the plugin's own install.sh behavior by merging the complete
+        # generated res/ tree into the Godot project.
+        roots = [
+            p for p in unpacked.rglob("res")
+            if (p / "addons" / "AdmobPlugin").is_dir()
+        ]
+        if not roots:
+            raise RuntimeError("admob: official archive is missing res/addons/AdmobPlugin")
+        roots.sort(key=lambda p: len(p.parts))
+        _copy_contents(roots[0], ROOT)
+    else:
+        # Billing's release is a conventional Godot addon. Preserve the entire
+        # addon directory so its Android plugin metadata/binaries stay together.
+        candidates = [
+            p for p in unpacked.rglob("GodotGooglePlayBilling")
+            if p.is_dir() and (p / "BillingClient.gd").exists() and (p / "plugin.cfg").exists()
+        ]
+        if candidates:
+            candidates.sort(key=lambda p: len(p.parts))
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(candidates[0], target)
+        else:
+            source = find_dir(unpacked, {"BillingClient.gd", "plugin.cfg"})
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(source, target)
+
     print(f"installed {name} -> {target.relative_to(ROOT)}")
 
 
