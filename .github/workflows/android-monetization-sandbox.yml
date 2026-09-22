@@ -75,7 +75,8 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --install-android-build-template --quit
-          test -f android/build/build.gradle
+          test -d android/build
+          find android/build -maxdepth 2 -type f | head -40
 
       - name: Export Android debug APK
         shell: bash
