@@ -3,6 +3,7 @@ extends SceneTree
 const MainScene = preload("res://main.tscn")
 const RecommendationStoreScript = preload("res://scripts/local_recommendation_store.gd")
 const STATE_PATH := "user://pieceful_recommendation_v1.json"
+const GALLERY_STATE_PATH := "user://pieceful_gallery_state_v1.json"
 
 
 func _init() -> void:
@@ -39,6 +40,25 @@ func _run() -> void:
 
 	var store = RecommendationStoreScript.new()
 	store.reset_profile()
+	if str(store.recommendation_mode()) != "cold_start":
+		_fail("clean recommendation profile did not enter cold-start mode")
+		return
+	var cold_start: Array = store.rank_for_you(entries, 3)
+	if cold_start.size() != 3:
+		_fail("cold-start fallback did not return enough choices")
+		return
+	var cold_categories: Dictionary = {}
+	for row_value in cold_start:
+		if row_value is Dictionary:
+			var row: Dictionary = row_value
+			if str(row.get("_recommendation_mode", "")) != "cold_start":
+				_fail("cold-start result was not labeled as fallback")
+				return
+			cold_categories[str(row.get("category", ""))] = true
+	if cold_categories.size() < 3:
+		_fail("cold-start fallback was dominated by one category")
+		return
+
 	if not store.sync_history(entries, ["source"], {"source": 2}):
 		_fail("history sync did not create a preference profile")
 		return
@@ -99,6 +119,16 @@ func _run() -> void:
 			_fail("%s signal count did not persist" % expected_event)
 			return
 
+	if not reloaded.reset_profile(entries, ["source"], {"source": 2}):
+		_fail("neutral profile reset did not persist")
+		return
+	if reloaded.has_personalization_signal():
+		_fail("profile reset retained personalization weights")
+		return
+	if reloaded.sync_history(entries, ["source"], {"source": 2}):
+		_fail("profile reset immediately relearned historical favorites/completions")
+		return
+
 	# Product integration: the current Gallery must expose the local For You
 	# filter and return real catalog entries without any network/runtime AI.
 	var main = MainScene.instantiate()
@@ -107,6 +137,37 @@ func _run() -> void:
 		await process_frame
 	if main.gallery_status_filter == null:
 		_fail("Gallery status filter missing")
+		return
+	var home_snapshot: Dictionary = main.home_recommendation_snapshot()
+	if str(home_snapshot.get("mode", "")) != "cold_start":
+		_fail("clean Home did not use cold-start recommendations")
+		return
+	var home_ids: Array = home_snapshot.get("ids", [])
+	if home_ids.size() < 3:
+		_fail("Home For You did not expose enough cold-start choices")
+		return
+	if not bool(home_snapshot.get("reset_exists", false)):
+		_fail("Home recommendation reset control is missing")
+		return
+	var home_pick := str(home_ids[0])
+	main.call("_on_home_for_you_pressed", 0)
+	if str(main.pending_content_id) != home_pick:
+		_fail("Home For You choice did not preselect its artwork")
+		return
+	main.call("_on_favorite_pressed", home_pick)
+	home_snapshot = main.home_recommendation_snapshot()
+	if str(home_snapshot.get("mode", "")) != "personalized":
+		_fail("Home did not switch to personalized mode after a preference signal")
+		return
+	main.call("_on_reset_recommendations_pressed")
+	home_snapshot = main.home_recommendation_snapshot()
+	if str(home_snapshot.get("mode", "")) != "cold_start":
+		_fail("Reset taste did not restore cold-start mode")
+		return
+	main.call("_refresh_gallery_cards")
+	home_snapshot = main.home_recommendation_snapshot()
+	if str(home_snapshot.get("mode", "")) != "cold_start":
+		_fail("historical Gallery state immediately repersonalized after reset")
 		return
 	if not _option_has_metadata(main.gallery_status_filter, "for_you"):
 		_fail("Gallery did not expose the For You filter")
@@ -155,8 +216,9 @@ func _option_has_metadata(button: OptionButton, value: String) -> bool:
 
 
 func _clear_state() -> void:
-	if FileAccess.file_exists(STATE_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(STATE_PATH))
+	for path in [STATE_PATH, GALLERY_STATE_PATH]:
+		if FileAccess.file_exists(path):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 
 func _fail(message: String) -> void:
