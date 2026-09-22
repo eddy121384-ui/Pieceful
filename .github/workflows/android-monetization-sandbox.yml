@@ -51,7 +51,8 @@ jobs:
           java -version
           test -n "${ANDROID_HOME:-}"
           test -d "${ANDROID_HOME}"
-          adb version
+          test -x "${ANDROID_HOME}/platform-tools/adb"
+          "${ANDROID_HOME}/platform-tools/adb" version
           echo "ANDROID_HOME=${ANDROID_HOME}"
           echo "JAVA_HOME=${JAVA_HOME}"
 
