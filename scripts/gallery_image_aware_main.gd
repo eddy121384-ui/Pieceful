@@ -109,7 +109,7 @@ func _build_puzzle_selection_ui() -> void:
 	filters.name = "GalleryFilters"
 	filters.add_theme_constant_override("separation", 7)
 	outer.add_child(filters)
-	outer.move_child(filters, card_index)
+	outer.move_child(filters, card_index + 1)
 
 	gallery_search = LineEdit.new()
 	gallery_search.name = "GallerySearch"
