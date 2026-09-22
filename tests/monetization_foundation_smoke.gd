@@ -56,6 +56,26 @@ class FakeProvider:
 		}
 
 
+class AsyncProvider:
+	extends MonetizationProvider
+
+	func provider_name() -> String:
+		return "async_fake"
+
+	func supports_purchases() -> bool:
+		return true
+
+	func purchase_remove_ads() -> Dictionary:
+		return {"ok": true, "entitled": false, "reason": "pending"}
+
+	func restore_remove_ads() -> Dictionary:
+		return {"ok": true, "entitled": false, "reason": "pending"}
+
+	func complete_purchase() -> void:
+		remove_ads_entitlement_changed.emit(true)
+		purchase_flow_finished.emit({"ok": true, "entitled": true, "reason": "purchased"})
+
+
 func _init() -> void:
 	call_deferred("_run")
 
@@ -134,6 +154,20 @@ func _run() -> void:
 	var restore_result: Dictionary = restored.restore_purchases()
 	if not bool(restore_result.get("entitled", false)) or not restored.remove_ads_entitled():
 		_fail("restore purchases did not recover Remove Ads")
+		return
+
+	# Native store flows are asynchronous. A pending launch must not grant the
+	# entitlement until the platform purchase callback confirms ownership.
+	_clear_state()
+	var async_provider := AsyncProvider.new()
+	var async_service = MonetizationServiceScript.new(async_provider)
+	var async_launch: Dictionary = async_service.purchase_remove_ads()
+	if str(async_launch.get("reason", "")) != "pending" or async_service.remove_ads_entitled():
+		_fail("async purchase granted entitlement before store confirmation")
+		return
+	async_provider.complete_purchase()
+	if not async_service.remove_ads_entitled():
+		_fail("async provider entitlement callback was not persisted")
 		return
 
 	# Ad availability failure is non-blocking and never changes puzzle flow state.
