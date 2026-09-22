@@ -95,6 +95,7 @@ func record_hint(metadata: Dictionary, difficulty_id: String) -> bool:
 
 
 func rank_for_you(entries: Array, limit: int = 12, excluded_ids: Array = []) -> Array:
+	var personalized := has_personalization_signal()
 	var remaining: Array = []
 	for entry_value in entries:
 		if not (entry_value is Dictionary):
@@ -105,7 +106,7 @@ func rank_for_you(entries: Array, limit: int = 12, excluded_ids: Array = []) -> 
 			continue
 		remaining.append({
 			"entry": entry,
-			"score": score(entry),
+			"score": score(entry) if personalized else _cold_start_score(entry),
 			"id": content_id,
 			"category": str(entry.get("category", "")),
 		})
@@ -134,6 +135,7 @@ func rank_for_you(entries: Array, limit: int = 12, excluded_ids: Array = []) -> 
 		remaining.remove_at(best_index)
 		var chosen_entry: Dictionary = (chosen.get("entry", {}) as Dictionary).duplicate(true)
 		chosen_entry["_recommendation_score"] = float(chosen.get("score", 0.0))
+		chosen_entry["_recommendation_mode"] = "personalized" if personalized else "cold_start"
 		selected.append(chosen_entry)
 		var chosen_category := str(chosen.get("category", ""))
 		category_counts[chosen_category] = int(category_counts.get(chosen_category, 0)) + 1
@@ -226,9 +228,64 @@ func profile_snapshot() -> Dictionary:
 	return state.duplicate(true)
 
 
-func reset_profile() -> bool:
+func has_personalization_signal() -> bool:
+	for bucket_name in ["preference_weights", "content_affinity", "difficulty_weights"]:
+		var bucket: Dictionary = state.get(bucket_name, {})
+		for value in bucket.values():
+			if absf(float(value)) > 0.0001:
+				return true
+	var counts: Dictionary = state.get("event_counts", {})
+	for value in counts.values():
+		if int(value) > 0:
+			return true
+	return false
+
+
+func recommendation_mode() -> String:
+	return "personalized" if has_personalization_signal() else "cold_start"
+
+
+func reset_profile(
+	entries: Array = [],
+	favorite_ids: Array = [],
+	completion_counts: Dictionary = {}
+) -> bool:
 	state = _blank_state()
+	# Reset means "forget what these past actions taught the recommender", not
+	# "erase the player's Favorites / Journal". Seed those current facts as a
+	# neutral baseline so the next sync does not immediately relearn them.
+	var favorite_state: Dictionary = {}
+	var recorded_counts: Dictionary = {}
+	for entry_value in entries:
+		if not (entry_value is Dictionary):
+			continue
+		var content_id := str((entry_value as Dictionary).get("id", ""))
+		if content_id.is_empty():
+			continue
+		favorite_state[content_id] = favorite_ids.has(content_id)
+		recorded_counts[content_id] = maxi(0, int(completion_counts.get(content_id, 0)))
+	state["favorite_state"] = favorite_state
+	state["completion_counts"] = recorded_counts
 	return _save()
+
+
+func _cold_start_score(metadata: Dictionary) -> float:
+	var result := 0.0
+	var puzzleability = metadata.get("puzzleability", {})
+	if puzzleability is Dictionary:
+		result += clampf(
+			float((puzzleability as Dictionary).get("score", 0.0)),
+			0.0,
+			1.0
+		) * 0.72
+	var content_id := str(metadata.get("id", ""))
+	var completion_counts: Dictionary = state.get("completion_counts", {})
+	if int(completion_counts.get(content_id, 0)) <= 0:
+		result += 0.22
+	var suggested := str(metadata.get("suggested_difficulty", ""))
+	if suggested == "standard":
+		result += 0.04
+	return result
 
 
 func _apply_metadata_weight(metadata: Dictionary, delta: float) -> void:
