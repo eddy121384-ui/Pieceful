@@ -63,6 +63,34 @@ def install_plugin(name: str, cfg: dict, temp_root: Path) -> None:
     print(f"installed {name} -> {target.relative_to(ROOT)}")
 
 
+def write_admob_export_configs() -> None:
+    target = ROOT / "addons/AdmobPlugin"
+    android = """[General]
+is_real = false
+
+[Debug]
+app_id = "ca-app-pub-3940256099942544~3347511713"
+
+[Release]
+app_id = "ca-app-pub-3940256099942544~3347511713"
+"""
+    ios = """[General]
+is_real = false
+
+[Debug]
+app_id = "ca-app-pub-3940256099942544~1458002511"
+
+[Release]
+app_id = "ca-app-pub-3940256099942544~1458002511"
+
+[ATT]
+att_enabled = false
+att_text = ""
+"""
+    (target / "android_export.cfg").write_text(android, encoding="utf-8")
+    (target / "ios_export.cfg").write_text(ios, encoding="utf-8")
+
+
 def enable_editor_plugins() -> None:
     project_path = ROOT / "project.godot"
     text = project_path.read_text(encoding="utf-8")
@@ -105,6 +133,7 @@ def main() -> int:
         temp_root = Path(tmp)
         install_plugin("admob", data["admob"], temp_root)
         install_plugin("google_play_billing", data["google_play_billing"], temp_root)
+    write_admob_export_configs()
     enable_editor_plugins()
     verify()
     print("mobile monetization plugins installed and pinned")
