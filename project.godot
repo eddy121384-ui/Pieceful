@@ -22,6 +22,15 @@ window/stretch/aspect="expand"
 
 pointing/emulate_mouse_from_touch=true
 
+[monetization]
+
+remove_ads_product_id="remove_ads"
+use_real_ads=false
+android_admob_application_id=""
+android_interstitial_ad_unit_id=""
+ios_admob_application_id=""
+ios_interstitial_ad_unit_id=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
