@@ -17,6 +17,12 @@ var gallery_cards: Dictionary = {}
 var gallery_status_labels: Dictionary = {}
 var gallery_favorite_buttons: Dictionary = {}
 var gallery_continue_buttons: Dictionary = {}
+var gallery_for_you_box: VBoxContainer = null
+var gallery_for_you_label: Label = null
+var gallery_for_you_mode: Label = null
+var gallery_for_you_buttons: Array[Button] = []
+var gallery_for_you_ids: Array[String] = []
+var gallery_reset_recommendations: Button = null
 var _gallery_portrait_grid := false
 
 
@@ -32,15 +38,15 @@ func _build_puzzle_selection_ui() -> void:
 		var heading = outer.get_child(0)
 		var subheading = outer.get_child(1)
 		if heading is Label:
-			heading.text = "Gallery"
+			heading.text = "Pieceful"
 		if subheading is Label:
-			subheading.text = "Find a puzzle you want to live with for a while."
+			subheading.text = "Pick from For You or browse the full Gallery."
 
 	var card_index := puzzle_selection_cards.get_index()
 	outer.remove_child(puzzle_selection_cards)
 	gallery_scroll = ScrollContainer.new()
 	gallery_scroll.name = "GalleryScroll"
-	gallery_scroll.custom_minimum_size = Vector2(0.0, 230.0)
+	gallery_scroll.custom_minimum_size = Vector2(0.0, 190.0)
 	gallery_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	gallery_scroll.scroll_deadzone = 10
 	outer.add_child(gallery_scroll)
@@ -54,11 +60,56 @@ func _build_puzzle_selection_ui() -> void:
 	gallery_grid.add_theme_constant_override("h_separation", 10)
 	gallery_grid.add_theme_constant_override("v_separation", 12)
 
+	gallery_for_you_box = VBoxContainer.new()
+	gallery_for_you_box.name = "HomeForYou"
+	gallery_for_you_box.add_theme_constant_override("separation", 5)
+	outer.add_child(gallery_for_you_box)
+	outer.move_child(gallery_for_you_box, card_index)
+
+	var for_you_header := HBoxContainer.new()
+	for_you_header.add_theme_constant_override("separation", 8)
+	gallery_for_you_box.add_child(for_you_header)
+
+	gallery_for_you_label = Label.new()
+	gallery_for_you_label.text = "For You"
+	gallery_for_you_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	gallery_for_you_label.add_theme_font_size_override("font_size", 16)
+	for_you_header.add_child(gallery_for_you_label)
+
+	gallery_for_you_mode = Label.new()
+	gallery_for_you_mode.text = ""
+	gallery_for_you_mode.modulate = Color(1.0, 1.0, 1.0, 0.48)
+	gallery_for_you_mode.add_theme_font_size_override("font_size", 11)
+	for_you_header.add_child(gallery_for_you_mode)
+
+	gallery_reset_recommendations = Button.new()
+	gallery_reset_recommendations.name = "ResetRecommendations"
+	gallery_reset_recommendations.text = "Reset taste"
+	gallery_reset_recommendations.custom_minimum_size = Vector2(88.0, 30.0)
+	gallery_reset_recommendations.tooltip_text = "Forget recommendation preferences on this device"
+	gallery_reset_recommendations.pressed.connect(_on_reset_recommendations_pressed)
+	for_you_header.add_child(gallery_reset_recommendations)
+
+	var for_you_row := HBoxContainer.new()
+	for_you_row.name = "HomeForYouRow"
+	for_you_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	for_you_row.add_theme_constant_override("separation", 7)
+	gallery_for_you_box.add_child(for_you_row)
+	for index in range(4):
+		var button := Button.new()
+		button.name = "HomeForYou_%d" % (index + 1)
+		button.custom_minimum_size = Vector2(142.0, 36.0)
+		button.clip_text = true
+		button.visible = false
+		button.pressed.connect(_on_home_for_you_pressed.bind(index))
+		for_you_row.add_child(button)
+		gallery_for_you_buttons.append(button)
+
 	var filters := VBoxContainer.new()
 	filters.name = "GalleryFilters"
 	filters.add_theme_constant_override("separation", 7)
 	outer.add_child(filters)
-	outer.move_child(filters, card_index)
+	outer.move_child(filters, card_index + 1)
 
 	gallery_search = LineEdit.new()
 	gallery_search.name = "GallerySearch"
@@ -279,6 +330,28 @@ func _on_gallery_filter_changed(_index: int) -> void:
 	_refresh_gallery_cards()
 
 
+func _on_home_for_you_pressed(index: int) -> void:
+	if index < 0 or index >= gallery_for_you_ids.size():
+		return
+	var content_id := gallery_for_you_ids[index]
+	if content_id.is_empty():
+		return
+	_on_content_card_pressed(content_id)
+	if puzzle_selection_start != null:
+		puzzle_selection_start.grab_focus()
+
+
+func _on_reset_recommendations_pressed() -> void:
+	if board == null or not board.has_method("content_presets"):
+		return
+	recommendation_store.reset_profile(
+		board.content_presets(),
+		gallery_state.favorites(),
+		_recommendation_completion_counts()
+	)
+	_refresh_gallery_cards()
+
+
 func _on_favorite_pressed(content_id: String) -> void:
 	gallery_state.toggle_favorite(content_id)
 	_refresh_gallery_cards()
@@ -324,6 +397,7 @@ func _refresh_gallery_cards() -> void:
 	if gallery_cards.is_empty():
 		return
 	_sync_recommendation_history()
+	_refresh_home_for_you()
 	var query := gallery_search.text.strip_edges().to_lower() if gallery_search != null else ""
 	var category := _selected_filter_value(gallery_category_filter, "all")
 	var status_filter := _selected_filter_value(gallery_status_filter, "all")
@@ -384,6 +458,59 @@ func recommendations_for_you(limit: int = FOR_YOU_LIMIT) -> Array:
 	return recommendation_store.rank_for_you(board.content_presets(), limit)
 
 
+func home_recommendation_snapshot() -> Dictionary:
+	return {
+		"mode": recommendation_store.recommendation_mode(),
+		"ids": gallery_for_you_ids.duplicate(),
+		"label": gallery_for_you_label.text if gallery_for_you_label != null else "",
+		"reset_exists": gallery_reset_recommendations != null,
+	}
+
+
+func _refresh_home_for_you() -> void:
+	gallery_for_you_ids.clear()
+	var personalized := recommendation_store.has_personalization_signal()
+	if gallery_for_you_label != null:
+		gallery_for_you_label.text = "For You" if personalized else "Fresh picks"
+	if gallery_for_you_mode != null:
+		gallery_for_you_mode.text = "Based on your play" if personalized else "A balanced place to start"
+	if gallery_reset_recommendations != null:
+		gallery_reset_recommendations.disabled = not personalized
+
+	var rows := recommendations_for_you(gallery_for_you_buttons.size())
+	for row_value in rows:
+		if not (row_value is Dictionary):
+			continue
+		var content_id := str((row_value as Dictionary).get("id", ""))
+		if not content_id.is_empty():
+			gallery_for_you_ids.append(content_id)
+	for index in range(gallery_for_you_buttons.size()):
+		var button: Button = gallery_for_you_buttons[index]
+		if index >= gallery_for_you_ids.size():
+			button.visible = false
+			button.text = ""
+			button.tooltip_text = ""
+			continue
+		var content_id := gallery_for_you_ids[index]
+		var label := content_id.capitalize()
+		if board != null and board.has_method("content_label_for_id"):
+			label = str(board.content_label_for_id(content_id))
+		button.text = _compact_home_label(label)
+		button.tooltip_text = (
+			"For You · %s" % label
+			if personalized
+			else "Fresh pick · %s" % label
+		)
+		button.visible = true
+
+
+func _compact_home_label(label: String) -> String:
+	var clean := label.strip_edges()
+	if clean.length() <= 18:
+		return clean
+	return clean.substr(0, 17) + "…"
+
+
 func more_like_recommendations(content_id: String, limit: int = 6) -> Array:
 	if board == null or not board.has_method("content_metadata") or not board.has_method("content_presets"):
 		return []
@@ -398,7 +525,17 @@ func recommendation_profile_snapshot() -> Dictionary:
 func _sync_recommendation_history() -> void:
 	if board == null or not board.has_method("content_presets"):
 		return
+	recommendation_store.sync_history(
+		board.content_presets(),
+		gallery_state.favorites(),
+		_recommendation_completion_counts()
+	)
+
+
+func _recommendation_completion_counts() -> Dictionary:
 	var completion_counts: Dictionary = {}
+	if board == null or not board.has_method("content_presets"):
+		return completion_counts
 	for entry_value in board.content_presets():
 		if not (entry_value is Dictionary):
 			continue
@@ -408,11 +545,7 @@ func _sync_recommendation_history() -> void:
 		var completion := gallery_state.completion_for(content_id)
 		if not completion.is_empty():
 			completion_counts[content_id] = int(completion.get("count", 0))
-	recommendation_store.sync_history(
-		board.content_presets(),
-		gallery_state.favorites(),
-		completion_counts
-	)
+	return completion_counts
 
 
 func _catalog_order() -> Array:

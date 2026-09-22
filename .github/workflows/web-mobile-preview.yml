@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feat/issue-8-more-like-signals
+      - feat/issue-8-home-for-you
   workflow_dispatch:
 
 permissions:
