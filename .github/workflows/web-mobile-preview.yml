@@ -240,6 +240,14 @@ jobs:
           test -f build/web/index.wasm
           test -f build/web/index.pck
 
+      - name: Include Watercolor Chess preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/watercolor-chess
+          cp web/previews/watercolor-chess/index.html build/web/watercolor-chess/index.html
+          test -f build/web/watercolor-chess/index.html
+
       - name: Upload Web build artifact
         uses: actions/upload-artifact@v4
         with:
