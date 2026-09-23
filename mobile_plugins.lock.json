@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "godot": "4.7.2",
+  "admob": {
+    "repository": "godot-sdk-integrations/godot-admob",
+    "version": "v7.0",
+    "archive": "AdmobPlugin-Multi-v7.0.zip",
+    "url": "https://github.com/godot-sdk-integrations/godot-admob/releases/download/v7.0/AdmobPlugin-Multi-v7.0.zip",
+    "sha256": "d96e1734b889434c0a77f0bafe2f09f4cdb9e5b518b9d6809757b251a17cf8a2",
+    "install_dir": "addons/AdmobPlugin"
+  },
+  "google_play_billing": {
+    "repository": "godot-sdk-integrations/godot-google-play-billing",
+    "version": "3.3.0",
+    "archive": "godot-google-play-billing.zip",
+    "url": "https://github.com/godot-sdk-integrations/godot-google-play-billing/releases/download/3.3.0/godot-google-play-billing.zip",
+    "sha256": "20d75623d6f337f08d8283c83098b73678d5f575e39247af5a8eb80588b18568",
+    "install_dir": "addons/GodotGooglePlayBilling"
+  }
+}

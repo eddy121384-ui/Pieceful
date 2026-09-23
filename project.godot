@@ -22,8 +22,18 @@ window/stretch/aspect="expand"
 
 pointing/emulate_mouse_from_touch=true
 
+[monetization]
+
+remove_ads_product_id="remove_ads"
+use_real_ads=false
+android_admob_application_id=""
+android_interstitial_ad_unit_id=""
+ios_admob_application_id=""
+ios_interstitial_ad_unit_id=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.075, 0.082, 0.09, 1)

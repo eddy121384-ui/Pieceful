@@ -3,9 +3,20 @@ extends RefCounted
 
 signal interstitial_started
 signal interstitial_finished
+signal remove_ads_entitlement_changed(entitled: bool)
+signal purchase_flow_finished(result: Dictionary)
+signal restore_flow_finished(result: Dictionary)
 
 # Platform adapter contract. Web/headless intentionally behaves as unavailable:
 # monetization failure must never block Pieceful's core puzzle flow.
+
+
+func attach(_host: Node) -> void:
+	pass
+
+
+func poll() -> void:
+	pass
 
 
 func provider_name() -> String:
