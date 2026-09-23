@@ -20,8 +20,7 @@ def _replace_in_release_section(text: str, key: str, value: str) -> str:
     if options_pos < 0:
         raise RuntimeError("Missing Android Release AAB options section")
 
-    next_section = text.find("
-[preset.", options_pos + 1)
+    next_section = text.find("\\n[preset.", options_pos + 1)
     end = len(text) if next_section < 0 else next_section
     section = text[options_pos:end]
 
