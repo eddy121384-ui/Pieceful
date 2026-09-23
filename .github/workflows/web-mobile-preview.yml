@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feat/issue-7-native-mobile-monetization
+      - feat/issue-7-android-release-aab
   workflow_dispatch:
 
 permissions:
