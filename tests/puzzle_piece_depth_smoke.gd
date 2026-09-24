@@ -53,12 +53,9 @@ func _run() -> void:
 	if shadow.get_child_count() < 4:
 		_fail("soft shadow is not composed from enough feathered layers")
 		return
-	if thickness.get_child_count() < EdgeVisualScript.BEVEL_WIDTH_PX:
-		# This intentionally only checks that thickness is multi-layered; the
-		# exact count remains a factory implementation detail.
-		if thickness.get_child_count() < 3:
-			_fail("cardboard side wall is not multi-layered")
-			return
+	if thickness.get_child_count() < 3:
+		_fail("cardboard side wall is not multi-layered")
+		return
 	if EdgeVisualScript.BEVEL_WIDTH_PX < 2.5:
 		_fail("bevel is too narrow to read as a surface")
 		return
