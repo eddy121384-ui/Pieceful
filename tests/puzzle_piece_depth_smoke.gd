@@ -37,35 +37,42 @@ func _run() -> void:
 	var shadow = piece.get_node_or_null("Shadow")
 	var thickness = piece.get_node_or_null("Thickness")
 	var face = piece.get_node_or_null("Face")
-	var edge = piece.get_node_or_null("EdgeLighting")
+	var bevel = piece.get_node_or_null("Bevel")
 	var legacy_outline = piece.get_node_or_null("Outline")
+	var legacy_edge = piece.get_node_or_null("EdgeLighting")
 
-	if shadow == null or thickness == null or face == null or edge == null:
-		_fail("cardboard visual stack is incomplete")
+	if shadow == null or thickness == null or face == null or bevel == null:
+		_fail("2.5D cardboard visual stack is incomplete")
 		return
-	if legacy_outline != null:
-		_fail("legacy white Outline node returned")
+	if legacy_outline != null or legacy_edge != null:
+		_fail("legacy line-based edge renderer returned")
 		return
-	if not (edge is EdgeVisualScript):
-		_fail("EdgeLighting is not the shared directional renderer")
+	if not (bevel is EdgeVisualScript):
+		_fail("Bevel is not the shared contour bevel renderer")
 		return
-	if Vector2(thickness.position).x <= 0.0 or Vector2(thickness.position).y <= 0.0:
-		_fail("thickness silhouette is not offset toward the lower-right")
+	if shadow.get_child_count() < 4:
+		_fail("soft shadow is not composed from enough feathered layers")
 		return
-	if EdgeVisualScript.BASE_EDGE_COLOR.r > 0.15:
-		_fail("base edge is too bright; expected a dark neutral outline")
+	if thickness.get_child_count() < EdgeVisualScript.BEVEL_WIDTH_PX:
+		# This intentionally only checks that thickness is multi-layered; the
+		# exact count remains a factory implementation detail.
+		if thickness.get_child_count() < 3:
+			_fail("cardboard side wall is not multi-layered")
+			return
+	if EdgeVisualScript.BEVEL_WIDTH_PX < 2.5:
+		_fail("bevel is too narrow to read as a surface")
 		return
-	if EdgeVisualScript.HIGHLIGHT_COLOR.a > 0.25:
-		_fail("edge highlight is too strong for the quiet cardboard treatment")
+	if EdgeVisualScript.HIGHLIGHT_ALPHA <= EdgeVisualScript.INNER_CATCHLIGHT_ALPHA:
+		_fail("directional bevel highlight is not stronger than the inner catchlight")
 		return
 
 	piece.snap_to_target()
 	await process_frame
 	if shadow.visible:
-		_fail("solved piece retained the floating drop shadow")
+		_fail("solved piece retained the floating contact shadow")
 		return
-	if not thickness.visible or not edge.visible:
-		_fail("solved piece lost its subtle cardboard edge treatment")
+	if not thickness.visible or not bevel.visible:
+		_fail("solved piece lost its cardboard depth")
 		return
 
 	piece.queue_free()
