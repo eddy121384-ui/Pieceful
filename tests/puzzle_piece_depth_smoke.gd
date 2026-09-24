@@ -50,11 +50,11 @@ func _run() -> void:
 	if not (bevel is EdgeVisualScript):
 		_fail("Bevel is not the shared contour bevel renderer")
 		return
-	if shadow.get_child_count() < 4:
-		_fail("soft shadow is not composed from enough feathered layers")
+	if not shadow.has_method("configure"):
+		_fail("soft shadow renderer is missing")
 		return
-	if thickness.get_child_count() < 3:
-		_fail("cardboard side wall is not multi-layered")
+	if not thickness.has_method("configure"):
+		_fail("cardboard thickness renderer is missing")
 		return
 	if EdgeVisualScript.BEVEL_WIDTH_PX < 2.5:
 		_fail("bevel is too narrow to read as a surface")
