@@ -3,6 +3,7 @@ extends "res://scripts/completion_share_card_contain_main.gd"
 
 const TimelapseTraceScript = preload("res://scripts/timelapse_trace_v1.gd")
 const TimelapseReplayPlanScript = preload("res://scripts/timelapse_replay_plan.gd")
+const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
 
 var timelapse_replay_button: Button = null
 var timelapse_overlay: ColorRect = null
@@ -284,22 +285,14 @@ func _build_replay_piece_visuals() -> void:
 		group.scale = Vector2.ONE * timelapse_workspace_scale
 		timelapse_piece_root.add_child(group)
 
-		var face := Polygon2D.new()
-		face.polygon = piece.polygon_points
-		face.uv = piece.uv_points
-		face.texture = piece.source_texture
-		face.color = Color.WHITE
-		group.add_child(face)
-
-		var outline := Line2D.new()
-		var points: PackedVector2Array = piece.polygon_points.duplicate()
-		if not points.is_empty():
-			points.append(points[0])
-		outline.points = points
-		outline.width = 1.2
-		outline.default_color = Color(1.0, 1.0, 1.0, 0.42)
-		outline.antialiased = true
-		group.add_child(outline)
+		PuzzlePieceVisualFactoryScript.add_piece_visuals(
+			group,
+			piece.polygon_points,
+			piece.uv_points,
+			piece.source_texture,
+			timelapse_workspace_scale,
+			false
+		)
 
 		timelapse_piece_visuals[int(piece.piece_index)] = group
 
