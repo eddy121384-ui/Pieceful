@@ -1,21 +1,22 @@
 class_name PuzzlePieceEdgeVisual
 extends Node2D
 
-# A real bevel band, not an outline. The band is built from the puzzle contour
-# itself and fades back into the artwork over several pixels. Directional
-# lighting makes top-left edges catch light while bottom-right edges fall into
-# shade, which reads as a shallow chamfered cardboard surface.
+# WebGL-safe bevel renderer. It draws several translucent contour bands rather
+# than a Line2D or per-vertex gradient polygon. The result is a chamfered
+# surface: top-left edges catch warm light, bottom-right edges receive shade,
+# and both fade inward into the artwork.
 
-const BEVEL_WIDTH_PX := 3.4
-const AMBIENT_EDGE_ALPHA := 0.11
-const SHADE_ALPHA := 0.34
-const HIGHLIGHT_ALPHA := 0.30
-const INNER_CATCHLIGHT_ALPHA := 0.07
+const BEVEL_WIDTH_PX := 3.6
+const BAND_FRACTIONS := [1.0, 0.66, 0.36]
+const BAND_ALPHA := [1.0, 0.52, 0.20]
+const AMBIENT_SHADE_ALPHA := 0.10
+const SHADE_ALPHA := 0.30
+const HIGHLIGHT_ALPHA := 0.27
 const LIGHT_DIRECTION := Vector2(-0.72, -0.69)
 
 var polygon_points := PackedVector2Array()
 var pixel_scale := 1.0
-var inner_ring := PackedVector2Array()
+var rings: Array[PackedVector2Array] = []
 var outward_normals := PackedVector2Array()
 
 
@@ -27,91 +28,81 @@ func configure(points: PackedVector2Array, p_pixel_scale: float = 1.0) -> void:
 
 
 func _rebuild_geometry() -> void:
-	inner_ring = PackedVector2Array()
+	rings.clear()
 	outward_normals = PackedVector2Array()
 	if polygon_points.size() < 3:
 		return
 
 	var centroid := _centroid(polygon_points)
 	for index in range(polygon_points.size()):
-		var a: Vector2 = polygon_points[index]
-		var b: Vector2 = polygon_points[(index + 1) % polygon_points.size()]
+		var a := polygon_points[index]
+		var b := polygon_points[(index + 1) % polygon_points.size()]
 		var tangent := (b - a).normalized()
 		var outward := Vector2(-tangent.y, tangent.x)
-		var midpoint := (a + b) * 0.5
-		if outward.dot(midpoint - centroid) < 0.0:
+		if outward.dot(((a + b) * 0.5) - centroid) < 0.0:
 			outward = -outward
 		outward_normals.append(outward)
 
-	var bevel_width := BEVEL_WIDTH_PX * pixel_scale
-	for index in range(polygon_points.size()):
-		var previous_index := (index - 1 + polygon_points.size()) % polygon_points.size()
-		var previous_outward: Vector2 = outward_normals[previous_index]
-		var next_outward: Vector2 = outward_normals[index]
-		var inward := -(previous_outward + next_outward)
-		if inward.length_squared() < 0.0001:
-			inward = -next_outward
-		inward = inward.normalized()
-
-		# Miter correction keeps the apparent bevel width close to constant around
-		# tabs and sockets while clamping acute corners so they never spike.
-		var edge_inward := -next_outward
-		var denominator := maxf(absf(inward.dot(edge_inward)), 0.46)
-		var miter := minf(bevel_width / denominator, bevel_width * 1.85)
-		inner_ring.append(polygon_points[index] + inward * miter)
+	for fraction_value in BAND_FRACTIONS:
+		rings.append(_inset_ring(BEVEL_WIDTH_PX * float(fraction_value) * pixel_scale))
 
 
 func _draw() -> void:
-	if polygon_points.size() < 3 or inner_ring.size() != polygon_points.size():
+	if polygon_points.size() < 3 or rings.size() != BAND_FRACTIONS.size():
 		return
 
 	var light := LIGHT_DIRECTION.normalized()
-	for index in range(polygon_points.size()):
-		var next_index := (index + 1) % polygon_points.size()
-		var a: Vector2 = polygon_points[index]
-		var b: Vector2 = polygon_points[next_index]
-		var ia: Vector2 = inner_ring[index]
-		var ib: Vector2 = inner_ring[next_index]
-		var outward: Vector2 = outward_normals[index]
-		var facing := clampf(outward.dot(light), -1.0, 1.0)
-
-		# Ambient occlusion/shade band. This is a surface with width, not a line:
-		# the outer edge is darkest and it dissolves into the artwork inward.
-		var shade_strength := AMBIENT_EDGE_ALPHA + maxf(-facing, 0.0) * SHADE_ALPHA
-		var shade_outer := Color(0.018, 0.020, 0.022, shade_strength)
-		var shade_inner := Color(0.018, 0.020, 0.022, 0.0)
-		draw_polygon(
-			PackedVector2Array([a, b, ib, ia]),
-			PackedColorArray([shade_outer, shade_outer, shade_inner, shade_inner])
+	for band_index in range(rings.size()):
+		var inner: PackedVector2Array = rings[band_index]
+		var outer: PackedVector2Array = (
+			polygon_points if band_index == 0 else rings[band_index - 1]
 		)
+		for edge_index in range(polygon_points.size()):
+			var next_index := (edge_index + 1) % polygon_points.size()
+			var facing := clampf(outward_normals[edge_index].dot(light), -1.0, 1.0)
+			var alpha_scale := float(BAND_ALPHA[band_index])
 
-		# Lit bevel face. Only surfaces facing the top-left key light receive it.
-		# The highlight also fades inward, so there is no continuous white stroke.
-		var lit := maxf(facing, 0.0)
-		if lit > 0.04:
-			var highlight_alpha := HIGHLIGHT_ALPHA * pow(lit, 0.72)
-			var highlight_outer := Color(1.0, 0.985, 0.94, highlight_alpha)
-			var highlight_inner := Color(1.0, 0.985, 0.94, 0.0)
-			draw_polygon(
-				PackedVector2Array([a, b, ib, ia]),
-				PackedColorArray([
-					highlight_outer,
-					highlight_outer,
-					highlight_inner,
-					highlight_inner,
-				])
-			)
+			var shade_alpha := (
+				AMBIENT_SHADE_ALPHA
+				+ maxf(-facing, 0.0) * SHADE_ALPHA
+			) * alpha_scale
+			if shade_alpha > 0.004:
+				draw_colored_polygon(
+					PackedVector2Array([
+						outer[edge_index],
+						outer[next_index],
+						inner[next_index],
+						inner[edge_index],
+					]),
+					Color(0.018, 0.020, 0.023, shade_alpha)
+				)
 
-	# A very faint inner catchlight prevents dark artwork from swallowing the
-	# chamfer. It is intentionally much weaker than the bevel itself.
-	var closed_inner := inner_ring.duplicate()
-	closed_inner.append(inner_ring[0])
-	draw_polyline(
-		closed_inner,
-		Color(1.0, 0.99, 0.96, INNER_CATCHLIGHT_ALPHA),
-		0.7 * pixel_scale,
-		true
-	)
+			var lit := maxf(facing, 0.0)
+			if lit > 0.06:
+				var highlight_alpha := HIGHLIGHT_ALPHA * pow(lit, 0.72) * alpha_scale
+				draw_colored_polygon(
+					PackedVector2Array([
+						outer[edge_index],
+						outer[next_index],
+						inner[next_index],
+						inner[edge_index],
+					]),
+					Color(1.0, 0.985, 0.94, highlight_alpha)
+				)
+
+
+func _inset_ring(distance: float) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for index in range(polygon_points.size()):
+		var previous := (index - 1 + polygon_points.size()) % polygon_points.size()
+		var inward := -(outward_normals[previous] + outward_normals[index])
+		if inward.length_squared() < 0.0001:
+			inward = -outward_normals[index]
+		inward = inward.normalized()
+		var denominator := maxf(absf(inward.dot(-outward_normals[index])), 0.46)
+		var miter := minf(distance / denominator, distance * 1.8)
+		result.append(polygon_points[index] + inward * miter)
+	return result
 
 
 func _centroid(points: PackedVector2Array) -> Vector2:
