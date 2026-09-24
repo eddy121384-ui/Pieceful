@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feat/issue-7-android-release-aab
+      - feat/issue-51-piece-depth
   workflow_dispatch:
 
 permissions:
@@ -182,6 +182,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
+
+      - name: Puzzle piece depth smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_piece_depth_smoke.gd
 
       - name: Gallery flow smoke
         shell: bash
