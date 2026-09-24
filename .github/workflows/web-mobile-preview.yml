@@ -248,6 +248,14 @@ jobs:
           cp web/previews/watercolor-chess/index.html build/web/watercolor-chess/index.html
           test -f build/web/watercolor-chess/index.html
 
+      - name: Include Ink Chess round 2 preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/ink-chess-round2
+          cp web/previews/ink-chess-round2/index.html build/web/ink-chess-round2/index.html
+          test -f build/web/ink-chess-round2/index.html
+
       - name: Upload Web build artifact
         uses: actions/upload-artifact@v4
         with:
