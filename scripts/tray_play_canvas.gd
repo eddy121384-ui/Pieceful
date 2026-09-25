@@ -512,7 +512,8 @@ func _rebuild_visuals() -> void:
 			source_piece.uv_points,
 			source_piece.source_texture,
 			scale_factor,
-			true
+			true,
+			PuzzlePieceVisualFactoryScript.DETAIL_LITE
 		)
 
 
