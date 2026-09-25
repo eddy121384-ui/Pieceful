@@ -1,8 +1,6 @@
 class_name ChaosOrderOptimizedRailCanvas
 extends "res://scripts/scrollable_loose_piece_rail_canvas.gd"
 
-const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
-
 const DENSE_RAIL_THRESHOLD := 120
 const DENSE_SHUFFLE_SAMPLE := 24
 const VIRTUALIZATION_BUFFER := 104.0
