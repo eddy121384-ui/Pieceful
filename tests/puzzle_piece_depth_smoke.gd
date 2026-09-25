@@ -60,7 +60,7 @@ func _run() -> void:
 		_fail("bevel surface is too narrow")
 		return
 
-	var bevel_arrays := bevel.mesh.surface_get_arrays(0)
+	var bevel_arrays: Array = bevel.mesh.surface_get_arrays(0)
 	var bevel_colors: PackedColorArray = bevel_arrays[Mesh.ARRAY_COLOR]
 	var has_warm_lit_edge := false
 	var has_shaded_edge := false
