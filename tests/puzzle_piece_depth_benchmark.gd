@@ -71,10 +71,16 @@ func _run() -> void:
 				% [str(case["label"]), expected_polygon_items, polygon_render_items]
 			)
 			return
-		if mesh_render_items != 0 or line_render_items != 0:
+		if mesh_render_items != 0:
 			_fail(
-				"%s created mesh=%d line=%d render items"
-				% [str(case["label"]), mesh_render_items, line_render_items]
+				"%s created %d mesh render items"
+				% [str(case["label"]), mesh_render_items]
+			)
+			return
+		if line_render_items != expected:
+			_fail(
+				"%s expected %d subtle seam lines, got %d"
+				% [str(case["label"]), expected, line_render_items]
 			)
 			return
 		if build_ms > CATASTROPHIC_BUILD_LIMIT_MS:
@@ -85,13 +91,14 @@ func _run() -> void:
 			return
 
 		print(
-			"BENCH paper_relief_build · %s · %d pieces · definition %d ms · pieces %d ms · %d Polygon2D · 0 mesh · 0 line"
+			"BENCH paper_relief_build · %s · %d pieces · definition %d ms · pieces %d ms · %d Polygon2D · %d seam Line2D · 0 mesh"
 			% [
 				str(case["label"]),
 				expected,
 				definition_ms,
 				build_ms,
 				polygon_render_items,
+				line_render_items,
 			]
 		)
 
