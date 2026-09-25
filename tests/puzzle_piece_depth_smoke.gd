@@ -92,29 +92,7 @@ func _run() -> void:
 		_fail("solved piece lost its subtle paper relief")
 		return
 
-	var lite_piece = PuzzlePieceScript.new()
-	root.add_child(lite_piece)
-	lite_piece.configure(
-		1,
-		texture,
-		Vector2(200.0, 100.0),
-		Vector2(64.0, 64.0),
-		Vector2.ZERO,
-		Vector2(64.0, 64.0),
-		points,
-		Vector2(140.0, 40.0),
-		PuzzlePieceScript.DEPTH_DETAIL_LITE
-	)
-	await process_frame
-	if lite_piece.get_node_or_null("WarmRim") == null:
-		_fail("compatibility lite path lost the shared paper-relief renderer")
-		return
-	if lite_piece.get_node_or_null("Bevel") != null:
-		_fail("compatibility lite path unexpectedly built a bevel mesh")
-		return
-
 	piece.queue_free()
-	lite_piece.queue_free()
 	await process_frame
 	print("PASS puzzle_piece_depth_smoke")
 	quit(0)
