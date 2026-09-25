@@ -46,7 +46,7 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
 		_layout_groups()
-		_sync_visual_positions()
+		_rebuild_visuals()
 		queue_redraw()
 
 
