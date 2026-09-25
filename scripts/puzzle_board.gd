@@ -6,7 +6,6 @@ signal completed
 
 const PuzzleDefinitionScript = preload("res://scripts/puzzle_definition.gd")
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
-const FULL_DEPTH_MAX_PIECES := 96
 const DEMO_TEXTURE: Texture2D = preload("res://assets/demo_garden.svg")
 const REGRESSION_CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
 const DEMO_RELAXED_CUT_PATTERN_PATH := "res://cut_patterns/Classic_040_A.json"
@@ -24,6 +23,7 @@ var pieces: Array[Node] = []
 var board_visuals: Array[Node] = []
 var solved_count := 0
 var z_counter := 10
+var last_piece_build_ms := 0
 
 # Runtime assembly state. Every loose piece starts as a one-piece cluster.
 # When neighbouring pieces meet at their correct relative offset, clusters merge.
@@ -52,8 +52,23 @@ func start_new_game() -> void:
 	)
 
 	_build_board_visuals()
+	var piece_build_started := Time.get_ticks_msec()
 	_build_pieces()
+	last_piece_build_ms = int(Time.get_ticks_msec() - piece_build_started)
+	print(
+		"Piecepace piece build · %d pieces · %d ms · 3-layer paper relief"
+		% [definition.piece_count(), last_piece_build_ms]
+	)
 	progress_changed.emit(solved_count, definition.piece_count())
+
+
+func piece_build_diagnostics() -> Dictionary:
+	return {
+		"piece_count": definition.piece_count() if definition != null else 0,
+		"build_ms": last_piece_build_ms,
+		"render_items_per_piece": 3,
+		"renderer": "paper_relief_polygon2d",
+	}
 
 
 func navigation_bounds() -> Rect2:
@@ -148,11 +163,6 @@ func _build_board_visuals() -> void:
 
 func _build_pieces() -> void:
 	var starts := _scatter_positions()
-	var depth_detail := (
-		PuzzlePieceScript.DEPTH_DETAIL_FULL
-		if definition.piece_count() <= FULL_DEPTH_MAX_PIECES
-		else PuzzlePieceScript.DEPTH_DETAIL_LITE
-	)
 
 	for index in range(definition.piece_count()):
 		var piece = PuzzlePieceScript.new()
@@ -166,8 +176,7 @@ func _build_pieces() -> void:
 			definition.source_origin_for(index),
 			definition.source_cell_size,
 			definition.outline_for(index),
-			starts[index],
-			depth_detail
+			starts[index]
 		)
 		piece.z_index = z_counter + index
 		piece.picked.connect(_on_piece_picked)
