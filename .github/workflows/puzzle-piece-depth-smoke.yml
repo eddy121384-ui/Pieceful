@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: puzzle-piece-depth-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   GODOT_RELEASE: "4.7.2-stable"
   GODOT_BIN_DIR: "${{ github.workspace }}/.godot-ci"
