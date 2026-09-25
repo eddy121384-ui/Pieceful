@@ -37,28 +37,43 @@ func _run() -> void:
 	var warm_rim := piece.get_node_or_null("WarmRim")
 	var dark_relief := piece.get_node_or_null("DarkRelief")
 	var face := piece.get_node_or_null("Face")
+	var seam := piece.get_node_or_null("Seam")
 
-	if warm_rim == null or dark_relief == null or face == null:
+	if warm_rim == null or dark_relief == null or face == null or seam == null:
 		_fail("paper-relief visual stack is incomplete")
 		return
-	if not (warm_rim is Polygon2D and dark_relief is Polygon2D and face is Polygon2D):
-		_fail("paper-relief stack left the standard Polygon2D path")
+	if not (
+		warm_rim is Polygon2D
+		and dark_relief is Polygon2D
+		and face is Polygon2D
+		and seam is Line2D
+	):
+		_fail("paper-relief stack left the expected Polygon2D + seam path")
 		return
 	for legacy_name in ["Shadow", "Thickness", "Bevel", "Outline", "EdgeLighting"]:
 		if piece.get_node_or_null(legacy_name) != null:
 			_fail("legacy depth renderer returned: %s" % legacy_name)
 			return
 	for child in piece.get_children():
-		if child is MeshInstance2D or child is Line2D:
-			_fail("runtime piece depth created a mesh or line render item")
+		if child is MeshInstance2D:
+			_fail("runtime piece depth created a mesh render item")
+			return
+		if child is Line2D and child.name != "Seam":
+			_fail("unexpected line renderer returned: %s" % child.name)
 			return
 
 	var render_item_count := 0
 	for child in piece.get_children():
 		if child is CanvasItem and not (child is CollisionPolygon2D):
 			render_item_count += 1
-	if render_item_count != 3:
-		_fail("expected exactly 3 paper-relief render items, got %d" % render_item_count)
+	if render_item_count != 4:
+		_fail("expected 3 relief layers plus 1 seam, got %d render items" % render_item_count)
+		return
+	if (seam as Line2D).width < 0.6 or (seam as Line2D).width > 1.1:
+		_fail("seam width drifted outside the subtle cut-line range")
+		return
+	if (seam as Line2D).default_color.a <= 0.0:
+		_fail("loose piece seam is invisible")
 		return
 
 	if not (
@@ -78,6 +93,7 @@ func _run() -> void:
 		return
 
 	var loose_dark_offset := (dark_relief as Polygon2D).position.length()
+	var loose_seam_alpha := (seam as Line2D).default_color.a
 	piece.snap_to_target()
 	await process_frame
 
@@ -90,6 +106,12 @@ func _run() -> void:
 		return
 	if not (warm_rim as Polygon2D).visible or not (dark_relief as Polygon2D).visible:
 		_fail("solved piece lost its subtle paper relief")
+		return
+	if not (seam as Line2D).visible or (seam as Line2D).default_color.a <= 0.0:
+		_fail("solved/joined piece lost its internal seam cue")
+		return
+	if (seam as Line2D).default_color.a >= loose_seam_alpha:
+		_fail("solved seam did not soften relative to loose state")
 		return
 
 	piece.queue_free()
