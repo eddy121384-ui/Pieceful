@@ -6,6 +6,7 @@ signal completed
 
 const PuzzleDefinitionScript = preload("res://scripts/puzzle_definition.gd")
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
+const FULL_DEPTH_MAX_PIECES := 96
 const DEMO_TEXTURE: Texture2D = preload("res://assets/demo_garden.svg")
 const REGRESSION_CUT_PATTERN_PATH := "res://cut_patterns/Classic_012_A.json"
 const DEMO_RELAXED_CUT_PATTERN_PATH := "res://cut_patterns/Classic_040_A.json"
@@ -147,6 +148,11 @@ func _build_board_visuals() -> void:
 
 func _build_pieces() -> void:
 	var starts := _scatter_positions()
+	var depth_detail := (
+		PuzzlePieceScript.DEPTH_DETAIL_FULL
+		if definition.piece_count() <= FULL_DEPTH_MAX_PIECES
+		else PuzzlePieceScript.DEPTH_DETAIL_LITE
+	)
 
 	for index in range(definition.piece_count()):
 		var piece = PuzzlePieceScript.new()
@@ -160,7 +166,8 @@ func _build_pieces() -> void:
 			definition.source_origin_for(index),
 			definition.source_cell_size,
 			definition.outline_for(index),
-			starts[index]
+			starts[index],
+			depth_detail
 		)
 		piece.z_index = z_counter + index
 		piece.picked.connect(_on_piece_picked)
