@@ -3,6 +3,9 @@ extends Area2D
 
 const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
 
+const DEPTH_DETAIL_LITE := PuzzlePieceVisualFactoryScript.DETAIL_LITE
+const DEPTH_DETAIL_FULL := PuzzlePieceVisualFactoryScript.DETAIL_FULL
+
 signal released(piece)
 signal picked(piece)
 signal dragged(piece, delta: Vector2)
@@ -22,6 +25,7 @@ var last_pointer_screen_position := Vector2.ZERO
 
 var polygon_points := PackedVector2Array()
 var uv_points := PackedVector2Array()
+var depth_detail := DEPTH_DETAIL_FULL
 
 
 func configure(
@@ -32,7 +36,8 @@ func configure(
 	p_source_origin: Vector2,
 	p_source_cell_size: Vector2,
 	p_outline: PackedVector2Array,
-	p_start_position: Vector2
+	p_start_position: Vector2,
+	p_depth_detail: int = DEPTH_DETAIL_FULL
 ) -> void:
 	piece_index = p_index
 	source_texture = p_texture
@@ -42,6 +47,7 @@ func configure(
 	source_cell_size = p_source_cell_size
 	position = p_start_position
 	last_pointer_screen_position = Vector2.ZERO
+	depth_detail = p_depth_detail
 
 	# Runtime assembly never asks PhysicsServer for Area2D↔Area2D overlaps.
 	# The collision polygon exists only so the viewport can pick the visible piece.
@@ -163,7 +169,8 @@ func _build_visuals() -> void:
 		uv_points,
 		source_texture,
 		1.0,
-		true
+		true,
+		depth_detail
 	)
 
 	var collision := CollisionPolygon2D.new()
