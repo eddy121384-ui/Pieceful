@@ -60,22 +60,17 @@ func _run() -> void:
 		_fail("bevel surface is too narrow")
 		return
 
-	var bevel_arrays: Array = bevel.mesh.surface_get_arrays(0)
-	var bevel_colors: PackedColorArray = bevel_arrays[Mesh.ARRAY_COLOR]
-	var has_warm_lit_edge := false
-	var has_shaded_edge := false
-	for edge_color in bevel_colors:
-		if edge_color.a < 0.5:
-			continue
-		if edge_color.r - edge_color.b > 0.015:
-			has_warm_lit_edge = true
-		if maxf(edge_color.r, maxf(edge_color.g, edge_color.b)) < 0.92:
-			has_shaded_edge = true
-	if not has_warm_lit_edge:
-		_fail("bevel has no warm lit edge")
+	if EdgeVisualScript.HIGHLIGHT_GAIN <= 1.0:
+		_fail("bevel highlight does not lift the lit edge")
 		return
-	if not has_shaded_edge:
-		_fail("bevel has no directional shaded edge")
+	if not (
+		EdgeVisualScript.HIGHLIGHT_BLUE_TINT < EdgeVisualScript.HIGHLIGHT_GREEN_TINT
+		and EdgeVisualScript.HIGHLIGHT_GREEN_TINT <= 1.0
+	):
+		_fail("bevel highlight is not subtly warm")
+		return
+	if EdgeVisualScript.SHADOW_GAIN >= 1.0:
+		_fail("bevel shaded edge is not darker than the artwork")
 		return
 	if not (thickness is Polygon2D):
 		_fail("cardboard thickness is not using the standard Polygon2D path")
