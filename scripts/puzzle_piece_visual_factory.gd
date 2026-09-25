@@ -3,6 +3,9 @@ extends RefCounted
 
 const EdgeVisualScript = preload("res://scripts/puzzle_piece_edge_visual.gd")
 
+const DETAIL_LITE := 0
+const DETAIL_FULL := 1
+
 const THICKNESS_OFFSET_PX := Vector2(1.75, 2.15)
 const NEAR_SHADOW_OFFSET_PX := Vector2(3.2, 4.0)
 const FAR_SHADOW_OFFSET_PX := Vector2(5.6, 7.0)
@@ -14,7 +17,8 @@ static func add_piece_visuals(
 	uvs: PackedVector2Array,
 	texture: Texture2D,
 	visual_scale: float = 1.0,
-	include_shadow: bool = true
+	include_shadow: bool = true,
+	detail: int = DETAIL_FULL
 ) -> Dictionary:
 	var safe_scale := maxf(visual_scale, 0.01)
 	var pixel_scale := 1.0 / safe_scale
@@ -26,12 +30,13 @@ static func add_piece_visuals(
 		shadow.z_index = -3
 		parent.add_child(shadow)
 
-		var far_shadow := Polygon2D.new()
-		far_shadow.name = "Far"
-		far_shadow.polygon = points
-		far_shadow.position = FAR_SHADOW_OFFSET_PX * pixel_scale
-		far_shadow.color = Color(0.0, 0.0, 0.0, 0.055)
-		shadow.add_child(far_shadow)
+		if detail == DETAIL_FULL:
+			var far_shadow := Polygon2D.new()
+			far_shadow.name = "Far"
+			far_shadow.polygon = points
+			far_shadow.position = FAR_SHADOW_OFFSET_PX * pixel_scale
+			far_shadow.color = Color(0.0, 0.0, 0.0, 0.055)
+			shadow.add_child(far_shadow)
 
 		var near_shadow := Polygon2D.new()
 		near_shadow.name = "Near"
@@ -60,11 +65,12 @@ static func add_piece_visuals(
 	parent.add_child(face)
 	result["face"] = face
 
-	var bevel = EdgeVisualScript.new()
-	bevel.name = "Bevel"
-	bevel.z_index = 1
-	bevel.configure(points, uvs, texture, pixel_scale)
-	parent.add_child(bevel)
-	result["bevel"] = bevel
+	if detail == DETAIL_FULL:
+		var bevel = EdgeVisualScript.new()
+		bevel.name = "Bevel"
+		bevel.z_index = 1
+		bevel.configure(points, uvs, texture, pixel_scale)
+		parent.add_child(bevel)
+		result["bevel"] = bevel
 
 	return result
