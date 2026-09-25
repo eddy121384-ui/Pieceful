@@ -246,6 +246,13 @@ jobs:
           test -f build/web/index.wasm
           test -f build/web/index.pck
 
+      - name: Instrument Godot loader throughput
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 tools/instrument_web_loader.py build/web/index.html
+          grep -q "Downloading Godot" build/web/index.html
+
       - name: Install browser smoke dependencies
         shell: bash
         run: |
@@ -313,3 +320,26 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Probe deployed Godot assets
+        shell: bash
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euxo pipefail
+          BASE="${PAGE_URL%/}"
+          echo "== response headers: index.wasm =="
+          curl --fail --silent --show-error --location --head \
+            -H 'Accept-Encoding: gzip, br' "${BASE}/index.wasm"
+          echo "== response headers: index.pck =="
+          curl --fail --silent --show-error --location --head \
+            -H 'Accept-Encoding: gzip, br' "${BASE}/index.pck"
+          echo "== transfer probe =="
+          curl --fail --silent --show-error --location --compressed \
+            -o /dev/null \
+            -w 'wasm wire_bytes=%{size_download} speed_Bps=%{speed_download} total_s=%{time_total} type=%{content_type}\n' \
+            "${BASE}/index.wasm"
+          curl --fail --silent --show-error --location --compressed \
+            -o /dev/null \
+            -w 'pck wire_bytes=%{size_download} speed_Bps=%{speed_download} total_s=%{time_total} type=%{content_type}\n' \
+            "${BASE}/index.pck"
