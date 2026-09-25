@@ -1,9 +1,11 @@
 class_name PuzzlePieceVisualFactory
 extends RefCounted
 
-const ShadowVisualScript = preload("res://scripts/puzzle_piece_shadow_visual.gd")
-const ThicknessVisualScript = preload("res://scripts/puzzle_piece_thickness_visual.gd")
 const EdgeVisualScript = preload("res://scripts/puzzle_piece_edge_visual.gd")
+
+const THICKNESS_OFFSET_PX := Vector2(1.75, 2.15)
+const NEAR_SHADOW_OFFSET_PX := Vector2(3.2, 4.0)
+const FAR_SHADOW_OFFSET_PX := Vector2(5.6, 7.0)
 
 
 static func add_piece_visuals(
@@ -19,17 +21,32 @@ static func add_piece_visuals(
 	var result := {}
 
 	if include_shadow:
-		var shadow = ShadowVisualScript.new()
+		var shadow := Node2D.new()
 		shadow.name = "Shadow"
 		shadow.z_index = -3
-		shadow.configure(points, pixel_scale)
 		parent.add_child(shadow)
+
+		var far_shadow := Polygon2D.new()
+		far_shadow.name = "Far"
+		far_shadow.polygon = points
+		far_shadow.position = FAR_SHADOW_OFFSET_PX * pixel_scale
+		far_shadow.color = Color(0.0, 0.0, 0.0, 0.055)
+		shadow.add_child(far_shadow)
+
+		var near_shadow := Polygon2D.new()
+		near_shadow.name = "Near"
+		near_shadow.polygon = points
+		near_shadow.position = NEAR_SHADOW_OFFSET_PX * pixel_scale
+		near_shadow.color = Color(0.0, 0.0, 0.0, 0.14)
+		shadow.add_child(near_shadow)
 		result["shadow"] = shadow
 
-	var thickness = ThicknessVisualScript.new()
+	var thickness := Polygon2D.new()
 	thickness.name = "Thickness"
+	thickness.polygon = points
+	thickness.position = THICKNESS_OFFSET_PX * pixel_scale
+	thickness.color = Color(0.095, 0.082, 0.066, 0.98)
 	thickness.z_index = -2
-	thickness.configure(points, pixel_scale)
 	parent.add_child(thickness)
 	result["thickness"] = thickness
 
@@ -46,7 +63,7 @@ static func add_piece_visuals(
 	var bevel = EdgeVisualScript.new()
 	bevel.name = "Bevel"
 	bevel.z_index = 1
-	bevel.configure(points, pixel_scale)
+	bevel.configure(points, uvs, texture, pixel_scale)
 	parent.add_child(bevel)
 	result["bevel"] = bevel
 
