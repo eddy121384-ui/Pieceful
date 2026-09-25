@@ -55,7 +55,13 @@ func _build_mesh(
 			SHADOW_GAIN,
 			maxf(-facing, 0.0)
 		)
-		var outer_color := Color(gain, gain, gain, 1.0)
+		var lit := maxf(facing, 0.0)
+		var outer_color := Color(
+			gain,
+			gain * lerpf(1.0, 0.985, lit),
+			gain * lerpf(1.0, 0.94, lit),
+			1.0
+		)
 		var inner_color := Color(1.0, 1.0, 1.0, 0.02)
 
 		vertices.append(Vector3(points[edge_index].x, points[edge_index].y, 0.0))
