@@ -1,14 +1,24 @@
 class_name PuzzlePieceVisualFactory
 extends RefCounted
 
-const EdgeVisualScript = preload("res://scripts/puzzle_piece_edge_visual.gd")
-
+# Commercial-reference direction for #55:
+# create the perception of thin cardboard with three cheap standard 2D layers.
+# No per-piece bevel mesh, custom draw path, or line renderer is required.
+#
+# DETAIL_* remains temporarily for call-site compatibility while the branch is
+# being simplified. Both values intentionally use the same 3-layer renderer.
 const DETAIL_LITE := 0
 const DETAIL_FULL := 1
 
-const THICKNESS_OFFSET_PX := Vector2(1.75, 2.15)
-const NEAR_SHADOW_OFFSET_PX := Vector2(3.2, 4.0)
-const FAR_SHADOW_OFFSET_PX := Vector2(5.6, 7.0)
+const LOOSE_LIGHT_OFFSET_PX := Vector2(-0.72, -0.62)
+const LOOSE_DARK_OFFSET_PX := Vector2(2.15, 2.55)
+const SOLVED_LIGHT_OFFSET_PX := Vector2(-0.28, -0.24)
+const SOLVED_DARK_OFFSET_PX := Vector2(0.72, 0.86)
+
+const LOOSE_LIGHT_COLOR := Color(1.0, 0.94, 0.80, 0.24)
+const LOOSE_DARK_COLOR := Color(0.085, 0.069, 0.047, 0.82)
+const SOLVED_LIGHT_COLOR := Color(1.0, 0.95, 0.84, 0.08)
+const SOLVED_DARK_COLOR := Color(0.09, 0.075, 0.052, 0.42)
 
 
 static func add_piece_visuals(
@@ -17,43 +27,30 @@ static func add_piece_visuals(
 	uvs: PackedVector2Array,
 	texture: Texture2D,
 	visual_scale: float = 1.0,
-	include_shadow: bool = true,
-	detail: int = DETAIL_FULL
+	_include_shadow: bool = true,
+	_detail: int = DETAIL_FULL
 ) -> Dictionary:
 	var safe_scale := maxf(visual_scale, 0.01)
 	var pixel_scale := 1.0 / safe_scale
 	var result := {}
 
-	if include_shadow:
-		var shadow := Node2D.new()
-		shadow.name = "Shadow"
-		shadow.z_index = -3
-		parent.add_child(shadow)
+	var warm_rim := Polygon2D.new()
+	warm_rim.name = "WarmRim"
+	warm_rim.polygon = points
+	warm_rim.position = LOOSE_LIGHT_OFFSET_PX * pixel_scale
+	warm_rim.color = LOOSE_LIGHT_COLOR
+	warm_rim.z_index = -2
+	parent.add_child(warm_rim)
+	result["warm_rim"] = warm_rim
 
-		if detail == DETAIL_FULL:
-			var far_shadow := Polygon2D.new()
-			far_shadow.name = "Far"
-			far_shadow.polygon = points
-			far_shadow.position = FAR_SHADOW_OFFSET_PX * pixel_scale
-			far_shadow.color = Color(0.0, 0.0, 0.0, 0.055)
-			shadow.add_child(far_shadow)
-
-		var near_shadow := Polygon2D.new()
-		near_shadow.name = "Near"
-		near_shadow.polygon = points
-		near_shadow.position = NEAR_SHADOW_OFFSET_PX * pixel_scale
-		near_shadow.color = Color(0.0, 0.0, 0.0, 0.14)
-		shadow.add_child(near_shadow)
-		result["shadow"] = shadow
-
-	var thickness := Polygon2D.new()
-	thickness.name = "Thickness"
-	thickness.polygon = points
-	thickness.position = THICKNESS_OFFSET_PX * pixel_scale
-	thickness.color = Color(0.095, 0.082, 0.066, 0.98)
-	thickness.z_index = -2
-	parent.add_child(thickness)
-	result["thickness"] = thickness
+	var dark_relief := Polygon2D.new()
+	dark_relief.name = "DarkRelief"
+	dark_relief.polygon = points
+	dark_relief.position = LOOSE_DARK_OFFSET_PX * pixel_scale
+	dark_relief.color = LOOSE_DARK_COLOR
+	dark_relief.z_index = -1
+	parent.add_child(dark_relief)
+	result["dark_relief"] = dark_relief
 
 	var face := Polygon2D.new()
 	face.name = "Face"
@@ -65,12 +62,17 @@ static func add_piece_visuals(
 	parent.add_child(face)
 	result["face"] = face
 
-	if detail == DETAIL_FULL:
-		var bevel = EdgeVisualScript.new()
-		bevel.name = "Bevel"
-		bevel.z_index = 1
-		bevel.configure(points, uvs, texture, pixel_scale)
-		parent.add_child(bevel)
-		result["bevel"] = bevel
-
 	return result
+
+
+static func apply_solved_state(parent: Node, visual_scale: float = 1.0) -> void:
+	var pixel_scale := 1.0 / maxf(visual_scale, 0.01)
+	var warm_rim := parent.get_node_or_null("WarmRim") as Polygon2D
+	var dark_relief := parent.get_node_or_null("DarkRelief") as Polygon2D
+
+	if warm_rim != null:
+		warm_rim.position = SOLVED_LIGHT_OFFSET_PX * pixel_scale
+		warm_rim.color = SOLVED_LIGHT_COLOR
+	if dark_relief != null:
+		dark_relief.position = SOLVED_DARK_OFFSET_PX * pixel_scale
+		dark_relief.color = SOLVED_DARK_COLOR
