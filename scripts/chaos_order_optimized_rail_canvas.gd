@@ -1,6 +1,8 @@
 class_name ChaosOrderOptimizedRailCanvas
 extends "res://scripts/scrollable_loose_piece_rail_canvas.gd"
 
+const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
+
 const DENSE_RAIL_THRESHOLD := 120
 const DENSE_SHUFFLE_SAMPLE := 24
 const VIRTUALIZATION_BUFFER := 104.0
@@ -223,27 +225,15 @@ func _create_piece_visual(piece_index: int, dense_mode: bool) -> void:
 	content_root.add_child(holder)
 	visual_nodes[piece_index] = holder
 
-	var face := Polygon2D.new()
-	face.polygon = source_piece.polygon_points
-	face.uv = source_piece.uv_points
-	face.texture = source_piece.source_texture
-	holder.add_child(face)
-
-	# A per-piece Line2D is useful at 40 pieces, but at 286 pieces it creates
-	# hundreds of additional nodes and antialiasing work. Dense Rail pieces are
-	# already visually separated by spacing, so omit this decorative layer.
-	if dense_mode:
-		return
-	var outline := Line2D.new()
-	var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
-	if not outline_points.is_empty():
-		outline_points.append(outline_points[0])
-	outline.points = outline_points
-	outline.width = 1.1 / maxf(scale_factor, 0.01)
-	outline.default_color = Color(1.0, 1.0, 1.0, 0.58)
-	outline.antialiased = true
-	holder.add_child(outline)
-
+	PuzzlePieceVisualFactoryScript.add_piece_visuals(
+		holder,
+		source_piece.polygon_points,
+		source_piece.uv_points,
+		source_piece.source_texture,
+		scale_factor,
+		true,
+		PuzzlePieceVisualFactoryScript.DETAIL_LITE
+	)
 
 func _visible_member_indexes() -> Array:
 	var result: Array = []
