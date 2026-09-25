@@ -230,9 +230,7 @@ func _create_piece_visual(piece_index: int, dense_mode: bool) -> void:
 		source_piece.polygon_points,
 		source_piece.uv_points,
 		source_piece.source_texture,
-		scale_factor,
-		true,
-		PuzzlePieceVisualFactoryScript.DETAIL_LITE
+		scale_factor
 	)
 
 func _visible_member_indexes() -> Array:
