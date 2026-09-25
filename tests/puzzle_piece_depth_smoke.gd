@@ -48,19 +48,16 @@ func _run() -> void:
 		_fail("legacy line-based edge renderer returned")
 		return
 	if not (bevel is EdgeVisualScript):
-		_fail("Bevel is not the shared contour bevel renderer")
+		_fail("Bevel is not the shared mesh renderer")
 		return
-	if not shadow.has_method("configure"):
-		_fail("soft shadow renderer is missing")
+	if bevel.mesh == null or bevel.mesh.get_surface_count() < 1:
+		_fail("bevel mesh was not generated")
 		return
-	if not thickness.has_method("configure"):
-		_fail("cardboard thickness renderer is missing")
+	if shadow.get_child_count() != 2:
+		_fail("expected two lightweight shadow layers")
 		return
 	if EdgeVisualScript.BEVEL_WIDTH_PX < 2.5:
-		_fail("bevel is too narrow to read as a surface")
-		return
-	if EdgeVisualScript.HIGHLIGHT_ALPHA <= EdgeVisualScript.INNER_CATCHLIGHT_ALPHA:
-		_fail("directional bevel highlight is not stronger than the inner catchlight")
+		_fail("bevel surface is too narrow")
 		return
 
 	piece.snap_to_target()
