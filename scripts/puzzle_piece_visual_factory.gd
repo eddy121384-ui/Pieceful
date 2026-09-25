@@ -4,12 +4,6 @@ extends RefCounted
 # Commercial-reference direction for #55:
 # create the perception of thin cardboard with three cheap standard 2D layers.
 # No per-piece bevel mesh, custom draw path, or line renderer is required.
-#
-# DETAIL_* remains temporarily for call-site compatibility while the branch is
-# being simplified. Both values intentionally use the same 3-layer renderer.
-const DETAIL_LITE := 0
-const DETAIL_FULL := 1
-
 const LOOSE_LIGHT_OFFSET_PX := Vector2(-0.72, -0.62)
 const LOOSE_DARK_OFFSET_PX := Vector2(2.15, 2.55)
 const SOLVED_LIGHT_OFFSET_PX := Vector2(-0.28, -0.24)
@@ -26,9 +20,7 @@ static func add_piece_visuals(
 	points: PackedVector2Array,
 	uvs: PackedVector2Array,
 	texture: Texture2D,
-	visual_scale: float = 1.0,
-	_include_shadow: bool = true,
-	_detail: int = DETAIL_FULL
+	visual_scale: float = 1.0
 ) -> Dictionary:
 	var safe_scale := maxf(visual_scale, 0.01)
 	var pixel_scale := 1.0 / safe_scale
