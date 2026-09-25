@@ -74,9 +74,7 @@ func snap_to_target() -> void:
 	input_pickable = false
 	z_index = 1
 
-	var shadow := get_node_or_null("Shadow")
-	if shadow != null:
-		shadow.visible = false
+	PuzzlePieceVisualFactoryScript.apply_solved_state(self, 1.0)
 
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUAD)
