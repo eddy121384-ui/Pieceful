@@ -88,7 +88,33 @@ func _run() -> void:
 		_fail("solved piece lost its cardboard depth")
 		return
 
+	var lite_piece = PuzzlePieceScript.new()
+	root.add_child(lite_piece)
+	lite_piece.configure(
+		1,
+		texture,
+		Vector2(200.0, 100.0),
+		Vector2(64.0, 64.0),
+		Vector2.ZERO,
+		Vector2(64.0, 64.0),
+		points,
+		Vector2(140.0, 40.0),
+		PuzzlePieceScript.DEPTH_DETAIL_LITE
+	)
+	await process_frame
+	var lite_shadow = lite_piece.get_node_or_null("Shadow")
+	if lite_piece.get_node_or_null("Bevel") != null:
+		_fail("dense/lite piece unexpectedly built a bevel mesh")
+		return
+	if lite_shadow == null or lite_shadow.get_child_count() != 1:
+		_fail("dense/lite piece did not use the single-layer contact shadow")
+		return
+	if lite_piece.get_node_or_null("Thickness") == null or lite_piece.get_node_or_null("Face") == null:
+		_fail("dense/lite piece lost cardboard thickness or artwork face")
+		return
+
 	piece.queue_free()
+	lite_piece.queue_free()
 	await process_frame
 	print("PASS puzzle_piece_depth_smoke")
 	quit(0)
