@@ -1,7 +1,7 @@
 extends SceneTree
 
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
-const EdgeVisualScript = preload("res://scripts/puzzle_piece_edge_visual.gd")
+const VisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
 
 
 func _init() -> void:
@@ -34,58 +34,62 @@ func _run() -> void:
 	)
 	await process_frame
 
-	var shadow = piece.get_node_or_null("Shadow")
-	var thickness = piece.get_node_or_null("Thickness")
-	var face = piece.get_node_or_null("Face")
-	var bevel = piece.get_node_or_null("Bevel")
-	var legacy_outline = piece.get_node_or_null("Outline")
-	var legacy_edge = piece.get_node_or_null("EdgeLighting")
+	var warm_rim := piece.get_node_or_null("WarmRim")
+	var dark_relief := piece.get_node_or_null("DarkRelief")
+	var face := piece.get_node_or_null("Face")
 
-	if shadow == null or thickness == null or face == null or bevel == null:
-		_fail("2.5D cardboard visual stack is incomplete")
+	if warm_rim == null or dark_relief == null or face == null:
+		_fail("paper-relief visual stack is incomplete")
 		return
-	if legacy_outline != null or legacy_edge != null:
-		_fail("legacy line-based edge renderer returned")
+	if not (warm_rim is Polygon2D and dark_relief is Polygon2D and face is Polygon2D):
+		_fail("paper-relief stack left the standard Polygon2D path")
 		return
-	if not (bevel is EdgeVisualScript):
-		_fail("Bevel is not the shared mesh renderer")
-		return
-	if bevel.mesh == null or bevel.mesh.get_surface_count() < 1:
-		_fail("bevel mesh was not generated")
-		return
-	if shadow.get_child_count() != 2:
-		_fail("expected two lightweight shadow layers")
-		return
-	if EdgeVisualScript.BEVEL_WIDTH_PX < 2.5:
-		_fail("bevel surface is too narrow")
+	for legacy_name in ["Shadow", "Thickness", "Bevel", "Outline", "EdgeLighting"]:
+		if piece.get_node_or_null(legacy_name) != null:
+			_fail("legacy depth renderer returned: %s" % legacy_name)
+			return
+	for child in piece.get_children():
+		if child is MeshInstance2D or child is Line2D:
+			_fail("runtime piece depth created a mesh or line render item")
+			return
+
+	var render_item_count := 0
+	for child in piece.get_children():
+		if child is CanvasItem and not (child is CollisionPolygon2D):
+			render_item_count += 1
+	if render_item_count != 3:
+		_fail("expected exactly 3 paper-relief render items, got %d" % render_item_count)
 		return
 
-	if EdgeVisualScript.HIGHLIGHT_GAIN <= 1.0:
-		_fail("bevel highlight does not lift the lit edge")
+	if not (
+		(warm_rim as Polygon2D).position.x < 0.0
+		and (warm_rim as Polygon2D).position.y < 0.0
+	):
+		_fail("warm rim is not offset toward the upper-left")
 		return
 	if not (
-		EdgeVisualScript.HIGHLIGHT_BLUE_TINT < EdgeVisualScript.HIGHLIGHT_GREEN_TINT
-		and EdgeVisualScript.HIGHLIGHT_GREEN_TINT <= 1.0
+		(dark_relief as Polygon2D).position.x > 0.0
+		and (dark_relief as Polygon2D).position.y > 0.0
 	):
-		_fail("bevel highlight is not subtly warm")
+		_fail("dark relief is not offset toward the lower-right")
 		return
-	if EdgeVisualScript.SHADOW_GAIN >= 1.0:
-		_fail("bevel shaded edge is not darker than the artwork")
-		return
-	if not (thickness is Polygon2D):
-		_fail("cardboard thickness is not using the standard Polygon2D path")
-		return
-	if not (shadow.get_child(0) is Polygon2D and shadow.get_child(1) is Polygon2D):
-		_fail("contact shadow is not using the standard Polygon2D path")
+	if VisualFactoryScript.LOOSE_LIGHT_COLOR.r <= VisualFactoryScript.LOOSE_LIGHT_COLOR.b:
+		_fail("warm rim lost its warm tint")
 		return
 
+	var loose_dark_offset := (dark_relief as Polygon2D).position.length()
 	piece.snap_to_target()
 	await process_frame
-	if shadow.visible:
-		_fail("solved piece retained the floating contact shadow")
+
+	var solved_dark_offset := (dark_relief as Polygon2D).position.length()
+	if solved_dark_offset >= loose_dark_offset:
+		_fail("solved piece retained the loose floating relief offset")
 		return
-	if not thickness.visible or not bevel.visible:
-		_fail("solved piece lost its cardboard depth")
+	if (dark_relief as Polygon2D).color.a >= VisualFactoryScript.LOOSE_DARK_COLOR.a:
+		_fail("solved piece retained the loose dark-relief strength")
+		return
+	if not (warm_rim as Polygon2D).visible or not (dark_relief as Polygon2D).visible:
+		_fail("solved piece lost its subtle paper relief")
 		return
 
 	var lite_piece = PuzzlePieceScript.new()
@@ -102,15 +106,11 @@ func _run() -> void:
 		PuzzlePieceScript.DEPTH_DETAIL_LITE
 	)
 	await process_frame
-	var lite_shadow = lite_piece.get_node_or_null("Shadow")
+	if lite_piece.get_node_or_null("WarmRim") == null:
+		_fail("compatibility lite path lost the shared paper-relief renderer")
+		return
 	if lite_piece.get_node_or_null("Bevel") != null:
-		_fail("dense/lite piece unexpectedly built a bevel mesh")
-		return
-	if lite_shadow == null or lite_shadow.get_child_count() != 1:
-		_fail("dense/lite piece did not use the single-layer contact shadow")
-		return
-	if lite_piece.get_node_or_null("Thickness") == null or lite_piece.get_node_or_null("Face") == null:
-		_fail("dense/lite piece lost cardboard thickness or artwork face")
+		_fail("compatibility lite path unexpectedly built a bevel mesh")
 		return
 
 	piece.queue_free()
