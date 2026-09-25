@@ -29,23 +29,23 @@ func _run() -> void:
 	for _frame in range(30):
 		await process_frame
 
-	if not main.rail_panel.visible:
+	if not rail_panel.visible:
 		_fail("Scatter -> Rail left the rail panel hidden")
 		return
-	if float(main.rail_canvas.modulate.a) < 0.95:
+	if float(rail_canvas.modulate.a) < 0.95:
 		_fail("Scatter -> Rail left the rail canvas transparent")
 		return
-	if main.rail_canvas.member_indexes.is_empty():
+	if (rail_canvas.get("member_indexes") as Array).is_empty():
 		_fail("Rail has no loose-piece members after layout switch")
 		return
-	if main.rail_canvas.visual_nodes.is_empty():
+	if (rail_canvas.get("visual_nodes") as Dictionary).is_empty():
 		_fail("Rail members exist but no visuals were instantiated")
 		return
 
-	print("RAIL_SMOKE phase=rail_visible visuals=%d" % int(main.rail_canvas.visual_nodes.size()))
+	print("RAIL_SMOKE phase=rail_visible visuals=%d" % int((rail_canvas.get("visual_nodes") as Dictionary).size()))
 	var before_count := int(main.rail_canvas.visual_nodes.size())
-	var original_size := Vector2(main.rail_canvas.size)
-	main.rail_canvas.size = Vector2(
+	var original_size := Vector2(rail_canvas.size)
+	rail_canvas.size = Vector2(
 		maxf(original_size.x + 48.0, 220.0),
 		maxf(original_size.y, 96.0)
 	)
