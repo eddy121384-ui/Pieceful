@@ -12,6 +12,7 @@ func _run() -> void:
 	root.add_child(main)
 	for _frame in range(28):
 		await process_frame
+	print("RAIL_SMOKE phase=boot_ready")
 
 	var board = main.get_node_or_null("PuzzleBoard")
 	if board == null or board.pieces.is_empty():
@@ -22,6 +23,8 @@ func _run() -> void:
 		return
 
 	# Use the same public-in-practice layout path the mobile toolbar triggers.
+	print("RAIL_SMOKE phase=switch_to_rail")
+	print("RAIL_SMOKE phase=roundtrip_back_to_rail")
 	main.call("_set_loose_layout_mode", "rail")
 	for _frame in range(30):
 		await process_frame
@@ -39,6 +42,7 @@ func _run() -> void:
 		_fail("Rail members exist but no visuals were instantiated")
 		return
 
+	print("RAIL_SMOKE phase=rail_visible visuals=%d" % int(main.rail_canvas.visual_nodes.size()))
 	var before_count := int(main.rail_canvas.visual_nodes.size())
 	var original_size := Vector2(main.rail_canvas.size)
 	main.rail_canvas.size = Vector2(
@@ -59,6 +63,7 @@ func _run() -> void:
 		return
 
 	# A second mode round-trip catches stale transition alpha/state.
+	print("RAIL_SMOKE phase=resize_ok")
 	main.call("_set_loose_layout_mode", "scatter")
 	for _frame in range(30):
 		await process_frame
