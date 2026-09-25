@@ -14,6 +14,10 @@ permissions:
   id-token: write
 
 concurrency:
+  group: web-mobile-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+concurrency:
   group: pieceful-pages
   cancel-in-progress: true
 
