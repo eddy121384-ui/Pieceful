@@ -8,6 +8,8 @@ extends MeshInstance2D
 
 const BEVEL_WIDTH_PX := 3.4
 const HIGHLIGHT_GAIN := 1.08
+const HIGHLIGHT_GREEN_TINT := 0.985
+const HIGHLIGHT_BLUE_TINT := 0.94
 const SHADOW_GAIN := 0.72
 const LIGHT_DIRECTION := Vector2(-0.72, -0.69)
 
@@ -58,8 +60,8 @@ func _build_mesh(
 		var lit := maxf(facing, 0.0)
 		var outer_color := Color(
 			gain,
-			gain * lerpf(1.0, 0.985, lit),
-			gain * lerpf(1.0, 0.94, lit),
+			gain * lerpf(1.0, HIGHLIGHT_GREEN_TINT, lit),
+			gain * lerpf(1.0, HIGHLIGHT_BLUE_TINT, lit),
 			1.0
 		)
 		var inner_color := Color(1.0, 1.0, 1.0, 0.02)
