@@ -46,7 +46,7 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
 		_layout_groups()
-		_rebuild_visuals()
+		_sync_visual_positions()
 		queue_redraw()
 
 
@@ -339,7 +339,8 @@ func _rebuild_visuals() -> void:
 			source_piece.uv_points,
 			source_piece.source_texture,
 			scale_factor,
-			true
+			true,
+			PuzzlePieceVisualFactoryScript.DETAIL_LITE
 		)
 
 
