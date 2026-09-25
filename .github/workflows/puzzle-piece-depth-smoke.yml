@@ -66,3 +66,15 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/puzzle_piece_depth_benchmark.gd
+
+      - name: Run Rail visibility smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/rail_layout_visibility_smoke.gd
+
+      - name: Run touch gesture arbitration smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
