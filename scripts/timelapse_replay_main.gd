@@ -291,7 +291,8 @@ func _build_replay_piece_visuals() -> void:
 			piece.uv_points,
 			piece.source_texture,
 			timelapse_workspace_scale,
-			false
+			false,
+			PuzzlePieceVisualFactoryScript.DETAIL_LITE
 		)
 
 		timelapse_piece_visuals[int(piece.piece_index)] = group
