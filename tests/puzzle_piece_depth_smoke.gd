@@ -91,6 +91,18 @@ func _run() -> void:
 	if VisualFactoryScript.LOOSE_LIGHT_COLOR.r <= VisualFactoryScript.LOOSE_LIGHT_COLOR.b:
 		_fail("warm rim lost its warm tint")
 		return
+	if maxf(
+		VisualFactoryScript.LOOSE_LIGHT_COLOR.r,
+		maxf(
+			VisualFactoryScript.LOOSE_LIGHT_COLOR.g,
+			VisualFactoryScript.LOOSE_LIGHT_COLOR.b
+		)
+	) >= 0.70:
+		_fail("warm rim drifted back toward a pale/white outline")
+		return
+	if VisualFactoryScript.LOOSE_LIGHT_COLOR.a > 0.50:
+		_fail("warm rim became too opaque for quiet cardboard relief")
+		return
 
 	var loose_dark_offset := (dark_relief as Polygon2D).position.length()
 	var loose_seam_alpha := (seam as Line2D).default_color.a
