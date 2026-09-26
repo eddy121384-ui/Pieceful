@@ -34,23 +34,23 @@ func _run() -> void:
 	)
 	await process_frame
 
-	var warm_rim := piece.get_node_or_null("WarmRim")
-	var dark_relief := piece.get_node_or_null("DarkRelief")
+	var contact_shadow := piece.get_node_or_null("ContactShadow")
+	var thickness := piece.get_node_or_null("Thickness")
 	var face := piece.get_node_or_null("Face")
 	var seam := piece.get_node_or_null("Seam")
 
-	if warm_rim == null or dark_relief == null or face == null or seam == null:
-		_fail("paper-relief visual stack is incomplete")
+	if contact_shadow == null or thickness == null or face == null or seam == null:
+		_fail("cardboard visual stack is incomplete")
 		return
 	if not (
-		warm_rim is Polygon2D
-		and dark_relief is Polygon2D
+		contact_shadow is Polygon2D
+		and thickness is Polygon2D
 		and face is Polygon2D
 		and seam is Line2D
 	):
-		_fail("paper-relief stack left the expected Polygon2D + seam path")
+		_fail("cardboard stack left the expected Polygon2D + seam path")
 		return
-	for legacy_name in ["Shadow", "Thickness", "Bevel", "Outline", "EdgeLighting"]:
+	for legacy_name in ["Shadow", "WarmRim", "DarkRelief", "Bevel", "Outline", "EdgeLighting"]:
 		if piece.get_node_or_null(legacy_name) != null:
 			_fail("legacy depth renderer returned: %s" % legacy_name)
 			return
@@ -77,53 +77,69 @@ func _run() -> void:
 		return
 
 	if not (
-		(warm_rim as Polygon2D).position.x < 0.0
-		and (warm_rim as Polygon2D).position.y < 0.0
+		(contact_shadow as Polygon2D).position.x > 0.0
+		and (contact_shadow as Polygon2D).position.y > 0.0
 	):
-		_fail("warm rim is not offset toward the upper-left")
+		_fail("contact shadow is not offset toward the lower-right")
 		return
 	if not (
-		(dark_relief as Polygon2D).position.x > 0.0
-		and (dark_relief as Polygon2D).position.y > 0.0
+		(thickness as Polygon2D).position.x > 0.0
+		and (thickness as Polygon2D).position.y > 0.0
 	):
-		_fail("dark relief is not offset toward the lower-right")
+		_fail("cardboard thickness is not offset toward the lower-right")
 		return
-	if VisualFactoryScript.LOOSE_LIGHT_COLOR.r <= VisualFactoryScript.LOOSE_LIGHT_COLOR.b:
-		_fail("warm rim lost its warm tint")
+	if (contact_shadow as Polygon2D).position.length() <= (thickness as Polygon2D).position.length():
+		_fail("contact shadow is not separated beyond the cardboard side wall")
 		return
-	if maxf(
-		VisualFactoryScript.LOOSE_LIGHT_COLOR.r,
-		maxf(
-			VisualFactoryScript.LOOSE_LIGHT_COLOR.g,
-			VisualFactoryScript.LOOSE_LIGHT_COLOR.b
-		)
-	) >= 0.70:
-		_fail("warm rim drifted back toward a pale/white outline")
+	if VisualFactoryScript.LOOSE_SHADOW_COLOR.a >= 0.18:
+		_fail("loose contact shadow became too strong and may read as floating")
 		return
-	if VisualFactoryScript.LOOSE_LIGHT_COLOR.a > 0.50:
-		_fail("warm rim became too opaque for quiet cardboard relief")
+	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.r <= VisualFactoryScript.LOOSE_THICKNESS_COLOR.b:
+		_fail("cardboard side wall lost its warm material tint")
+		return
+	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.a <= VisualFactoryScript.LOOSE_SHADOW_COLOR.a:
+		_fail("shadow became visually stronger than the cardboard thickness")
 		return
 
-	var loose_dark_offset := (dark_relief as Polygon2D).position.length()
+	var loose_thickness_offset := (thickness as Polygon2D).position.length()
 	var loose_seam_alpha := (seam as Line2D).default_color.a
+
+	piece.apply_joined_visual()
+	await process_frame
+
+	if (contact_shadow as Polygon2D).visible:
+		_fail("joined cluster retained per-piece floating contact shadow")
+		return
+	var joined_thickness_offset := (thickness as Polygon2D).position.length()
+	if joined_thickness_offset >= loose_thickness_offset:
+		_fail("joined cluster did not settle its cardboard thickness")
+		return
+	if not (thickness as Polygon2D).visible or (thickness as Polygon2D).color.a <= 0.0:
+		_fail("joined cluster lost cardboard thickness completely")
+		return
+	var joined_seam_alpha := (seam as Line2D).default_color.a
+	if joined_seam_alpha <= 0.0 or joined_seam_alpha >= loose_seam_alpha:
+		_fail("joined seam did not become quieter while remaining visible")
+		return
+
 	piece.snap_to_target()
 	await process_frame
 
-	var solved_dark_offset := (dark_relief as Polygon2D).position.length()
-	if solved_dark_offset >= loose_dark_offset:
-		_fail("solved piece retained the loose floating relief offset")
+	if (contact_shadow as Polygon2D).visible:
+		_fail("solved piece retained floating contact shadow")
 		return
-	if (dark_relief as Polygon2D).color.a >= VisualFactoryScript.LOOSE_DARK_COLOR.a:
-		_fail("solved piece retained the loose dark-relief strength")
+	var solved_thickness_offset := (thickness as Polygon2D).position.length()
+	if solved_thickness_offset >= joined_thickness_offset:
+		_fail("solved piece did not settle below joined-cluster thickness")
 		return
-	if not (warm_rim as Polygon2D).visible or not (dark_relief as Polygon2D).visible:
-		_fail("solved piece lost its subtle paper relief")
+	if (thickness as Polygon2D).color.a >= VisualFactoryScript.JOINED_THICKNESS_COLOR.a:
+		_fail("solved piece retained joined-cluster thickness strength")
 		return
 	if not (seam as Line2D).visible or (seam as Line2D).default_color.a <= 0.0:
-		_fail("solved/joined piece lost its internal seam cue")
+		_fail("solved piece lost its subtle seam")
 		return
-	if (seam as Line2D).default_color.a >= loose_seam_alpha:
-		_fail("solved seam did not soften relative to loose state")
+	if (seam as Line2D).default_color.a >= joined_seam_alpha:
+		_fail("solved seam did not soften relative to joined state")
 		return
 
 	piece.queue_free()
