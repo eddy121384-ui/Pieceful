@@ -256,6 +256,14 @@ jobs:
           cp web/previews/watercolor-chess-save-resume/index.html build/web/watercolor-chess-save-resume/index.html
           test -f build/web/watercolor-chess-save-resume/index.html
 
+      - name: Include Ink Chess save-resume isolated preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/ink-chess-save-resume
+          cp web/previews/ink-chess-save-resume/index.html build/web/ink-chess-save-resume/index.html
+          test -f build/web/ink-chess-save-resume/index.html
+
       - name: Include Ink Chess round 2 preview
         shell: bash
         run: |
