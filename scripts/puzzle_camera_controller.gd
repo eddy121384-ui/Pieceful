@@ -13,6 +13,8 @@ var mouse_panning := false
 var mouse_pan_button := MOUSE_BUTTON_NONE
 
 var touch_points: Dictionary = {}
+var touch_press_sequence: Dictionary = {}
+var next_touch_sequence := 0
 var pan_touch_id := -1
 var touch_pan_last := Vector2.ZERO
 var pinch_last_center := Vector2.ZERO
@@ -90,8 +92,18 @@ func cancel_pointer(pointer_id: int) -> void:
 	# claims a pointer asks the camera to discard that provisional touch.
 	if pointer_id < 0:
 		return
-	touch_points.erase(pointer_id)
-	_reseed_touch_mode()
+	_release_touch(pointer_id)
+
+
+func _input(event: InputEvent) -> void:
+	# Cleanup must not depend exclusively on _unhandled_input(). On mobile Web a
+	# release/cancel can be consumed before the camera's unhandled-input phase,
+	# leaving a ghost pointer that poisons later pinch pairing.
+	#
+	# Do cleanup only here; gesture claiming still happens in _unhandled_input()
+	# so puzzle-piece and UI input priority stays unchanged.
+	if event is InputEventScreenTouch and not event.pressed:
+		_release_touch(event.index)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -153,13 +165,32 @@ func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 
 func _handle_screen_touch(event: InputEventScreenTouch) -> void:
 	if event.pressed:
-		touch_points[event.index] = event.position
-		_reseed_touch_mode()
+		_record_touch_press(event.index, event.position)
 		# Do not mark the initial press handled. Area2D physics picking still needs
 		# the chance to claim this pointer for a puzzle-piece drag.
 		return
 
-	touch_points.erase(event.index)
+	_release_touch(event.index)
+
+
+func _record_touch_press(pointer_id: int, screen_position: Vector2) -> void:
+	touch_points[pointer_id] = screen_position
+	next_touch_sequence += 1
+	touch_press_sequence[pointer_id] = next_touch_sequence
+	_reseed_touch_mode()
+
+
+func _release_touch(pointer_id: int) -> void:
+	var changed := touch_points.has(pointer_id) or touch_press_sequence.has(pointer_id)
+	touch_points.erase(pointer_id)
+	touch_press_sequence.erase(pointer_id)
+	if changed:
+		_reseed_touch_mode()
+
+
+func _clear_touch_state() -> void:
+	touch_points.clear()
+	touch_press_sequence.clear()
 	_reseed_touch_mode()
 
 
@@ -218,11 +249,32 @@ func _reseed_touch_mode() -> void:
 
 func _first_two_touch_points() -> Array[Vector2]:
 	var result: Array[Vector2] = []
-	var keys := touch_points.keys()
-	if keys.size() < 2:
+	if touch_points.size() < 2:
 		return result
-	result.append(touch_points[keys[0]])
-	result.append(touch_points[keys[1]])
+
+	# Prefer the two most recently pressed active touches. If Safari/Web ever
+	# leaves an older ghost ID behind, a fresh two-finger gesture still forms a
+	# correct pinch pair instead of being anchored to stale coordinates.
+	var newest_id = null
+	var second_id = null
+	var newest_sequence := -1
+	var second_sequence := -1
+	for key_value in touch_points.keys():
+		var pointer_id := int(key_value)
+		var sequence := int(touch_press_sequence.get(pointer_id, 0))
+		if sequence > newest_sequence:
+			second_sequence = newest_sequence
+			second_id = newest_id
+			newest_sequence = sequence
+			newest_id = pointer_id
+		elif sequence > second_sequence:
+			second_sequence = sequence
+			second_id = pointer_id
+
+	if newest_id == null or second_id == null:
+		return result
+	result.append(Vector2(touch_points[second_id]))
+	result.append(Vector2(touch_points[newest_id]))
 	return result
 
 
