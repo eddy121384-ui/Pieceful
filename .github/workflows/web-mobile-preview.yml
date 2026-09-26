@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main
-      - feat/issue-7-android-release-aab
+      - feat/issue-51-piece-depth
+      - fix/issue-57-touch-zoom-recovery
   workflow_dispatch:
 
 permissions:
@@ -183,6 +184,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
 
+      - name: Puzzle piece depth smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_piece_depth_smoke.gd
+
       - name: Gallery flow smoke
         shell: bash
         run: |
@@ -240,6 +247,38 @@ jobs:
           test -f build/web/index.wasm
           test -f build/web/index.pck
 
+      - name: Instrument Godot loader throughput
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 tools/instrument_web_loader.py build/web/index.html
+          grep -q "Downloading Godot" build/web/index.html
+
+      - name: Install browser smoke dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Browser runtime ready smoke
+        shell: bash
+        env:
+          PIECEPACE_WEB_URL: http://127.0.0.1:4173/
+        run: |
+          set -euxo pipefail
+          python3 -m http.server 4173 --directory build/web >/tmp/piecepace-web.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "${SERVER_PID}" || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/index.html >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail http://127.0.0.1:4173/index.html >/dev/null
+          node tests/web_runtime_ready_smoke.mjs
+
       - name: Include Watercolor Chess preview
         shell: bash
         run: |
@@ -282,3 +321,26 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Probe deployed Godot assets
+        shell: bash
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euxo pipefail
+          BASE="${PAGE_URL%/}"
+          echo "== response headers: index.wasm =="
+          curl --fail --silent --show-error --location --head \
+            -H 'Accept-Encoding: gzip, br' "${BASE}/index.wasm"
+          echo "== response headers: index.pck =="
+          curl --fail --silent --show-error --location --head \
+            -H 'Accept-Encoding: gzip, br' "${BASE}/index.pck"
+          echo "== transfer probe =="
+          curl --fail --silent --show-error --location --compressed \
+            -o /dev/null \
+            -w 'wasm wire_bytes=%{size_download} speed_Bps=%{speed_download} total_s=%{time_total} type=%{content_type}\n' \
+            "${BASE}/index.wasm"
+          curl --fail --silent --show-error --location --compressed \
+            -o /dev/null \
+            -w 'pck wire_bytes=%{size_download} speed_Bps=%{speed_download} total_s=%{time_total} type=%{content_type}\n' \
+            "${BASE}/index.pck"

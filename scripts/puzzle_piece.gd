@@ -1,6 +1,8 @@
 class_name PuzzlePiece
 extends Area2D
 
+const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
+
 signal released(piece)
 signal picked(piece)
 signal dragged(piece, delta: Vector2)
@@ -55,6 +57,12 @@ func configure(
 	set_process_input(false)
 
 
+func apply_joined_visual() -> void:
+	if solved:
+		return
+	PuzzlePieceVisualFactoryScript.apply_joined_state(self, 1.0)
+
+
 func snap_to_target() -> void:
 	if solved:
 		return
@@ -66,9 +74,7 @@ func snap_to_target() -> void:
 	input_pickable = false
 	z_index = 1
 
-	var shadow := get_node_or_null("Shadow")
-	if shadow != null:
-		shadow.visible = false
+	PuzzlePieceVisualFactoryScript.apply_solved_state(self, 1.0)
 
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUAD)
@@ -155,31 +161,13 @@ func _screen_to_world(screen_position: Vector2) -> Vector2:
 
 
 func _build_visuals() -> void:
-	var shadow := Polygon2D.new()
-	shadow.name = "Shadow"
-	shadow.polygon = polygon_points
-	shadow.color = Color(0.0, 0.0, 0.0, 0.26)
-	shadow.position = Vector2(4.0, 6.0)
-	shadow.z_index = -1
-	add_child(shadow)
-
-	var face := Polygon2D.new()
-	face.name = "Face"
-	face.polygon = polygon_points
-	face.uv = uv_points
-	face.texture = source_texture
-	face.color = Color.WHITE
-	add_child(face)
-
-	var outline := Line2D.new()
-	outline.name = "Outline"
-	var outline_points := polygon_points.duplicate()
-	outline_points.append(polygon_points[0])
-	outline.points = outline_points
-	outline.width = 1.35
-	outline.default_color = Color(1.0, 1.0, 1.0, 0.66)
-	outline.antialiased = true
-	add_child(outline)
+	PuzzlePieceVisualFactoryScript.add_piece_visuals(
+		self,
+		polygon_points,
+		uv_points,
+		source_texture,
+		1.0
+	)
 
 	var collision := CollisionPolygon2D.new()
 	collision.name = "HitArea"

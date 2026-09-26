@@ -37,12 +37,12 @@ var board_lines_overlay = null
 var reshuffle_policy = RuntimeReshufflePolicyScript.new()
 
 # Player-aid controls are intentionally independent. Preview defaults Off, while
-# subtle board cut lines and Hint default On for the normal experience. Preview
+# board cut guide lines default Off so they do not compete with the paper-relief seam; Hint remains On. Preview
 # cycles Off -> Floating -> Board so one compact control supports both reference
 # styles without adding another footer button. Runtime choices survive reshuffle,
 # difficulty changes, and live orientation changes. Disk save is deferred to #3.
 var preview_mode := PREVIEW_MODE_OFF
-var board_lines_enabled := true
+var board_lines_enabled := false
 
 
 func _ready() -> void:
