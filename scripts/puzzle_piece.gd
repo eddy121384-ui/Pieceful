@@ -57,6 +57,12 @@ func configure(
 	set_process_input(false)
 
 
+func apply_joined_visual() -> void:
+	if solved:
+		return
+	PuzzlePieceVisualFactoryScript.apply_joined_state(self, 1.0)
+
+
 func snap_to_target() -> void:
 	if solved:
 		return
