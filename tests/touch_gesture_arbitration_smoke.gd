@@ -157,9 +157,11 @@ func _run() -> void:
 
 	var camera_before_piece_drag := Vector2(camera.global_position)
 	var piece_before_drag := Vector2(target.global_position)
+	var fresh_piece_world: Vector2 = target.to_global(bounds.get_center())
+	var fresh_piece_screen: Vector2 = target.get_viewport().get_canvas_transform() * fresh_piece_world
 	var fresh_piece_touch := InputEventScreenTouch.new()
 	fresh_piece_touch.index = 33
-	fresh_piece_touch.position = first_screen
+	fresh_piece_touch.position = fresh_piece_screen
 	fresh_piece_touch.pressed = true
 	camera._handle_screen_touch(fresh_piece_touch)
 	if not target.dragging or int(target.drag_pointer_id) != 33:
@@ -168,7 +170,7 @@ func _run() -> void:
 
 	var fresh_piece_drag := InputEventScreenDrag.new()
 	fresh_piece_drag.index = 33
-	fresh_piece_drag.position = first_screen + Vector2(36.0, 0.0)
+	fresh_piece_drag.position = fresh_piece_screen + Vector2(36.0, 0.0)
 	fresh_piece_drag.relative = Vector2(36.0, 0.0)
 	camera._handle_screen_drag(fresh_piece_drag)
 	target._input(fresh_piece_drag)
