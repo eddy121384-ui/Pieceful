@@ -25,12 +25,10 @@ func _handle_screen_touch(event: InputEventScreenTouch) -> void:
 		if _try_claim_piece_touch(event.index, event.position):
 			get_viewport().set_input_as_handled()
 			return
-		touch_points[event.index] = event.position
-		_reseed_touch_mode()
+		_record_touch_press(event.index, event.position)
 		return
 
-	touch_points.erase(event.index)
-	_reseed_touch_mode()
+	_release_touch(event.index)
 
 
 func _handle_screen_drag(event: InputEventScreenDrag) -> void:
