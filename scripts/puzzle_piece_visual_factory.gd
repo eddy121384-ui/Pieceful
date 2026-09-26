@@ -9,10 +9,13 @@ const LOOSE_DARK_OFFSET_PX := Vector2(2.15, 2.55)
 const SOLVED_LIGHT_OFFSET_PX := Vector2(-0.28, -0.24)
 const SOLVED_DARK_OFFSET_PX := Vector2(0.72, 0.86)
 
-const LOOSE_LIGHT_COLOR := Color(1.0, 0.94, 0.80, 0.24)
-const LOOSE_DARK_COLOR := Color(0.085, 0.069, 0.047, 0.82)
-const SOLVED_LIGHT_COLOR := Color(1.0, 0.95, 0.84, 0.08)
-const SOLVED_DARK_COLOR := Color(0.09, 0.075, 0.052, 0.42)
+# The upper-left cue is intentionally cardboard-brown rather than cream/white.
+# On Pieceful's dark workspace a pale rim reads as a UI outline, which is the
+# opposite of the quiet physical-cardboard target.
+const LOOSE_LIGHT_COLOR := Color(0.46, 0.35, 0.21, 0.42)
+const LOOSE_DARK_COLOR := Color(0.075, 0.058, 0.038, 0.86)
+const SOLVED_LIGHT_COLOR := Color(0.34, 0.26, 0.16, 0.20)
+const SOLVED_DARK_COLOR := Color(0.08, 0.062, 0.041, 0.44)
 const LOOSE_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.30)
 const SOLVED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.18)
 const SEAM_WIDTH_PX := 0.85
