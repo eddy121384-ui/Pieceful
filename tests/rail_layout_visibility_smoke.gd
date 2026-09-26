@@ -13,6 +13,9 @@ func _run() -> void:
 	for _frame in range(28):
 		await process_frame
 	print("RAIL_SMOKE phase=boot_ready")
+	if bool(main.get("board_lines_enabled")):
+		_fail("white board guide lines unexpectedly defaulted on")
+		return
 
 	var board = main.get_node_or_null("PuzzleBoard")
 	var workspace = main.get_node_or_null("SortingWorkspace")
