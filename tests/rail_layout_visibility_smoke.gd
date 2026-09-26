@@ -37,8 +37,9 @@ func _run() -> void:
 
 	print("RAIL_SMOKE phase=switch_to_rail")
 	workspace.call("_set_loose_layout_mode", "rail")
-	for _frame in range(30):
-		await process_frame
+	if not await _wait_for_layout_transition(workspace):
+		_fail("Scatter -> Rail transition did not finish")
+		return
 
 	if not rail_panel.visible:
 		_fail("Scatter -> Rail left the rail panel hidden")
@@ -79,13 +80,15 @@ func _run() -> void:
 
 	print("RAIL_SMOKE phase=resize_ok")
 	workspace.call("_set_loose_layout_mode", "scatter")
-	for _frame in range(30):
-		await process_frame
+	if not await _wait_for_layout_transition(workspace):
+		_fail("Rail -> Scatter transition did not finish")
+		return
 
 	print("RAIL_SMOKE phase=roundtrip_back_to_rail")
 	workspace.call("_set_loose_layout_mode", "rail")
-	for _frame in range(30):
-		await process_frame
+	if not await _wait_for_layout_transition(workspace):
+		_fail("second Scatter -> Rail transition did not finish")
+		return
 
 	visuals = rail_canvas.get("visual_nodes")
 	if not rail_panel.visible or float(rail_canvas.modulate.a) < 0.95:
@@ -99,6 +102,14 @@ func _run() -> void:
 	await process_frame
 	print("PASS rail_layout_visibility_smoke")
 	quit(0)
+
+
+func _wait_for_layout_transition(workspace, max_frames: int = 120) -> bool:
+	for _frame in range(max_frames):
+		if not bool(workspace.get("layout_transition_active")):
+			return true
+		await process_frame
+	return false
 
 
 func _fail(message: String) -> void:
