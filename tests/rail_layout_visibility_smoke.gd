@@ -18,13 +18,14 @@ func _run() -> void:
 	if board == null or board.pieces.is_empty():
 		_fail("runtime board/pieces missing")
 		return
-	if main.rail_canvas == null or main.rail_panel == null:
+	var rail_canvas = main.get("rail_canvas")
+	var rail_panel = main.get("rail_panel")
+	if rail_canvas == null or rail_panel == null:
 		_fail("rail UI missing")
 		return
 
 	# Use the same public-in-practice layout path the mobile toolbar triggers.
 	print("RAIL_SMOKE phase=switch_to_rail")
-	print("RAIL_SMOKE phase=roundtrip_back_to_rail")
 	main.call("_set_loose_layout_mode", "rail")
 	for _frame in range(30):
 		await process_frame
@@ -43,7 +44,7 @@ func _run() -> void:
 		return
 
 	print("RAIL_SMOKE phase=rail_visible visuals=%d" % int((rail_canvas.get("visual_nodes") as Dictionary).size()))
-	var before_count := int(main.rail_canvas.visual_nodes.size())
+	var before_count := int((rail_canvas.get("visual_nodes") as Dictionary).size())
 	var original_size := Vector2(rail_canvas.size)
 	rail_canvas.size = Vector2(
 		maxf(original_size.x + 48.0, 220.0),
@@ -52,13 +53,13 @@ func _run() -> void:
 	for _frame in range(3):
 		await process_frame
 
-	if main.rail_canvas.visual_nodes.is_empty():
+	if (rail_canvas.get("visual_nodes") as Dictionary).is_empty():
 		_fail("Rail resize destroyed all piece visuals")
 		return
-	if int(main.rail_canvas.visual_nodes.size()) != before_count:
+	if int((rail_canvas.get("visual_nodes") as Dictionary).size()) != before_count:
 		_fail(
 			"non-dense Rail resize changed visual count from %d to %d"
-			% [before_count, int(main.rail_canvas.visual_nodes.size())]
+			% [before_count, int((rail_canvas.get("visual_nodes") as Dictionary).size())]
 		)
 		return
 
@@ -67,14 +68,15 @@ func _run() -> void:
 	main.call("_set_loose_layout_mode", "scatter")
 	for _frame in range(30):
 		await process_frame
+	print("RAIL_SMOKE phase=roundtrip_back_to_rail")
 	main.call("_set_loose_layout_mode", "rail")
 	for _frame in range(30):
 		await process_frame
 
-	if not main.rail_panel.visible or float(main.rail_canvas.modulate.a) < 0.95:
+	if not rail_panel.visible or float(rail_canvas.modulate.a) < 0.95:
 		_fail("Scatter -> Rail round-trip did not restore visible rail")
 		return
-	if main.rail_canvas.visual_nodes.is_empty():
+	if (rail_canvas.get("visual_nodes") as Dictionary).is_empty():
 		_fail("Scatter -> Rail round-trip lost rail visuals")
 		return
 
