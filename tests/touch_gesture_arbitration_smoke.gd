@@ -143,39 +143,48 @@ func _run() -> void:
 	release_second_piece_touch.pressed = false
 	camera._handle_screen_touch(release_second_piece_touch)
 
-	# Once one camera touch exists, the second touch is camera-owned even if it
-	# lands directly on a puzzle piece.
-	var empty_first := InputEventScreenTouch.new()
-	empty_first.index = 32
-	empty_first.position = Vector2(48.0, 48.0)
-	empty_first.pressed = true
-	camera._handle_screen_touch(empty_first)
+	# A stale camera touch must never steal a fresh single-finger piece drag.
+	# This reproduces the iPhone/Web failure mode where a release was missed and
+	# touch_points still contains an old ID when the player starts dragging a piece.
+	var stale_touch := InputEventScreenTouch.new()
+	stale_touch.index = 32
+	stale_touch.position = Vector2(48.0, 48.0)
+	stale_touch.pressed = true
+	camera._handle_screen_touch(stale_touch)
 	if not camera.touch_points.has(32):
-		_fail("empty first touch did not enter camera tracking")
+		_fail("stale-touch fixture did not enter camera tracking")
 		return
 
-	var piece_second := InputEventScreenTouch.new()
-	piece_second.index = 33
-	piece_second.position = first_screen
-	piece_second.pressed = true
-	camera._handle_screen_touch(piece_second)
-	if target.dragging:
-		_fail("second touch over a piece escaped camera ownership")
-		return
-	if not camera.touch_points.has(32) or not camera.touch_points.has(33):
-		_fail("empty + piece two-finger gesture did not become camera pinch")
+	var camera_before_piece_drag := Vector2(camera.global_position)
+	var piece_before_drag := Vector2(target.global_position)
+	var fresh_piece_touch := InputEventScreenTouch.new()
+	fresh_piece_touch.index = 33
+	fresh_piece_touch.position = first_screen
+	fresh_piece_touch.pressed = true
+	camera._handle_screen_touch(fresh_piece_touch)
+	if not target.dragging or int(target.drag_pointer_id) != 33:
+		_fail("stale camera touch stole a fresh single-finger piece press")
 		return
 
-	var release_empty_first := InputEventScreenTouch.new()
-	release_empty_first.index = 32
-	release_empty_first.position = empty_first.position
-	release_empty_first.pressed = false
-	camera._handle_screen_touch(release_empty_first)
-	var release_piece_second := InputEventScreenTouch.new()
-	release_piece_second.index = 33
-	release_piece_second.position = piece_second.position
-	release_piece_second.pressed = false
-	camera._handle_screen_touch(release_piece_second)
+	var fresh_piece_drag := InputEventScreenDrag.new()
+	fresh_piece_drag.index = 33
+	fresh_piece_drag.position = first_screen + Vector2(36.0, 0.0)
+	fresh_piece_drag.relative = Vector2(36.0, 0.0)
+	camera._handle_screen_drag(fresh_piece_drag)
+	target._input(fresh_piece_drag)
+	if Vector2(target.global_position).is_equal_approx(piece_before_drag):
+		_fail("fresh single-finger drag did not move the puzzle piece")
+		return
+	if not Vector2(camera.global_position).is_equal_approx(camera_before_piece_drag):
+		_fail("fresh single-finger piece drag moved the camera")
+		return
+
+	target._finish_drag(fresh_piece_drag.position)
+	var release_stale := InputEventScreenTouch.new()
+	release_stale.index = 32
+	release_stale.position = stale_touch.position
+	release_stale.pressed = false
+	camera._handle_screen_touch(release_stale)
 
 	# iOS/Web can synthesize a mouse press from the same finger. A mouse-owned
 	# piece drag reports pointer -1, so cancel_pointer(-1) must clear the sole
