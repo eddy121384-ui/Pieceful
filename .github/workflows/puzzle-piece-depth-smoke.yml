@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/issue-51-piece-depth
+      - fix/issue-57-touch-zoom-recovery
   workflow_dispatch:
 
 permissions:
@@ -78,3 +79,9 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
+
+      - name: Run touch zoom recovery smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/touch_zoom_recovery_smoke.gd

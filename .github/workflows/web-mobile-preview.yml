@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - feat/issue-51-piece-depth
+      - fix/issue-57-touch-zoom-recovery
   workflow_dispatch:
 
 permissions:
