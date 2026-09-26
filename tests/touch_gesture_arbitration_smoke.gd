@@ -79,6 +79,70 @@ func _run() -> void:
 	target._finish_drag(center_screen)
 	await process_frame
 
+	# Two fingers landing on puzzle pieces must promote the interaction from
+	# piece-drag to camera pinch. The first piece releases ownership without
+	# snap/merge, the second piece never starts dragging, and both touch IDs enter
+	# camera tracking immediately.
+	if board.pieces.size() < 2:
+		_fail("two-piece pinch fixture is unavailable")
+		return
+	var second = board.pieces[1]
+	target.visible = true
+	second.visible = true
+	second.position = target.position + Vector2(target.piece_size.x * 1.6, 0.0)
+
+	var first_world: Vector2 = target.to_global(bounds.get_center())
+	var first_screen: Vector2 = target.get_viewport().get_canvas_transform() * first_world
+	var second_bounds := Rect2(second.polygon_points[0], Vector2.ZERO)
+	for point in second.polygon_points:
+		second_bounds = second_bounds.expand(point)
+	var second_world: Vector2 = second.to_global(second_bounds.get_center())
+	var second_screen: Vector2 = second.get_viewport().get_canvas_transform() * second_world
+
+	var first_piece_touch := InputEventScreenTouch.new()
+	first_piece_touch.index = 30
+	first_piece_touch.position = first_screen
+	first_piece_touch.pressed = true
+	camera._handle_screen_touch(first_piece_touch)
+	if not target.dragging:
+		_fail("first piece touch did not begin drag before pinch promotion")
+		return
+
+	var second_piece_touch := InputEventScreenTouch.new()
+	second_piece_touch.index = 31
+	second_piece_touch.position = second_screen
+	second_piece_touch.pressed = true
+	camera._handle_screen_touch(second_piece_touch)
+
+	if target.dragging or second.dragging:
+		_fail("two-finger touch over pieces did not preempt piece drag")
+		return
+	if not camera.touch_points.has(30) or not camera.touch_points.has(31):
+		_fail("pinch promotion did not seed both touch IDs into camera tracking")
+		return
+
+	var pinch_over_pieces_before := float(camera.zoom.x)
+	var second_piece_drag := InputEventScreenDrag.new()
+	second_piece_drag.index = 31
+	second_piece_drag.position = second_screen + Vector2(42.0, 0.0)
+	second_piece_drag.relative = Vector2(42.0, 0.0)
+	camera._handle_screen_drag(second_piece_drag)
+	if is_equal_approx(float(camera.zoom.x), pinch_over_pieces_before):
+		_fail("two-finger pinch over pieces did not zoom the camera")
+		return
+
+	var release_first_piece_touch := InputEventScreenTouch.new()
+	release_first_piece_touch.index = 30
+	release_first_piece_touch.position = first_screen
+	release_first_piece_touch.pressed = false
+	camera._handle_screen_touch(release_first_piece_touch)
+
+	var release_second_piece_touch := InputEventScreenTouch.new()
+	release_second_piece_touch.index = 31
+	release_second_piece_touch.position = second_piece_drag.position
+	release_second_piece_touch.pressed = false
+	camera._handle_screen_touch(release_second_piece_touch)
+
 	# iOS/Web can synthesize a mouse press from the same finger. A mouse-owned
 	# piece drag reports pointer -1, so cancel_pointer(-1) must clear the sole
 	# provisional touch instead of letting the camera move underneath the piece.
