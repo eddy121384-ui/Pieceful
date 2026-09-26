@@ -147,3 +147,17 @@ This is **not** the default next step. It must earn its complexity through visua
 ## Visual mantra
 
 > **Paper relief illusion — make the eye believe the cardboard; do not make the GPU build the cardboard.**
+
+
+## Real-device interaction QA addendum
+
+iPhone Safari QA refined three production rules for the paper-relief renderer:
+
+- Two-finger input always belongs to the camera. A second touch immediately
+  preempts any active single-piece drag so pinch works even when both fingers
+  land directly on puzzle pieces.
+- All visual children of a piece stay in the same parent z-band. Layering inside
+  the piece uses creation order (contact shadow -> thickness -> face -> seam), so
+  an underneath piece's seam/thickness cannot cross above another piece's face.
+- The visible side wall is neutral grey cardboard. The contact shadow remains a
+  faint charcoal cue and must not become a black outline or a bright halo.
