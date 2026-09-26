@@ -28,10 +28,10 @@ func _handle_screen_touch(event: InputEventScreenTouch) -> void:
 		if _promote_piece_drag_to_pinch(event.index, event.position):
 			get_viewport().set_input_as_handled()
 			return
-		if not touch_points.is_empty():
-			_record_touch_press(event.index, event.position)
-			get_viewport().set_input_as_handled()
-			return
+		# Do not infer "second finger" from touch_points alone. Mobile Web can
+		# leave a stale camera touch behind after a missed release. A fresh press
+		# on artwork must still prefer the piece; only an actively dragged piece
+		# plus a real second press is promoted above.
 		if _try_claim_piece_touch(event.index, event.position):
 			get_viewport().set_input_as_handled()
 			return
