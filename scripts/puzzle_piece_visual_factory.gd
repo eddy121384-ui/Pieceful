@@ -1,24 +1,27 @@
 class_name PuzzlePieceVisualFactory
 extends RefCounted
 
-# Commercial-reference direction for #55:
-# create the perception of thin cardboard with three cheap standard 2D layers.
-# No per-piece bevel mesh, custom draw path, or line renderer is required.
-const LOOSE_LIGHT_OFFSET_PX := Vector2(-0.72, -0.62)
-const LOOSE_DARK_OFFSET_PX := Vector2(2.15, 2.55)
-const SOLVED_LIGHT_OFFSET_PX := Vector2(-0.28, -0.24)
-const SOLVED_DARK_OFFSET_PX := Vector2(0.72, 0.86)
+# #55 physical model:
+# - ContactShadow answers "is this loose piece lifted from the table?"
+# - Thickness answers "is this a thin cardboard object?"
+# - Face carries the artwork.
+# - Seam keeps joined/solved cuts legible without becoming the depth cue.
+#
+# Keep the renderer cheap: three Polygon2D items + one subtle Seam per piece.
+const LOOSE_SHADOW_OFFSET_PX := Vector2(1.75, 2.10)
+const LOOSE_THICKNESS_OFFSET_PX := Vector2(1.05, 1.28)
+const JOINED_THICKNESS_OFFSET_PX := Vector2(0.78, 0.92)
+const SOLVED_THICKNESS_OFFSET_PX := Vector2(0.46, 0.54)
 
-# The upper-left cue is intentionally cardboard-brown rather than cream/white.
-# On Pieceful's dark workspace a pale rim reads as a UI outline, which is the
-# opposite of the quiet physical-cardboard target.
-const LOOSE_LIGHT_COLOR := Color(0.46, 0.35, 0.21, 0.42)
-const LOOSE_DARK_COLOR := Color(0.075, 0.058, 0.038, 0.86)
-const SOLVED_LIGHT_COLOR := Color(0.34, 0.26, 0.16, 0.20)
-const SOLVED_DARK_COLOR := Color(0.08, 0.062, 0.041, 0.44)
-const LOOSE_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.30)
-const SOLVED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.18)
-const SEAM_WIDTH_PX := 0.85
+const LOOSE_SHADOW_COLOR := Color(0.0, 0.0, 0.0, 0.10)
+const LOOSE_THICKNESS_COLOR := Color(0.30, 0.215, 0.125, 0.92)
+const JOINED_THICKNESS_COLOR := Color(0.285, 0.205, 0.12, 0.64)
+const SOLVED_THICKNESS_COLOR := Color(0.26, 0.19, 0.115, 0.34)
+
+const LOOSE_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.28)
+const JOINED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.22)
+const SOLVED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.16)
+const SEAM_WIDTH_PX := 0.82
 
 
 static func add_piece_visuals(
@@ -32,23 +35,28 @@ static func add_piece_visuals(
 	var pixel_scale := 1.0 / safe_scale
 	var result := {}
 
-	var warm_rim := Polygon2D.new()
-	warm_rim.name = "WarmRim"
-	warm_rim.polygon = points
-	warm_rim.position = LOOSE_LIGHT_OFFSET_PX * pixel_scale
-	warm_rim.color = LOOSE_LIGHT_COLOR
-	warm_rim.z_index = -2
-	parent.add_child(warm_rim)
-	result["warm_rim"] = warm_rim
+	# This is deliberately weak and detached from the cardboard edge. It should
+	# read as table contact, never as the piece's thickness.
+	var contact_shadow := Polygon2D.new()
+	contact_shadow.name = "ContactShadow"
+	contact_shadow.polygon = points
+	contact_shadow.position = LOOSE_SHADOW_OFFSET_PX * pixel_scale
+	contact_shadow.color = LOOSE_SHADOW_COLOR
+	contact_shadow.z_index = -3
+	parent.add_child(contact_shadow)
+	result["contact_shadow"] = contact_shadow
 
-	var dark_relief := Polygon2D.new()
-	dark_relief.name = "DarkRelief"
-	dark_relief.polygon = points
-	dark_relief.position = LOOSE_DARK_OFFSET_PX * pixel_scale
-	dark_relief.color = LOOSE_DARK_COLOR
-	dark_relief.z_index = -1
-	parent.add_child(dark_relief)
-	result["dark_relief"] = dark_relief
+	# The visible side wall is warm cardboard, not black. A lower-right offset
+	# lets the artwork face cover the top-left portion, leaving an exposed edge
+	# that reads as physical thickness under the fixed upper-left light.
+	var thickness := Polygon2D.new()
+	thickness.name = "Thickness"
+	thickness.polygon = points
+	thickness.position = LOOSE_THICKNESS_OFFSET_PX * pixel_scale
+	thickness.color = LOOSE_THICKNESS_COLOR
+	thickness.z_index = -2
+	parent.add_child(thickness)
+	result["thickness"] = thickness
 
 	var face := Polygon2D.new()
 	face.name = "Face"
@@ -60,9 +68,6 @@ static func add_piece_visuals(
 	parent.add_child(face)
 	result["face"] = face
 
-	# Seam is intentionally separate from the relief treatment. It is a very thin,
-	# low-contrast cut line so neighbouring pieces remain legible after their
-	# relief layers overlap. It must never become the primary "3D" cue.
 	var seam := Line2D.new()
 	seam.name = "Seam"
 	var seam_points := points.duplicate()
@@ -79,17 +84,35 @@ static func add_piece_visuals(
 	return result
 
 
-static func apply_solved_state(parent: Node, visual_scale: float = 1.0) -> void:
+static func apply_joined_state(parent: Node, visual_scale: float = 1.0) -> void:
 	var pixel_scale := 1.0 / maxf(visual_scale, 0.01)
-	var warm_rim := parent.get_node_or_null("WarmRim") as Polygon2D
-	var dark_relief := parent.get_node_or_null("DarkRelief") as Polygon2D
+	var contact_shadow := parent.get_node_or_null("ContactShadow") as Polygon2D
+	var thickness := parent.get_node_or_null("Thickness") as Polygon2D
 	var seam := parent.get_node_or_null("Seam") as Line2D
 
-	if warm_rim != null:
-		warm_rim.position = SOLVED_LIGHT_OFFSET_PX * pixel_scale
-		warm_rim.color = SOLVED_LIGHT_COLOR
-	if dark_relief != null:
-		dark_relief.position = SOLVED_DARK_OFFSET_PX * pixel_scale
-		dark_relief.color = SOLVED_DARK_COLOR
+	# Joined islands should no longer look like independent tiles floating on
+	# separate shadows. Thickness remains because the island is still cardboard.
+	if contact_shadow != null:
+		contact_shadow.visible = false
+	if thickness != null:
+		thickness.position = JOINED_THICKNESS_OFFSET_PX * pixel_scale
+		thickness.color = JOINED_THICKNESS_COLOR
+	if seam != null:
+		seam.default_color = JOINED_SEAM_COLOR
+
+
+static func apply_solved_state(parent: Node, visual_scale: float = 1.0) -> void:
+	var pixel_scale := 1.0 / maxf(visual_scale, 0.01)
+	var contact_shadow := parent.get_node_or_null("ContactShadow") as Polygon2D
+	var thickness := parent.get_node_or_null("Thickness") as Polygon2D
+	var seam := parent.get_node_or_null("Seam") as Line2D
+
+	# Once anchored to the board there is no floating contact shadow at all.
+	# Keep only a very shallow cardboard side cue and a quiet cut seam.
+	if contact_shadow != null:
+		contact_shadow.visible = false
+	if thickness != null:
+		thickness.position = SOLVED_THICKNESS_OFFSET_PX * pixel_scale
+		thickness.color = SOLVED_THICKNESS_COLOR
 	if seam != null:
 		seam.default_color = SOLVED_SEAM_COLOR
