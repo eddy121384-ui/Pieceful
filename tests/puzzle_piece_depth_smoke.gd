@@ -94,8 +94,23 @@ func _run() -> void:
 	if VisualFactoryScript.LOOSE_SHADOW_COLOR.a >= 0.18:
 		_fail("loose contact shadow became too strong and may read as floating")
 		return
-	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.r <= VisualFactoryScript.LOOSE_THICKNESS_COLOR.b:
-		_fail("cardboard side wall lost its warm material tint")
+	for cardboard_color in [
+		VisualFactoryScript.LOOSE_THICKNESS_COLOR,
+		VisualFactoryScript.JOINED_THICKNESS_COLOR,
+		VisualFactoryScript.SOLVED_THICKNESS_COLOR,
+	]:
+		var channel_spread := maxf(
+			cardboard_color.r,
+			maxf(cardboard_color.g, cardboard_color.b)
+		) - minf(
+			cardboard_color.r,
+			minf(cardboard_color.g, cardboard_color.b)
+		)
+		if channel_spread > 0.04:
+			_fail("cardboard side wall drifted away from neutral grey")
+			return
+	if VisualFactoryScript.LOOSE_SHADOW_COLOR.r > 0.10:
+		_fail("contact shadow became too bright to read as faint charcoal")
 		return
 	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.a <= VisualFactoryScript.LOOSE_SHADOW_COLOR.a:
 		_fail("shadow became visually stronger than the cardboard thickness")

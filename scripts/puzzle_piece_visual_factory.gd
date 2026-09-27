@@ -13,10 +13,10 @@ const LOOSE_THICKNESS_OFFSET_PX := Vector2(1.05, 1.28)
 const JOINED_THICKNESS_OFFSET_PX := Vector2(0.78, 0.92)
 const SOLVED_THICKNESS_OFFSET_PX := Vector2(0.46, 0.54)
 
-const LOOSE_SHADOW_COLOR := Color(0.0, 0.0, 0.0, 0.10)
-const LOOSE_THICKNESS_COLOR := Color(0.30, 0.215, 0.125, 0.92)
-const JOINED_THICKNESS_COLOR := Color(0.285, 0.205, 0.12, 0.64)
-const SOLVED_THICKNESS_COLOR := Color(0.26, 0.19, 0.115, 0.34)
+const LOOSE_SHADOW_COLOR := Color(0.055, 0.060, 0.065, 0.10)
+const LOOSE_THICKNESS_COLOR := Color(0.46, 0.455, 0.44, 0.92)
+const JOINED_THICKNESS_COLOR := Color(0.43, 0.425, 0.41, 0.64)
+const SOLVED_THICKNESS_COLOR := Color(0.40, 0.395, 0.38, 0.34)
 
 const LOOSE_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.28)
 const JOINED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.22)
@@ -49,9 +49,9 @@ static func add_piece_visuals(
 	parent.add_child(contact_shadow)
 	result["contact_shadow"] = contact_shadow
 
-	# The visible side wall is warm cardboard, not black. A lower-right offset
-	# lets the artwork face cover the top-left portion, leaving an exposed edge
-	# that reads as physical thickness under the fixed upper-left light.
+	# The visible side wall is neutral grey cardboard, not a black shadow or a
+	# warm/brown rim. A lower-right offset lets the artwork face cover the
+	# top-left portion, leaving an exposed edge that reads as physical thickness.
 	var thickness := Polygon2D.new()
 	thickness.name = "Thickness"
 	thickness.polygon = points
