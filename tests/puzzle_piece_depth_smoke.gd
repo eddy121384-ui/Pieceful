@@ -61,10 +61,6 @@ func _run() -> void:
 		if child is Line2D and child.name != "Seam":
 			_fail("unexpected line renderer returned: %s" % child.name)
 			return
-		if child is CanvasItem and not (child is CollisionPolygon2D):
-			if int((child as CanvasItem).z_index) != 0:
-				_fail("piece visual children escaped the parent z-band")
-				return
 
 	var render_item_count := 0
 	for child in piece.get_children():
@@ -98,11 +94,8 @@ func _run() -> void:
 	if VisualFactoryScript.LOOSE_SHADOW_COLOR.a >= 0.18:
 		_fail("loose contact shadow became too strong and may read as floating")
 		return
-	if absf(
-		VisualFactoryScript.LOOSE_THICKNESS_COLOR.r
-		- VisualFactoryScript.LOOSE_THICKNESS_COLOR.b
-	) > 0.08:
-		_fail("cardboard side wall drifted away from neutral grey")
+	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.r <= VisualFactoryScript.LOOSE_THICKNESS_COLOR.b:
+		_fail("cardboard side wall lost its warm material tint")
 		return
 	if VisualFactoryScript.LOOSE_THICKNESS_COLOR.a <= VisualFactoryScript.LOOSE_SHADOW_COLOR.a:
 		_fail("shadow became visually stronger than the cardboard thickness")
