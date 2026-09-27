@@ -6,19 +6,6 @@ const TOUCH_PICK_PADDING_SCREEN_PX := 28.0
 var pending_touch_pick_index := -1
 
 
-func promote_active_piece_drag_to_camera() -> Dictionary:
-	if active_drag_piece == null or not is_instance_valid(active_drag_piece):
-		return {}
-	if not active_drag_piece.has_method("cancel_drag_for_camera_gesture"):
-		return {}
-
-	var handoff: Dictionary = active_drag_piece.cancel_drag_for_camera_gesture()
-	if handoff.is_empty():
-		return {}
-	_clear_active_drag_cache()
-	return handoff
-
-
 func try_begin_touch_piece_drag(pointer_id: int, screen_position: Vector2) -> bool:
 	if pointer_id < 0:
 		return false
