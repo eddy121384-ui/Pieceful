@@ -42,7 +42,10 @@ static func add_piece_visuals(
 	contact_shadow.polygon = points
 	contact_shadow.position = LOOSE_SHADOW_OFFSET_PX * pixel_scale
 	contact_shadow.color = LOOSE_SHADOW_COLOR
-	contact_shadow.z_index = -3
+	# All visual children stay inside the piece parent's z band. Their fixed
+	# creation order supplies the internal stack without leaking into another piece.
+	contact_shadow.z_index = 0
+	contact_shadow.z_as_relative = true
 	parent.add_child(contact_shadow)
 	result["contact_shadow"] = contact_shadow
 
@@ -54,7 +57,8 @@ static func add_piece_visuals(
 	thickness.polygon = points
 	thickness.position = LOOSE_THICKNESS_OFFSET_PX * pixel_scale
 	thickness.color = LOOSE_THICKNESS_COLOR
-	thickness.z_index = -2
+	thickness.z_index = 0
+	thickness.z_as_relative = true
 	parent.add_child(thickness)
 	result["thickness"] = thickness
 
@@ -65,6 +69,7 @@ static func add_piece_visuals(
 	face.texture = texture
 	face.color = Color.WHITE
 	face.z_index = 0
+	face.z_as_relative = true
 	parent.add_child(face)
 	result["face"] = face
 
@@ -77,7 +82,8 @@ static func add_piece_visuals(
 	seam.width = SEAM_WIDTH_PX * pixel_scale
 	seam.default_color = LOOSE_SEAM_COLOR
 	seam.antialiased = true
-	seam.z_index = 1
+	seam.z_index = 0
+	seam.z_as_relative = true
 	parent.add_child(seam)
 	result["seam"] = seam
 

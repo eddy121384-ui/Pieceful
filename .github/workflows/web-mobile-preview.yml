@@ -197,6 +197,12 @@ jobs:
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/puzzle_piece_depth_smoke.gd
 
+      - name: Puzzle piece overlap z-order smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/puzzle_piece_overlap_z_order_smoke.gd
+
       - name: Gallery flow smoke
         shell: bash
         run: |
