@@ -7,6 +7,7 @@ on:
       - main
       - feat/issue-51-piece-depth
       - fix/issue-57-touch-zoom-recovery
+      - fix/issue-59-touch-gesture-arbitration
   workflow_dispatch:
 
 permissions:
@@ -183,6 +184,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/touch_gesture_arbitration_smoke.gd
+
+      - name: Piece pinch handoff smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/touch_piece_pinch_handoff_smoke.gd
 
       - name: Puzzle piece depth smoke
         shell: bash
