@@ -18,10 +18,19 @@ const LOOSE_THICKNESS_COLOR := Color(0.46, 0.455, 0.44, 0.92)
 const JOINED_THICKNESS_COLOR := Color(0.43, 0.425, 0.41, 0.64)
 const SOLVED_THICKNESS_COLOR := Color(0.40, 0.395, 0.38, 0.34)
 
-const LOOSE_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.28)
-const JOINED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.22)
-const SOLVED_SEAM_COLOR := Color(0.055, 0.050, 0.044, 0.16)
-const SEAM_WIDTH_PX := 0.82
+# Directional edge relief: one antialiased Line2D still doubles as the cut seam.
+# The contour brightens only where its outward normal faces the fixed upper-left
+# light, and darkens on the opposite side. This avoids a continuous white outline
+# and does not add another CanvasItem per piece.
+const EDGE_LIGHT_DIRECTION := Vector2(-0.70710678, -0.70710678)
+const EDGE_HIGHLIGHT_COLOR := Color(0.92, 0.94, 0.95, 0.42)
+const EDGE_NEUTRAL_COLOR := Color(0.28, 0.29, 0.30, 0.20)
+const EDGE_SHADOW_COLOR := Color(0.055, 0.060, 0.065, 0.34)
+const EDGE_RELIEF_WIDTH_PX := 1.05
+const EDGE_GRADIENT_MAX_STOPS := 20
+const LOOSE_EDGE_RELIEF_ALPHA := 1.0
+const JOINED_EDGE_RELIEF_ALPHA := 0.78
+const SOLVED_EDGE_RELIEF_ALPHA := 0.58
 
 
 static func add_piece_visuals(
@@ -79,8 +88,10 @@ static func add_piece_visuals(
 	if not seam_points.is_empty():
 		seam_points.append(seam_points[0])
 	seam.points = seam_points
-	seam.width = SEAM_WIDTH_PX * pixel_scale
-	seam.default_color = LOOSE_SEAM_COLOR
+	seam.width = EDGE_RELIEF_WIDTH_PX * pixel_scale
+	seam.default_color = Color.WHITE
+	seam.gradient = _build_directional_edge_gradient(points)
+	seam.self_modulate = Color(1.0, 1.0, 1.0, LOOSE_EDGE_RELIEF_ALPHA)
 	seam.antialiased = true
 	seam.z_index = 0
 	seam.z_as_relative = true
@@ -104,7 +115,7 @@ static func apply_joined_state(parent: Node, visual_scale: float = 1.0) -> void:
 		thickness.position = JOINED_THICKNESS_OFFSET_PX * pixel_scale
 		thickness.color = JOINED_THICKNESS_COLOR
 	if seam != null:
-		seam.default_color = JOINED_SEAM_COLOR
+		seam.self_modulate = Color(1.0, 1.0, 1.0, JOINED_EDGE_RELIEF_ALPHA)
 
 
 static func apply_solved_state(parent: Node, visual_scale: float = 1.0) -> void:
@@ -121,4 +132,93 @@ static func apply_solved_state(parent: Node, visual_scale: float = 1.0) -> void:
 		thickness.position = SOLVED_THICKNESS_OFFSET_PX * pixel_scale
 		thickness.color = SOLVED_THICKNESS_COLOR
 	if seam != null:
-		seam.default_color = SOLVED_SEAM_COLOR
+		seam.self_modulate = Color(1.0, 1.0, 1.0, SOLVED_EDGE_RELIEF_ALPHA)
+
+
+static func _build_directional_edge_gradient(points: PackedVector2Array) -> Gradient:
+	var gradient := Gradient.new()
+	if points.size() < 3:
+		gradient.set_color(0, EDGE_NEUTRAL_COLOR)
+		gradient.set_color(1, EDGE_NEUTRAL_COLOR)
+		return gradient
+
+	var cumulative := PackedFloat32Array()
+	cumulative.append(0.0)
+	var total_length := 0.0
+	for index in range(1, points.size()):
+		total_length += points[index - 1].distance_to(points[index])
+		cumulative.append(total_length)
+	total_length += points[points.size() - 1].distance_to(points[0])
+
+	if total_length <= 0.001:
+		gradient.set_color(0, EDGE_NEUTRAL_COLOR)
+		gradient.set_color(1, EDGE_NEUTRAL_COLOR)
+		return gradient
+
+	var first_color := _directional_edge_color(points, 0)
+	gradient.set_offset(0, 0.0)
+	gradient.set_color(0, first_color)
+	gradient.set_offset(1, 1.0)
+	gradient.set_color(1, first_color)
+
+	# Cap unique stops so high-piece-count puzzles do not create huge per-piece
+	# gradients. Jigsaw contours are already densely sampled, so this preserves
+	# the curved light roll while keeping construction bounded.
+	var stride := maxi(
+		1,
+		ceili(float(points.size()) / float(maxi(EDGE_GRADIENT_MAX_STOPS - 1, 1)))
+	)
+	for index in range(1, points.size()):
+		if index % stride != 0:
+			continue
+		gradient.add_point(
+			float(cumulative[index]) / total_length,
+			_directional_edge_color(points, index)
+		)
+
+	return gradient
+
+
+static func _directional_edge_color(points: PackedVector2Array, index: int) -> Color:
+	var count := points.size()
+	if count < 3:
+		return EDGE_NEUTRAL_COLOR
+
+	var previous := points[(index - 1 + count) % count]
+	var current := points[index]
+	var following := points[(index + 1) % count]
+
+	var incoming := (current - previous).normalized()
+	var outgoing := (following - current).normalized()
+	var signed_area := _signed_polygon_area(points)
+
+	var incoming_normal := _outward_normal(incoming, signed_area)
+	var outgoing_normal := _outward_normal(outgoing, signed_area)
+	var normal := incoming_normal + outgoing_normal
+	if normal.length_squared() <= 0.000001:
+		normal = outgoing_normal
+	else:
+		normal = normal.normalized()
+
+	var facing := clampf(normal.dot(EDGE_LIGHT_DIRECTION), -1.0, 1.0)
+	if facing >= 0.0:
+		return EDGE_NEUTRAL_COLOR.lerp(EDGE_HIGHLIGHT_COLOR, pow(facing, 0.72))
+	return EDGE_NEUTRAL_COLOR.lerp(EDGE_SHADOW_COLOR, pow(-facing, 0.72))
+
+
+static func _outward_normal(direction: Vector2, signed_area: float) -> Vector2:
+	# Piece contours use screen-space coordinates (Y grows downward). Positive
+	# signed area therefore traverses visually clockwise, whose outward normal is
+	# the right-hand perpendicular.
+	if signed_area >= 0.0:
+		return Vector2(direction.y, -direction.x)
+	return Vector2(-direction.y, direction.x)
+
+
+static func _signed_polygon_area(points: PackedVector2Array) -> float:
+	var twice_area := 0.0
+	for index in range(points.size()):
+		var current := points[index]
+		var following := points[(index + 1) % points.size()]
+		twice_area += current.x * following.y - following.x * current.y
+	return twice_area * 0.5

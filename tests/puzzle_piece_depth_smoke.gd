@@ -69,11 +69,23 @@ func _run() -> void:
 	if render_item_count != 4:
 		_fail("expected 3 relief layers plus 1 seam, got %d render items" % render_item_count)
 		return
-	if (seam as Line2D).width < 0.6 or (seam as Line2D).width > 1.1:
-		_fail("seam width drifted outside the subtle cut-line range")
+	if (seam as Line2D).width < 0.8 or (seam as Line2D).width > 1.2:
+		_fail("edge relief width drifted outside the subtle bevel range")
 		return
-	if (seam as Line2D).default_color.a <= 0.0:
-		_fail("loose piece seam is invisible")
+	var edge_gradient := (seam as Line2D).gradient
+	if edge_gradient == null or edge_gradient.get_point_count() < 4:
+		_fail("directional edge relief gradient is missing or under-sampled")
+		return
+	if not is_equal_approx((seam as Line2D).self_modulate.a, VisualFactoryScript.LOOSE_EDGE_RELIEF_ALPHA):
+		_fail("loose edge relief did not keep full intended strength")
+		return
+
+	var top_edge_color := edge_gradient.sample(0.125)
+	var bottom_edge_color := edge_gradient.sample(0.625)
+	var top_edge_luma := (top_edge_color.r + top_edge_color.g + top_edge_color.b) / 3.0
+	var bottom_edge_luma := (bottom_edge_color.r + bottom_edge_color.g + bottom_edge_color.b) / 3.0
+	if top_edge_luma <= bottom_edge_luma + 0.12:
+		_fail("upper-left light no longer brightens the top edge above the bottom edge")
 		return
 
 	if not (
@@ -117,7 +129,7 @@ func _run() -> void:
 		return
 
 	var loose_thickness_offset := (thickness as Polygon2D).position.length()
-	var loose_seam_alpha := (seam as Line2D).default_color.a
+	var loose_edge_alpha := (seam as Line2D).self_modulate.a
 
 	piece.apply_joined_visual()
 	await process_frame
@@ -132,9 +144,9 @@ func _run() -> void:
 	if not (thickness as Polygon2D).visible or (thickness as Polygon2D).color.a <= 0.0:
 		_fail("joined cluster lost cardboard thickness completely")
 		return
-	var joined_seam_alpha := (seam as Line2D).default_color.a
-	if joined_seam_alpha <= 0.0 or joined_seam_alpha >= loose_seam_alpha:
-		_fail("joined seam did not become quieter while remaining visible")
+	var joined_edge_alpha := (seam as Line2D).self_modulate.a
+	if joined_edge_alpha <= 0.0 or joined_edge_alpha >= loose_edge_alpha:
+		_fail("joined edge relief did not become quieter while remaining visible")
 		return
 
 	piece.snap_to_target()
@@ -150,11 +162,11 @@ func _run() -> void:
 	if (thickness as Polygon2D).color.a >= VisualFactoryScript.JOINED_THICKNESS_COLOR.a:
 		_fail("solved piece retained joined-cluster thickness strength")
 		return
-	if not (seam as Line2D).visible or (seam as Line2D).default_color.a <= 0.0:
-		_fail("solved piece lost its subtle seam")
+	if not (seam as Line2D).visible or (seam as Line2D).gradient == null:
+		_fail("solved piece lost its directional edge relief")
 		return
-	if (seam as Line2D).default_color.a >= joined_seam_alpha:
-		_fail("solved seam did not soften relative to joined state")
+	if (seam as Line2D).self_modulate.a >= joined_edge_alpha:
+		_fail("solved edge relief did not soften relative to joined state")
 		return
 
 	piece.queue_free()
