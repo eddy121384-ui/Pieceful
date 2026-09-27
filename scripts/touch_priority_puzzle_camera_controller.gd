@@ -22,6 +22,12 @@ func cancel_pointer(pointer_id: int) -> void:
 
 func _handle_screen_touch(event: InputEventScreenTouch) -> void:
 	if event.pressed:
+		# A single finger keeps its original owner. Only the arrival of a real
+		# second touch while a piece is actively dragged upgrades ownership to
+		# the camera. We never infer a second finger from stale touch_points.
+		if _promote_piece_drag_to_pinch(event.index, event.position):
+			get_viewport().set_input_as_handled()
+			return
 		if _try_claim_piece_touch(event.index, event.position):
 			get_viewport().set_input_as_handled()
 			return
@@ -67,6 +73,28 @@ func _reseed_touch_mode() -> void:
 		touch_pan_last = touch_pan_start
 	else:
 		touch_pan_start = Vector2.ZERO
+
+
+func _promote_piece_drag_to_pinch(
+	second_pointer_id: int,
+	second_screen_position: Vector2
+) -> bool:
+	var board := get_parent().get_node_or_null("PuzzleBoard")
+	if board == null or not board.has_method("promote_active_piece_drag_to_camera"):
+		return false
+
+	var handoff: Dictionary = board.promote_active_piece_drag_to_camera()
+	if handoff.is_empty():
+		return false
+
+	var first_pointer_id := int(handoff.get("pointer_id", -1))
+	var first_screen_position := Vector2(handoff.get("screen_position", Vector2.ZERO))
+	if first_pointer_id < 0 or first_pointer_id == second_pointer_id:
+		return false
+
+	_record_touch_press(first_pointer_id, first_screen_position)
+	_record_touch_press(second_pointer_id, second_screen_position)
+	return true
 
 
 func _try_claim_piece_touch(pointer_id: int, screen_position: Vector2) -> bool:
