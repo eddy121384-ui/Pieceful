@@ -295,6 +295,25 @@ jobs:
           cp web/previews/ink-chess-round2/index.html build/web/ink-chess-round2/index.html
           test -f build/web/ink-chess-round2/index.html
 
+      - name: Sync chess previews from main on feature-branch deploys
+        if: github.ref_name != 'main'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git fetch origin main --depth=1
+          mkdir -p build/web/watercolor-chess
+          mkdir -p build/web/watercolor-chess-save-resume
+          mkdir -p build/web/ink-chess-round2
+          mkdir -p build/web/ink-chess-save-resume
+          git show origin/main:web/previews/watercolor-chess/index.html > build/web/watercolor-chess/index.html
+          git show origin/main:web/previews/watercolor-chess-save-resume/index.html > build/web/watercolor-chess-save-resume/index.html
+          git show origin/main:web/previews/ink-chess-round2/index.html > build/web/ink-chess-round2/index.html
+          git show origin/main:web/previews/ink-chess-save-resume/index.html > build/web/ink-chess-save-resume/index.html
+          test -s build/web/watercolor-chess/index.html
+          test -s build/web/watercolor-chess-save-resume/index.html
+          test -s build/web/ink-chess-round2/index.html
+          test -s build/web/ink-chess-save-resume/index.html
+
       - name: Upload Web build artifact
         uses: actions/upload-artifact@v4
         with:
