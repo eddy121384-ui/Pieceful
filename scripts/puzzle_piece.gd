@@ -144,20 +144,6 @@ func _move_drag_to_screen(pointer_screen_position: Vector2) -> void:
 	dragged.emit(self, delta)
 
 
-func cancel_drag_for_camera_gesture() -> Dictionary:
-	if not dragging or drag_pointer_id < 0:
-		return {}
-
-	var handoff := {
-		"pointer_id": drag_pointer_id,
-		"screen_position": last_pointer_screen_position,
-	}
-	dragging = false
-	drag_pointer_id = -999
-	set_process_input(false)
-	return handoff
-
-
 func _finish_drag(pointer_screen_position: Vector2) -> void:
 	if not dragging:
 		return
