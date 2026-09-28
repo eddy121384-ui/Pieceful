@@ -324,6 +324,22 @@ jobs:
           cp web/previews/ink-chess-round2/index.html build/web/ink-chess-round2/index.html
           test -f build/web/ink-chess-round2/index.html
 
+      - name: Include Ink Chess Poki RC preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/ink-chess-poki-rc
+          cp web/previews/ink-chess-poki-rc/index.html build/web/ink-chess-poki-rc/index.html
+          test -f build/web/ink-chess-poki-rc/index.html
+
+      - name: Include Watercolor Chess Poki RC preview
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/watercolor-chess-poki-rc
+          cp web/previews/watercolor-chess-poki-rc/index.html build/web/watercolor-chess-poki-rc/index.html
+          test -f build/web/watercolor-chess-poki-rc/index.html
+
       - name: Sync chess previews from main on feature-branch deploys
         if: github.ref_name != 'main'
         shell: bash
@@ -334,14 +350,20 @@ jobs:
           mkdir -p build/web/watercolor-chess-save-resume
           mkdir -p build/web/ink-chess-round2
           mkdir -p build/web/ink-chess-save-resume
+          mkdir -p build/web/ink-chess-poki-rc
+          mkdir -p build/web/watercolor-chess-poki-rc
           git show origin/main:web/previews/watercolor-chess/index.html > build/web/watercolor-chess/index.html
           git show origin/main:web/previews/watercolor-chess-save-resume/index.html > build/web/watercolor-chess-save-resume/index.html
           git show origin/main:web/previews/ink-chess-round2/index.html > build/web/ink-chess-round2/index.html
           git show origin/main:web/previews/ink-chess-save-resume/index.html > build/web/ink-chess-save-resume/index.html
+          git show origin/main:web/previews/ink-chess-poki-rc/index.html > build/web/ink-chess-poki-rc/index.html
+          git show origin/main:web/previews/watercolor-chess-poki-rc/index.html > build/web/watercolor-chess-poki-rc/index.html
           test -s build/web/watercolor-chess/index.html
           test -s build/web/watercolor-chess-save-resume/index.html
           test -s build/web/ink-chess-round2/index.html
           test -s build/web/ink-chess-save-resume/index.html
+          test -s build/web/ink-chess-poki-rc/index.html
+          test -s build/web/watercolor-chess-poki-rc/index.html
 
       - name: Upload Web build artifact
         uses: actions/upload-artifact@v4
