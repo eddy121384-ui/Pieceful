@@ -80,10 +80,12 @@ func _run() -> void:
 		_fail("loose edge relief did not keep full intended strength")
 		return
 
-	if (seam as Line2D).points.size() != points.size() + 1:
-		_fail("inset edge relief contour lost point correspondence")
+	if (seam as Line2D).points.size() < 4:
+		_fail("native inset edge relief contour became undersampled")
 		return
 	# On this rectangular fixture every relief vertex must move inside the face.
+	# Native polygon offset may resample rounded joins, so point-for-point
+	# correspondence with the source contour is intentionally not required.
 	var seam_points := (seam as Line2D).points
 	for index in range(points.size()):
 		var p := seam_points[index]
