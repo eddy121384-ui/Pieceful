@@ -23,6 +23,7 @@ var pieces: Array[Node] = []
 var board_visuals: Array[Node] = []
 var solved_count := 0
 var z_counter := 10
+var last_piece_build_ms := 0
 
 # Runtime assembly state. Every loose piece starts as a one-piece cluster.
 # When neighbouring pieces meet at their correct relative offset, clusters merge.
@@ -51,8 +52,23 @@ func start_new_game() -> void:
 	)
 
 	_build_board_visuals()
+	var piece_build_started := Time.get_ticks_msec()
 	_build_pieces()
+	last_piece_build_ms = int(Time.get_ticks_msec() - piece_build_started)
+	print(
+		"Piecepace piece build · %d pieces · %d ms · cardboard thickness + contact shadow"
+		% [definition.piece_count(), last_piece_build_ms]
+	)
 	progress_changed.emit(solved_count, definition.piece_count())
+
+
+func piece_build_diagnostics() -> Dictionary:
+	return {
+		"piece_count": definition.piece_count() if definition != null else 0,
+		"build_ms": last_piece_build_ms,
+		"render_items_per_piece": 4,
+		"renderer": "cardboard_thickness_polygon2d",
+	}
 
 
 func navigation_bounds() -> Rect2:
@@ -329,6 +345,7 @@ func _merge_cluster_into(survivor_id: int, absorbed_id: int) -> void:
 
 	cluster_members[survivor_id] = survivor_members
 	cluster_members.erase(absorbed_id)
+	_apply_joined_visual_to_cluster(survivor_id)
 
 
 func _translate_cluster(cluster_id: int, delta: Vector2) -> void:
@@ -344,6 +361,13 @@ func _raise_cluster(cluster_id: int) -> void:
 	for member_value in _cluster_members_for(cluster_id):
 		z_counter += 1
 		pieces[int(member_value)].z_index = z_counter
+
+
+func _apply_joined_visual_to_cluster(cluster_id: int) -> void:
+	for member_value in _cluster_members_for(cluster_id):
+		var member = pieces[int(member_value)]
+		if member != null and member.has_method("apply_joined_visual"):
+			member.apply_joined_visual()
 
 
 func _cluster_id_for(piece_index: int) -> int:

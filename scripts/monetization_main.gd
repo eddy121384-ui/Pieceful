@@ -26,6 +26,16 @@ func _ready() -> void:
 	_install_monetization_controls()
 	_refresh_monetization_controls()
 	call_deferred("_sync_monetization_session_from_runtime")
+	call_deferred("_mark_web_runtime_ready")
+
+
+func _mark_web_runtime_ready() -> void:
+	if not OS.has_feature("web"):
+		return
+	JavaScriptBridge.eval(
+		"window.__PIECEPACE_READY__=true;document.documentElement.dataset.piecepaceReady='true';",
+		true
+	)
 
 
 func _process(_delta: float) -> void:

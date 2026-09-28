@@ -1,6 +1,8 @@
 class_name LoosePieceRailCanvas
 extends Control
 
+const PuzzlePieceVisualFactoryScript = preload("res://scripts/puzzle_piece_visual_factory.gd")
+
 signal group_dragged_out(
 	member_indexes: Array,
 	anchor_piece_index: int,
@@ -331,21 +333,13 @@ func _rebuild_visuals() -> void:
 		content_root.add_child(holder)
 		visual_nodes[piece_index] = holder
 
-		var face := Polygon2D.new()
-		face.polygon = source_piece.polygon_points
-		face.uv = source_piece.uv_points
-		face.texture = source_piece.source_texture
-		holder.add_child(face)
-
-		var outline := Line2D.new()
-		var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
-		if not outline_points.is_empty():
-			outline_points.append(outline_points[0])
-		outline.points = outline_points
-		outline.width = 1.1 / maxf(scale_factor, 0.01)
-		outline.default_color = Color(1.0, 1.0, 1.0, 0.58)
-		outline.antialiased = true
-		holder.add_child(outline)
+		PuzzlePieceVisualFactoryScript.add_piece_visuals(
+			holder,
+			source_piece.polygon_points,
+			source_piece.uv_points,
+			source_piece.source_texture,
+			scale_factor
+		)
 
 
 func _piece_position(piece_index: int) -> Vector2:
