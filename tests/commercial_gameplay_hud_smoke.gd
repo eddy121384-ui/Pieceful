@@ -26,6 +26,9 @@ func _run() -> void:
 	if dock_rect.size.x < 560.0 or dock_rect.size.x > 640.0:
 		_fail("Album dock is not a broad paper card: %s" % dock_rect)
 		return
+	if dock_rect.size.y > 94.0 or dock_rect.size.y < 88.0:
+		_fail("Album dock regained its control-panel thickness: %s" % dock_rect)
+		return
 	var index_rect: Rect2 = snapshot.get("index_rect", Rect2())
 	if index_rect.size.x < 70.0 or index_rect.position.y >= dock_rect.position.y:
 		_fail("Dock lost its raised album page index: %s" % index_rect)
@@ -52,13 +55,25 @@ func _run() -> void:
 	if not bool(snapshot.get("more_visible", false)):
 		_fail("More control is missing")
 		return
+	if not bool(snapshot.get("more_icon_exists", false)):
+		_fail("More reverted to a fragile font glyph")
+		return
+	if not bool(snapshot.get("mount_exists", false)):
+		_fail("Board mounting paper is missing")
+		return
+	if int(snapshot.get("overflow_row_radius", -1)) != 0:
+		_fail("Overflow actions became individual rounded settings rows")
+		return
+	if int(snapshot.get("overflow_difficulty_count", 0)) == 0:
+		_fail("Difficulty disappeared from the paper utility sheet")
+		return
 	if str(snapshot.get("difficulty_text", "")).is_empty():
 		_fail("Passive difficulty caption is missing")
 		return
 
 	for key in ["sort_rect", "layout_rect", "preview_rect", "hint_rect"]:
 		var rect: Rect2 = snapshot.get(key, Rect2())
-		if rect.size.x < 88.0 or rect.size.y < 76.0:
+		if rect.size.x < 88.0 or rect.size.y < 70.0:
 			_fail("Primary paper tab is too small: %s=%s" % [key, rect])
 			return
 		if rect.position.y < dock_rect.position.y or rect.end.y > dock_rect.end.y:

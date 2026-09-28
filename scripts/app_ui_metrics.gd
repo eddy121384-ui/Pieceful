@@ -9,11 +9,11 @@ const TOP_BAR_MAX_WIDTH := 640.0
 # Album Desk v2 intentionally reads as one wide paper card, not a compact
 # software capsule. On the 720-wide portrait logical canvas this occupies ~86%.
 const DOCK_WIDTH := 620.0
-const DOCK_HEIGHT := 104.0
+const DOCK_HEIGHT := 92.0
 const DOCK_BOTTOM_MARGIN := 18.0
-const DOCK_BUTTON_Y := 10.0
+const DOCK_BUTTON_Y := 9.0
 const DOCK_BUTTON_WIDTH := 112.0
-const DOCK_BUTTON_HEIGHT := 84.0
+const DOCK_BUTTON_HEIGHT := 74.0
 
 # Four broad paper tabs. Values are left-edge offsets inside the dock.
 const SLOT_SORT_X := 22.0
