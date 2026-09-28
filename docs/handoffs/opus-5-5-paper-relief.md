@@ -164,3 +164,53 @@ Success is:
 “at normal iPhone play scale, the user immediately feels this is much closer to the Easybrain material quality, while the 286-piece renderer remains effectively as cheap as the accepted baseline.”
 
 If the first implementation misses the visual target, iterate visually before declaring completion, but keep each iteration isolated and benchmarked.
+
+## Spike result (Opus 5.5)
+
+### Benchmark decomposition
+- Printed face runs all the way to the cut; there is no stroke anywhere.
+- The bevel lives *inside* the face: a ~1–2% rounded roll where the artwork is
+  re-lit — whitish sheen on upper-left-facing rims, multiplicative darkening on
+  lower-right-facing rims, almost nothing on rims perpendicular to the light.
+  That orientation dependence is why it never reads as an outline.
+- Lower-right, the roll continues into a darker crease where face meets wall.
+- Thin wall darker than the face; very weak soft table shadow.
+
+### Why baseline failed
+`Seam` was a uniform-width, uniform-colour antialiased Line2D centred on the
+silhouette (= a vector stroke), and the flat light-grey offset `Thickness`
+read as a second border against the dark table.
+
+### Renderer
+- `Seam` is replaced by `EdgeRelief`: the same Line2D slot, now a band centred
+  on the cut drawn with one shared CanvasItem shader
+  (`scripts/puzzle_piece_edge_relief.gdshader`).
+- Line2D's UV.y is the across-cut coordinate (built in C++ at draw time); the
+  shader derives the outward normal from derivatives of UV.y vs local position
+  (y-flip / zoom / Rail-scale invariant) and applies N·L with a rounded
+  profile that fades to zero at both band ends.
+- `blend_premul_alpha`: output is `dst*(1-shade) + sheen`, so the artwork is
+  always visible through the bevel; the band paints no colour of its own.
+- One ShaderMaterial per state (loose / joined / solved), static and shared.
+  Joined/solved have no outside crease (it would depend on sibling draw order).
+- Band width and wall/shadow offsets scale with piece size (read O(1) from the
+  PuzzlePiece parent; Rails reuse the last extent), so 286-piece tiles don't sit
+  on a slab and the band stays below tight tab-neck radii.
+- The closing duplicate contour point is dropped (native slice) and genuine
+  kinks use a bevel joint (`sharp_limit`) to avoid band spikes.
+- `puzzle_piece.gd`, touch, camera, Rail, snap, save files are untouched.
+
+### Cost (local runner, 5 runs, median)
+| pieces | baseline build | candidate build |
+|---|---|---|
+| 40 | 8–9 ms | 10 ms |
+| 150 | 37 ms | 38 ms |
+| 286 | 71 ms | 71 ms |
+
+3 Polygon2D + 1 Line2D per piece, 0 MeshInstance2D, 0 viewports, 1 shared
+relief ShaderMaterial per state (≤ 3 total), no per-piece texture/resource.
+Steady frame time with 286 pieces on screen (llvmpipe): ~3 ms both.
+
+### Visual QA
+`tools/piece_relief_preview.gd` renders loose/overlapping/joined/solved
+pieces through the live factory (needs xvfb + opengl3).

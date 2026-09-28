@@ -1,7 +1,7 @@
 extends SceneTree
 
 const PuzzlePieceScript = preload("res://scripts/puzzle_piece.gd")
-const VISUAL_NAMES := ["ContactShadow", "Thickness", "Face", "Seam"]
+const VISUAL_NAMES := ["ContactShadow", "Thickness", "Face", "EdgeRelief"]
 
 
 func _init() -> void:
@@ -46,7 +46,7 @@ func _run() -> void:
 		return
 	var upper_face_z := _effective_child_z(upper, upper_face)
 
-	for lower_name in ["ContactShadow", "Thickness", "Seam"]:
+	for lower_name in ["ContactShadow", "Thickness", "EdgeRelief"]:
 		var lower_visual := lower.get_node_or_null(lower_name) as CanvasItem
 		if lower_visual == null:
 			_fail("lower piece %s missing" % lower_name)
@@ -101,6 +101,9 @@ func _assert_piece_local_stack(piece) -> bool:
 			return false
 		if not visual.z_as_relative:
 			_fail("%s %s stopped inheriting parent z" % [piece.name, visual_name])
+			return false
+		if visual.top_level or visual.show_behind_parent:
+			_fail("%s %s can escape the parent draw band" % [piece.name, visual_name])
 			return false
 		if visual.get_index() <= previous_index:
 			_fail("%s internal draw order changed at %s" % [piece.name, visual_name])
