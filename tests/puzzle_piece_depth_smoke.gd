@@ -69,8 +69,8 @@ func _run() -> void:
 	if render_item_count != 4:
 		_fail("expected 3 relief layers plus 1 seam, got %d render items" % render_item_count)
 		return
-	if (seam as Line2D).width < 0.8 or (seam as Line2D).width > 1.2:
-		_fail("edge relief width drifted outside the subtle bevel range")
+	if (seam as Line2D).width < 0.5 or (seam as Line2D).width > 0.85:
+		_fail("edge relief width drifted outside the narrow inset-bevel range")
 		return
 	var edge_gradient := (seam as Line2D).gradient
 	if edge_gradient == null or edge_gradient.get_point_count() < 4:
@@ -79,6 +79,17 @@ func _run() -> void:
 	if not is_equal_approx((seam as Line2D).self_modulate.a, VisualFactoryScript.LOOSE_EDGE_RELIEF_ALPHA):
 		_fail("loose edge relief did not keep full intended strength")
 		return
+
+	if (seam as Line2D).points.size() != points.size() + 1:
+		_fail("inset edge relief contour lost point correspondence")
+		return
+	# On this rectangular fixture every relief vertex must move inside the face.
+	var seam_points := (seam as Line2D).points
+	for index in range(points.size()):
+		var p := seam_points[index]
+		if p.x <= 0.0 or p.x >= 64.0 or p.y <= 0.0 or p.y >= 64.0:
+			_fail("edge relief escaped the artwork face instead of insetting")
+			return
 
 	var top_edge_color := edge_gradient.sample(0.125)
 	var bottom_edge_color := edge_gradient.sample(0.625)

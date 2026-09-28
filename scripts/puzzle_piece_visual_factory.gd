@@ -23,10 +23,11 @@ const SOLVED_THICKNESS_COLOR := Color(0.40, 0.395, 0.38, 0.34)
 # light, and darkens on the opposite side. This avoids a continuous white outline
 # and does not add another CanvasItem per piece.
 const EDGE_LIGHT_DIRECTION := Vector2(-0.70710678, -0.70710678)
-const EDGE_HIGHLIGHT_COLOR := Color(0.92, 0.94, 0.95, 0.42)
-const EDGE_NEUTRAL_COLOR := Color(0.28, 0.29, 0.30, 0.20)
-const EDGE_SHADOW_COLOR := Color(0.055, 0.060, 0.065, 0.34)
-const EDGE_RELIEF_WIDTH_PX := 1.05
+const EDGE_HIGHLIGHT_COLOR := Color(0.96, 0.97, 0.98, 0.22)
+const EDGE_NEUTRAL_COLOR := Color(0.40, 0.41, 0.42, 0.025)
+const EDGE_SHADOW_COLOR := Color(0.055, 0.060, 0.065, 0.11)
+const EDGE_RELIEF_WIDTH_PX := 0.68
+const EDGE_RELIEF_INSET_PX := 0.58
 const EDGE_GRADIENT_MAX_STOPS := 20
 const LOOSE_EDGE_RELIEF_ALPHA := 1.0
 const JOINED_EDGE_RELIEF_ALPHA := 0.78
@@ -84,13 +85,16 @@ static func add_piece_visuals(
 
 	var seam := Line2D.new()
 	seam.name = "Seam"
-	var seam_points := points.duplicate()
+	var seam_points := _build_inset_edge_points(
+		points,
+		EDGE_RELIEF_INSET_PX * pixel_scale
+	)
 	if not seam_points.is_empty():
 		seam_points.append(seam_points[0])
 	seam.points = seam_points
 	seam.width = EDGE_RELIEF_WIDTH_PX * pixel_scale
 	seam.default_color = Color.WHITE
-	seam.gradient = _build_directional_edge_gradient(points)
+	seam.gradient = _build_directional_edge_gradient(seam_points)
 	seam.self_modulate = Color(1.0, 1.0, 1.0, LOOSE_EDGE_RELIEF_ALPHA)
 	seam.antialiased = true
 	seam.z_index = 0
@@ -226,3 +230,35 @@ static func _signed_polygon_area(points: PackedVector2Array) -> float:
 		var following := points[(index + 1) % points.size()]
 		twice_area += current.x * following.y - following.x * current.y
 	return twice_area * 0.5
+
+
+static func _build_inset_edge_points(
+	points: PackedVector2Array,
+	inset: float
+) -> PackedVector2Array:
+	var inset_points := PackedVector2Array()
+	if points.size() < 3 or inset <= 0.0:
+		return points.duplicate()
+
+	var signed_area := _signed_polygon_area(points)
+	var count := points.size()
+	for index in range(count):
+		var previous := points[(index - 1 + count) % count]
+		var current := points[index]
+		var following := points[(index + 1) % count]
+
+		var incoming := (current - previous).normalized()
+		var outgoing := (following - current).normalized()
+		var incoming_normal := _outward_normal(incoming, signed_area)
+		var outgoing_normal := _outward_normal(outgoing, signed_area)
+		var outward := incoming_normal + outgoing_normal
+		if outward.length_squared() <= 0.000001:
+			outward = outgoing_normal
+		else:
+			outward = outward.normalized()
+
+		# Pull the relief line into the artwork so the antialiased stroke reads
+		# as a tiny face bevel instead of a halo around the cardboard silhouette.
+		inset_points.append(current - outward * inset)
+
+	return inset_points
