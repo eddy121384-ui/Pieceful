@@ -9,6 +9,7 @@ on:
       - feat/issue-51-piece-depth
       - fix/issue-57-touch-zoom-recovery
       - fix/issue-59-touch-gesture-arbitration
+      - feat/commercial-gameplay-hud-album-desk
   workflow_dispatch:
 
 permissions:
@@ -167,6 +168,12 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --script tests/puzzle_journal_ui_smoke.gd
+
+      - name: Commercial gameplay HUD smoke
+        shell: bash
+        run: |
+          set -euxo pipefail
+          "${GODOT_BIN}" --headless --path . --script tests/commercial_gameplay_hud_smoke.gd
 
       - name: Puzzle selection flow smoke
         shell: bash
