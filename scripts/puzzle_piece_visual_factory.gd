@@ -155,7 +155,8 @@ static func _build_directional_edge_gradient(points: PackedVector2Array) -> Grad
 		gradient.set_color(1, EDGE_NEUTRAL_COLOR)
 		return gradient
 
-	var first_color := _directional_edge_color(points, 0)
+	var signed_area := _signed_polygon_area(points)
+	var first_color := _directional_edge_color(points, 0, signed_area)
 	gradient.set_offset(0, 0.0)
 	gradient.set_color(0, first_color)
 	gradient.set_offset(1, 1.0)
@@ -173,13 +174,17 @@ static func _build_directional_edge_gradient(points: PackedVector2Array) -> Grad
 			continue
 		gradient.add_point(
 			float(cumulative[index]) / total_length,
-			_directional_edge_color(points, index)
+			_directional_edge_color(points, index, signed_area)
 		)
 
 	return gradient
 
 
-static func _directional_edge_color(points: PackedVector2Array, index: int) -> Color:
+static func _directional_edge_color(
+	points: PackedVector2Array,
+	index: int,
+	signed_area: float
+) -> Color:
 	var count := points.size()
 	if count < 3:
 		return EDGE_NEUTRAL_COLOR
@@ -190,7 +195,6 @@ static func _directional_edge_color(points: PackedVector2Array, index: int) -> C
 
 	var incoming := (current - previous).normalized()
 	var outgoing := (following - current).normalized()
-	var signed_area := _signed_polygon_area(points)
 
 	var incoming_normal := _outward_normal(incoming, signed_area)
 	var outgoing_normal := _outward_normal(outgoing, signed_area)
