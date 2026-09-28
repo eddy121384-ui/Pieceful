@@ -1,4 +1,5 @@
 # Pieceful Godot Web mobile preview. GitHub Pages is enabled in repository settings.
+# Shared chess RC previews are published from main after feature preview runs finish.
 name: Godot Web Mobile Preview
 
 on:
