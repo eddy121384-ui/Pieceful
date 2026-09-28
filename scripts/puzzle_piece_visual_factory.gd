@@ -236,29 +236,26 @@ static func _build_inset_edge_points(
 	points: PackedVector2Array,
 	inset: float
 ) -> PackedVector2Array:
-	var inset_points := PackedVector2Array()
 	if points.size() < 3 or inset <= 0.0:
 		return points.duplicate()
 
-	var signed_area := _signed_polygon_area(points)
-	var count := points.size()
-	for index in range(count):
-		var previous := points[(index - 1 + count) % count]
-		var current := points[index]
-		var following := points[(index + 1) % count]
+	# Native polygon offset gives a true parallel inner contour and avoids
+	# walking every sampled curve point in GDScript on large puzzles.
+	var candidates := Geometry2D.offset_polygon(
+		points,
+		-inset,
+		Geometry2D.JOIN_ROUND
+	)
+	if candidates.is_empty():
+		return points.duplicate()
 
-		var incoming := (current - previous).normalized()
-		var outgoing := (following - current).normalized()
-		var incoming_normal := _outward_normal(incoming, signed_area)
-		var outgoing_normal := _outward_normal(outgoing, signed_area)
-		var outward := incoming_normal + outgoing_normal
-		if outward.length_squared() <= 0.000001:
-			outward = outgoing_normal
-		else:
-			outward = outward.normalized()
+	var best: PackedVector2Array = candidates[0]
+	var best_area := absf(_signed_polygon_area(best))
+	for candidate in candidates:
+		var candidate_points: PackedVector2Array = candidate
+		var candidate_area := absf(_signed_polygon_area(candidate_points))
+		if candidate_area > best_area:
+			best = candidate_points
+			best_area = candidate_area
 
-		# Pull the relief line into the artwork so the antialiased stroke reads
-		# as a tiny face bevel instead of a halo around the cardboard silhouette.
-		inset_points.append(current - outward * inset)
-
-	return inset_points
+	return best
