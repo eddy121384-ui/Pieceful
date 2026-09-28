@@ -10,6 +10,7 @@ on:
       - fix/issue-57-touch-zoom-recovery
       - fix/issue-59-touch-gesture-arbitration
       - feat/commercial-gameplay-hud-album-desk
+      - spike/gpt6-album-desk-polish
   workflow_dispatch:
 
 permissions:

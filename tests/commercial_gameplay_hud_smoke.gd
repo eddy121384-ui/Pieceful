@@ -26,6 +26,22 @@ func _run() -> void:
 	if dock_rect.size.x < 560.0 or dock_rect.size.x > 640.0:
 		_fail("Album dock is not a broad paper card: %s" % dock_rect)
 		return
+	var index_rect: Rect2 = snapshot.get("index_rect", Rect2())
+	if index_rect.size.x < 70.0 or index_rect.position.y >= dock_rect.position.y:
+		_fail("Dock lost its raised album page index: %s" % index_rect)
+		return
+	if not bool(snapshot.get("font_bundled", false)):
+		_fail("Editorial serif is not embedded for Safari")
+		return
+	if int(snapshot.get("tab_caption_count", 0)) != 4:
+		_fail("Album tab captions are missing")
+		return
+	if main.status_label.text.contains("pieces"):
+		_fail("Album progress reverted to a functional app status string")
+		return
+	if main.title_label.get_theme_font("font") == null:
+		_fail("Pieceful masthead lost its editorial typeface")
+		return
 	if not bool(snapshot.get("backdrop_exists", false)):
 		_fail("Album tabletop background is missing")
 		return
@@ -42,9 +58,22 @@ func _run() -> void:
 
 	for key in ["sort_rect", "layout_rect", "preview_rect", "hint_rect"]:
 		var rect: Rect2 = snapshot.get(key, Rect2())
-		if rect.size.x < 88.0 or rect.size.y < 44.0:
+		if rect.size.x < 88.0 or rect.size.y < 76.0:
 			_fail("Primary paper tab is too small: %s=%s" % [key, rect])
 			return
+		if rect.position.y < dock_rect.position.y or rect.end.y > dock_rect.end.y:
+			_fail("Primary tab escapes the paper dock: %s=%s" % [key, rect])
+			return
+
+	# At narrow portrait widths all four tabs still fit inside the dock.
+	var metrics = load("res://scripts/app_ui_metrics.gd")
+	var phone_size := Vector2(390.0, 844.0)
+	var phone_dock: Rect2 = metrics.dock_rect(phone_size)
+	var first: Vector2 = metrics.dock_slot_position(phone_size, metrics.SLOT_SORT_X)
+	var last: Vector2 = metrics.dock_slot_position(phone_size, metrics.SLOT_HINT_X)
+	if first.x < phone_dock.position.x or last.x + metrics.dock_button_width(phone_size) > phone_dock.end.x:
+		_fail("Portrait dock tabs overflow the album page")
+		return
 
 	for key in [
 		"legacy_zoom_visible",

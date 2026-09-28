@@ -3,17 +3,17 @@ extends RefCounted
 
 const TOP_MARGIN := 12.0
 const SIDE_MARGIN := 18.0
-const TOP_BAR_HEIGHT := 62.0
+const TOP_BAR_HEIGHT := 58.0
 const TOP_BAR_MAX_WIDTH := 640.0
 
 # Album Desk v2 intentionally reads as one wide paper card, not a compact
 # software capsule. On the 720-wide portrait logical canvas this occupies ~86%.
 const DOCK_WIDTH := 620.0
-const DOCK_HEIGHT := 92.0
+const DOCK_HEIGHT := 104.0
 const DOCK_BOTTOM_MARGIN := 18.0
-const DOCK_BUTTON_Y := 14.0
+const DOCK_BUTTON_Y := 10.0
 const DOCK_BUTTON_WIDTH := 112.0
-const DOCK_BUTTON_HEIGHT := 48.0
+const DOCK_BUTTON_HEIGHT := 84.0
 
 # Four broad paper tabs. Values are left-edge offsets inside the dock.
 const SLOT_SORT_X := 22.0
@@ -112,4 +112,24 @@ static func dock_rect(viewport_size: Vector2) -> Rect2:
 
 static func dock_slot_position(viewport_size: Vector2, slot_x: float) -> Vector2:
 	var dock := dock_rect(viewport_size)
-	return dock.position + Vector2(slot_x, DOCK_BUTTON_Y)
+	var index := -1
+	if is_equal_approx(slot_x, SLOT_SORT_X):
+		index = 0
+	elif is_equal_approx(slot_x, SLOT_LAYOUT_X):
+		index = 1
+	elif is_equal_approx(slot_x, SLOT_PREVIEW_X):
+		index = 2
+	elif is_equal_approx(slot_x, SLOT_HINT_X):
+		index = 3
+	if index < 0:
+		return dock.position + Vector2(slot_x, DOCK_BUTTON_Y)
+	var tab_width := dock_button_width(viewport_size)
+	var inset := minf(22.0, dock.size.x * 0.045)
+	var gap := maxf(0.0, (dock.size.x - inset * 2.0 - tab_width * 4.0) / 3.0)
+	return dock.position + Vector2(inset + index * (tab_width + gap), DOCK_BUTTON_Y)
+
+
+static func dock_button_width(viewport_size: Vector2) -> float:
+	var dock := dock_rect(viewport_size)
+	var inset := minf(22.0, dock.size.x * 0.045)
+	return minf(DOCK_BUTTON_WIDTH, maxf(44.0, (dock.size.x - inset * 2.0) / 4.0))
