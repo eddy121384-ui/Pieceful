@@ -3,14 +3,26 @@ extends "res://scripts/monetization_main.gd"
 
 const AlbumMetrics = preload("res://scripts/app_ui_metrics.gd")
 
-const PAPER := Color(0.91, 0.855, 0.765, 0.96)
-const PAPER_LIGHT := Color(0.955, 0.925, 0.865, 0.98)
-const PAPER_BORDER := Color(0.40, 0.33, 0.25, 0.30)
-const INK := Color(0.18, 0.145, 0.11, 0.96)
-const INK_SOFT := Color(0.18, 0.145, 0.11, 0.62)
-const TAB := Color(0.24, 0.205, 0.165, 0.90)
-const TAB_HOVER := Color(0.20, 0.17, 0.14, 0.94)
-const TAB_PRESSED := Color(0.15, 0.125, 0.10, 0.98)
+# Album Desk v2: the game surface itself is the album/tabletop. The HUD is paper
+# furniture that belongs to that surface rather than light-colored software chrome.
+const DESK := Color(0.71, 0.64, 0.54, 1.0)
+const BOARD_PAPER := Color(0.80, 0.75, 0.66, 1.0)
+const PAPER := Color(0.90, 0.845, 0.745, 0.985)
+const PAPER_LIGHT := Color(0.955, 0.925, 0.865, 0.995)
+const PAPER_STACK := Color(0.72, 0.63, 0.51, 0.92)
+const PAPER_TAB := Color(0.94, 0.885, 0.79, 0.99)
+const PAPER_BORDER := Color(0.34, 0.275, 0.205, 0.28)
+const INK := Color(0.16, 0.125, 0.09, 0.96)
+const INK_SOFT := Color(0.16, 0.125, 0.09, 0.60)
+const INK_FAINT := Color(0.16, 0.125, 0.09, 0.18)
+
+var album_backdrop_layer: CanvasLayer = null
+var album_backdrop: ColorRect = null
+
+var album_top_backing: PanelContainer = null
+var album_dock_backing: PanelContainer = null
+var album_dock_handle: ColorRect = null
+var album_dock_separators: Array[ColorRect] = []
 
 var album_difficulty_label: Label = null
 var album_progress_track: ColorRect = null
@@ -26,15 +38,77 @@ var album_dock_labels: Dictionary = {}
 var album_progress_solved := 0
 var album_progress_total := 1
 
+var album_serif: SystemFont = null
+var album_serif_italic: SystemFont = null
+
 
 func _build_ui() -> void:
 	super._build_ui()
+	_build_album_fonts()
+	_build_album_backdrop()
 	_build_album_header()
+	_build_album_dock_details()
 	_build_album_overflow()
 	_build_album_dock_labels()
 	_apply_album_hierarchy()
 	_style_album_primary_actions()
 	_sync_album_difficulty()
+
+
+func _build_album_fonts() -> void:
+	album_serif = SystemFont.new()
+	album_serif.font_names = PackedStringArray([
+		"Georgia",
+		"Times New Roman",
+		"Times",
+	])
+	album_serif.allow_system_fallback = true
+	album_serif.font_weight = 500
+
+	album_serif_italic = SystemFont.new()
+	album_serif_italic.font_names = album_serif.font_names
+	album_serif_italic.allow_system_fallback = true
+	album_serif_italic.font_weight = 500
+	album_serif_italic.font_italic = true
+
+
+func _build_album_backdrop() -> void:
+	album_backdrop_layer = CanvasLayer.new()
+	album_backdrop_layer.name = "AlbumDeskBackdrop"
+	album_backdrop_layer.layer = -30
+	add_child(album_backdrop_layer)
+
+	album_backdrop = ColorRect.new()
+	album_backdrop.name = "AlbumDeskPaper"
+	album_backdrop.color = DESK
+	album_backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	album_backdrop_layer.add_child(album_backdrop)
+
+	# One fullscreen procedural grain is much cheaper than per-piece/per-control
+	# texture assets and keeps this first commercial slice asset-free.
+	var shader := Shader.new()
+	shader.code = """
+shader_type canvas_item;
+
+float paper_hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+void fragment() {
+	vec2 cells = floor(UV * vec2(880.0, 1320.0));
+	float fine = paper_hash(cells);
+	float long_fiber = sin(UV.y * 1250.0 + fine * 2.6) * 0.5 + 0.5;
+	float broad = paper_hash(floor(UV * vec2(95.0, 145.0)));
+	float grain = (fine - 0.5) * 0.026
+		+ (long_fiber - 0.5) * 0.010
+		+ (broad - 0.5) * 0.012;
+	vec3 base = vec3(0.71, 0.64, 0.54);
+	COLOR = vec4(base + vec3(grain), 1.0);
+}
+"""
+	var material := ShaderMaterial.new()
+	material.shader = shader
+	album_backdrop.material = material
 
 
 func _build_album_header() -> void:
@@ -44,9 +118,29 @@ func _build_album_header() -> void:
 	if layer == null:
 		return
 
+	album_top_backing = PanelContainer.new()
+	album_top_backing.name = "AlbumTopPaperUnderlay"
+	album_top_backing.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	album_top_backing.add_theme_stylebox_override(
+		"panel",
+		_album_surface(PAPER_STACK, 17, 5)
+	)
+	layer.add_child(album_top_backing)
+	layer.move_child(album_top_backing, 0)
+
+	album_dock_backing = PanelContainer.new()
+	album_dock_backing.name = "AlbumDockPaperUnderlay"
+	album_dock_backing.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	album_dock_backing.add_theme_stylebox_override(
+		"panel",
+		_album_surface(PAPER_STACK, 20, 6)
+	)
+	layer.add_child(album_dock_backing)
+	layer.move_child(album_dock_backing, 1)
+
 	top_bar.add_theme_stylebox_override(
 		"panel",
-		_album_surface(PAPER, 17, 8)
+		_album_surface(PAPER, 17, 7)
 	)
 	bottom_dock.add_theme_stylebox_override(
 		"panel",
@@ -54,7 +148,8 @@ func _build_album_header() -> void:
 	)
 
 	title_label.text = "Pieceful"
-	title_label.add_theme_font_size_override("font_size", 22)
+	title_label.add_theme_font_override("font", album_serif_italic)
+	title_label.add_theme_font_size_override("font_size", 23)
 	title_label.add_theme_color_override("font_color", INK)
 	title_label.modulate = Color.WHITE
 
@@ -73,13 +168,13 @@ func _build_album_header() -> void:
 
 	album_progress_track = ColorRect.new()
 	album_progress_track.name = "AlbumProgressTrack"
-	album_progress_track.color = Color(0.20, 0.17, 0.13, 0.16)
+	album_progress_track.color = INK_FAINT
 	album_progress_track.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(album_progress_track)
 
 	album_progress_fill = ColorRect.new()
 	album_progress_fill.name = "AlbumProgressFill"
-	album_progress_fill.color = Color(0.28, 0.225, 0.17, 0.78)
+	album_progress_fill.color = Color(0.27, 0.205, 0.145, 0.76)
 	album_progress_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(album_progress_fill)
 
@@ -88,13 +183,32 @@ func _build_album_header() -> void:
 	album_more_button.text = "•••"
 	album_more_button.tooltip_text = "More puzzle tools"
 	album_more_button.focus_mode = Control.FOCUS_NONE
-	album_more_button.add_theme_font_size_override("font_size", 18)
-	album_more_button.add_theme_color_override("font_color", Color(0.97, 0.94, 0.88, 0.98))
-	album_more_button.add_theme_color_override("font_hover_color", Color.WHITE)
-	album_more_button.add_theme_color_override("font_pressed_color", Color.WHITE)
-	_style_dark_button(album_more_button, 44.0, 13)
+	album_more_button.add_theme_font_size_override("font_size", 17)
+	_style_paper_square_button(album_more_button, 44.0, 13)
 	album_more_button.pressed.connect(_toggle_album_overflow)
 	layer.add_child(album_more_button)
+
+
+func _build_album_dock_details() -> void:
+	if bottom_dock == null or title_label == null:
+		return
+	var layer = title_label.get_parent()
+	if layer == null:
+		return
+
+	album_dock_handle = ColorRect.new()
+	album_dock_handle.name = "AlbumDockHandle"
+	album_dock_handle.color = Color(0.20, 0.155, 0.11, 0.44)
+	album_dock_handle.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(album_dock_handle)
+
+	for index in range(3):
+		var separator := ColorRect.new()
+		separator.name = "AlbumDockSeparator_%d" % index
+		separator.color = Color(0.29, 0.23, 0.17, 0.17)
+		separator.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.add_child(separator)
+		album_dock_separators.append(separator)
 
 
 func _build_album_overflow() -> void:
@@ -121,7 +235,8 @@ func _build_album_overflow() -> void:
 
 	var heading := Label.new()
 	heading.text = "Puzzle tools"
-	heading.add_theme_font_size_override("font_size", 18)
+	heading.add_theme_font_override("font", album_serif)
+	heading.add_theme_font_size_override("font_size", 19)
 	heading.add_theme_color_override("font_color", INK)
 	box.add_child(heading)
 
@@ -193,7 +308,8 @@ func _build_album_dock_labels() -> void:
 		label.text = str(spec[1])
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		label.add_theme_font_size_override("font_size", 11)
+		label.add_theme_font_override("font", album_serif)
+		label.add_theme_font_size_override("font_size", 12)
 		label.add_theme_color_override("font_color", INK)
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		layer.add_child(label)
@@ -225,16 +341,16 @@ func _apply_album_hierarchy() -> void:
 func _style_album_primary_actions() -> void:
 	for button in [preview_button, hint_button]:
 		if button is Button:
-			_style_dark_button(button as Button, 44.0, 13)
+			_style_paper_tab_button(button as Button)
 
 	var sorting = get_node_or_null("SortingWorkspace")
 	if sorting != null:
 		var sort_control = sorting.get("sort_button")
 		var layout_control = sorting.get("layout_mode_button")
 		if sort_control is Button:
-			_style_dark_button(sort_control as Button, 44.0, 13)
+			_style_paper_tab_button(sort_control as Button)
 		if layout_control is Button:
-			_style_dark_button(layout_control as Button, 44.0, 13)
+			_style_paper_tab_button(layout_control as Button)
 
 	if spread_button != null:
 		spread_button.add_theme_color_override("font_color", INK)
@@ -250,7 +366,7 @@ func _style_album_primary_actions() -> void:
 		)
 		spread_button.add_theme_stylebox_override(
 			"pressed",
-			_album_control_style(Color(0.84, 0.77, 0.66, 0.98), 13)
+			_album_control_style(PAPER_TAB, 13)
 		)
 
 
@@ -259,15 +375,26 @@ func _layout_ui(viewport_size: Vector2) -> void:
 	if top_bar == null or bottom_dock == null:
 		return
 
+	_layout_album_backdrop(viewport_size)
+	_style_album_board_surface()
+
 	var top_rect := AlbumMetrics.top_bar_rect(viewport_size)
 	var dock_rect := AlbumMetrics.dock_rect(viewport_size)
+
+	if album_top_backing != null:
+		album_top_backing.position = top_rect.position + Vector2(2.5, 3.0)
+		album_top_backing.size = top_rect.size
+	if album_dock_backing != null:
+		album_dock_backing.position = dock_rect.position + Vector2(2.5, 3.5)
+		album_dock_backing.size = dock_rect.size
+
 	top_bar.position = top_rect.position
 	top_bar.size = top_rect.size
 	bottom_dock.position = dock_rect.position
 	bottom_dock.size = dock_rect.size
 
 	title_label.position = top_rect.position + Vector2(18.0, 10.0)
-	title_label.size = Vector2(132.0, 30.0)
+	title_label.size = Vector2(138.0, 32.0)
 
 	status_label.size = Vector2(170.0, 24.0)
 	status_label.position = Vector2(
@@ -278,7 +405,7 @@ func _layout_ui(viewport_size: Vector2) -> void:
 	var progress_width := minf(138.0, top_rect.size.x * 0.26)
 	album_progress_track.position = Vector2(
 		top_rect.position.x + (top_rect.size.x - progress_width) * 0.5,
-		top_rect.position.y + 39.0
+		top_rect.position.y + 41.0
 	)
 	album_progress_track.size = Vector2(progress_width, 3.0)
 	_refresh_album_progress()
@@ -287,15 +414,34 @@ func _layout_ui(viewport_size: Vector2) -> void:
 	album_more_button.custom_minimum_size = Vector2(44.0, 44.0)
 	album_more_button.position = top_rect.position + Vector2(
 		top_rect.size.x - 52.0,
-		7.0
+		8.0
 	)
 
 	album_difficulty_label.visible = top_rect.size.x >= 500.0
 	album_difficulty_label.size = Vector2(120.0, 28.0)
 	album_difficulty_label.position = Vector2(
 		album_more_button.position.x - 128.0,
-		top_rect.position.y + 15.0
+		top_rect.position.y + 17.0
 	)
+
+	if album_dock_handle != null:
+		album_dock_handle.position = dock_rect.position + Vector2(
+			(dock_rect.size.x - 38.0) * 0.5,
+			5.0
+		)
+		album_dock_handle.size = Vector2(38.0, 4.0)
+
+	var separator_xs := [
+		dock_rect.position.x + 155.0,
+		dock_rect.position.x + 299.0,
+		dock_rect.position.x + 443.0,
+	]
+	for index in range(mini(album_dock_separators.size(), separator_xs.size())):
+		album_dock_separators[index].position = Vector2(
+			float(separator_xs[index]),
+			dock_rect.position.y + 20.0
+		)
+		album_dock_separators[index].size = Vector2(1.0, 56.0)
 
 	preview_button.position = AlbumMetrics.dock_slot_position(
 		viewport_size,
@@ -346,22 +492,47 @@ func _layout_ui(viewport_size: Vector2) -> void:
 			top_rect.end.y + 8.0
 		)
 
-	# Reference is still a play-surface object; just clear the new compact header.
+	# Reference is still a play-surface object; just clear the compact header.
 	_layout_reference_panel(viewport_size, false)
+
+
+func _layout_album_backdrop(viewport_size: Vector2) -> void:
+	if album_backdrop != null:
+		album_backdrop.position = Vector2.ZERO
+		album_backdrop.size = viewport_size
+
+
+func _style_album_board_surface() -> void:
+	if board == null:
+		return
+	var background = board.get_node_or_null("BoardBackground")
+	if background is Polygon2D:
+		(background as Polygon2D).color = BOARD_PAPER
+	var frame = board.get_node_or_null("BoardFrame")
+	if frame is Line2D:
+		(frame as Line2D).default_color = Color(0.23, 0.18, 0.13, 0.30)
+		(frame as Line2D).width = 1.5
 
 
 func _layout_dock_label(key: String, dock_rect: Rect2, slot_x: float) -> void:
 	var label = album_dock_labels.get(key)
 	if not (label is Label):
 		return
-	(label as Label).position = dock_rect.position + Vector2(slot_x - 24.0, 50.0)
-	(label as Label).size = Vector2(92.0, 18.0)
+	(label as Label).position = dock_rect.position + Vector2(
+		slot_x,
+		65.0
+	)
+	(label as Label).size = Vector2(
+		AlbumMetrics.DOCK_BUTTON_WIDTH,
+		18.0
+	)
 
 
 func _on_progress_changed(solved_count: int, total_count: int) -> void:
 	album_progress_solved = solved_count
 	album_progress_total = maxi(total_count, 1)
 	super._on_progress_changed(solved_count, total_count)
+	_style_album_board_surface()
 	_refresh_album_progress()
 
 
@@ -374,7 +545,10 @@ func _refresh_album_progress() -> void:
 		1.0
 	)
 	album_progress_fill.position = album_progress_track.position
-	album_progress_fill.size = Vector2(album_progress_track.size.x * ratio, album_progress_track.size.y)
+	album_progress_fill.size = Vector2(
+		album_progress_track.size.x * ratio,
+		album_progress_track.size.y
+	)
 
 
 func _refresh_difficulty_control() -> void:
@@ -411,6 +585,7 @@ func _sync_album_difficulty() -> void:
 func _refresh_aid_controls() -> void:
 	super._refresh_aid_controls()
 	_apply_album_hierarchy()
+	_style_album_primary_actions()
 	if album_overflow_lines != null:
 		album_overflow_lines.set_pressed_no_signal(board_lines_enabled)
 
@@ -496,15 +671,104 @@ func _new_overflow_button(text_value: String) -> Button:
 	return button
 
 
-func _style_dark_button(button: Button, side: float, radius: int) -> void:
+func _style_paper_tab_button(button: Button) -> void:
+	button.size = Vector2(
+		AlbumMetrics.DOCK_BUTTON_WIDTH,
+		AlbumMetrics.DOCK_BUTTON_HEIGHT
+	)
+	button.custom_minimum_size = button.size
+	button.focus_mode = Control.FOCUS_NONE
+
+	for state in [
+		"font_color",
+		"font_hover_color",
+		"font_pressed_color",
+		"font_hover_pressed_color",
+		"icon_normal_color",
+		"icon_hover_color",
+		"icon_pressed_color",
+		"icon_hover_pressed_color",
+	]:
+		button.add_theme_color_override(str(state), INK)
+
+	button.add_theme_stylebox_override(
+		"normal",
+		_tab_style(Color(1.0, 1.0, 1.0, 0.0), false)
+	)
+	button.add_theme_stylebox_override(
+		"hover",
+		_tab_style(Color(0.76, 0.68, 0.57, 0.11), false)
+	)
+	button.add_theme_stylebox_override(
+		"pressed",
+		_tab_style(PAPER_TAB, true)
+	)
+	button.add_theme_stylebox_override(
+		"hover_pressed",
+		_tab_style(PAPER_TAB, true)
+	)
+	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+
+
+func _style_paper_square_button(button: Button, side: float, radius: int) -> void:
 	button.size = Vector2(side, side)
 	button.custom_minimum_size = Vector2(side, side)
 	button.focus_mode = Control.FOCUS_NONE
-	button.add_theme_stylebox_override("normal", _album_control_style(TAB, radius))
-	button.add_theme_stylebox_override("hover", _album_control_style(TAB_HOVER, radius))
-	button.add_theme_stylebox_override("pressed", _album_control_style(TAB_PRESSED, radius))
-	button.add_theme_stylebox_override("hover_pressed", _album_control_style(TAB_PRESSED, radius))
+	for state in [
+		"font_color",
+		"font_hover_color",
+		"font_pressed_color",
+		"font_hover_pressed_color",
+	]:
+		button.add_theme_color_override(str(state), INK)
+	button.add_theme_stylebox_override(
+		"normal",
+		_small_paper_button_style(PAPER_LIGHT, radius, 5)
+	)
+	button.add_theme_stylebox_override(
+		"hover",
+		_small_paper_button_style(Color(0.98, 0.95, 0.90, 1.0), radius, 6)
+	)
+	button.add_theme_stylebox_override(
+		"pressed",
+		_small_paper_button_style(Color(0.84, 0.77, 0.66, 1.0), radius, 2)
+	)
+	button.add_theme_stylebox_override(
+		"hover_pressed",
+		_small_paper_button_style(Color(0.84, 0.77, 0.66, 1.0), radius, 2)
+	)
 	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+
+
+func _tab_style(background: Color, raised: bool) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = background
+	style.border_color = (
+		Color(0.33, 0.26, 0.19, 0.24)
+		if raised
+		else Color(0.0, 0.0, 0.0, 0.0)
+	)
+	style.set_border_width_all(1 if raised else 0)
+	style.set_corner_radius_all(12)
+	if raised:
+		style.shadow_color = Color(0.10, 0.065, 0.035, 0.22)
+		style.shadow_size = 5
+	return style
+
+
+func _small_paper_button_style(
+	background: Color,
+	radius: int,
+	shadow_size: int
+) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = background
+	style.border_color = PAPER_BORDER
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(radius)
+	style.shadow_color = Color(0.09, 0.055, 0.025, 0.22)
+	style.shadow_size = shadow_size
+	return style
 
 
 func _album_surface(
@@ -518,7 +782,7 @@ func _album_surface(
 	style.border_color = PAPER_BORDER
 	style.set_border_width_all(1)
 	style.set_corner_radius_all(radius)
-	style.shadow_color = Color(0.08, 0.055, 0.035, 0.22)
+	style.shadow_color = Color(0.08, 0.05, 0.025, 0.24)
 	style.shadow_size = shadow_size
 	if margin > 0.0:
 		style.content_margin_left = margin
@@ -531,7 +795,7 @@ func _album_surface(
 func _album_control_style(background: Color, radius: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = background
-	style.border_color = Color(1.0, 1.0, 1.0, 0.09)
+	style.border_color = Color(0.31, 0.24, 0.17, 0.12)
 	style.set_border_width_all(1)
 	style.set_corner_radius_all(radius)
 	return style
@@ -541,9 +805,16 @@ func commercial_hud_snapshot() -> Dictionary:
 	var sorting = get_node_or_null("SortingWorkspace")
 	var sort_control = sorting.get("sort_button") if sorting != null else null
 	var layout_control = sorting.get("layout_mode_button") if sorting != null else null
+	var board_background = board.get_node_or_null("BoardBackground") if board != null else null
 	return {
 		"top_rect": top_bar.get_rect() if top_bar != null else Rect2(),
 		"dock_rect": bottom_dock.get_rect() if bottom_dock != null else Rect2(),
+		"backdrop_exists": album_backdrop != null,
+		"board_paper": (
+			(board_background as Polygon2D).color
+			if board_background is Polygon2D
+			else Color.TRANSPARENT
+		),
 		"more_visible": album_more_button != null and album_more_button.visible,
 		"overflow_visible": album_overflow_panel != null and album_overflow_panel.visible,
 		"difficulty_text": album_difficulty_label.text if album_difficulty_label != null else "",
