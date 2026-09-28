@@ -23,8 +23,15 @@ func _run() -> void:
 	if top_rect.size.x <= 0.0 or top_rect.size.x > 650.0:
 		_fail("Album header is not compact: %s" % top_rect)
 		return
-	if dock_rect.size.x <= 0.0 or dock_rect.size.x > 460.0:
-		_fail("Album dock is not compact: %s" % dock_rect)
+	if dock_rect.size.x < 560.0 or dock_rect.size.x > 640.0:
+		_fail("Album dock is not a broad paper card: %s" % dock_rect)
+		return
+	if not bool(snapshot.get("backdrop_exists", false)):
+		_fail("Album tabletop background is missing")
+		return
+	var board_paper: Color = snapshot.get("board_paper", Color.TRANSPARENT)
+	if board_paper.a < 0.99 or board_paper.get_luminance() < 0.55:
+		_fail("Board still reads as a dark software canvas: %s" % board_paper)
 		return
 	if not bool(snapshot.get("more_visible", false)):
 		_fail("More control is missing")
@@ -35,8 +42,8 @@ func _run() -> void:
 
 	for key in ["sort_rect", "layout_rect", "preview_rect", "hint_rect"]:
 		var rect: Rect2 = snapshot.get(key, Rect2())
-		if rect.size.x < 44.0 or rect.size.y < 44.0:
-			_fail("Primary action is below the 44px touch target: %s=%s" % [key, rect])
+		if rect.size.x < 88.0 or rect.size.y < 44.0:
+			_fail("Primary paper tab is too small: %s=%s" % [key, rect])
 			return
 
 	for key in [
