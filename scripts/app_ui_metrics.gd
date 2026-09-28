@@ -3,28 +3,32 @@ extends RefCounted
 
 const TOP_MARGIN := 12.0
 const SIDE_MARGIN := 18.0
-const TOP_BAR_HEIGHT := 58.0
+const TOP_BAR_HEIGHT := 62.0
 const TOP_BAR_MAX_WIDTH := 640.0
 
-const DOCK_WIDTH := 440.0
-const DOCK_HEIGHT := 74.0
+# Album Desk v2 intentionally reads as one wide paper card, not a compact
+# software capsule. On the 720-wide portrait logical canvas this occupies ~86%.
+const DOCK_WIDTH := 620.0
+const DOCK_HEIGHT := 92.0
 const DOCK_BOTTOM_MARGIN := 18.0
-const DOCK_BUTTON_Y := 7.0
+const DOCK_BUTTON_Y := 14.0
+const DOCK_BUTTON_WIDTH := 112.0
+const DOCK_BUTTON_HEIGHT := 48.0
 
-# Album Desk keeps only four solving actions permanently visible.
-const SLOT_SORT_X := 38.0
-const SLOT_LAYOUT_X := 142.0
-const SLOT_PREVIEW_X := 246.0
-const SLOT_HINT_X := 350.0
+# Four broad paper tabs. Values are left-edge offsets inside the dock.
+const SLOT_SORT_X := 22.0
+const SLOT_LAYOUT_X := 166.0
+const SLOT_PREVIEW_X := 310.0
+const SLOT_HINT_X := 454.0
 
 # Legacy slots stay defined because inherited presentation code still lays these
 # controls out before the commercial HUD hides them in the overflow hierarchy.
-const SLOT_LINES_X := 246.0
-const SLOT_FIT_X := 298.0
-const SLOT_ZOOM_OUT_X := 298.0
-const SLOT_ZOOM_LABEL_X := 346.0
-const SLOT_ZOOM_IN_X := 394.0
-const SLOT_RESHUFFLE_X := 394.0
+const SLOT_LINES_X := 310.0
+const SLOT_FIT_X := 358.0
+const SLOT_ZOOM_OUT_X := 406.0
+const SLOT_ZOOM_LABEL_X := 454.0
+const SLOT_ZOOM_IN_X := 502.0
+const SLOT_RESHUFFLE_X := 550.0
 
 
 static func safe_area_insets(viewport_size: Vector2) -> Vector4:
