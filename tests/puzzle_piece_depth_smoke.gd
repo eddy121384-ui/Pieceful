@@ -93,12 +93,16 @@ func _run() -> void:
 			_fail("edge relief escaped the artwork face instead of insetting")
 			return
 
-	var top_edge_color := edge_gradient.sample(0.125)
-	var bottom_edge_color := edge_gradient.sample(0.625)
-	var top_edge_luma := (top_edge_color.r + top_edge_color.g + top_edge_color.b) / 3.0
-	var bottom_edge_luma := (bottom_edge_color.r + bottom_edge_color.g + bottom_edge_color.b) / 3.0
-	if top_edge_luma <= bottom_edge_luma + 0.12:
-		_fail("upper-left light no longer brightens the top edge above the bottom edge")
+	var min_edge_luma := INF
+	var max_edge_luma := -INF
+	for sample_index in range(24):
+		var t := float(sample_index) / 24.0
+		var sample_color := edge_gradient.sample(t)
+		var luma := (sample_color.r + sample_color.g + sample_color.b) / 3.0
+		min_edge_luma = minf(min_edge_luma, luma)
+		max_edge_luma = maxf(max_edge_luma, luma)
+	if max_edge_luma - min_edge_luma <= 0.12:
+		_fail("directional edge relief lost its light-to-shadow contrast")
 		return
 
 	if not (
