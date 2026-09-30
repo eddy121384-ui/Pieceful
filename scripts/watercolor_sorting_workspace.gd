@@ -115,6 +115,7 @@ func _style_paper_windows() -> void:
 		title.add_theme_font_size_override("font_size", 32)
 	summary_label.add_theme_font_size_override("font_size", 22)
 	summary_label.add_theme_color_override("font_color", Paper.SOFT)
+	summary_label.text = "%d loose · %d in trays" % [state.count_in_location("loose"), state.total_tray_piece_count()]
 	rail_title.text = "Loose pieces"
 	for canvas in [tray_play_canvas, rail_canvas]:
 		if canvas != null:
@@ -142,6 +143,16 @@ func _layout_ui() -> void:
 	var safe := AppUiMetrics.safe_area_insets(view)
 	var top := AppUiMetrics.top_bar_rect(view).end.y + 24
 	var bottom := AppUiMetrics.dock_rect(view).position.y - 24
+	# On short landscape pages, the tray list takes precedence over repeated
+	# counts and its section caption. Retain all targets and the original actions.
+	var compact := view.y <= view.x and bottom - top < 500
+	summary_label.visible = not compact
+	var caption := _find_label_with_text(panel, "Your trays")
+	if caption != null:
+		caption.visible = not compact
+	var manager_box := paper_manager_scroll.get_child(0) as VBoxContainer
+	manager_box.add_theme_constant_override("separation", 6 if compact else 14)
+	tray_scroll.custom_minimum_size.y = 88 if compact else 96
 	if view.y > view.x and loose_layout_mode == LAYOUT_RAIL:
 		bottom = rail_panel.position.y - 18
 	var area := Rect2(Vector2(safe.x + 24, top), Vector2(view.x - safe.x - safe.z - 48, maxf(330, bottom - top)))

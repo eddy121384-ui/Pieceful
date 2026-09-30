@@ -87,6 +87,10 @@ func _run() -> void:
 		await _settle()
 		if not _inside(sorting.panel) or not _light_surface(sorting.panel):
 			return _fail("Expanded manager escapes safe gameplay area at %s" % phone)
+		if phone.x > phone.y and not sorting.tray_list_box.get_children().is_empty():
+			var first_row: Control = sorting.tray_list_box.get_child(0)
+			if not sorting.paper_manager_scroll.get_global_rect().encloses(first_row.get_global_rect()):
+				return _fail("Landscape manager hides its first tray behind secondary copy")
 		sorting._open_tray(tray_id)
 		await _settle()
 		if not _inside(sorting.detail_panel) or not _light_surface(sorting.detail_panel):

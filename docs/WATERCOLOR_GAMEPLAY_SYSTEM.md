@@ -18,8 +18,11 @@ Canonical membership, drag handlers, reorder/delete/rename bindings, collapse
 state, transition policy and Rail/Scatter ordering stay inherited. It composes
 compact draggable headers and larger utility targets, skins rebuilt rows and
 restores primary icons after inherited refreshes. The manager has an outer scroll
-viewport so a short landscape screen retains every action. Tray and Rail canvas
-scripts accept an optional StyleBox for their backdrop only. Rail header/side
+viewport so a short landscape screen retains every action.
+On short landscape pages the repeated count and section caption recede so the
+first tray row remains visible alongside the main controls. Portrait counts read
+as a quiet sentence rather than a legacy workspace diagnostic strip.
+Tray and Rail canvas scripts accept an optional StyleBox for their backdrop only. Rail header/side
 allowances measure the paper skin and scrollbar thickness; repeated layout no
 longer inflates the drawer. The scroll direction and algorithms are unchanged.
 
