@@ -52,7 +52,7 @@ jobs:
           set -euo pipefail
           chmod +x "${GODOT_BIN}"
           "${GODOT_BIN}" --headless --path . --editor --quit
-          for smoke in commercial_gameplay_hud watercolor_gameplay_system rail_layout_visibility completion_presentation timelapse_replay touch_gesture_arbitration touch_piece_pinch_handoff puzzle_piece_depth puzzle_piece_overlap_z_order gallery_flow startup_resume_presentation; do
+          for smoke in commercial_gameplay_hud watercolor_gameplay_system watercolor_reachable_ui rail_layout_visibility completion_presentation completion_share_card timelapse_replay timelapse_video_export touch_gesture_arbitration touch_piece_pinch_handoff puzzle_piece_depth puzzle_piece_overlap_z_order gallery_flow gallery_retina_portrait puzzle_selection_flow puzzle_journal_ui puzzle_me_flow multi_slot_save save_robustness content_identity_save startup_resume_presentation; do
             "${GODOT_BIN}" --headless --path . --script "tests/${smoke}_smoke.gd"
           done
       - name: Web export

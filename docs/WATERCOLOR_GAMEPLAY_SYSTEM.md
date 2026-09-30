@@ -9,8 +9,9 @@ quiet wells and fine line marks. The puzzle remains the strongest color on scree
 ## Presentation ownership
 
 `watercolor_gameplay_style.gd` owns the shared palette, native surface/control
-states, fields, menus, tooltips and scrollbars. It is applied only to gameplay
-containers; Gallery and Journal remain outside this pass. Its traversal stops at
+states, fields, menus, tooltips and scrollbars. The follow-up reachable-surface
+audit extends it to Gallery, Journal, selection, loading and export presentation.
+See `WATERCOLOR_UI_SURFACE_AUDIT.md` for the complete inventory. Its traversal stops at
 Node2D so puzzle faces, depth, shadows, outlines and replay pieces are untouched.
 
 `watercolor_sorting_workspace.gd` adapts the existing analytics sorting workspace.
@@ -38,13 +39,14 @@ surfaces. Completion/replay retain their original content layout and behavior.
 
 ## Assets and licensing
 
-The existing `assets/ui/watercolor-gameplay-icons.svg` was expanded from four to
-24 original, self-created SVG marks on a 64-unit grid, with consistent 2.4-unit
-rounded strokes. It covers primary tabs, More, fit, lines, shuffle, Journal,
-unfinished puzzles, create, close, rename, grip, select, reorder, delete,
-collapse/expand, send, scatter, return and clear. It is a single lightweight atlas;
-no external artwork, raster texture, generated image or new font was imported.
-Existing paper/rule shaders and the bundled licensed serif fonts are reused.
+The existing `assets/ui/watercolor-gameplay-icons.svg` contains 26 original,
+self-created SVG marks on a 64-unit grid, with consistent 2.4-unit rounded strokes.
+The reachable-surface follow-up adds matching heart and camera marks to the prior
+24-mark family. Existing paper/rule shaders and licensed serif fonts are reused.
+A 3,308-byte SIL OFL 1.1 font subset supplies the catalog's Japanese `箏` glyph;
+its full license and source/subset provenance are in `assets/ui/CATALOG-INK-*`.
+No raster UI assets were added. See the reachable-surface audit for current Web
+runtime evidence, presentation coverage and remaining platform QA.
 
 ## Validation and self-critique
 

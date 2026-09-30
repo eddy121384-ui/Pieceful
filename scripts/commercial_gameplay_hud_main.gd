@@ -3,6 +3,7 @@ extends "res://scripts/monetization_main.gd"
 
 const AlbumMetrics = preload("res://scripts/app_ui_metrics.gd")
 const Paper = preload("res://scripts/watercolor_gameplay_style.gd")
+const ReachablePaper = preload("res://scripts/watercolor_reachable_surfaces.gd")
 const WatercolorIcons = preload("res://assets/ui/watercolor-gameplay-icons.svg")
 
 # Watercolor book: printed ink, open white space, and quiet pigment at the edges.
@@ -53,12 +54,25 @@ var album_serif_italic: Font = null
 
 func _ready() -> void:
 	super._ready()
+	get_window().title = "Pieceful · Piece at your own pace"
 	_style_gameplay_auxiliary_surfaces()
+	ReachablePaper.style(self)
 
 
 func _on_completed() -> void:
 	super._on_completed()
 	_style_completion_paper()
+	_refresh_completion_layout_from_browser()
+
+
+func _apply_completion_layout_for_orientation(logical_size: Vector2, orientation_size: Vector2) -> void:
+	super._apply_completion_layout_for_orientation(logical_size, orientation_size)
+	ReachablePaper.layout_completion(self, logical_size, orientation_size)
+
+
+func _layout_timelapse_export_actions(viewport_size: Vector2) -> void:
+	super._layout_timelapse_export_actions(viewport_size)
+	ReachablePaper.layout_replay(self, viewport_size)
 
 
 func _build_ui() -> void:
@@ -563,6 +577,7 @@ func _layout_ui(viewport_size: Vector2) -> void:
 		sessions_panel.size = Vector2(minf(640, available.x), minf(650, available.y))
 		sessions_panel.position = Vector2(safe.x + (viewport_size.x - safe.x - safe.z - sessions_panel.size.x) * 0.5, top_rect.end.y + 24 + maxf(0, (available.y - sessions_panel.size.y) * 0.5))
 	_layout_reference_panel(viewport_size, false)
+	ReachablePaper.layout(self, viewport_size)
 	if preview_panel != null and not preview_panel.user_positioned:
 		preview_panel.position.y = maxf(preview_panel.position.y, top_rect.end.y + 16.0)
 
@@ -1057,7 +1072,7 @@ func _style_gameplay_auxiliary_surfaces() -> void:
 	if album_overflow_panel != null:
 		album_overflow_panel.theme = Paper.theme()
 	if album_overflow_difficulty != null:
-		album_overflow_difficulty.get_popup().theme = Paper.theme()
+		Paper.apply_menu(album_overflow_difficulty.get_popup())
 
 
 func _style_completion_paper() -> void:
@@ -1067,6 +1082,8 @@ func _style_completion_paper() -> void:
 			completion_heading.add_theme_font_override("font", Paper.SERIF)
 			# Give the taller book serif the same completion-card envelope.
 			completion_panel.get_child(0).add_theme_constant_override("separation", 7)
+		for button in completion_panel.find_children("*", "Button", true, false):
+			button.add_theme_constant_override("icon_max_width", 22)
 
 
 func _refresh_sessions_list() -> void:
@@ -1085,4 +1102,74 @@ func _refresh_sessions_list() -> void:
 						child.custom_minimum_size.x = 88
 		var heading = sessions_panel.get_child(0).get_child(0).get_child(0)
 		heading.add_theme_font_override("font", Paper.SERIF)
-		heading.add_theme_font_size_override("font_size", 30)
+		heading.add_theme_font_size_override("font_size", 34)
+		var footer = sessions_panel.get_child(0).get_child(sessions_panel.get_child(0).get_child_count() - 1)
+		footer.get_child(0).add_theme_stylebox_override("normal", Paper.button_box(true))
+
+
+func _show_puzzle_selection(can_cancel: bool) -> void:
+	super._show_puzzle_selection(can_cancel)
+	ReachablePaper.style(self)
+	ReachablePaper.layout(self, Vector2(get_window().content_scale_size))
+	call_deferred("_relayout_paper_sheets")
+
+
+func _refresh_gallery_cards() -> void:
+	super._refresh_gallery_cards()
+	if is_node_ready():
+		ReachablePaper.style_cards(self)
+
+
+func _refresh_content_card_state() -> void:
+	super._refresh_content_card_state()
+	if is_node_ready():
+		ReachablePaper.style_cards(self)
+
+
+func _refresh_journal_ui() -> void:
+	super._refresh_journal_ui()
+	Paper.apply_tree(journal_panel)
+	ReachablePaper.soft_cards(journal_panel)
+	var heading = journal_panel.get_child(0).get_child(0).get_child(0)
+	heading.add_theme_font_override("font", Paper.SERIF)
+	heading.add_theme_font_size_override("font_size", 34)
+	for label in [journal_today, journal_week]:
+		label.autowrap_mode = TextServer.AUTOWRAP_OFF
+		label.add_theme_font_size_override("font_size", 26)
+	call_deferred("_relayout_paper_sheets")
+
+
+func _relayout_paper_sheets() -> void:
+	await get_tree().process_frame
+	ReachablePaper.layout(self, Vector2(get_window().content_scale_size))
+
+
+func _apply_gallery_layout_for_orientation(logical_viewport_size: Vector2, orientation_size: Vector2) -> void:
+	super._apply_gallery_layout_for_orientation(logical_viewport_size, orientation_size)
+	if is_node_ready():
+		ReachablePaper.style_cards(self)
+		ReachablePaper.layout(self, Vector2(get_window().content_scale_size))
+
+
+func _install_loading_curtain() -> void:
+	super._install_loading_curtain()
+	Paper.apply_tree(startup_curtain)
+	startup_curtain.color = Paper.PAPER
+	startup_copy.add_theme_color_override("font_color", Paper.SOFT)
+	var masthead = startup_curtain.get_child(0).get_child(0).get_child(0)
+	masthead.add_theme_font_override("font", Paper.SERIF)
+	masthead.add_theme_font_size_override("font_size", 38)
+
+
+func _apply_portrait_export_layout(viewport_size: Vector2) -> void:
+	super._apply_portrait_export_layout(viewport_size)
+	ReachablePaper.style_replay(self)
+	for label in [timelapse_export_brand, timelapse_export_title, timelapse_export_stats, timelapse_export_substats, timelapse_export_signature]:
+		label.modulate = Color.WHITE
+		label.add_theme_color_override("font_color", Paper.SOFT)
+	timelapse_export_title.add_theme_font_override("font", Paper.SERIF)
+
+
+func _restore_standard_replay_layout() -> void:
+	super._restore_standard_replay_layout()
+	ReachablePaper.style_replay(self)

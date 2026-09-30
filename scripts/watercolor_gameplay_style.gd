@@ -3,7 +3,8 @@ extends RefCounted
 
 # Original ink drawings share one atlas. Presentation only: never traverse pieces.
 const ATLAS = preload("res://assets/ui/watercolor-gameplay-icons.svg")
-const SERIF = preload("res://assets/ui/album-serif-regular.otf")
+static var SERIF: Font = preload("res://assets/ui/album-serif-regular.otf").duplicate()
+const CATALOG_INK = preload("res://assets/ui/catalog-ink-fallback.tres")
 const PAPER := Color(0.994, 0.993, 0.980)
 const WELL := Color(0.953, 0.960, 0.940)
 const INK := Color(0.20, 0.28, 0.26)
@@ -12,7 +13,7 @@ const RIM := Color(0.29, 0.39, 0.35, 0.15)
 const WASH := Color(0.77, 0.85, 0.80, 0.34)
 enum Mark { TRAYS, PIECES, REFERENCE, HINT, MORE, FIT, GRID, SHUFFLE,
  JOURNAL, SAVED, ADD, CLOSE, RENAME, GRIP, SELECT, UP, DOWN, DELETE,
- COLLAPSE, EXPAND, SEND, SCATTER, RETURN, CLEAR }
+ COLLAPSE, EXPAND, SEND, SCATTER, RETURN, CLEAR, FAVORITE, PHOTO }
 static var _theme: Theme
 static var _compact_theme: Theme
 
@@ -50,6 +51,9 @@ static func theme() -> Theme:
 	if _theme != null:
 		return _theme
 	_theme = Theme.new()
+	_theme.default_font = ThemeDB.fallback_font.duplicate()
+	_theme.default_font.fallbacks = [CATALOG_INK]
+	SERIF.fallbacks = [CATALOG_INK]
 	_theme.default_font_size = 24
 	for kind in ["Label", "Button", "OptionButton", "LineEdit", "PopupMenu", "CheckButton"]:
 		for state in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
@@ -79,10 +83,12 @@ static func theme() -> Theme:
 	_theme.set_color("selection_color", "LineEdit", WASH)
 	_theme.set_color("font_selected_color", "LineEdit", INK)
 	_theme.set_color("font_placeholder_color", "LineEdit", SOFT)
+	_theme.set_color("clear_button_color", "LineEdit", INK)
+	_theme.set_color("clear_button_color_pressed", "LineEdit", SOFT)
 	_theme.set_stylebox("panel", "PanelContainer", surface())
 	_theme.set_stylebox("panel", "PopupMenu", surface())
 	_theme.set_stylebox("hover", "PopupMenu", button_box(true))
-	_theme.set_constant("v_separation", "PopupMenu", 24)
+	_theme.set_constant("v_separation", "PopupMenu", 54)
 	for kind in ["HScrollBar", "VScrollBar"]:
 		var blank := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 		blank.fill(Color.TRANSPARENT)
@@ -148,8 +154,22 @@ static func apply_tree(node: Node, comfortable := true) -> void:
 				mark_button(control, Mark.DELETE)
 		if control is LineEdit and comfortable:
 			control.custom_minimum_size.y = 88
+		if control is OptionButton:
+			apply_menu(control.get_popup())
+		if control is LineEdit:
+			apply_menu(control.get_menu())
 	for child in node.get_children():
 		apply_tree(child, comfortable)
+
+
+static func apply_menu(menu: PopupMenu) -> void:
+	menu.theme = theme()
+	menu.add_theme_font_size_override("font_size", 24)
+	menu.add_theme_constant_override("v_separation", 54)
+	menu.add_theme_stylebox_override("panel", surface())
+	menu.add_theme_stylebox_override("hover", button_box(true))
+	if menu.is_inside_tree():
+		menu.max_size = Vector2i(0, maxi(96, menu.get_tree().root.content_scale_size.y - 48))
 
 
 static func mark_button(button: Button, mark: int) -> void:

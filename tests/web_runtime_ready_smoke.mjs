@@ -35,6 +35,15 @@ try {
     throw new Error(`Page load failed: ${response?.status() ?? "no response"}`);
   }
 
+  const loader = await page.evaluate(() => ({
+    body: getComputedStyle(document.body).backgroundColor,
+    sheet: getComputedStyle(document.getElementById("status")).backgroundColor,
+    brand: document.getElementById("status-brand")?.textContent,
+  }));
+  if (loader.body !== "rgb(250, 250, 245)" || loader.sheet !== "rgb(250, 250, 245)" || loader.brand !== "Pieceful") {
+    throw new Error(`Watercolor Web loader regressed: ${JSON.stringify(loader)}`);
+  }
+
   await page.waitForFunction(
     () => globalThis.__PIECEPACE_READY__ === true,
     null,
