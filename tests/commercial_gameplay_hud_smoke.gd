@@ -26,12 +26,14 @@ func _run() -> void:
 	if dock_rect.size.x < 560.0 or dock_rect.size.x > 640.0:
 		_fail("Album dock is not a broad paper card: %s" % dock_rect)
 		return
-	if dock_rect.size.y > 94.0 or dock_rect.size.y < 88.0:
-		_fail("Album dock regained its control-panel thickness: %s" % dock_rect)
+	if dock_rect.size.y > 114.0 or dock_rect.size.y < 108.0:
+		_fail("Watercolor dock lost its comfortable touch area: %s" % dock_rect)
 		return
-	var index_rect: Rect2 = snapshot.get("index_rect", Rect2())
-	if index_rect.size.x < 70.0 or index_rect.position.y >= dock_rect.position.y:
-		_fail("Dock lost its raised album page index: %s" % index_rect)
+	if not bool(snapshot.get("printed_hud", false)):
+		_fail("Persistent HUD regained opaque card furniture")
+		return
+	if not bool(snapshot.get("selection_wash_exists", false)):
+		_fail("Selected actions lost their pigment wash")
 		return
 	if not bool(snapshot.get("font_bundled", false)):
 		_fail("Editorial serif is not embedded for Safari")
@@ -49,7 +51,7 @@ func _run() -> void:
 		_fail("Album tabletop background is missing")
 		return
 	var board_paper: Color = snapshot.get("board_paper", Color.TRANSPARENT)
-	if board_paper.a < 0.99 or board_paper.get_luminance() < 0.55:
+	if board_paper.a < 0.99 or board_paper.get_luminance() < 0.88:
 		_fail("Board still reads as a dark software canvas: %s" % board_paper)
 		return
 	if not bool(snapshot.get("more_visible", false)):
@@ -73,7 +75,7 @@ func _run() -> void:
 
 	for key in ["sort_rect", "layout_rect", "preview_rect", "hint_rect"]:
 		var rect: Rect2 = snapshot.get(key, Rect2())
-		if rect.size.x < 88.0 or rect.size.y < 70.0:
+		if rect.size.x < 88.0 or rect.size.y < 94.0:
 			_fail("Primary paper tab is too small: %s=%s" % [key, rect])
 			return
 		if rect.position.y < dock_rect.position.y or rect.end.y > dock_rect.end.y:
@@ -107,6 +109,22 @@ func _run() -> void:
 	if not bool(main.commercial_hud_snapshot().get("overflow_visible", false)):
 		_fail("More panel did not open")
 		return
+	# Short landscape: tools scroll within the safe viewport, retaining all actions.
+	main._layout_ui(Vector2(1280.0, 720.0))
+	await process_frame
+	if main.album_overflow_panel.get_rect().end.y > 720.0:
+		_fail("Tool sheet is clipped in landscape")
+		return
+	# All four persistent actions must remain individually addressable on phones.
+	for width in [320.0, 390.0, 430.0]:
+		var size := Vector2(width, 844.0)
+		var previous_end := 0.0
+		for slot in [metrics.SLOT_SORT_X, metrics.SLOT_LAYOUT_X, metrics.SLOT_PREVIEW_X, metrics.SLOT_HINT_X]:
+			var position: Vector2 = metrics.dock_slot_position(size, slot)
+			if position.x < previous_end - 0.01:
+				_fail("Phone action touch targets overlap")
+				return
+			previous_end = position.x + metrics.dock_button_width(size)
 
 	main.queue_free()
 	await process_frame

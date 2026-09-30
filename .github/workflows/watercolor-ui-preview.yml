@@ -1,0 +1,130 @@
+name: Watercolor Gameplay Branch Preview
+
+on:
+  push:
+    branches: [spike/codex61-watercolor-ui]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+# Serialize with the existing Pages publisher so its public entry stays intact.
+concurrency:
+  group: pieceful-pages
+  cancel-in-progress: false
+
+env:
+  GODOT_RELEASE: 4.7.2-stable
+  GODOT_BIN: ${{ github.workspace }}/.godot-ci/Godot_v4.7.2-stable_linux.x86_64
+  GODOT_TEMPLATE_DIR: /home/runner/.local/share/godot/export_templates/4.7.2.stable
+  PREVIEW_PATH: previews/codex61-watercolor-ui
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Godot and templates
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .godot-ci
+            ~/.local/share/godot/export_templates/4.7.2.stable
+          key: pieceful-godot-${{ runner.os }}-4.7.2-stable-web
+      - name: Install Godot and templates
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .godot-ci "${GODOT_TEMPLATE_DIR}"
+          curl -L --fail --retry 3 "https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_linux.x86_64.zip" -o /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d .godot-ci
+          curl -L --fail --retry 3 "https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_export_templates.tpz" -o /tmp/templates.tpz
+          unzip -q /tmp/templates.tpz -d /tmp/watercolor-templates
+          cp -R /tmp/watercolor-templates/templates/. "${GODOT_TEMPLATE_DIR}/"
+      - name: Import and required gameplay regression suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x "${GODOT_BIN}"
+          "${GODOT_BIN}" --headless --path . --editor --quit
+          for smoke in commercial_gameplay_hud touch_gesture_arbitration touch_piece_pinch_handoff puzzle_piece_depth puzzle_piece_overlap_z_order gallery_flow startup_resume_presentation; do
+            "${GODOT_BIN}" --headless --path . --script "tests/${smoke}_smoke.gd"
+          done
+      - name: Web export
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/web
+          "${GODOT_BIN}" --headless --path . --export-release Web build/web/index.html
+          python3 tools/instrument_web_loader.py build/web/index.html
+          touch build/web/.nojekyll
+          printf '{"ref":"%s","sha":"%s","run":"%s"}\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}" > build/web/build-info.json
+      - name: Install browser smoke dependencies
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Browser runtime smoke
+        shell: bash
+        env:
+          PIECEPACE_WEB_URL: http://127.0.0.1:4173/
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory build/web >/tmp/watercolor-web.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "${SERVER_PID}" || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/index.html >/dev/null; then break; fi
+            sleep 1
+          done
+          node tests/web_runtime_ready_smoke.mjs
+      - name: Keep the current Pages deployment and add the isolated preview
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p build/publish
+          # Start from the newest successful publisher's Pages artifact. Fail
+          # closed if unavailable, instead of replacing unrelated public pages.
+          RUN_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?status=success&per_page=100" --jq '[.workflow_runs[] | select(.path == ".github/workflows/web-mobile-preview.yml" or .path == ".github/workflows/watercolor-ui-preview.yml")][0].id')
+          test "${RUN_ID}" != null
+          ARTIFACT_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}/artifacts" --jq '[.artifacts[] | select(.name == "github-pages" and .expired == false)][0].id')
+          test "${ARTIFACT_ID}" != null
+          gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" > /tmp/current-pages.zip
+          unzip -q /tmp/current-pages.zip -d /tmp/current-pages
+          tar -xf /tmp/current-pages/artifact.tar -C build/publish
+          test -s build/publish/index.html
+          mkdir -p "build/publish/${PREVIEW_PATH}"
+          cp -R build/web/. "build/publish/${PREVIEW_PATH}/"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: watercolor-web-${{ github.sha }}
+          path: build/web
+          retention-days: 14
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/publish
+  deploy-pages:
+    needs: build-web
+    runs-on: ubuntu-latest
+    environment:
+      name: pieceful-mobile-preview
+      url: ${{ steps.deployment.outputs.page_url }}previews/codex61-watercolor-ui/
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy isolated branch preview
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify published branch and exact SHA
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "${PAGE_URL%/}/${PREVIEW_PATH}/build-info.json?sha=${GITHUB_SHA}" -o /tmp/build-info.json
+          python3 -c 'import json, os; data=json.load(open("/tmp/build-info.json")); assert data["sha"] == os.environ["GITHUB_SHA"]; assert data["ref"] == os.environ["GITHUB_REF_NAME"]; print(data)'

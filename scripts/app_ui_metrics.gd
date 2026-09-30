@@ -1,21 +1,21 @@
 class_name AppUiMetrics
 extends RefCounted
 
-const TOP_MARGIN := 12.0
+const TOP_MARGIN := 22.0
 const SIDE_MARGIN := 18.0
-const TOP_BAR_HEIGHT := 58.0
+const TOP_BAR_HEIGHT := 100.0
 const TOP_BAR_MAX_WIDTH := 640.0
 
-# Album Desk v2 intentionally reads as one wide paper card, not a compact
-# software capsule. On the 720-wide portrait logical canvas this occupies ~86%.
-const DOCK_WIDTH := 620.0
-const DOCK_HEIGHT := 92.0
-const DOCK_BOTTOM_MARGIN := 18.0
+# Quiet printed controls on the page. The 96 logical-pixel targets remain
+# comfortable at 320 CSS px on the 720-wide portrait gameplay canvas.
+const DOCK_WIDTH := 600.0
+const DOCK_HEIGHT := 112.0
+const DOCK_BOTTOM_MARGIN := 24.0
 const DOCK_BUTTON_Y := 9.0
 const DOCK_BUTTON_WIDTH := 112.0
-const DOCK_BUTTON_HEIGHT := 74.0
+const DOCK_BUTTON_HEIGHT := 96.0
 
-# Four broad paper tabs. Values are left-edge offsets inside the dock.
+# Four open ink-and-wash actions. Values are left-edge offsets inside the dock.
 const SLOT_SORT_X := 22.0
 const SLOT_LAYOUT_X := 166.0
 const SLOT_PREVIEW_X := 310.0
