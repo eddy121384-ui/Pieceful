@@ -523,6 +523,11 @@ func _layout_loose_piece_rail() -> void:
 	_configure_rail_scrolling()
 
 
+# Presentation allowances; the watercolor adapter measures its paper/header.
+var rail_header_extent := 48.0
+var rail_side_extent := 20.0
+
+
 func _configure_rail_scrolling() -> void:
 	if (
 		rail_scroll == null
@@ -544,10 +549,10 @@ func _configure_rail_scrolling() -> void:
 	if portrait:
 		rail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 		rail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-		var visible_height: float = maxf(88.0, rail_panel.size.y - 48.0)
+		var visible_height: float = maxf(88.0, rail_panel.size.y - rail_header_extent)
 		rail_canvas.set_scroll_layout(true, visible_height)
 	else:
 		rail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		rail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-		var visible_width: float = maxf(120.0, rail_panel.size.x - 20.0)
+		var visible_width: float = maxf(120.0, rail_panel.size.x - rail_side_extent)
 		rail_canvas.set_scroll_layout(false, visible_width)

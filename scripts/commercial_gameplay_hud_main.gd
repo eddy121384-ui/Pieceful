@@ -2,6 +2,7 @@ class_name CommercialGameplayHudMain
 extends "res://scripts/monetization_main.gd"
 
 const AlbumMetrics = preload("res://scripts/app_ui_metrics.gd")
+const Paper = preload("res://scripts/watercolor_gameplay_style.gd")
 const WatercolorIcons = preload("res://assets/ui/watercolor-gameplay-icons.svg")
 
 # Watercolor book: printed ink, open white space, and quiet pigment at the edges.
@@ -50,6 +51,16 @@ var album_serif: Font = null
 var album_serif_italic: Font = null
 
 
+func _ready() -> void:
+	super._ready()
+	_style_gameplay_auxiliary_surfaces()
+
+
+func _on_completed() -> void:
+	super._on_completed()
+	_style_completion_paper()
+
+
 func _build_ui() -> void:
 	super._build_ui()
 	_build_album_fonts()
@@ -61,6 +72,7 @@ func _build_ui() -> void:
 	_style_album_primary_actions()
 	_bind_album_tab_captions()
 	_sync_album_difficulty()
+	_style_gameplay_auxiliary_surfaces()
 	if preview_panel != null:
 		preview_panel.add_theme_stylebox_override("panel", _album_surface(PAPER_LIGHT, 4, 2, 8.0))
 		for child in preview_panel.get_children():
@@ -157,12 +169,13 @@ func _build_album_header() -> void:
 	album_more_button = Button.new()
 	album_more_button.name = "AlbumMore"
 	album_more_button.text = ""
-	album_more_button.icon = _make_more_icon()
+	album_more_button.icon = Paper.icon(Paper.Mark.MORE)
 	album_more_button.expand_icon = true
 	album_more_button.add_theme_constant_override("icon_max_width", 38)
 	album_more_button.tooltip_text = "More puzzle tools"
 	album_more_button.focus_mode = Control.FOCUS_NONE
 	_style_paper_square_button(album_more_button, 100.0, 6)
+	Paper.mark_button(album_more_button, Paper.Mark.MORE)
 	album_more_button.add_theme_stylebox_override("normal", _more_paper_style(0.18, 2))
 	album_more_button.add_theme_stylebox_override("hover", _more_paper_style(0.45, 3))
 	album_more_button.add_theme_stylebox_override("pressed", _more_paper_style(0.62, 1))
@@ -393,6 +406,7 @@ func _style_album_primary_actions() -> void:
 			_set_watercolor_icon(layout_control as Button, 1)
 
 	if spread_button != null:
+		Paper.mark_button(spread_button, Paper.Mark.SCATTER)
 		spread_button.add_theme_color_override("font_color", INK)
 		spread_button.add_theme_color_override("font_hover_color", INK)
 		spread_button.add_theme_color_override("font_pressed_color", INK)
@@ -542,6 +556,12 @@ func _layout_ui(viewport_size: Vector2) -> void:
 			album_overflow_backing.size = album_overflow_panel.size
 
 	# Reference is still a play-surface object; just clear the compact header.
+	if sessions_panel != null:
+		var safe := AlbumMetrics.safe_area_insets(viewport_size)
+		var available := Vector2(viewport_size.x - safe.x - safe.z - 48, dock_rect.position.y - top_rect.end.y - 48)
+		sessions_panel.custom_minimum_size = Vector2(0, 0)
+		sessions_panel.size = Vector2(minf(640, available.x), minf(650, available.y))
+		sessions_panel.position = Vector2(safe.x + (viewport_size.x - safe.x - safe.z - sessions_panel.size.x) * 0.5, top_rect.end.y + 24 + maxf(0, (available.y - sessions_panel.size.y) * 0.5))
 	_layout_reference_panel(viewport_size, false)
 	if preview_panel != null and not preview_panel.user_positioned:
 		preview_panel.position.y = maxf(preview_panel.position.y, top_rect.end.y + 16.0)
@@ -725,6 +745,10 @@ func _on_album_journal_pressed() -> void:
 func _new_overflow_button(text_value: String) -> Button:
 	var button := Button.new()
 	button.text = text_value
+	var marks := {"Fit workspace": Paper.Mark.FIT, "Board lines": Paper.Mark.GRID, "Reshuffle pieces": Paper.Mark.SHUFFLE, "Unfinished puzzles": Paper.Mark.SAVED, "Puzzle Journal": Paper.Mark.JOURNAL}
+	Paper.mark_button(button, marks.get(text_value, Paper.Mark.MORE))
+	button.add_theme_constant_override("icon_max_width", 30)
+	button.add_theme_constant_override("h_separation", 16)
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.custom_minimum_size = Vector2(0.0, 100.0)
 	button.focus_mode = Control.FOCUS_NONE
@@ -1016,3 +1040,49 @@ func commercial_hud_snapshot() -> Dictionary:
 		"games_entry_visible": games_button != null and games_button.visible,
 		"journal_entry_visible": journal_button != null and journal_button.visible,
 	}
+
+
+func _style_gameplay_auxiliary_surfaces() -> void:
+	for surface in [preview_panel, sessions_panel]:
+		if surface != null:
+			Paper.apply_tree(surface)
+	_style_completion_paper()
+	if timelapse_overlay != null:
+		Paper.apply_tree(timelapse_overlay, false)
+		timelapse_overlay.color = PAPER
+		timelapse_stage.color = BOARD_PAPER
+		timelapse_tray_panel.color = Paper.WELL
+		timelapse_title.text = "Puzzle replay"
+		timelapse_title.add_theme_font_override("font", Paper.SERIF)
+	if album_overflow_panel != null:
+		album_overflow_panel.theme = Paper.theme()
+	if album_overflow_difficulty != null:
+		album_overflow_difficulty.get_popup().theme = Paper.theme()
+
+
+func _style_completion_paper() -> void:
+	if completion_panel != null:
+		Paper.apply_tree(completion_panel, false)
+		if completion_heading != null:
+			completion_heading.add_theme_font_override("font", Paper.SERIF)
+			# Give the taller book serif the same completion-card envelope.
+			completion_panel.get_child(0).add_theme_constant_override("separation", 7)
+
+
+func _refresh_sessions_list() -> void:
+	super._refresh_sessions_list()
+	if sessions_panel != null:
+		Paper.apply_tree(sessions_panel)
+		for card in sessions_list.get_children():
+			if card is PanelContainer:
+				card.add_theme_stylebox_override("panel", Paper.surface(true, 12))
+				for child in card.get_child(0).get_children():
+					if child is Label:
+						child.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+						child.custom_minimum_size.x = 0
+						child.add_theme_font_size_override("font_size", 22)
+					elif child is Button and child.icon != null:
+						child.custom_minimum_size.x = 88
+		var heading = sessions_panel.get_child(0).get_child(0).get_child(0)
+		heading.add_theme_font_override("font", Paper.SERIF)
+		heading.add_theme_font_size_override("font_size", 30)

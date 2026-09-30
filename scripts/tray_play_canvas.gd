@@ -21,6 +21,8 @@ var state = null
 var tray_id := ""
 var content_root: Node2D = null
 var empty_hint: Label = null
+# Optional surface supplied by the gameplay presentation adapter.
+var presentation_surface: StyleBox = null
 var visual_nodes: Dictionary = {}
 var piece_z: Dictionary = {}
 var z_counter := 1
@@ -116,6 +118,9 @@ func accept_world_drop(
 
 
 func _draw() -> void:
+	if presentation_surface != null:
+		presentation_surface.draw(get_canvas_item(), Rect2(Vector2.ZERO, size))
+		return
 	var rect: Rect2 = Rect2(Vector2.ZERO, size)
 	draw_rect(rect, Color(0.018, 0.021, 0.028, 0.34), true)
 	draw_rect(rect.grow(-1.0), Color(1.0, 1.0, 1.0, 0.12), false, 1.0)

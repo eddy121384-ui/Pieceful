@@ -1,12 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="64" viewBox="0 0 256 64" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Original gameplay-only ink icons. White paths receive HUD ink tint in Godot. -->
-  <!-- Sorting trays: shallow paper compartments. -->
-  <path d="M13 23h38l-4 21H17l-4-21Z M20 23v-6h24v6 M22 31h20"/>
-  <!-- Loose pieces: one familiar jigsaw silhouette. -->
-  <path d="M81 17h11c-1-2-1-3-1-4a5 5 0 0 1 10 0c0 1 0 2-1 4h11v12c2-1 3-1 4-1a5 5 0 0 1 0 10c-1 0-2 0-4-1v12H99c1-2 1-3 1-4a5 5 0 0 0-10 0c0 1 0 2 1 4H81V37c2 1 3 1 4 1a5 5 0 0 0 0-10c-1 0-2 0-4 1V17Z"/>
-  <!-- Reference illustration. -->
-  <rect x="141" y="15" width="38" height="34" rx="2"/>
-  <circle cx="168" cy="25" r="3"/><path d="m144 43 10-11 8 8 5-5 9 8"/>
-  <!-- Hint: quiet lamp, no sparkle ornament. -->
-  <path d="M216 39c-4-3-6-6-6-11a14 14 0 0 1 28 0c0 5-2 8-6 11l-2 5h-12l-2-5Z M218 49h12 M221 53h6 M224 35v8"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="256" viewBox="0 0 384 256" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<!-- Original Pieceful ink family, 24 marks on a 64-unit grid. Runtime ink tint. -->
+<g transform="translate(0 0)"><path d="M13 23h38l-4 21H17l-4-21Z M20 23v-6h24v6 M22 31h20"/></g>
+<g transform="translate(64 0)"><path d="M17 17h11c-1-2-1-3-1-4a5 5 0 0 1 10 0c0 1 0 2-1 4h11v12c2-1 3-1 4-1a5 5 0 0 1 0 10c-1 0-2 0-4-1v12H35c1-2 1-3 1-4a5 5 0 0 0-10 0c0 1 0 2 1 4H17V37c2 1 3 1 4 1a5 5 0 0 0 0-10c-1 0-2 0-4 1V17Z"/></g>
+<g transform="translate(128 0)"><rect x="13" y="15" width="38" height="34" rx="2"/><circle cx="40" cy="25" r="3"/><path d="m16 43 10-11 8 8 5-5 9 8"/></g>
+<g transform="translate(192 0)"><path d="M24 39c-4-3-6-6-6-11a14 14 0 0 1 28 0c0 5-2 8-6 11l-2 5H26l-2-5Z M26 49h12 M29 53h6 M32 35v8"/></g>
+<g transform="translate(256 0)"><circle cx="18" cy="32" r="1.5"/><circle cx="32" cy="32" r="1.5"/><circle cx="46" cy="32" r="1.5"/></g>
+<g transform="translate(320 0)"><path d="M25 14H14v11 M39 14h11v11 M50 39v11H39 M14 39v11h11 M23 23h18v18H23Z"/></g>
+<g transform="translate(0 64)"><rect x="14" y="14" width="36" height="36" rx="2"/><path d="M26 14v36 M38 14v36 M14 26h36 M14 38h36"/></g>
+<g transform="translate(64 64)"><path d="M14 20h7c12 0 12 24 24 24h5 M42 36l8 8-8 8 M14 44h7c12 0 12-24 24-24h5 M42 12l8 8-8 8"/></g>
+<g transform="translate(128 64)"><path d="M17 14h29v36H17c-5 0-5-8 0-8h29 M20 14v28 M27 23h11 M27 30h8"/></g>
+<g transform="translate(192 64)"><path d="M16 20h32v30H16Z M22 14h26 M22 28h20 M22 35h14"/></g>
+<g transform="translate(256 64)"><path d="M32 18v28 M18 32h28"/></g>
+<g transform="translate(320 64)"><path d="m21 21 22 22 M43 21 21 43"/></g>
+<g transform="translate(0 128)"><path d="m18 39 23-23 7 7-23 23-10 3 3-10Z M36 21l7 7 M15 52h34"/></g>
+<g transform="translate(64 128)"><path d="M23 27h18 M23 37h18"/></g>
+<g transform="translate(128 128)"><path d="M25 16H16v9 M39 16h9v9 M48 39v9h-9 M16 39v9h9 m0-16 5 5 10-11"/></g>
+<g transform="translate(192 128)"><path d="m21 38 11-11 11 11"/></g>
+<g transform="translate(256 128)"><path d="m21 26 11 11 11-11"/></g>
+<g transform="translate(320 128)"><path d="M18 22h28 M26 22v-6h12v6 M21 22l2 28h18l2-28 M28 29v14 M36 29v14"/></g>
+<g transform="translate(0 192)"><path d="M17 24h30 M24 39l8-8 8 8"/></g>
+<g transform="translate(64 192)"><path d="M17 40h30 M24 25l8 8 8-8"/></g>
+<g transform="translate(128 192)"><path d="M16 37v12h32V37 M32 15v23 m-9-9 9 9 9-9"/></g>
+<g transform="translate(192 192)"><path d="m16 19 12-4 4 12-12 4-4-12Z m22 6 12 4-4 12-12-4 4-12Z m-15 13 12 3-3 12-12-3 3-12Z"/></g>
+<g transform="translate(256 192)"><path d="m25 17-10 10 10 10 M16 27h22a12 12 0 0 1 0 24h-6"/></g>
+<g transform="translate(320 192)"><path d="m20 21 23 23 m-23 0 23-23"/><circle cx="32" cy="32" r="22"/></g>
 </svg>
