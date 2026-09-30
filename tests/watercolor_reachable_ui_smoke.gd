@@ -72,8 +72,13 @@ func _run() -> void:
 	_check(not completion_body.is_ancestor_of(main.completion_share_button), "Completion actions stay reachable outside scroll")
 	for viewport in [Vector2(720, 1558), Vector2(1558, 720)]:
 		root.size = Vector2i(viewport)
-		main.puzzle_selection_panel.show()
-		main.journal_panel.show()
+		# Open the ancestors through the real flow: hidden Containers do not
+		# lay out wrapped labels, even when their child panel is shown directly.
+		main._show_puzzle_selection(true)
+		main._close_journal()
+		main._toggle_journal()
+		_check(main.puzzle_selection_panel.is_visible_in_tree(), "Gallery bounds are checked in its open state")
+		_check(main.journal_panel.is_visible_in_tree(), "Journal bounds are checked in its open state")
 		main._layout_ui(main._sync_content_scale_to_window())
 		for _i in range(5):
 			await process_frame

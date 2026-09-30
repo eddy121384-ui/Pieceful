@@ -94,6 +94,13 @@ catalog glyph, search no-results/clear layout, modal layers, loading recreation,
 recording/restoration, fixed completion actions, and sheet/replay bounds in both
 orientations. Existing model and gameplay tests remain intact.
 
+Bounds QA opens the actual Gallery and Journal overlays before measurement.
+The first CI attempt exposed a test-fixture error: showing only a panel under
+a hidden overlay leaves wrapped labels unlaid out. This was reproduced with
+the preceding sorting test's saved state; opening the real overlays restored
+correct bounds (672×1100 portrait, 900×672 landscape). The corrected test keeps
+all viewport assertions and checks that the panels are visible in the tree.
+
 The branch workflow runs 21 Godot smokes: commercial HUD, watercolor system,
 reachable UI, Rail layout, completion presentation/share, replay/video export,
 touch arbitration, pinch handoff, piece depth, overlap z-order, Gallery flow and
