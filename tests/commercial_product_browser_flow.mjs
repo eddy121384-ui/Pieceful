@@ -92,35 +92,56 @@ async function selectOption(name, index, captureName) {
   await page.waitForFunction(() => window.__PIECEFUL_UX_STATE__.menus.length === 0);
 }
 
-async function persistedGame(game, solved) {
-  // FileAccess success is the in-memory filesystem write. Observe the actual
-  // IndexedDB commit before intentionally restarting the browser runtime.
-  await page.waitForFunction(async ({ game, solved }) => {
-    const databases = await indexedDB.databases();
-    for (const info of databases.filter(item => item.name?.startsWith('/userfs'))) {
-      const found = await new Promise(resolve => {
-        const open = indexedDB.open(info.name);
-        open.onerror = () => resolve(false);
-        open.onsuccess = () => {
-          const db = open.result;
-          if (!db.objectStoreNames.contains('FILE_DATA')) { db.close(); resolve(false); return; }
-          const request = db.transaction('FILE_DATA').objectStore('FILE_DATA').openCursor();
-          request.onerror = () => { db.close(); resolve(false); };
-          request.onsuccess = () => {
-            const cursor = request.result;
-            if (!cursor) { db.close(); resolve(false); return; }
-            if (String(cursor.key).endsWith(`/saves/${game}.json`)) {
-              const saved = JSON.parse(new TextDecoder().decode(cursor.value.contents));
-              db.close(); resolve(saved.board.solved_count === solved); return;
-            }
-            cursor.continue();
+async function persistedGame(game, solved, retiredGame = '') {
+  // waitForFunction treats an async predicate's Promise as truthy even when it
+  // resolves false. Await the IndexedDB read in Node, then retry the Boolean.
+  const deadline = Date.now() + 30000;
+  while (Date.now() < deadline) {
+    const committed = await page.evaluate(async ({ game, solved, retiredGame }) => {
+      const databases = await indexedDB.databases();
+      for (const info of databases.filter(item => item.name?.startsWith('/userfs'))) {
+        const files = await new Promise(resolve => {
+          const open = indexedDB.open(info.name);
+          open.onerror = () => resolve({});
+          open.onsuccess = () => {
+            const db = open.result;
+            if (!db.objectStoreNames.contains('FILE_DATA')) { db.close(); resolve({}); return; }
+            const entries = {};
+            const transaction = db.transaction('FILE_DATA');
+            transaction.oncomplete = () => { db.close(); resolve(entries); };
+            transaction.onerror = transaction.onabort = () => { db.close(); resolve({}); };
+            const request = transaction.objectStore('FILE_DATA').openCursor();
+            request.onsuccess = () => {
+              const cursor = request.result;
+              if (!cursor) return;
+              const path = String(cursor.key);
+              if (path.endsWith(`/saves/${game}.json`) ||
+                  path.endsWith('/saves/index.json') ||
+                  path.endsWith('/pieceful_journal_v1.json') ||
+                  (retiredGame && path.endsWith(`/saves/${retiredGame}.json`))) {
+                entries[path] = JSON.parse(new TextDecoder().decode(cursor.value.contents));
+              }
+              cursor.continue();
+            };
           };
-        };
-      });
-      if (found) return true;
-    }
-    return false;
-  }, { game, solved }, { timeout: 30000, polling: 200 });
+        });
+        const find = suffix => Object.entries(files).find(([path]) => path.endsWith(suffix))?.[1];
+        const saved = find(`/saves/${game}.json`);
+        if (saved?.board?.solved_count !== solved ||
+            saved.board.pieces.filter(piece => piece.solved).length !== solved) continue;
+        if (!retiredGame) return true;
+        const index = find('/saves/index.json');
+        const history = find('/pieceful_journal_v1.json');
+        if (!find(`/saves/${retiredGame}.json`) &&
+            index?.games?.length === 1 && index.games[0].game_id === game &&
+            history?.completions?.some(record => record.game_id === retiredGame)) return true;
+      }
+      return false;
+    }, { game, solved, retiredGame });
+    if (committed) return;
+    await page.waitForTimeout(200);
+  }
+  throw new Error(`IndexedDB did not commit ${game} at ${solved} solved pieces${retiredGame ? ` and retirement of ${retiredGame}` : ''}`);
 }
 
 try {
@@ -239,6 +260,7 @@ try {
   await click({ text: 'Start puzzle' });
   await expect(() => window.__PIECEFUL_UX_STATE__.content === 'twilight_lake' && !window.__PIECEFUL_UX_STATE__.gallery, 'Switching starts a separate puzzle');
   assert.equal((await state()).games.length, 2);
+  const secondGame = (await state()).game;
   await click({ name: 'ProductGalleryButton' });
   await click({ prefix: 'All unfinished puzzles' });
   await expect(() => window.__PIECEFUL_UX_STATE__.sessions, 'All unfinished puzzles is a direct discovery destination');
@@ -274,7 +296,7 @@ try {
   await expect(() => window.__PIECEFUL_UX_STATE__.journal, 'History is reachable from discovery');
   await capture('completed-history');
   await page.keyboard.press('Escape');
-  await page.waitForTimeout(1800);
+  await persistedGame(firstGame, 1, secondGame);
   await page.reload();
   await ready();
   assert.equal((await state()).games.length, 1, 'Completed game stays retired after browser reload');

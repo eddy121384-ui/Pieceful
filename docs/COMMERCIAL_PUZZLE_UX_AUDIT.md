@@ -253,6 +253,10 @@ zero page/console errors. Before restarting the runtime, the test observes
 the real IndexedDB save commit instead of assuming an arbitrary delay means
 FileAccess has reached browser storage. After completion and another reload,
 Garden remains at 1/40, Twilight stays retired, and its history record remains.
+The persistence poll awaits each IndexedDB read in Node and retries its Boolean
+result; Playwright's `waitForFunction` can accept a truthy Promise even when it
+resolves false. Completion also waits for the stored slot retirement and history
+record before reload. This corrected a QA timing defect reproduced locally.
 The production Web export separately passed the existing readiness smoke at
 DPR 3 and a check for zero runtime errors and absence of the QA bridge.
 
