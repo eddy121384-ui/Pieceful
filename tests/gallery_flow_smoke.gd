@@ -45,8 +45,10 @@ func _run() -> void:
 	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
 		_fail("portrait Gallery still allows horizontal scrolling")
 		return
-	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
-		_fail("portrait Gallery did not enable hidden-scrollbar vertical swiping")
+	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+		_fail("portrait Gallery still has competing nested vertical scrolling")
+	if main.puzzle_selection_panel.get_child(0).get_node("PaperSelectionBody").vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("discovery sheet did not enable hidden-scrollbar vertical swiping")
 		return
 	if bool(main.gallery_scroll.scroll_horizontal_by_default):
 		_fail("portrait Gallery kept desktop horizontal wheel behavior")

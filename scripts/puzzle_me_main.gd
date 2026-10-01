@@ -157,7 +157,13 @@ func _prepare_puzzle_me_import(bytes: PackedByteArray, original_name: String) ->
 		_show_selection_error("Puzzle Me is not available in this build.")
 		return
 	var preferred_difficulty := _picker_selected_difficulty_id()
+	var previous_content_id := str(board.active_content_id())
 	var metadata = board.import_local_photo(bytes, original_name)
+	# Import registers a candidate, not a new game. Keep the current board's
+	# identity intact until Start so autosave cannot attach old piece state to a
+	# newly selected photo while the player browses or cancels the setup sheet.
+	if not previous_content_id.is_empty():
+		board.select_content(previous_content_id)
 	if not (metadata is Dictionary) or metadata.is_empty():
 		var message := "Pieceful could not import that photo."
 		if board.has_method("last_photo_import_error"):

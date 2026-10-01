@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import sys
+from web_persistence_patch import patch_web_persistence
 
 path = Path(sys.argv[1] if len(sys.argv) > 1 else "build/web/index.html")
+patch_web_persistence(path.with_suffix(".js"))
 html = path.read_text(encoding="utf-8")
 
 metrics_markup = '<div id="status-metrics" style="margin-top:16px;font:13px/1.5 system-ui,sans-serif;color:#63746c;text-align:center;min-height:20px"></div>'

@@ -160,6 +160,10 @@ func _run() -> void:
 		_fail("Home did not switch to personalized mode after a preference signal")
 		return
 	main.call("_on_reset_recommendations_pressed")
+	if not main.product_confirmation_overlay.visible or str(main.home_recommendation_snapshot().get("mode", "")) == "cold_start":
+		_fail("recommendation reset must wait for confirmation")
+		return
+	main._confirm_product_action()
 	home_snapshot = main.home_recommendation_snapshot()
 	if str(home_snapshot.get("mode", "")) != "cold_start":
 		_fail("Reset taste did not restore cold-start mode")

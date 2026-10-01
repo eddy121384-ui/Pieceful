@@ -103,6 +103,10 @@ func _run() -> void:
 		_fail("successful resume did not emit puzzle_resume")
 		return
 	main.call("_on_delete_game_pressed", second_game_id)
+	if _event_count(main, "puzzle_abandon") != 0 or not main.product_confirmation_overlay.visible:
+		_fail("delete prompt must wait for confirmation before emitting puzzle_abandon")
+		return
+	main._confirm_product_action()
 	if _event_count(main, "puzzle_abandon") != 1:
 		_fail("explicit unfinished-puzzle deletion did not emit puzzle_abandon")
 		return

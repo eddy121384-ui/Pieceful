@@ -38,8 +38,10 @@ func _run() -> void:
 	if main.gallery_scroll.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
 		_fail("portrait Safari Gallery still allows horizontal scrolling")
 		return
-	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
-		_fail("portrait Safari Gallery did not enable hidden-scrollbar vertical swiping")
+	if main.gallery_scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+		_fail("portrait Safari Gallery still has competing nested vertical scrolling")
+	if main.puzzle_selection_panel.get_child(0).get_node("PaperSelectionBody").vertical_scroll_mode != ScrollContainer.SCROLL_MODE_SHOW_NEVER:
+		_fail("discovery sheet did not enable hidden-scrollbar vertical swiping")
 		return
 	var picture = main.content_buttons.get("garden")
 	if not (picture is TextureButton) or picture.mouse_filter != Control.MOUSE_FILTER_PASS:

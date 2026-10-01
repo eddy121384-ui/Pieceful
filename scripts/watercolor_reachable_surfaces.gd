@@ -57,7 +57,10 @@ static func style(main: Node) -> void:
 					content.move_child(child, index)
 			Paper.apply_tree(body)
 		var heading = outer.get_child(0)
-		heading.text = "Choose your next puzzle"
+		if heading is HBoxContainer:
+			heading = heading.get_child(0)
+		else:
+			heading.text = "Choose your next puzzle"
 		heading.add_theme_font_override("font", Paper.SERIF)
 		heading.add_theme_font_size_override("font_size", 34)
 		outer.get_child(1).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
