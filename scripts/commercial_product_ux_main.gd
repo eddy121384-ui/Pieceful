@@ -481,6 +481,9 @@ func _on_resume_game_pressed(game_id: String) -> void:
 		_close_sessions_panel()
 		puzzle_selection_overlay.visible = false
 		completion_panel.visible = false
+		if monetization != null:
+			monetization.begin_puzzle_session()
+		_track_successful_puzzle_resume(game_id)
 	else:
 		await super._on_resume_game_pressed(game_id)
 		if product_ready and save_coordinator != null and str(save_coordinator.active_game()) == game_id and save_coordinator.last_resume_error.is_empty():

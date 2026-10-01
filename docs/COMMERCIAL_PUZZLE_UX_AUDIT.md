@@ -189,6 +189,8 @@ The active game's Continue reveals the same board; another game's Continue
 uses the existing loading curtain and restoration path. Starting another
 picture or count keeps the previous slot. No provisional technical save is
 advertised as player progress.
+Both Continue paths restore the puzzle-session monetization boundary and emit
+one resume event, including an already restored board after returning launch.
 
 **One destination for each purpose.** Favorites and My photos have explicit
 collection entries. Search/themes/status live in Browse. Local recommendation

@@ -67,10 +67,21 @@ jobs:
               log="/tmp/pieceful-test-data/${smoke}.log"
               if ! XDG_DATA_HOME="/tmp/pieceful-test-data/${smoke}" timeout 180s "${GODOT_BIN}" --headless --path . --script "tests/${smoke}_smoke.gd" >"${log}" 2>&1; then
                 cat "${log}"
+                echo "::error title=Native regression failed::${smoke} failed; inspect the native-regression-logs artifact."
                 exit 1
               fi
-              rg "^PASS" "${log}"
+              if ! grep "^PASS" "${log}"; then
+                cat "${log}"
+                echo "::error title=Native regression missing PASS::${smoke} exited without a PASS marker."
+                exit 1
+              fi
             ' _ '{}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-regression-logs-${{ github.sha }}
+          path: /tmp/pieceful-test-data/*.log
+          if-no-files-found: ignore
       - name: Web export
         shell: bash
         run: |

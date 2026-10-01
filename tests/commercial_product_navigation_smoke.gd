@@ -114,8 +114,14 @@ func _run() -> void:
 	var continue_button = main.sessions_list.get_child(0).get_child(0).get_child(1)
 	_check(not continue_button.disabled, "active unfinished puzzle can be continued from its list")
 	main._product_back()
+	# Returning startup ends the monetization session while Gallery is open.
+	# Continuing the already restored board must still run the resume hooks.
+	main.monetization.end_puzzle_session()
+	var resume_events_before := _resume_event_count(main)
 	main._continue_product_session()
 	await _settle()
+	_check(main.monetization.puzzle_session_active, "active Continue restores the no-ads-during-puzzle boundary")
+	_check(_resume_event_count(main) == resume_events_before + 1, "active Continue records exactly one resume event")
 	for cluster_id in board.cluster_members.keys():
 		board._solve_cluster(int(cluster_id))
 	await _settle()
@@ -132,3 +138,11 @@ func _run() -> void:
 		for failure in failures:
 			push_error("FAIL commercial_product_navigation_smoke: " + failure)
 		quit(1)
+
+
+func _resume_event_count(main: Node) -> int:
+	var count := 0
+	for event in main.analytics_events_snapshot():
+		if event.get("name") == "puzzle_resume":
+			count += 1
+	return count

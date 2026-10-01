@@ -78,6 +78,10 @@ func _start_selected_puzzle() -> void:
 
 func _on_resume_game_pressed(game_id: String) -> void:
 	await super._on_resume_game_pressed(game_id)
+	_track_successful_puzzle_resume(game_id)
+
+
+func _track_successful_puzzle_resume(game_id: String) -> void:
 	if save_coordinator == null or not save_coordinator.has_method("active_game"):
 		return
 	if str(save_coordinator.active_game()) != game_id:
