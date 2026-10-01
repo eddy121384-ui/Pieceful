@@ -1,8 +1,9 @@
 class_name BoardCutLinesOverlay
 extends Node2D
 
-const LINE_COLOR := Color(0.84, 0.86, 0.90, 0.15)
-const LINE_WIDTH := 1.15
+# Watercolor SOFT ink, translucent enough to stay behind the puzzle artwork.
+const LINE_COLOR := Color(0.36, 0.43, 0.40, 0.42)
+const LINE_WIDTH := 1.5
 
 var segments: Array[PackedVector2Array] = []
 
