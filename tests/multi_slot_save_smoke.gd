@@ -41,6 +41,18 @@ func _run() -> void:
 		_fail("Reshuffle unexpectedly created another unfinished game")
 		return
 
+	# Switching slots while Pieces is in rail mode rebuilds the board while the
+	# workspace is still stashing loose pieces. Restored solved pieces must be
+	# visible on the board, not left hidden with their former rail state.
+	var board = main.get_node("PuzzleBoard")
+	var workspace = main.get_node("SortingWorkspace")
+	board._solve_cluster(int(board.cluster_for_piece[0]))
+	await create_timer(0.2).timeout
+	workspace._set_loose_layout_mode("rail")
+	if not coordinator.save_now(true):
+		_fail("could not save solved progress in rail mode")
+		return
+
 	# Start New is the explicit multi-slot boundary: preserve the current puzzle,
 	# create a fresh runtime, and allocate a second durable game id.
 	main.call("_start_new_game_slot")
@@ -52,6 +64,42 @@ func _run() -> void:
 		return
 	if coordinator.list_unfinished_games().size() != 2:
 		_fail("previous unfinished game was not preserved after Start new")
+		return
+	board.select_content("twilight_lake")
+	board.request_difficulty("relaxed")
+	for _frame in range(3):
+		await process_frame
+	if not coordinator.save_now(true):
+		_fail("could not save the separate Twilight puzzle")
+		return
+	var second_snapshot = JSON.parse_string(_read_text(SAVE_DIR.path_join("%s.json" % second_id)))
+	var second_identity = second_snapshot["puzzle"]["content_identity"]
+	# Force the real autosave callback while the target board is being rebuilt,
+	# before its saved progress and active slot identity have been restored.
+	var autosave_during_rebuild := func(_solved: int, _total: int) -> void:
+		coordinator._on_autosave_timeout()
+		coordinator._flush_pending_runtime("resume-test")
+	board.progress_changed.connect(autosave_during_rebuild)
+	if not await coordinator.resume_game(first_id):
+		_fail("could not resume rail-mode saved progress")
+		return
+	board.progress_changed.disconnect(autosave_during_rebuild)
+	var preserved_second = JSON.parse_string(_read_text(SAVE_DIR.path_join("%s.json" % second_id)))
+	if preserved_second["puzzle"]["content_identity"] != second_identity:
+		_fail("autosave during resume overwrote the other puzzle's artwork identity")
+		return
+	board = main.get_node("PuzzleBoard")
+	if board.solved_count != 1 or not board.pieces[0].is_visible_in_tree():
+		_fail("rail-mode slot resume hid the restored solved piece")
+		return
+	if board.pieces[0].position != board.pieces[0].target_position:
+		_fail("rail-mode slot resume moved the solved piece away from its target")
+		return
+	if not await coordinator.resume_game(second_id):
+		_fail("could not switch back to the second slot")
+		return
+	if str(board.active_content_id()) != "twilight_lake" or board.solved_count != 0:
+		_fail("switching back did not preserve the other puzzle's artwork and progress")
 		return
 
 	# Kill the entire product scene and rebuild it from disk. Multi-slot only

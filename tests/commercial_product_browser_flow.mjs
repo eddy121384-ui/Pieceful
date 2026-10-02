@@ -77,6 +77,30 @@ async function click(match) {
   throw new Error(`Control never became reachable: ${JSON.stringify(match)}`);
 }
 
+async function drag(start, end) {
+  const current = await state();
+  const view = page.viewportSize();
+  const sx = view.width / current.viewport[0], sy = view.height / current.viewport[1];
+  await page.mouse.move(start[0] * sx, start[1] * sy);
+  await page.mouse.down();
+  await page.waitForTimeout(300);
+  for (let move = 1; move <= 12; move++) {
+    await page.mouse.move((start[0] + (end[0] - start[0]) * move / 12) * sx, (start[1] + (end[1] - start[1]) * move / 12) * sy);
+    await page.waitForTimeout(60);
+  }
+  await page.mouse.up();
+  await page.waitForTimeout(800);
+}
+
+async function continueSavedGame(game) {
+  const current = await state();
+  const rowIndex = current.games.findIndex(entry => entry.game_id === game);
+  const buttons = current.controls.filter(control => control.text === 'Continue' && control.tooltip === 'Continue this saved puzzle');
+  assert(rowIndex >= 0 && buttons.length === current.games.length, 'Saved slots match the rendered unfinished rows');
+  await click({ name: buttons[rowIndex].name });
+  await page.waitForFunction(id => window.__PIECEFUL_UX_STATE__.game === id && !window.__PIECEFUL_UX_STATE__.resume_pending && !window.__PIECEFUL_UX_STATE__.sessions && !window.__PIECEFUL_UX_STATE__.gallery, game, { timeout: 30000 });
+}
+
 async function selectOption(name, index, captureName) {
   await click({ name });
   await page.waitForFunction(() => window.__PIECEFUL_UX_STATE__.menus.length > 0);
@@ -178,19 +202,27 @@ try {
   journeys.push('First puzzle interaction drags a real loose piece');
   await capture('first-piece-drag');
   const firstGame = (await state()).game;
-  await page.evaluate(() => window.piecefulQaRequest('place_one'));
-  await expect(() => window.__PIECEFUL_UX_STATE__.solved === 1, 'Placed cluster fixture creates real saved progress');
+  for (let attempt = 0; attempt < 12 && (await state()).solved < 3; attempt++) {
+    const current = await state();
+    const candidates = current.piece_points.filter(piece => !piece.solved && piece.visible && piece.point[0] > 60 && piece.point[0] < current.viewport[0] - 60 && piece.point[1] > 150 && piece.point[1] < current.viewport[1] - 180).sort((a, b) => b.z - a.z);
+    assert(candidates.length, 'Visible loose pieces remain available for real dragging');
+    const piece = candidates[attempt % candidates.length];
+    await drag(piece.point, piece.target);
+  }
+  await expect(() => window.__PIECEFUL_UX_STATE__.solved >= 3, 'Several pieces snap through real drag input');
+  assert.equal((await state()).solved, 3);
+  await capture('three-real-snaps');
   await click({ name: 'ProductGalleryButton' });
-  await expect(() => window.__PIECEFUL_UX_STATE__.gallery && window.__PIECEFUL_UX_STATE__.solved === 1, 'Leave returns to Gallery with progress intact');
+  await expect(() => window.__PIECEFUL_UX_STATE__.gallery && window.__PIECEFUL_UX_STATE__.solved === 3, 'Leave returns to Gallery with progress intact');
   await capture('saved-gallery');
-  await persistedGame(firstGame, 1);
+  await persistedGame(firstGame, 3);
   await page.reload();
   await ready();
   assert.equal((await state()).game, firstGame);
-  assert.equal((await state()).solved, 1);
+  assert.equal((await state()).solved, 3);
   await capture('returning-gallery');
   await click({ prefix: 'Continue ·' });
-  await expect(() => !window.__PIECEFUL_UX_STATE__.gallery && window.__PIECEFUL_UX_STATE__.solved === 1, 'Returning player continues exact saved progress');
+  await expect(() => !window.__PIECEFUL_UX_STATE__.gallery && window.__PIECEFUL_UX_STATE__.solved === 3, 'Returning player continues exact saved progress');
   await click({ role: 'picture' });
   await capture('picture-reference');
   const hintBefore = (await state()).hint;
@@ -199,30 +231,71 @@ try {
   journeys.push('Hint assist toggles through its real control');
   await capture('hint-assist');
   await click({ role: 'hint' });
+  await click({ role: 'picture' });
+  await capture('picture-on-board');
+  await click({ role: 'picture' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.picture_mode === 'off', 'Picture cycles back to hidden');
   await click({ role: 'trays' });
   await capture('trays');
-  // Close the tray manager through the visible Close control, retaining the
-  // mature sorting controller's real bindings.
-  const trayClose = (await state()).controls.find(control => /ManagerClose|TrayManagerClose/.test(control.name));
-  if (trayClose) await click({ name: trayClose.name });
-  else {
-    const close = (await state()).controls.filter(control => control.text === '' && /Close/.test(control.name));
-    assert.equal(close.length, 1, 'One tray close affordance');
-    await click({ name: close[0].name });
-  }
+  await click({ role: 'new_tray_name' });
+  await page.keyboard.type('Sky');
+  await click({ role: 'create_tray' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.tray_detail && window.__PIECEFUL_UX_STATE__.trays.length === 1, 'Trays creates one named tray');
+  await click({ role: 'tray_name' });
+  await page.keyboard.press('Control+A');
+  await page.keyboard.type('Blue sky');
+  await click({ role: 'rename_tray' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.trays[0].name === 'Blue sky', 'Rename refreshes the tray name');
+  await capture('tray-renamed');
+  await click({ role: 'collapse_tray' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.trays[0].collapsed, 'Tray collapses');
+  await capture('tray-collapsed');
+  await click({ role: 'collapse_tray' });
+  await click({ role: 'close_tray' });
+  const trayState = await state();
+  const source = trayState.piece_points.filter(piece => !piece.solved && piece.visible && piece.point[1] > 160 && piece.point[1] < 400).sort((a, b) => b.z - a.z)[0];
+  const target = trayState.controls.find(control => control.text === 'Blue sky · 0');
+  assert(source && target, 'A loose piece and a rendered tray drop target are available');
+  await drag(source.point, [target.clip[0] + target.clip[2] / 2, target.clip[1] + target.clip[3] / 2]);
+  await expect(() => window.__PIECEFUL_UX_STATE__.trays[0].members.length > 0, 'Real drag stores a piece in the named tray');
+  await capture('piece-in-tray');
+  await click({ text: 'Blue sky · 1' });
+  await capture('playable-tray');
+  await click({ role: 'close_tray' });
+  await click({ role: 'close_trays' });
   const pieces = (await state()).controls.find(control => /LoosePieceLayoutButton/.test(control.name));
   assert(pieces, 'Pieces control is present');
   await click({ name: pieces.name });
   await capture('pieces-strip');
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.waitForTimeout(1200);
+  await capture('narrow-gameplay-rail');
   await click({ name: 'AlbumMore' });
+  await capture('narrow-more-tools');
+  await click({ text: 'Board lines' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.board_lines && window.__PIECEFUL_UX_STATE__.board_lines_visible, 'Accepted Board Lines enable');
+  await page.keyboard.press('Escape');
+  await capture('narrow-board-lines-on');
+  await click({ name: 'AlbumMore' });
+  await click({ text: 'Board lines' });
+  await expect(() => !window.__PIECEFUL_UX_STATE__.board_lines && !window.__PIECEFUL_UX_STATE__.board_lines_visible, 'Board Lines OFF removes the overlay completely');
+  await click({ text: 'Fit workspace' });
+  await capture('narrow-fit');
+  await click({ name: 'AlbumMore' });
+  await selectOption('AlbumDifficultySelect', 1, 'narrow-piece-count-popup');
+  await expect(() => window.__PIECEFUL_UX_STATE__.confirmation, 'Changing piece count asks before starting another puzzle');
+  await capture('narrow-piece-count-confirmation');
+  await click({ text: 'Keep playing' });
+  await expect(() => !window.__PIECEFUL_UX_STATE__.confirmation && window.__PIECEFUL_UX_STATE__.difficulty === 'relaxed' && window.__PIECEFUL_UX_STATE__.solved === 3, 'Cancel piece-count change preserves exact puzzle state');
   await capture('more-tools');
   await click({ text: 'Reshuffle pieces' });
   await expect(() => window.__PIECEFUL_UX_STATE__.confirmation, 'Reshuffle shows a consequence-aware confirmation');
   await capture('reshuffle-confirmation');
   await page.keyboard.press('Escape');
-  await expect(() => !window.__PIECEFUL_UX_STATE__.confirmation && window.__PIECEFUL_UX_STATE__.solved === 1, 'Cancel preserves placed pieces');
+  await expect(() => !window.__PIECEFUL_UX_STATE__.confirmation && window.__PIECEFUL_UX_STATE__.solved === 3, 'Cancel preserves placed pieces');
   await page.keyboard.press('Escape');
   await click({ name: 'ProductGalleryButton' });
+  await capture('narrow-gallery');
   await click({ name: 'Favorite_garden' });
   await click({ text: 'Favorites' });
   await capture('favorites');
@@ -233,14 +306,19 @@ try {
     await page.locator('input[type=file]').setInputFiles(process.env.PIECEFUL_TEST_PHOTO);
     await expect(() => window.__PIECEFUL_UX_STATE__.setup && window.__PIECEFUL_UX_STATE__.pending.startsWith('photo_'), 'Photo picker imports a private setup candidate');
     assert.equal((await state()).content, 'garden');
-    assert.equal((await state()).solved, 1);
+    assert.equal((await state()).solved, 3);
     await capture('photo-setup-safe');
     await click({ text: 'Back to Gallery' });
   }
   await click({ text: 'Settings' });
   await expect(() => window.__PIECEFUL_UX_STATE__.settings, 'Settings is reachable independently of discovery');
-  await capture('settings');
+  await capture('narrow-settings');
   await page.keyboard.press('Escape');
+  await click({ text: 'History' });
+  await capture('narrow-empty-history');
+  await page.keyboard.press('Escape');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(1200);
   await click({ text: 'Browse' });
   await click({ name: 'GallerySearch' });
   await page.keyboard.type('Twilight');
@@ -255,6 +333,16 @@ try {
   await click({ text: 'Browse' });
   await selectOption('GalleryStatusFilter', 1);
   await capture('for-you-filter');
+  await selectOption('GalleryStatusFilter', 3, 'status-popup');
+  assert((await state()).controls.some(control => control.name === 'Artwork_garden'));
+  assert(!(await state()).controls.some(control => control.name === 'Artwork_twilight_lake'));
+  journeys.push('In progress filter reflects actual unfinished content');
+  await capture('in-progress-filter');
+  await selectOption('GalleryStatusFilter', 5);
+  assert(!(await state()).controls.some(control => control.name === 'Artwork_garden'));
+  assert((await state()).controls.some(control => control.name === 'Artwork_twilight_lake'));
+  journeys.push('New filter excludes unfinished content');
+  await capture('new-filter');
   await click({ text: 'Browse' });
   await click({ name: 'Artwork_twilight_lake' });
   await click({ text: 'Start puzzle' });
@@ -265,7 +353,19 @@ try {
   await click({ prefix: 'All unfinished puzzles' });
   await expect(() => window.__PIECEFUL_UX_STATE__.sessions, 'All unfinished puzzles is a direct discovery destination');
   await capture('unfinished-puzzles');
-  await page.keyboard.press('Escape');
+  await continueSavedGame(firstGame);
+  assert.equal((await state()).content, 'garden');
+  assert.equal((await state()).solved, 3);
+  assert((await state()).piece_points.filter(piece => piece.solved).every(piece => piece.visible), 'Restored solved pieces remain visible in rail mode');
+  journeys.push('Unfinished list restores the original puzzle after starting another');
+  await capture('original-puzzle-resumed');
+  await click({ name: 'ProductGalleryButton' });
+  await click({ prefix: 'All unfinished puzzles' });
+  await continueSavedGame(secondGame);
+  assert.equal((await state()).content, 'twilight_lake');
+  assert.equal((await state()).solved, 0);
+  journeys.push('Unfinished list switches back to the separate newer puzzle');
+  await click({ name: 'ProductGalleryButton' });
   await page.setViewportSize({ width: 844, height: 390 });
   await page.waitForTimeout(1200);
   await capture('landscape-gallery');
@@ -275,11 +375,38 @@ try {
   await click({ text: 'Back to Gallery' });
   await click({ prefix: 'Continue ·' });
   await capture('landscape-gameplay');
+  await click({ role: 'trays' });
+  await capture('landscape-trays');
+  await click({ role: 'close_trays' });
+  await click({ name: 'AlbumMore' });
+  await capture('landscape-more');
+  await click({ text: 'Board lines' });
+  await expect(() => window.__PIECEFUL_UX_STATE__.board_lines_visible, 'Board Lines enable in short landscape');
+  await page.keyboard.press('Escape');
+  await capture('landscape-board-lines-on');
+  await click({ name: 'AlbumMore' });
+  await click({ text: 'Board lines' });
+  await expect(() => !window.__PIECEFUL_UX_STATE__.board_lines_visible, 'Board Lines OFF removes them in short landscape');
+  await selectOption('AlbumDifficultySelect', 1, 'landscape-piece-popup');
+  await expect(() => window.__PIECEFUL_UX_STATE__.confirmation, 'Short landscape piece-count confirmation is reachable');
+  await capture('landscape-confirmation');
+  await click({ text: 'Keep playing' });
+  await page.keyboard.press('Escape');
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(1200);
   await page.evaluate(() => window.piecefulQaRequest('complete'));
   await expect(() => window.__PIECEFUL_UX_STATE__.completion && window.__PIECEFUL_UX_STATE__.solved === window.__PIECEFUL_UX_STATE__.pieces, 'Real solved-cluster completion enters result flow');
   await capture('completion');
+  const downloadPromise = page.waitForEvent('download');
+  await click({ name: 'CompletionShareResult' });
+  const download = await downloadPromise;
+  const downloadPath = await download.path();
+  const png = await fs.readFile(downloadPath);
+  assert.deepEqual([...png.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
+  assert.match(download.suggestedFilename(), /\.png$/);
+  journeys.push('Share result downloads a valid PNG through the actual Web fallback');
+  await capture('share-result');
   const replay = (await state()).controls.find(control => /CompletionTimelapseReplay/.test(control.name));
   if (replay && !replay.disabled) {
     await click({ name: replay.name });
@@ -296,12 +423,17 @@ try {
   await expect(() => window.__PIECEFUL_UX_STATE__.journal, 'History is reachable from discovery');
   await capture('completed-history');
   await page.keyboard.press('Escape');
-  await persistedGame(firstGame, 1, secondGame);
+  await click({ prefix: 'Continue ·' });
+  await expect(() => !window.__PIECEFUL_UX_STATE__.gallery && window.__PIECEFUL_UX_STATE__.content === 'garden' && window.__PIECEFUL_UX_STATE__.solved === 3, 'Completion can resume another unfinished puzzle immediately');
+  assert((await state()).piece_points.filter(piece => piece.solved).every(piece => piece.visible), 'Completion-to-resume shows the saved solved pieces');
+  await capture('resumed-after-completion');
+  await click({ name: 'ProductGalleryButton' });
+  await persistedGame(firstGame, 3, secondGame);
   await page.reload();
   await ready();
   assert.equal((await state()).games.length, 1, 'Completed game stays retired after browser reload');
   assert.equal((await state()).content, 'garden');
-  assert.equal((await state()).solved, 1, 'Other unfinished progress survives completion persistence');
+  assert.equal((await state()).solved, 3, 'Other unfinished progress survives completion persistence');
   assert.equal((await state()).history_count, 1, 'Completion history survives browser reload');
   journeys.push('Completion retirement, history and other progress persist through reload');
   await capture('completion-persisted-gallery');

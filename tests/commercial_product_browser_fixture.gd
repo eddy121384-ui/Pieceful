@@ -54,7 +54,7 @@ func _publish() -> void:
 	var controls: Array = []
 	_collect_controls(main, controls)
 	var menus: Array = []
-	for option in [main.puzzle_selection_difficulty, main.gallery_category_filter, main.gallery_status_filter]:
+	for option in [main.puzzle_selection_difficulty, main.gallery_category_filter, main.gallery_status_filter, main.album_overflow_difficulty]:
 		var popup = option.get_popup()
 		if popup.visible:
 			menus.append({"name": str(option.name), "count": popup.item_count, "rect": [popup.position.x, popup.position.y, popup.size.x, popup.size.y]})
@@ -62,7 +62,12 @@ func _publish() -> void:
 	var piece_points: Array = []
 	for piece in board.pieces:
 		var point: Vector2 = piece.get_global_transform_with_canvas() * (piece.piece_size * 0.5)
-		piece_points.append({"index": int(piece.piece_index), "solved": piece.solved, "point": [point.x, point.y]})
+		var target: Vector2 = piece.get_parent().get_global_transform_with_canvas() * (piece.target_position + piece.piece_size * 0.5)
+		piece_points.append({"index": int(piece.piece_index), "solved": piece.solved, "visible": piece.is_visible_in_tree(), "z": piece.z_index, "point": [point.x, point.y], "target": [target.x, target.y]})
+	var sorting = main.get_node("SortingWorkspace")
+	var trays: Array = []
+	for tray_id in sorting.state.tray_ids():
+		trays.append({"id": tray_id, "name": sorting.state.tray_name(tray_id), "collapsed": sorting.state.tray_is_collapsed(tray_id), "members": sorting.state.tray_piece_indexes(tray_id)})
 	var state := {
 		"gallery": main.puzzle_selection_overlay.visible,
 		"setup": main.product_setup_open,
@@ -79,9 +84,15 @@ func _publish() -> void:
 		"coordinator_bound": main.save_coordinator != null,
 		"needs_selection": saves.needs_new_game_selection(),
 		"bootstrapping": saves.bootstrapping,
+		"resume_pending": main.product_resume_pending,
 		"save_error": saves.last_save_error,
 		"solved": int(board.solved_count),
 		"hint": board.hint_is_enabled(),
+		"board_lines": main.board_lines_enabled,
+		"board_lines_visible": main.board_lines_overlay.visible,
+		"tray_manager": sorting.panel.visible,
+		"tray_detail": sorting.detail_panel.visible,
+		"trays": trays,
 		"picture_mode": main.preview_mode,
 		"replay_close": str(main.timelapse_close_button.name),
 		"piece_picker": str(main.puzzle_selection_difficulty.name),
@@ -105,6 +116,10 @@ func _collect_controls(node: Node, controls: Array) -> void:
 			role = "hint"
 		elif node == main.get_node("SortingWorkspace").sort_button:
 			role = "trays"
+		var sorting = main.get_node("SortingWorkspace")
+		for entry in [[sorting.new_tray_name, "new_tray_name"], [sorting.add_tray_button, "create_tray"], [sorting.detail_name_edit, "tray_name"], [sorting.rename_button, "rename_tray"], [sorting.collapse_detail_button, "collapse_tray"], [sorting.close_detail_button, "close_tray"], [sorting.manager_close_button, "close_trays"], [sorting.selection_mode_button, "select_pieces"]]:
+			if node == entry[0]:
+				role = entry[1]
 		var rect: Rect2 = node.get_global_rect()
 		var clip := rect
 		var scroll_rect := Rect2()
