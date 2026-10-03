@@ -102,6 +102,7 @@ jobs:
           PIECEFUL_UX_QA_URL: http://127.0.0.1:4176/
           PIECEFUL_TEST_PHOTO: tests/fixtures/product-ux-photo.png
           PIECEFUL_UX_EVIDENCE: build/product-ux-evidence
+          PIECEFUL_TRANSITION_EVIDENCE: build/product-ux-evidence/rail-scatter
         run: |
           set -euo pipefail
           python3 tools/export_product_ux_qa.py --godot "${GODOT_BIN}" >/tmp/product-ux-export.log 2>&1
@@ -116,6 +117,7 @@ jobs:
           done
           node tests/web_runtime_ready_smoke.mjs
           node tests/commercial_product_browser_flow.mjs
+          node tests/rail_scatter_transition_browser_smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

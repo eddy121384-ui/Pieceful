@@ -1,5 +1,7 @@
 extends "res://scripts/loose_piece_layout_workspace.gd"
 
+const TransitionPieceVisuals = preload("res://scripts/puzzle_piece_visual_factory.gd")
+
 const LayoutIcons = preload("res://scripts/ui_icon_catalog.gd")
 const LayoutMetrics = preload("res://scripts/app_ui_metrics.gd")
 const ScrollableRailCanvasScript = preload("res://scripts/scrollable_loose_piece_rail_canvas.gd")
@@ -340,21 +342,17 @@ func _create_layout_transition_ghost(
 		)
 		group.add_child(holder)
 
-		var face := Polygon2D.new()
-		face.polygon = source_piece.polygon_points
-		face.uv = source_piece.uv_points
-		face.texture = source_piece.source_texture
-		holder.add_child(face)
-
-		var outline := Line2D.new()
-		var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
-		if not outline_points.is_empty():
-			outline_points.append(outline_points[0])
-		outline.points = outline_points
-		outline.width = 1.0
-		outline.default_color = Color(1.0, 1.0, 1.0, 0.60)
-		outline.antialiased = true
-		holder.add_child(outline)
+		# Use the same cardboard stack and shared relief materials as real pieces.
+		# The group transform already supplies the existing transition scale.
+		TransitionPieceVisuals.piece_extent(source_piece)
+		TransitionPieceVisuals.add_piece_visuals(
+			holder,
+			source_piece.polygon_points,
+			source_piece.uv_points,
+			source_piece.source_texture
+		)
+		if members.size() > 1:
+			TransitionPieceVisuals.apply_joined_state(holder)
 	return group
 
 

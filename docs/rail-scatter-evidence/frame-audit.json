@@ -1,0 +1,327 @@
+{
+  "transitions": 32,
+  "observed_frames": 112,
+  "observed_piece_stacks": 3350,
+  "transitions_audited": [
+    {
+      "transition": "286-landscape-joined-table-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-joined-table-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-repeat-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-repeat-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-single-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-single-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-store-preparation-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-landscape-stored-joined-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 57,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": true,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-joined-table-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-joined-table-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-repeat-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-repeat-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-single-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-single-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-store-preparation-to-rail",
+      "observed_frames": 3,
+      "observed_piece_stacks": 54,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "286-portrait-stored-joined-to-scatter",
+      "observed_frames": 3,
+      "observed_piece_stacks": 57,
+      "group_counts": [
+        18
+      ],
+      "joined_observed": true,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-joined-table-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-joined-table-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-repeat-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-repeat-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-single-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        40
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-single-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        40
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-store-preparation-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-landscape-stored-joined-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        39
+      ],
+      "joined_observed": true,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-joined-table-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-joined-table-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-repeat-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-repeat-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-single-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        40
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-single-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        40
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-store-preparation-to-rail",
+      "observed_frames": 4,
+      "observed_piece_stacks": 152,
+      "group_counts": [
+        38
+      ],
+      "joined_observed": false,
+      "stack_violations": 0
+    },
+    {
+      "transition": "40-portrait-stored-joined-to-scatter",
+      "observed_frames": 4,
+      "observed_piece_stacks": 160,
+      "group_counts": [
+        39
+      ],
+      "joined_observed": true,
+      "stack_violations": 0
+    }
+  ]
+}

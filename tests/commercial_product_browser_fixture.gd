@@ -26,6 +26,7 @@ func _process(delta: float) -> void:
 	if main == null or not OS.has_feature("web"):
 		return
 	publish_elapsed += delta
+	_publish_transition()
 	if publish_elapsed >= 0.2:
 		publish_elapsed = 0.0
 		_publish()
@@ -45,7 +46,37 @@ func _on_request(arguments: Array) -> void:
 	elif action == "complete":
 		for key in board.cluster_members.keys():
 			board._solve_cluster(int(key))
+	elif action == "join_loose":
+		# Deterministic loose island for transition QA; use the real board's
+		# merge/state machinery, without solving or changing production input.
+		var anchor := int(arguments[1]) if arguments.size() > 1 else 0
+		var first = board.pieces[anchor]
+		var second = board.pieces[anchor + 1]
+		var view := main.get_viewport().get_visible_rect().size
+		var origin: Vector2 = board.get_global_transform_with_canvas().affine_inverse() * (view * Vector2(0.35, 0.72))
+		first.position = origin - first.piece_size * 0.5
+		second.position = first.position + second.target_position - first.target_position
+		board._merge_cluster_into(board._cluster_id_for(anchor), board._cluster_id_for(anchor + 1))
+		board._raise_cluster(board._cluster_id_for(anchor))
 	_publish()
+
+
+func _publish_transition() -> void:
+	var sorting = main.get_node("SortingWorkspace")
+	var groups: Array = []
+	if sorting.layout_transition_active:
+		for group in sorting.layout_transition_root.get_children():
+			if group.is_queued_for_deletion():
+				continue
+			var holders: Array = []
+			for holder in group.get_children():
+				var layers: Array = []
+				for layer in holder.get_children():
+					layers.append({"name": str(layer.name), "z": layer.z_index, "relative": layer.z_as_relative, "visible": layer.visible, "material": layer.material.resource_name if layer.material != null else "", "width": layer.width if layer is Line2D else 0.0, "offset": [layer.position.x, layer.position.y]})
+				holders.append(layers)
+			groups.append({"name": str(group.name), "position": [group.position.x, group.position.y], "scale": group.scale.x, "holders": holders})
+	var data := {"active": sorting.layout_transition_active, "mode": sorting.loose_layout_mode, "root_z": sorting.layout_transition_root.z_index, "groups": groups}
+	JavaScriptBridge.eval("window.__PIECEFUL_TRANSITION__=" + JSON.stringify(data) + ";if(window.__PIECEFUL_TRANSITION__.active){(window.__PIECEFUL_TRANSITION_FRAMES__??=[]).push(window.__PIECEFUL_TRANSITION__);}", true)
 
 
 func _publish() -> void:
@@ -63,7 +94,7 @@ func _publish() -> void:
 	for piece in board.pieces:
 		var point: Vector2 = piece.get_global_transform_with_canvas() * (piece.piece_size * 0.5)
 		var target: Vector2 = piece.get_parent().get_global_transform_with_canvas() * (piece.target_position + piece.piece_size * 0.5)
-		piece_points.append({"index": int(piece.piece_index), "solved": piece.solved, "visible": piece.is_visible_in_tree(), "z": piece.z_index, "point": [point.x, point.y], "target": [target.x, target.y]})
+		piece_points.append({"index": int(piece.piece_index), "cluster": board._cluster_id_for(piece.piece_index), "solved": piece.solved, "visible": piece.is_visible_in_tree(), "pickable": piece.input_pickable, "z": piece.z_index, "point": [point.x, point.y], "target": [target.x, target.y]})
 	var sorting = main.get_node("SortingWorkspace")
 	var trays: Array = []
 	for tray_id in sorting.state.tray_ids():
@@ -92,6 +123,7 @@ func _publish() -> void:
 		"board_lines_visible": main.board_lines_overlay.visible,
 		"tray_manager": sorting.panel.visible,
 		"tray_detail": sorting.detail_panel.visible,
+		"rail_drop_point": [sorting.rail_scroll.get_global_rect().get_center().x, sorting.rail_scroll.get_global_rect().get_center().y],
 		"trays": trays,
 		"picture_mode": main.preview_mode,
 		"replay_close": str(main.timelapse_close_button.name),

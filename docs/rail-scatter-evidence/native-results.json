@@ -1,0 +1,46 @@
+{
+  "suite_count": 8,
+  "passed": 8,
+  "tests": [
+    {
+      "test": "rail_layout_visibility_smoke",
+      "passed": true,
+      "seconds": 20.6
+    },
+    {
+      "test": "puzzle_piece_depth_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "puzzle_piece_overlap_z_order_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "watercolor_gameplay_system_smoke",
+      "passed": true,
+      "seconds": 27.2
+    },
+    {
+      "test": "commercial_gameplay_hud_smoke",
+      "passed": true,
+      "seconds": 12.1
+    },
+    {
+      "test": "touch_gesture_arbitration_smoke",
+      "passed": true,
+      "seconds": 18.8
+    },
+    {
+      "test": "touch_piece_pinch_handoff_smoke",
+      "passed": true,
+      "seconds": 21.1
+    },
+    {
+      "test": "touch_zoom_recovery_smoke",
+      "passed": true,
+      "seconds": 20.2
+    }
+  ]
+}
