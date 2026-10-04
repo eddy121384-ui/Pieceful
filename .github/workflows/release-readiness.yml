@@ -103,7 +103,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.1.0"
+          python3 tools/release/install_android_components.py
           "${GODOT_BIN}" --headless --path . --editor --quit
           python3 tools/release/configure_android_sdk.py
       - name: Base-game unsigned release APK and AAB (no keys or monetization SDKs)

@@ -65,7 +65,7 @@ jobs:
         run: |
           set -euxo pipefail
           "${GODOT_BIN}" --headless --path . --editor --quit
-          sdkmanager "platforms;android-36" "build-tools;36.1.0"
+          python3 tools/release/install_android_components.py
           python3 tools/release/configure_android_sdk.py
 
       - name: Export Android debug APK with Gradle template

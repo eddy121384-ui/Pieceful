@@ -196,7 +196,7 @@ The cloud's templates instead use `$XDG_DATA_HOME/godot/export_templates/4.7.2.s
 6. Added the existing-modal browser warning for unavailable initial persistent storage; no save implementation changes.
 7. Added source/engine/font/native dependency inventories and notices without inventing original-asset rights.
 8. Added checksum-locked tool installation, production artifact/source/permission/alignment checks, isolated native runner, Web reproducibility/idempotency checks and separate production failure browser tests.
-9. Added CI for native/release/content/Web/unsigned Android validation and artifact retention, without deploy/store publication; pinned new/Android workflow actions. Hardened older Android workflow input/secret/key cleanup boundaries and SDK setup.
+9. Added CI for native/release/content/Web/unsigned Android validation and artifact retention, without deploy/store publication; pinned new/Android workflow actions. Hardened older Android workflow input/secret/key cleanup boundaries and SDK setup. The first hosted Android job exposed an unqualified `sdkmanager` PATH assumption; the installer now resolves it explicitly from `ANDROID_HOME`.
 
 ## 11. What still requires Eddy / manual / platform work
 
