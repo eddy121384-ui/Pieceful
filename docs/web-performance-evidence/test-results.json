@@ -43,7 +43,8 @@
     "final_production_runtime_ready": "passed",
     "final_strict_byte_comparison": "failed: 9 generated metadata payloads; semantic metadata and all other payloads verified",
     "final_repeat_strict_byte_comparison": "failed: class/UID cache ordering only; all 390 other payloads exact",
-    "final_generated_metadata_comparison": "passed"
+    "final_generated_metadata_comparison": "passed",
+    "new_branch_ci": "Triggered by push; not certified by local evidence"
   },
   "initial_failures": [
     "Rail suite initial 40-portrait joined cluster moved but not stored; drop point was inside canvas; original cause unconfirmed.",
@@ -83,9 +84,7 @@
     "docs/web-performance-evidence/maximum-repeats.json",
     "docs/web-performance-evidence/native-regressions.json",
     "docs/web-performance-evidence/production-landscape.png",
-    "docs/web-performance-evidence/production-landscape.png.import",
     "docs/web-performance-evidence/production-portrait.png",
-    "docs/web-performance-evidence/production-portrait.png.import",
     "docs/web-performance-evidence/reproducibility.json",
     "docs/web-performance-evidence/summary.json",
     "docs/web-performance-evidence/test-results.json",
