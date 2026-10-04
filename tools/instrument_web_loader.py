@@ -47,11 +47,12 @@ new = """\t\t\t'onProgress': function (current, total) {
 \t\t\t\t}
 \t\t\t},"""
 
-if old not in html:
+if old not in html and new not in html:
     raise SystemExit("Could not find Godot onProgress block to instrument")
 html = html.replace(old, new)
 html = html.replace('<title>Piecepace: Jigsaw Puzzles</title>', '<title>Pieceful · Piece at your own pace</title>')
-html = html.replace('<div id="status">', '<div id="status">\n<div id="status-brand">Pieceful</div><div id="status-caption">Piece at your own pace</div>')
+if 'id="status-brand"' not in html:
+    html = html.replace('<div id="status">', '<div id="status">\n<div id="status-brand">Pieceful</div><div id="status-caption">Piece at your own pace</div>')
 paper_css = '''
 /* Pieceful loading presentation; engine progress/error behavior is preserved. */
 body, #status { background-color: #fafaf5; color: #334740; }
@@ -64,6 +65,7 @@ body, #status { background-color: #fafaf5; color: #334740; }
 #status-progress::-moz-progress-bar { background: #81988a; }
 #status-notice { color: #334740; background: #f3f5ee; border: 1px solid #dce3da; max-width: 340px; padding: 20px; margin: 24px; font: 14px/1.6 system-ui, sans-serif; }
 '''
-html = html.replace('</style>', paper_css + '\n</style>', 1)
+if '/* Pieceful loading presentation;' not in html:
+    html = html.replace('</style>', paper_css + '\n</style>', 1)
 path.write_text(html, encoding="utf-8")
 print(f"Instrumented Godot loader progress metrics in {path}")

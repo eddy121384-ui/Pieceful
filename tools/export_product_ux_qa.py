@@ -11,10 +11,15 @@ parser.add_argument("--output", default="build/ux-qa/index.html")
 args = parser.parse_args()
 project = Path("project.godot")
 original = project.read_bytes()
+presets = Path("export_presets.cfg")
+original_presets = presets.read_bytes()
 production_scene = 'run/main_scene="res://main.tscn"'
 assert production_scene in original.decode(), "Expected the production main scene"
 Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+Path(args.output).parent.joinpath(".gdignore").touch()
 try:
+    # Only the separate QA export may include the non-shipping fixture.
+    presets.write_text(original_presets.decode().replace("docs/*,tests/*,", "docs/*,", 1))
     project.write_text(original.decode().replace(
         production_scene,
         'run/main_scene="res://tests/commercial_product_browser_fixture.tscn"',
@@ -25,4 +30,5 @@ try:
     ], check=True)
 finally:
     project.write_bytes(original)
+    presets.write_bytes(original_presets)
 subprocess.run(["python3", "tools/instrument_web_loader.py", args.output], check=True)

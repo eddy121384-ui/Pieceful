@@ -100,6 +100,10 @@ func _publish() -> void:
 	for tray_id in sorting.state.tray_ids():
 		trays.append({"id": tray_id, "name": sorting.state.tray_name(tray_id), "collapsed": sorting.state.tray_is_collapsed(tray_id), "members": sorting.state.tray_piece_indexes(tray_id)})
 	var state := {
+		"userfs_persistent": OS.is_userfs_persistent(),
+		"debug_build": OS.is_debug_build(),
+		"stdout_enabled": ProjectSettings.get_setting_with_override("debug/settings/stdout/print_to_stdout"),
+		"confirmation_title": main.product_confirmation_title.text,
 		"gallery": main.puzzle_selection_overlay.visible,
 		"setup": main.product_setup_open,
 		"settings": main.product_settings_overlay.visible,

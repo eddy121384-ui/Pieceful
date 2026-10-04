@@ -6,6 +6,7 @@ const pageErrors = [];
 
 const browser = await chromium.launch({
   headless: true,
+  ...(process.env.PIECEFUL_CHROMIUM_EXECUTABLE ? { executablePath: process.env.PIECEFUL_CHROMIUM_EXECUTABLE } : {}),
   args: [
     "--enable-webgl",
     "--ignore-gpu-blocklist",

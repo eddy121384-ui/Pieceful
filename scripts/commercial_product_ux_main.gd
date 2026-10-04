@@ -56,6 +56,13 @@ func _wait_for_catalog_bootstrap() -> void:
 	# bootstrap still restores the precise board under the loading curtain.
 	if product_ready:
 		_show_puzzle_selection(_has_playable_session())
+		if OS.has_feature("web"):
+			_warn_if_browser_storage_is_temporary(OS.is_userfs_persistent())
+
+
+func _warn_if_browser_storage_is_temporary(persistent: bool) -> void:
+	if not persistent:
+		_ask_product_confirmation("Progress will not be kept", "Your browser is blocking storage. Progress and imported photos will be lost when you close or reload this page. Enable site storage to keep them.", Callable(), "Close")
 
 
 func _has_playable_session() -> bool:
