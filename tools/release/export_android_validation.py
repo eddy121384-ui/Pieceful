@@ -46,6 +46,9 @@ try:
         if build.exists():
             raise SystemExit("Existing Android build template: preserve it; use a clean validation checkout or remove only known generated template output")
         build.mkdir(parents=True)
+        # Gradle copies imported resources and UIDs into its assets tree. Keep
+        # subsequent editor/Web exports from importing those copies recursively.
+        (build / ".gdignore").touch()
         with zipfile.ZipFile(args.templates / "android_source.zip") as archive:
             archive.extractall(build)
         # Godot's template manager records this beside build/, not inside it.

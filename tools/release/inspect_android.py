@@ -10,6 +10,7 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 from inspect_pack import FORBIDDEN_ROOTS, REQUIRED_NOTICES
+from catalog_identity import validate_catalog_identity
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -23,9 +24,7 @@ def inspect(path: Path, bundletool: Path | None = None) -> dict:
         paths = {name.removeprefix(asset_prefix) for name in names if name.startswith(asset_prefix)}
         assert not any(name.startswith(FORBIDDEN_ROOTS) or "commercial_product_browser_fixture" in name for name in paths), "Development resource shipped"
         assert all(name in paths for name in REQUIRED_NOTICES), "Missing license notices"
-        for entry in catalog:
-            name = entry["path"].removeprefix("res://")
-            assert archive.read(asset_prefix + name) == (ROOT / name).read_bytes(), name
+        identity = validate_catalog_identity(ROOT, paths, lambda name: archive.read(asset_prefix + name))
         libraries = sorted(name for name in names if name.startswith(prefix + "lib/") and name.endswith(".so"))
         assert libraries and all("/arm64-v8a/" in name for name in libraries), "Unexpected native ABI"
         alignments = {}
@@ -44,7 +43,7 @@ def inspect(path: Path, bundletool: Path | None = None) -> dict:
             assert loads
             alignments[name] = loads
         assert not any(name.startswith("META-INF/") and name.upper().endswith((".RSA", ".DSA", ".EC")) for name in names), "Validation artifact unexpectedly signed"
-    result = {"file": path.name, "bytes": path.stat().st_size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "catalog_sources_checked": len(catalog), "notices_present": len(REQUIRED_NOTICES), "native_load_alignments": alignments, "signed": False, "profile": "base game without optional monetization SDKs"}
+    result = {"file": path.name, "bytes": path.stat().st_size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "catalog_identity": identity, "notices_present": len(REQUIRED_NOTICES), "native_load_alignments": alignments, "signed": False, "profile": "base game without optional monetization SDKs"}
     if path.suffix == ".apk":
         tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/36.1.0"
         manifest = subprocess.check_output([str(tools / "aapt"), "dump", "xmltree", str(path), "AndroidManifest.xml"], text=True)

@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import struct
 
+from catalog_identity import validate_catalog_identity
+
 FORBIDDEN_ROOTS = ("tests/", "tools/", "web/", "build/", "authoring/", "docs/", "content/curation/", "android/", "ios/", "addons/catalog_source_export/")
 REQUIRED_NOTICES = ("licenses/NOTICE.txt", "licenses/ASSET_MANIFEST.json", "licenses/ANDROID-RUNTIME-INVENTORY.json", "licenses/GODOT-LICENSE.txt", "licenses/GODOT-THIRD-PARTY.json", "licenses/LPPL-1.3c.txt", "assets/ui/ALBUM-FONT-LICENSE.txt", "assets/ui/CATALOG-INK-FONT-LICENSE.txt")
 
@@ -41,21 +43,15 @@ def inspect(path: Path, root: Path, enforce: bool = True) -> dict:
     paths = {entry["path"] for entry in entries}
     forbidden = sorted(p for p in paths if p.startswith(FORBIDDEN_ROOTS) or "commercial_product_browser_fixture" in p)
     missing = [p for p in REQUIRED_NOTICES if p not in paths]
-    catalog = json.loads((root / "content/catalog_v1.json").read_text())["contents"]
-    missing_sources = [entry["path"] for entry in catalog if entry["path"].removeprefix("res://") not in paths]
-    source_mismatches = []
     by_path = {entry["path"]: entry for entry in entries}
     with path.open("rb") as stream:
-        for entry in catalog:
-            source = entry["path"].removeprefix("res://")
-            if source not in by_path:
-                continue
+        def read_payload(source):
             packed = by_path[source]
             stream.seek(packed["offset"])
-            if stream.read(packed["bytes"]) != (root / source).read_bytes():
-                source_mismatches.append(source)
-    result = {"file": path.name, "bytes": path.stat().st_size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "entries": len(entries), "forbidden_paths": forbidden, "missing_notices": missing, "missing_catalog_sources": missing_sources, "source_byte_mismatches": source_mismatches}
-    if enforce and (forbidden or missing or missing_sources or source_mismatches):
+            return stream.read(packed["bytes"])
+        identity = validate_catalog_identity(root, paths, read_payload) if enforce else {"not_enforced": True}
+    result = {"file": path.name, "bytes": path.stat().st_size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "entries": len(entries), "forbidden_paths": forbidden, "missing_notices": missing, "catalog_identity": identity}
+    if enforce and (forbidden or missing):
         raise ValueError(json.dumps(result, indent=2))
     return result
 

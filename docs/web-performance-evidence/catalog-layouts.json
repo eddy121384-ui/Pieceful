@@ -1,0 +1,1674 @@
+[
+	{
+		"content": "garden",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.0,
+				"columns": 8,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 75.0,
+				"resolved_piece_count": 40,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.06666666666667,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 37.5,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.945454545454545,
+				"columns": 22,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.2727272727273,
+				"resolved_piece_count": 286,
+				"rows": 13,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "twilight_lake",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.0,
+				"columns": 8,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 75.0,
+				"resolved_piece_count": 40,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.06666666666667,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 37.5,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.945454545454545,
+				"columns": 22,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.6,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.2727272727273,
+				"resolved_piece_count": 286,
+				"rows": 13,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "crane_pine_scroll",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.05,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.75,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.05,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.75,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.75,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 300,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_10181",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.999777827149522,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.39968895800933,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.999777827149522,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.39968895800933,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.8571428571429,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.979782270606532,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.39968895800933,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.0,
+				"resolved_piece_count": 280,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_359362",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.954502068087814,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.33630289532294,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.954502068087814,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.33630289532294,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.8571428571429,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0022271714922,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.33630289532294,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 29.9333333333333,
+				"resolved_piece_count": 300,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_335112",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.09609061015711,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.53452685421995,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 78.2,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0230179028133,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.53452685421995,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 39.1,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0230179028133,
+				"columns": 21,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.53452685421995,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.9285714285714,
+				"resolved_piece_count": 294,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_11181",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.894501446987635,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.25230202578269,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.05964017566228,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.25230202578269,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 43.5561495694247,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.988659494038965,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.25230202578269,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.5789473684211,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_394043",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.026,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.732857142857143,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.026,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.732857142857143,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0469387755102,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.732857142857143,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 280,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_438031",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.871670702179177,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.22033898305085,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03259452411995,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.22033898305085,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 44.6969687721946,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.96342551293488,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.22033898305085,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.5789473684211,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_12802",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.01260126012601,
+				"columns": 8,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.62016201620162,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 74.0666687011719,
+				"resolved_piece_count": 40,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.972097209720972,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.62016201620162,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 40.0,
+				"resolved_piece_count": 135,
+				"rows": 9,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.957368464119139,
+				"columns": 22,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.62016201620162,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.2727272727273,
+				"resolved_piece_count": 286,
+				"rows": 13,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_312624",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.10974106041924,
+				"columns": 6,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.10974106041924,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 90.1111145019531,
+				"resolved_piece_count": 36,
+				"rows": 6,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.939011666508584,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.10974106041924,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 46.1538461538462,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.986436498150432,
+				"columns": 18,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.10974106041924,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 33.3333333333333,
+				"resolved_piece_count": 288,
+				"rows": 16,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_478746",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.922982258229925,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.2921751615219,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01528048405292,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.2921751615219,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.2121221368963,
+				"resolved_piece_count": 154,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.02013828541202,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.2921751615219,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.955556233724,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_478425",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.952380952380952,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.952380952380952,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.8571428571429,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.0,
+				"resolved_piece_count": 300,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_226943",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.846666666666667,
+				"columns": 6,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.846666666666667,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 67.7333323160807,
+				"resolved_piece_count": 36,
+				"rows": 6,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00060606060606,
+				"columns": 11,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.846666666666667,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 36.9230769230769,
+				"resolved_piece_count": 143,
+				"rows": 13,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.9525,
+				"columns": 16,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.846666666666667,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 25.3999996185303,
+				"resolved_piece_count": 288,
+				"rows": 18,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_191566",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.08111111111111,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.772222222222222,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.08111111111111,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.772222222222222,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.978148148148148,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.772222222222222,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.7111124674479,
+				"resolved_piece_count": 285,
+				"rows": 19,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_191567",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.06866666666667,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.763333333333333,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.06866666666667,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.763333333333333,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.966888888888889,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.763333333333333,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.4266662597656,
+				"resolved_piece_count": 285,
+				"rows": 19,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_340070",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.10988888888889,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.792777777777778,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.936919191919192,
+				"columns": 11,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.792777777777778,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.5939386541193,
+				"resolved_piece_count": 143,
+				"rows": 13,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00418518518519,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.792777777777778,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 25.2631578947368,
+				"resolved_piece_count": 285,
+				"rows": 19,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_21209",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.985444444444444,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.703888888888889,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 67.5733337402344,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.985444444444444,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.703888888888889,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 33.7866668701172,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00555555555556,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.703888888888889,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 280,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_399581",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.03436386622227,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.44810941271118,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 82.8666687011719,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03436386622227,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.44810941271118,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 41.4333343505859,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01367658889783,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.44810941271118,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 29.5952388218471,
+				"resolved_piece_count": 280,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_202696",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.12608032536858,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.57651245551601,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 76.1173828125,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.05100830367734,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.57651245551601,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 38.05869140625,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.05100830367734,
+				"columns": 21,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.57651245551601,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.1847795758929,
+				"resolved_piece_count": 294,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_399347",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.00722222222222,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.719444444444444,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00722222222222,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.719444444444444,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.02777777777778,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.719444444444444,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 280,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_394310",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.00840336134454,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.41176470588235,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.0,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00840336134454,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.41176470588235,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.5,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.988235294117647,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.41176470588235,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.0,
+				"resolved_piece_count": 280,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_394709",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.00289725874749,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.40405616224649,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.4666687011719,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00289725874749,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.40405616224649,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.7333343505859,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.982839313572543,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.40405616224649,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.0,
+				"resolved_piece_count": 280,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_5410",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.912333333333333,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.651666666666667,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 62.5600036621094,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.9775,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.651666666666667,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 31.2800018310547,
+				"resolved_piece_count": 150,
+				"rows": 15,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0025641025641,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.651666666666667,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 260,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_221706",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.967429861335053,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.35440180586907,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.967429861335053,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.35440180586907,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.8571428571429,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01580135440181,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.35440180586907,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 29.5333333333333,
+				"resolved_piece_count": 300,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_54393",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.916666666666667,
+				"columns": 6,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.916666666666667,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 73.3333333333333,
+				"resolved_piece_count": 36,
+				"rows": 6,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.08333333333333,
+				"columns": 11,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.916666666666667,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 36.9230769230769,
+				"resolved_piece_count": 143,
+				"rows": 13,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03125,
+				"columns": 16,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.916666666666667,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 26.6666666666667,
+				"resolved_piece_count": 288,
+				"rows": 18,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_215356",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.03911111111111,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.742222222222222,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.5714285714286,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03911111111111,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.742222222222222,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.2857142857143,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.06031746031746,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.742222222222222,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 280,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_228950",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.952380952380952,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.952380952380952,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.8571428571429,
+				"resolved_piece_count": 140,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0,
+				"columns": 20,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.33333333333333,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.0,
+				"resolved_piece_count": 300,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_505626",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.12485939257593,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.5748031496063,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 76.2,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0498687664042,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.5748031496063,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 38.1,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0498687664042,
+				"columns": 21,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.5748031496063,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.2142857142857,
+				"resolved_piece_count": 294,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_728305",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.907349531202742,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.27028934368384,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.07486021388633,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.27028934368384,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.939394864169,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.00286000817145,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.27028934368384,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.4888895670573,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_764802",
+		"presets": [
+			{
+				"cell_aspect_ratio": 1.10837438423645,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.55172413793103,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 77.3333312988281,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03448275862069,
+				"columns": 15,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.55172413793103,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 38.6666656494141,
+				"resolved_piece_count": 150,
+				"rows": 10,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03448275862069,
+				"columns": 21,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.55172413793103,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 27.6190468924386,
+				"resolved_piece_count": 294,
+				"rows": 14,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_10189",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.876424189307625,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.22699386503067,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03822557810288,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.22699386503067,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 44.4545454545455,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.96867936712948,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.22699386503067,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.5789473684211,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_436305",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.915750915750916,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.28205128205128,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.08481262327416,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.28205128205128,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.5454545454545,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01214574898785,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.28205128205128,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.2,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_10996",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.861738797395634,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.20643431635389,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.02082903691483,
+				"columns": 13,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.20643431635389,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 45.2121221368963,
+				"resolved_piece_count": 143,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.952448144489911,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.20643431635389,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 31.5789473684211,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_286248",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.997111111111111,
+				"columns": 5,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.712222222222222,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 68.3733337402344,
+				"resolved_piece_count": 35,
+				"rows": 7,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.997111111111111,
+				"columns": 10,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.712222222222222,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 34.1866668701172,
+				"resolved_piece_count": 140,
+				"rows": 14,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01746031746032,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.712222222222222,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 24.0,
+				"resolved_piece_count": 280,
+				"rows": 20,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_898372",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.935555555555556,
+				"columns": 6,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.935555555555556,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 74.8444417317708,
+				"resolved_piece_count": 36,
+				"rows": 6,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.935555555555556,
+				"columns": 12,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.935555555555556,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 37.4222208658854,
+				"resolved_piece_count": 144,
+				"rows": 12,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.0525,
+				"columns": 16,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.935555555555556,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 26.6666666666667,
+				"resolved_piece_count": 288,
+				"rows": 18,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_54333",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.877777777777778,
+				"columns": 6,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 0.877777777777778,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 70.2222239176432,
+				"resolved_piece_count": 36,
+				"rows": 6,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.03737373737374,
+				"columns": 11,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 0.877777777777778,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 36.9230769230769,
+				"resolved_piece_count": 143,
+				"rows": 13,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 0.9875,
+				"columns": 16,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 0.877777777777778,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 26.3333339691162,
+				"resolved_piece_count": 288,
+				"rows": 18,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	},
+	{
+		"content": "met_54988",
+		"presets": [
+			{
+				"cell_aspect_ratio": 0.922320147571224,
+				"columns": 7,
+				"cut_pattern_path": "res://cut_patterns/Classic_040_A.json",
+				"frame_aspect_ratio": 1.29124820659971,
+				"id": "relaxed",
+				"label": "Relaxed",
+				"piece_short_edge": 85.7142857142857,
+				"resolved_piece_count": 35,
+				"rows": 5,
+				"target_piece_count": 36,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01455216232835,
+				"columns": 14,
+				"cut_pattern_path": "res://cut_patterns/Classic_150_A.json",
+				"frame_aspect_ratio": 1.29124820659971,
+				"id": "standard",
+				"label": "Standard",
+				"piece_short_edge": 42.2424233176491,
+				"resolved_piece_count": 154,
+				"rows": 11,
+				"target_piece_count": 144,
+				"touch_floor_satisfied": true
+			},
+			{
+				"cell_aspect_ratio": 1.01940647889451,
+				"columns": 19,
+				"cut_pattern_path": "res://cut_patterns/Classic_286_A.json",
+				"frame_aspect_ratio": 1.29124820659971,
+				"id": "hard",
+				"label": "Hard",
+				"piece_short_edge": 30.9777770996094,
+				"resolved_piece_count": 285,
+				"rows": 15,
+				"target_piece_count": 288,
+				"touch_floor_satisfied": true
+			}
+		]
+	}
+]

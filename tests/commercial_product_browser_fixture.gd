@@ -6,6 +6,7 @@ extends Node
 var main: Node
 var request_callback
 var publish_elapsed := 0.0
+var gallery_ready_marked := false
 
 
 func _ready() -> void:
@@ -26,6 +27,9 @@ func _process(delta: float) -> void:
 	if main == null or not OS.has_feature("web"):
 		return
 	publish_elapsed += delta
+	if not gallery_ready_marked and not main.save_coordinator.bootstrapping and main.puzzle_selection_overlay.visible and (main.startup_curtain == null or not main.startup_curtain.visible):
+		gallery_ready_marked = true
+		JavaScriptBridge.eval("window.__PIECEFUL_PERF_GALLERY_USABLE_MS__=performance.now();", true)
 	_publish_transition()
 	if publish_elapsed >= 0.2:
 		publish_elapsed = 0.0
@@ -37,7 +41,28 @@ func _on_request(arguments: Array) -> void:
 		return
 	var action := str(arguments[0])
 	var board = main.get_node("PuzzleBoard")
-	if action == "place_one":
+	if action == "perf_start":
+		# Profiling only: route through the accepted selection/start methods.
+		# Interaction correctness is tested separately with real pointer input.
+		main._leave_puzzle_for_gallery()
+		main._on_content_card_pressed(str(arguments[1]))
+		main._select_picker_difficulty(str(arguments[2]))
+		main._start_selected_puzzle()
+	elif action == "perf_gallery":
+		main._leave_puzzle_for_gallery()
+	elif action == "perf_photo":
+		main._prepare_puzzle_me_import(Marshalls.base64_to_raw(str(arguments[1])), "Performance photo.png")
+	elif action == "perf_resume":
+		main._on_resume_game_pressed(str(arguments[1]))
+	elif action == "perf_catalog_identity":
+		var rows: Array = []
+		for entry in board.content_presets():
+			if not str(entry.get("path", "")).begins_with("res://"):
+				continue
+			var path := str(entry["path"])
+			rows.append({"path": path, "sha256": board._content_sha256_for(path), "raw_present": FileAccess.file_exists(path)})
+		JavaScriptBridge.eval("window.__PIECEFUL_CATALOG_IDENTITY_PROBE__=" + JSON.stringify(rows) + ";", true)
+	elif action == "place_one":
 		for key in board.cluster_members.keys():
 			var member = board.pieces[int(board.cluster_members[key][0])]
 			if not member.solved:
@@ -97,9 +122,13 @@ func _publish() -> void:
 		piece_points.append({"index": int(piece.piece_index), "cluster": board._cluster_id_for(piece.piece_index), "solved": piece.solved, "visible": piece.is_visible_in_tree(), "pickable": piece.input_pickable, "z": piece.z_index, "point": [point.x, point.y], "target": [target.x, target.y]})
 	var sorting = main.get_node("SortingWorkspace")
 	var trays: Array = []
+	# Native Rail acceptance tests rail_canvas, whose content can be shorter
+	# than the ScrollContainer. Aim within the actual visible drop surface.
+	var rail_drop_rect: Rect2 = sorting.rail_canvas.get_global_rect().intersection(sorting.rail_scroll.get_global_rect())
 	for tray_id in sorting.state.tray_ids():
 		trays.append({"id": tray_id, "name": sorting.state.tray_name(tray_id), "collapsed": sorting.state.tray_is_collapsed(tray_id), "members": sorting.state.tray_piece_indexes(tray_id)})
 	var state := {
+		"performance": _performance_snapshot(board),
 		"userfs_persistent": OS.is_userfs_persistent(),
 		"debug_build": OS.is_debug_build(),
 		"stdout_enabled": ProjectSettings.get_setting_with_override("debug/settings/stdout/print_to_stdout"),
@@ -113,6 +142,7 @@ func _publish() -> void:
 		"sessions": main.sessions_panel.visible,
 		"replay": main.timelapse_overlay.visible,
 		"content": str(board.active_content_id()),
+		"content_identity": board.active_content_identity(),
 		"pending": main.pending_content_id,
 		"difficulty": str(board.active_difficulty_id()),
 		"game": str(saves.active_game()),
@@ -127,7 +157,9 @@ func _publish() -> void:
 		"board_lines_visible": main.board_lines_overlay.visible,
 		"tray_manager": sorting.panel.visible,
 		"tray_detail": sorting.detail_panel.visible,
-		"rail_drop_point": [sorting.rail_scroll.get_global_rect().get_center().x, sorting.rail_scroll.get_global_rect().get_center().y],
+		"rail_drop_point": [rail_drop_rect.get_center().x, rail_drop_rect.get_center().y],
+		"rail_canvas_rect": [sorting.rail_canvas.get_global_rect().position.x, sorting.rail_canvas.get_global_rect().position.y, sorting.rail_canvas.get_global_rect().size.x, sorting.rail_canvas.get_global_rect().size.y],
+		"rail_scroll_rect": [sorting.rail_scroll.get_global_rect().position.x, sorting.rail_scroll.get_global_rect().position.y, sorting.rail_scroll.get_global_rect().size.x, sorting.rail_scroll.get_global_rect().size.y],
 		"trays": trays,
 		"picture_mode": main.preview_mode,
 		"replay_close": str(main.timelapse_close_button.name),
@@ -141,6 +173,29 @@ func _publish() -> void:
 		"piece_points": piece_points,
 	}
 	JavaScriptBridge.eval("window.__PIECEFUL_UX_STATE__=" + JSON.stringify(state) + ";", true)
+
+
+func _performance_snapshot(board: Node) -> Dictionary:
+	var cached: Array = []
+	for path in board._texture_cache:
+		var texture: Texture2D = board._texture_cache[path]
+		cached.append({"path": path, "width": texture.get_width(), "height": texture.get_height()})
+	return {
+		"engine_ticks_ms": Time.get_ticks_msec(),
+		"nodes": Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
+		"orphans": Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
+		"orphans_available": OS.is_debug_build(),
+		"resources": Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT),
+		"static_bytes": Performance.get_monitor(Performance.MEMORY_STATIC),
+		"static_max_bytes": Performance.get_monitor(Performance.MEMORY_STATIC_MAX),
+		"texture_bytes": Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED),
+		"render_buffer_bytes": Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED),
+		"draw_calls": Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
+		"process_seconds": Performance.get_monitor(Performance.TIME_PROCESS),
+		"physics_seconds": Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS),
+		"fps": Performance.get_monitor(Performance.TIME_FPS),
+		"texture_cache": cached,
+	}
 
 
 func _collect_controls(node: Node, controls: Array) -> void:

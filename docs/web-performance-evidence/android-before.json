@@ -1,0 +1,15 @@
+{
+  "accepted_base": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+  "artifacts": [
+    {
+      "file": "pieceful-validation-unsigned.aab",
+      "bytes": 56981399,
+      "sha256": "14a63b86068692bfe4040964f56a7bafce965f7550506220b9b30cc222ae7acb"
+    },
+    {
+      "file": "pieceful-validation-unsigned.apk",
+      "bytes": 57050728,
+      "sha256": "267d48e6c4728c834b549203ba0e5e6aea802a3cf3af343233f1fea893201367"
+    }
+  ]
+}

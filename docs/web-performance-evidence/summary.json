@@ -1,0 +1,3308 @@
+{
+  "before": {
+    "artifact_raw_bytes": 73667553,
+    "artifact_calculated_gzip_bytes": 40615016,
+    "artifacts": [
+      {
+        "file": "index.apple-touch-icon.png",
+        "bytes": 11944,
+        "gzip_bytes": 11967,
+        "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5"
+      },
+      {
+        "file": "index.audio.position.worklet.js",
+        "bytes": 2973,
+        "gzip_bytes": 1161,
+        "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+      },
+      {
+        "file": "index.audio.worklet.js",
+        "bytes": 7298,
+        "gzip_bytes": 2194,
+        "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+      },
+      {
+        "file": "index.html",
+        "bytes": 7184,
+        "gzip_bytes": 2800,
+        "sha256": "4a9c35f75e5e6b4564d7ad7dc14912c102b674d2925f86c7c9d375364fa86d5d"
+      },
+      {
+        "file": "index.icon.png",
+        "bytes": 5700,
+        "gzip_bytes": 5723,
+        "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5"
+      },
+      {
+        "file": "index.js",
+        "bytes": 279897,
+        "gzip_bytes": 68517,
+        "sha256": "767aeba047919b76bf311f390df4ef4dc49c8699718be192ef3cf035bb71e820"
+      },
+      {
+        "file": "index.pck",
+        "bytes": 33816360,
+        "gzip_bytes": 30448568,
+        "sha256": "cdb8c43b7ac52801443318f18ca88755d635b7dcbb4a9e6a647e0bb304216c56"
+      },
+      {
+        "file": "index.png",
+        "bytes": 21443,
+        "gzip_bytes": 19328,
+        "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+      },
+      {
+        "file": "index.wasm",
+        "bytes": 39514754,
+        "gzip_bytes": 10054758,
+        "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+      }
+    ],
+    "cold": {
+      "gzip-20Mbps-40ms": {
+        "trials": 3,
+        "median": {
+          "engine_ready_ms": 21887.39999999851,
+          "html_dom_content_loaded_ms": 174.69999999552965,
+          "wasm_response_end_ms": 8442.09999999404,
+          "wasm_stream_instantiate_end_ms": 8512.39999999851,
+          "pck_response_end_ms": 16748.29999999702,
+          "post_assets_to_engine_ready_ms": 5136.69999999553,
+          "measured_encoded_body_bytes": 40606170,
+          "measured_decoded_body_bytes": 73645338
+        },
+        "engine_ready_range_ms": [
+          21741.59999999404,
+          22009.69999999553
+        ],
+        "measurements": [
+          {
+            "engine_ready_ms": 22009.69999999553,
+            "html_dom_content_loaded_ms": 172.10000000149012,
+            "wasm_response_end_ms": 8460.10000000149,
+            "wasm_stream_instantiate_end_ms": 8518.60000000149,
+            "pck_response_end_ms": 16748.29999999702,
+            "post_assets_to_engine_ready_ms": 5261.39999999851,
+            "measured_encoded_body_bytes": 40606170,
+            "measured_decoded_body_bytes": 73645338
+          },
+          {
+            "engine_ready_ms": 21887.39999999851,
+            "html_dom_content_loaded_ms": 200.60000000149012,
+            "wasm_response_end_ms": 8426.89999999851,
+            "wasm_stream_instantiate_end_ms": 8494.60000000149,
+            "pck_response_end_ms": 16750.70000000298,
+            "post_assets_to_engine_ready_ms": 5136.69999999553,
+            "measured_encoded_body_bytes": 40606170,
+            "measured_decoded_body_bytes": 73645338
+          },
+          {
+            "engine_ready_ms": 21741.59999999404,
+            "html_dom_content_loaded_ms": 174.69999999552965,
+            "wasm_response_end_ms": 8442.09999999404,
+            "wasm_stream_instantiate_end_ms": 8512.39999999851,
+            "pck_response_end_ms": 16690.39999999851,
+            "post_assets_to_engine_ready_ms": 5051.19999999553,
+            "measured_encoded_body_bytes": 40606170,
+            "measured_decoded_body_bytes": 73645338
+          }
+        ]
+      },
+      "raw-loopback": {
+        "trials": 3,
+        "median": {
+          "engine_ready_ms": 5612.10000000149,
+          "html_dom_content_loaded_ms": 113.29999999701977,
+          "wasm_response_end_ms": 437.70000000298023,
+          "wasm_stream_instantiate_end_ms": 481.6000000014901,
+          "pck_response_end_ms": 403.3999999985099,
+          "post_assets_to_engine_ready_ms": 5150.70000000298,
+          "measured_encoded_body_bytes": 73645338,
+          "measured_decoded_body_bytes": 73645338
+        },
+        "engine_ready_range_ms": [
+          5573.10000000149,
+          5760.5
+        ],
+        "measurements": [
+          {
+            "engine_ready_ms": 5760.5,
+            "html_dom_content_loaded_ms": 96.39999999850988,
+            "wasm_response_end_ms": 437.70000000298023,
+            "wasm_stream_instantiate_end_ms": 481.6000000014901,
+            "pck_response_end_ms": 403.3999999985099,
+            "post_assets_to_engine_ready_ms": 5278.89999999851,
+            "measured_encoded_body_bytes": 73645338,
+            "measured_decoded_body_bytes": 73645338
+          },
+          {
+            "engine_ready_ms": 5573.10000000149,
+            "html_dom_content_loaded_ms": 125.60000000149012,
+            "wasm_response_end_ms": 494.40000000596046,
+            "wasm_stream_instantiate_end_ms": 566.8000000044703,
+            "pck_response_end_ms": 490,
+            "post_assets_to_engine_ready_ms": 5006.29999999702,
+            "measured_encoded_body_bytes": 73645338,
+            "measured_decoded_body_bytes": 73645338
+          },
+          {
+            "engine_ready_ms": 5612.10000000149,
+            "html_dom_content_loaded_ms": 113.29999999701977,
+            "wasm_response_end_ms": 399.29999999701977,
+            "wasm_stream_instantiate_end_ms": 461.3999999985099,
+            "pck_response_end_ms": 397.5,
+            "post_assets_to_engine_ready_ms": 5150.70000000298,
+            "measured_encoded_body_bytes": 73645338,
+            "measured_decoded_body_bytes": 73645338
+          }
+        ]
+      }
+    },
+    "qa_timing": {
+      "galleryUsableObservedMs": 8956.89999999851,
+      "galleryUsableFrameMarkerMs": 8748.69999999553,
+      "firstPuzzleStartClickToObservedMs": 1118,
+      "firstPuzzlePlayableObservedMs": 13844.39999999851
+    },
+    "runtime": [
+      {
+        "tag": "initial-gallery",
+        "pieces": 40,
+        "sample_count": 8,
+        "nodes_last": 1065,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33523335,
+        "render_buffer_counter_max_bytes": 56114584,
+        "wasm_linear_max_bytes": 69730304,
+        "cpu_process_median_ms": 25.0,
+        "draw_calls_last": 228,
+        "fps_range": [
+          1,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 11250416,
+          "totalSize": 15237120,
+          "embedderHeapUsedSize": 983912,
+          "backingStorageSize": 34753007
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137379840
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 308224000
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 108761088
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 230625280
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63401984
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55218176
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "40-pieces",
+        "pieces": 40,
+        "sample_count": 8,
+        "nodes_last": 1065,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 55736296,
+        "wasm_linear_max_bytes": 69730304,
+        "cpu_process_median_ms": 20.35,
+        "draw_calls_last": 183,
+        "fps_range": [
+          4,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 10669836,
+          "totalSize": 15761408,
+          "embedderHeapUsedSize": 1201840,
+          "backingStorageSize": 34940807
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137203712
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 308424704
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 108761088
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 229347328
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63406080
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55267328
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "start-standard",
+        "observedMs": 3811.89999999851
+      },
+      {
+        "tag": "standard-pieces",
+        "pieces": 150,
+        "sample_count": 6,
+        "nodes_last": 1730,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 69672884,
+        "wasm_linear_max_bytes": 83689472,
+        "cpu_process_median_ms": 26.5,
+        "draw_calls_last": 623,
+        "fps_range": [
+          1,
+          5
+        ],
+        "js_heap": {
+          "usedSize": 11701104,
+          "totalSize": 16023552,
+          "embedderHeapUsedSize": 1148440,
+          "backingStorageSize": 35176050
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137351168
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 317501440
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 108761088
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 238501888
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63406080
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55275520
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "start-hard",
+        "observedMs": 5945.10000000149
+      },
+      {
+        "tag": "hard-pieces",
+        "pieces": 286,
+        "sample_count": 6,
+        "nodes_last": 2551,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 87207736,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 39.5,
+        "draw_calls_last": 1170,
+        "fps_range": [
+          1,
+          3
+        ],
+        "js_heap": {
+          "usedSize": 13518820,
+          "totalSize": 18382848,
+          "embedderHeapUsedSize": 1492376,
+          "backingStorageSize": 35590837
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138121216
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 336904192
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99328000
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 279597056
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63414272
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55357440
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "286-after-12-rail-scatter",
+        "pieces": 286,
+        "sample_count": 7,
+        "nodes_last": 2606,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33785479,
+        "render_buffer_counter_max_bytes": 88483116,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 41.4,
+        "draw_calls_last": 1170,
+        "fps_range": [
+          3,
+          20
+        ],
+        "js_heap": {
+          "usedSize": 16795580,
+          "totalSize": 19955712,
+          "embedderHeapUsedSize": 1456928,
+          "backingStorageSize": 38486268
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138522624
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 344567808
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98807808
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 281071616
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63414272
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55357440
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "switch-met_10181",
+        "pieces": 35,
+        "sample_count": 3,
+        "nodes_last": 1105,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 2,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43043155,
+        "render_buffer_counter_max_bytes": 56316922,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 127.5,
+        "draw_calls_last": 163,
+        "fps_range": [
+          2,
+          7
+        ],
+        "js_heap": {
+          "usedSize": 14371188,
+          "totalSize": 15761408,
+          "embedderHeapUsedSize": 962696,
+          "backingStorageSize": 38771245
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138330112
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35020800
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 353103872
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98807808
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 280551424
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63414272
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23781376
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55357440
+          }
+        ],
+        "start_observed_ms": 3125
+      },
+      {
+        "tag": "switch-met_359362",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1110,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 3,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 52738645,
+        "render_buffer_counter_max_bytes": 56316050,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 6.7,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 14838396,
+          "totalSize": 16023552,
+          "embedderHeapUsedSize": 1041184,
+          "backingStorageSize": 39171558
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137527296
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 355442688
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98177024
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 282759168
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 5119.4000000059605
+      },
+      {
+        "tag": "switch-met_335112",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1115,
+        "resource_count_last": 152,
+        "builtin_cached_textures": 4,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 61181716,
+        "render_buffer_counter_max_bytes": 56319486,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 77.75,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          6
+        ],
+        "js_heap": {
+          "usedSize": 15061348,
+          "totalSize": 17072128,
+          "embedderHeapUsedSize": 1142232,
+          "backingStorageSize": 39558678
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137715712
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 356306944
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98177024
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 290664448
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 2763.3000000044703
+      },
+      {
+        "tag": "switch-met_11181",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1120,
+        "resource_count_last": 153,
+        "builtin_cached_textures": 5,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 62657272,
+        "render_buffer_counter_max_bytes": 56318850,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 77.3,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          7
+        ],
+        "js_heap": {
+          "usedSize": 15157652,
+          "totalSize": 17072128,
+          "embedderHeapUsedSize": 1342576,
+          "backingStorageSize": 40358414
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138502144
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 358686720
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98177024
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 290590720
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 2304.3000000044703
+      },
+      {
+        "tag": "switch-met_394043",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1125,
+        "resource_count_last": 154,
+        "builtin_cached_textures": 6,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 64092727,
+        "render_buffer_counter_max_bytes": 56325346,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 9.9,
+        "draw_calls_last": 163,
+        "fps_range": [
+          3,
+          4
+        ],
+        "js_heap": {
+          "usedSize": 16307640,
+          "totalSize": 18800640,
+          "embedderHeapUsedSize": 1610328,
+          "backingStorageSize": 40378680
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138096640
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 359841792
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98177024
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 290779136
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 2487.6999999955297
+      },
+      {
+        "tag": "switch-met_438031",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1130,
+        "resource_count_last": 155,
+        "builtin_cached_textures": 7,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 74709787,
+        "render_buffer_counter_max_bytes": 56320554,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 79.55000000000001,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          6
+        ],
+        "js_heap": {
+          "usedSize": 16613776,
+          "totalSize": 18939904,
+          "embedderHeapUsedSize": 1825064,
+          "backingStorageSize": 41206187
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138874880
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 362393600
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 98177024
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 301506560
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 3111.7999999970198
+      },
+      {
+        "tag": "switch-met_12802",
+        "pieces": 40,
+        "sample_count": 4,
+        "nodes_last": 1165,
+        "resource_count_last": 156,
+        "builtin_cached_textures": 8,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 82705552,
+        "render_buffer_counter_max_bytes": 56923624,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 14.5,
+        "draw_calls_last": 183,
+        "fps_range": [
+          1,
+          1
+        ],
+        "js_heap": {
+          "usedSize": 17082036,
+          "totalSize": 19464192,
+          "embedderHeapUsedSize": 2078912,
+          "backingStorageSize": 41260973
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138907648
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 363008000
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 96378880
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 310038528
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 2859.5999999940395
+      },
+      {
+        "tag": "switch-met_312624",
+        "pieces": 36,
+        "sample_count": 3,
+        "nodes_last": 1146,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 94382248,
+        "render_buffer_counter_max_bytes": 56449844,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 17.9,
+        "draw_calls_last": 167,
+        "fps_range": [
+          1,
+          4
+        ],
+        "js_heap": {
+          "usedSize": 17246708,
+          "totalSize": 18939904,
+          "embedderHeapUsedSize": 2206088,
+          "backingStorageSize": 41689390
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138063872
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 364658688
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 321290240
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": 2911.5
+      },
+      {
+        "tag": "eight-artwork-gallery",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1146,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 94382248,
+        "render_buffer_counter_max_bytes": 56941700,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 14.5,
+        "draw_calls_last": 210,
+        "fps_range": [
+          3,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 17027300,
+          "totalSize": 22347776,
+          "embedderHeapUsedSize": 2295800,
+          "backingStorageSize": 42172500
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138797056
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 368996352
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 322240512
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "repeated-gallery-game-gallery",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1155,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 94382248,
+        "render_buffer_counter_max_bytes": 56808778,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 17.1,
+        "draw_calls_last": 206,
+        "fps_range": [
+          2,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 19139172,
+          "totalSize": 23134208,
+          "embedderHeapUsedSize": 2969312,
+          "backingStorageSize": 43076460
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138543104
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 371728384
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 322342912
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "photo-game",
+        "pieces": 35,
+        "sample_count": 9,
+        "nodes_last": 1168,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 94437535,
+        "render_buffer_counter_max_bytes": 56318642,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 17.1,
+        "draw_calls_last": 163,
+        "fps_range": [
+          2,
+          14
+        ],
+        "js_heap": {
+          "usedSize": 19091952,
+          "totalSize": 21561344,
+          "embedderHeapUsedSize": 3113520,
+          "backingStorageSize": 43618905
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138825728
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 372871168
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 321495040
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63303680
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23650304
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-photo-switch",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1173,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 94437535,
+        "render_buffer_counter_max_bytes": 56316922,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 28.499999999999996,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 19668340,
+          "totalSize": 21970944,
+          "embedderHeapUsedSize": 3394520,
+          "backingStorageSize": 43915997
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 139063296
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 373981184
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 321658880
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63279104
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23638016
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "completion",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1168,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 108198683,
+        "render_buffer_counter_max_bytes": 56373754,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 31.0,
+        "draw_calls_last": 147,
+        "fps_range": [
+          2,
+          11
+        ],
+        "js_heap": {
+          "usedSize": 18430752,
+          "totalSize": 21766144,
+          "embedderHeapUsedSize": 1074848,
+          "backingStorageSize": 43937676
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 139145216
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 375050240
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 330092544
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63283200
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23638016
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "replay",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1343,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 96665755,
+        "render_buffer_counter_max_bytes": 60276548,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 26.599999999999998,
+        "draw_calls_last": 301,
+        "fps_range": [
+          5,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 18681076,
+          "totalSize": 21766144,
+          "embedderHeapUsedSize": 1212760,
+          "backingStorageSize": 44166246
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138457088
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 373825536
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 331898880
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63283200
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23638016
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-replay",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1343,
+        "resource_count_last": 157,
+        "builtin_cached_textures": 9,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 96665755,
+        "render_buffer_counter_max_bytes": 60271820,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 24.0,
+        "draw_calls_last": 147,
+        "fps_range": [
+          7,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 18560968,
+          "totalSize": 21766144,
+          "embedderHeapUsedSize": 1247616,
+          "backingStorageSize": 44404938
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 138682368
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35028992
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 373997568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 94900224
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 331948032
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63283200
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23638016
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55279616
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "large-photo-met_898372",
+        "pieces": 36,
+        "sample_count": 9,
+        "nodes_last": 1049,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 45778409,
+        "render_buffer_counter_max_bytes": 55214208,
+        "wasm_linear_max_bytes": 83689472,
+        "cpu_process_median_ms": 19.900000000000002,
+        "draw_calls_last": 167,
+        "fps_range": [
+          4,
+          14
+        ],
+        "js_heap": {
+          "usedSize": 12318528,
+          "totalSize": 17227776,
+          "embedderHeapUsedSize": 984056,
+          "backingStorageSize": 43053924
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141549568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35045376
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 337571840
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 109592576
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 241623040
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63377408
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23789568
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55308288
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "large-photo-met_54393",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1062,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 57657095,
+        "render_buffer_counter_max_bytes": 55218668,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 13.5,
+        "draw_calls_last": 167,
+        "fps_range": [
+          1,
+          14
+        ],
+        "js_heap": {
+          "usedSize": 14617736,
+          "totalSize": 17276928,
+          "embedderHeapUsedSize": 927432,
+          "backingStorageSize": 49474323
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 147931136
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35573760
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 349011968
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 109887488
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 255250432
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63696896
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 24268800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55660544
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "two-large-photos-gallery",
+        "pieces": 36,
+        "sample_count": 6,
+        "nodes_last": 1062,
+        "resource_count_last": 149,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 57657095,
+        "render_buffer_counter_max_bytes": 55696340,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 33.5,
+        "draw_calls_last": 212,
+        "fps_range": [
+          3,
+          8
+        ],
+        "js_heap": {
+          "usedSize": 15673656,
+          "totalSize": 19374080,
+          "embedderHeapUsedSize": 1149744,
+          "backingStorageSize": 44671432
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 149131264
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35573760
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 346685440
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 102375424
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 256462848
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63700992
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 24268800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55660544
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-two-large-photo-switch",
+        "pieces": 35,
+        "sample_count": 6,
+        "nodes_last": 1061,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 2,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 66914771,
+        "render_buffer_counter_max_bytes": 55074734,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 9.5,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          8
+        ],
+        "js_heap": {
+          "usedSize": 15454308,
+          "totalSize": 17801216,
+          "embedderHeapUsedSize": 1236784,
+          "backingStorageSize": 45009595
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 149209088
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35573760
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 353439744
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99536896
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 269099008
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63700992
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 24268800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55771136
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "catalog-maximum-300",
+        "pieces": 300,
+        "sample_count": 9,
+        "nodes_last": 2625,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 2,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43218825,
+        "render_buffer_counter_max_bytes": 89059468,
+        "wasm_linear_max_bytes": 83689472,
+        "cpu_process_median_ms": 43.2,
+        "draw_calls_last": 1226,
+        "fps_range": [
+          1,
+          3
+        ],
+        "js_heap": {
+          "usedSize": 11338772,
+          "totalSize": 18907136,
+          "embedderHeapUsedSize": 1442512,
+          "backingStorageSize": 37109997
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137269248
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35033088
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 338653184
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 108990464
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 287498240
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63385600
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23769088
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55275520
+          }
+        ],
+        "start_observed_ms": null
+      }
+    ],
+    "limits": "Local Chromium/SwiftShader, not Safari/mobile hardware. Godot static/texture monitors and JS heap are scoped counters, not whole-browser peak memory. Gzip transfer is measured on this local server, not a CDN.",
+    "orphan_counter": "Unavailable in release (DEBUG_ENABLED only); zero is not evidence of no orphan nodes. Native debug probe reports actual values."
+  },
+  "after": {
+    "artifact_raw_bytes": 55667593,
+    "artifact_calculated_gzip_bytes": 22680914,
+    "artifacts": [
+      {
+        "file": "index.apple-touch-icon.png",
+        "bytes": 11944,
+        "gzip_bytes": 11967,
+        "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5"
+      },
+      {
+        "file": "index.audio.position.worklet.js",
+        "bytes": 2973,
+        "gzip_bytes": 1161,
+        "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+      },
+      {
+        "file": "index.audio.worklet.js",
+        "bytes": 7298,
+        "gzip_bytes": 2194,
+        "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+      },
+      {
+        "file": "index.html",
+        "bytes": 7184,
+        "gzip_bytes": 2801,
+        "sha256": "84a141a606113aadfceb2607561cd4a9e79af63c6604c9809ad8526cc4c74d6d"
+      },
+      {
+        "file": "index.icon.png",
+        "bytes": 5700,
+        "gzip_bytes": 5723,
+        "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5"
+      },
+      {
+        "file": "index.js",
+        "bytes": 279897,
+        "gzip_bytes": 68517,
+        "sha256": "767aeba047919b76bf311f390df4ef4dc49c8699718be192ef3cf035bb71e820"
+      },
+      {
+        "file": "index.pck",
+        "bytes": 15816400,
+        "gzip_bytes": 12514465,
+        "sha256": "8847c5a7417cf91ed78926ba619daa36c572eb6c9e57ebd13bb3267e657f93e1"
+      },
+      {
+        "file": "index.png",
+        "bytes": 21443,
+        "gzip_bytes": 19328,
+        "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+      },
+      {
+        "file": "index.wasm",
+        "bytes": 39514754,
+        "gzip_bytes": 10054758,
+        "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+      }
+    ],
+    "cold": {
+      "gzip-20Mbps-40ms": {
+        "trials": 3,
+        "median": {
+          "engine_ready_ms": 14498.39999999851,
+          "html_dom_content_loaded_ms": 188,
+          "wasm_response_end_ms": 8417.39999999851,
+          "wasm_stream_instantiate_end_ms": 8465,
+          "pck_response_end_ms": 9430.29999999702,
+          "post_assets_to_engine_ready_ms": 5068.10000000149,
+          "measured_encoded_body_bytes": 22672067,
+          "measured_decoded_body_bytes": 55645378
+        },
+        "engine_ready_range_ms": [
+          14298.89999999851,
+          14521.39999999851
+        ],
+        "measurements": [
+          {
+            "engine_ready_ms": 14521.39999999851,
+            "html_dom_content_loaded_ms": 199.30000000447035,
+            "wasm_response_end_ms": 8437.80000000447,
+            "wasm_stream_instantiate_end_ms": 8488.80000000447,
+            "pck_response_end_ms": 9442,
+            "post_assets_to_engine_ready_ms": 5079.39999999851,
+            "measured_encoded_body_bytes": 22672067,
+            "measured_decoded_body_bytes": 55645378
+          },
+          {
+            "engine_ready_ms": 14298.89999999851,
+            "html_dom_content_loaded_ms": 185.79999999701977,
+            "wasm_response_end_ms": 8394.39999999851,
+            "wasm_stream_instantiate_end_ms": 8441.10000000149,
+            "pck_response_end_ms": 9398.79999999702,
+            "post_assets_to_engine_ready_ms": 4900.10000000149,
+            "measured_encoded_body_bytes": 22672067,
+            "measured_decoded_body_bytes": 55645378
+          },
+          {
+            "engine_ready_ms": 14498.39999999851,
+            "html_dom_content_loaded_ms": 188,
+            "wasm_response_end_ms": 8417.39999999851,
+            "wasm_stream_instantiate_end_ms": 8465,
+            "pck_response_end_ms": 9430.29999999702,
+            "post_assets_to_engine_ready_ms": 5068.10000000149,
+            "measured_encoded_body_bytes": 22672067,
+            "measured_decoded_body_bytes": 55645378
+          }
+        ]
+      },
+      "raw-loopback": {
+        "trials": 3,
+        "median": {
+          "engine_ready_ms": 5785.10000000149,
+          "html_dom_content_loaded_ms": 125.60000000149012,
+          "wasm_response_end_ms": 476.5,
+          "wasm_stream_instantiate_end_ms": 521.2999999970198,
+          "pck_response_end_ms": 299.20000000298023,
+          "post_assets_to_engine_ready_ms": 5263.80000000447,
+          "measured_encoded_body_bytes": 55645378,
+          "measured_decoded_body_bytes": 55645378
+        },
+        "engine_ready_range_ms": [
+          5422.10000000149,
+          6931.29999999702
+        ],
+        "measurements": [
+          {
+            "engine_ready_ms": 6931.29999999702,
+            "html_dom_content_loaded_ms": 235.69999999552965,
+            "wasm_response_end_ms": 952.5,
+            "wasm_stream_instantiate_end_ms": 1055.5,
+            "pck_response_end_ms": 638.1000000014901,
+            "post_assets_to_engine_ready_ms": 5875.79999999702,
+            "measured_encoded_body_bytes": 55645378,
+            "measured_decoded_body_bytes": 55645378
+          },
+          {
+            "engine_ready_ms": 5785.10000000149,
+            "html_dom_content_loaded_ms": 80.5,
+            "wasm_response_end_ms": 476.5,
+            "wasm_stream_instantiate_end_ms": 521.2999999970198,
+            "pck_response_end_ms": 299.20000000298023,
+            "post_assets_to_engine_ready_ms": 5263.80000000447,
+            "measured_encoded_body_bytes": 55645378,
+            "measured_decoded_body_bytes": 55645378
+          },
+          {
+            "engine_ready_ms": 5422.10000000149,
+            "html_dom_content_loaded_ms": 125.60000000149012,
+            "wasm_response_end_ms": 458.6000000014901,
+            "wasm_stream_instantiate_end_ms": 508.8999999985099,
+            "pck_response_end_ms": 287.79999999701977,
+            "post_assets_to_engine_ready_ms": 4913.20000000298,
+            "measured_encoded_body_bytes": 55645378,
+            "measured_decoded_body_bytes": 55645378
+          }
+        ]
+      }
+    },
+    "qa_timing": {
+      "galleryUsableObservedMs": 7850.20000000298,
+      "galleryUsableFrameMarkerMs": 7644.30000000447,
+      "firstPuzzleStartClickToObservedMs": 1120.8999999985099,
+      "firstPuzzlePlayableObservedMs": 12670.5
+    },
+    "runtime": [
+      {
+        "tag": "initial-gallery",
+        "pieces": 40,
+        "sample_count": 8,
+        "nodes_last": 1065,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33523335,
+        "render_buffer_counter_max_bytes": 56114584,
+        "wasm_linear_max_bytes": 69730304,
+        "cpu_process_median_ms": 25.6,
+        "draw_calls_last": 228,
+        "fps_range": [
+          1,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 11360772,
+          "totalSize": 16023552,
+          "embedderHeapUsedSize": 979600,
+          "backingStorageSize": 16751755
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140259328
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 291254272
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 110571520
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 233013248
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63639552
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23773184
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55242752
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "40-pieces",
+        "pieces": 40,
+        "sample_count": 8,
+        "nodes_last": 1065,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 55736296,
+        "wasm_linear_max_bytes": 69730304,
+        "cpu_process_median_ms": 22.05,
+        "draw_calls_last": 183,
+        "fps_range": [
+          3,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 11011388,
+          "totalSize": 16285696,
+          "embedderHeapUsedSize": 1203824,
+          "backingStorageSize": 16931929
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 139841536
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 290557952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 110571520
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 231968768
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63639552
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23773184
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55242752
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "start-standard",
+        "observedMs": 3727.3000000044703
+      },
+      {
+        "tag": "standard-pieces",
+        "pieces": 150,
+        "sample_count": 6,
+        "nodes_last": 1730,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 69672884,
+        "wasm_linear_max_bytes": 83689472,
+        "cpu_process_median_ms": 31.0,
+        "draw_calls_last": 623,
+        "fps_range": [
+          1,
+          4
+        ],
+        "js_heap": {
+          "usedSize": 11587752,
+          "totalSize": 16023552,
+          "embedderHeapUsedSize": 1153728,
+          "backingStorageSize": 17159343
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140001280
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 299397120
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 110571520
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 240988160
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63639552
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23773184
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55271424
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "start-hard",
+        "observedMs": 5937.39999999851
+      },
+      {
+        "tag": "hard-pieces",
+        "pieces": 286,
+        "sample_count": 6,
+        "nodes_last": 2551,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33654407,
+        "render_buffer_counter_max_bytes": 87207736,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 37.8,
+        "draw_calls_last": 1170,
+        "fps_range": [
+          1,
+          3
+        ],
+        "js_heap": {
+          "usedSize": 13438076,
+          "totalSize": 18120704,
+          "embedderHeapUsedSize": 1504416,
+          "backingStorageSize": 17548838
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140218368
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 318758912
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 103739392
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 281858048
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63639552
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23773184
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55345152
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "286-after-12-rail-scatter",
+        "pieces": 286,
+        "sample_count": 7,
+        "nodes_last": 2606,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 33785479,
+        "render_buffer_counter_max_bytes": 88482000,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 36.5,
+        "draw_calls_last": 1170,
+        "fps_range": [
+          2,
+          18
+        ],
+        "js_heap": {
+          "usedSize": 18341104,
+          "totalSize": 27820032,
+          "embedderHeapUsedSize": 2490120,
+          "backingStorageSize": 20563960
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 139804672
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 334639104
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99573760
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 283533312
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63586304
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55341056
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "switch-met_10181",
+        "pieces": 35,
+        "sample_count": 3,
+        "nodes_last": 1105,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43043155,
+        "render_buffer_counter_max_bytes": 56315806,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 138.4,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          7
+        ],
+        "js_heap": {
+          "usedSize": 16427008,
+          "totalSize": 27820032,
+          "embedderHeapUsedSize": 2743560,
+          "backingStorageSize": 21140226
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140038144
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35057664
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 347492352
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99573760
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 282636288
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 3369.10000000149
+      },
+      {
+        "tag": "switch-met_359362",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1110,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43480969,
+        "render_buffer_counter_max_bytes": 56314934,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 9.9,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 19690784,
+          "totalSize": 27820032,
+          "embedderHeapUsedSize": 2774176,
+          "backingStorageSize": 21391728
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140034048
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 349818880
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 276434944
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2983.39999999851
+      },
+      {
+        "tag": "switch-met_335112",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1115,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 42228550,
+        "render_buffer_counter_max_bytes": 56318370,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 17.6,
+        "draw_calls_last": 163,
+        "fps_range": [
+          2,
+          4
+        ],
+        "js_heap": {
+          "usedSize": 16576736,
+          "totalSize": 19169280,
+          "embedderHeapUsedSize": 2997416,
+          "backingStorageSize": 21747747
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140214272
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 350945280
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 275603456
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2763.5
+      },
+      {
+        "tag": "switch-met_11181",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1120,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 35261035,
+        "render_buffer_counter_max_bytes": 56317734,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 78.25,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          5
+        ],
+        "js_heap": {
+          "usedSize": 15536896,
+          "totalSize": 18907136,
+          "embedderHeapUsedSize": 1080520,
+          "backingStorageSize": 22410612
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141017088
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 340873216
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 266821632
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2201.2000000029802
+      },
+      {
+        "tag": "switch-met_394043",
+        "pieces": 35,
+        "sample_count": 3,
+        "nodes_last": 1125,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 35220934,
+        "render_buffer_counter_max_bytes": 56324230,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 13.6,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          6
+        ],
+        "js_heap": {
+          "usedSize": 15793196,
+          "totalSize": 17489920,
+          "embedderHeapUsedSize": 1153088,
+          "backingStorageSize": 22403194
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140476416
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 341168128
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 266944512
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2320.5
+      },
+      {
+        "tag": "switch-met_438031",
+        "pieces": 35,
+        "sample_count": 4,
+        "nodes_last": 1130,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 44402539,
+        "render_buffer_counter_max_bytes": 56319438,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 6.5,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 16072864,
+          "totalSize": 18677760,
+          "embedderHeapUsedSize": 1320680,
+          "backingStorageSize": 22811325
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140496896
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 343232512
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 277499904
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 3198.10000000149
+      },
+      {
+        "tag": "switch-met_12802",
+        "pieces": 40,
+        "sample_count": 3,
+        "nodes_last": 1165,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 41781244,
+        "render_buffer_counter_max_bytes": 56922508,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 11.6,
+        "draw_calls_last": 183,
+        "fps_range": [
+          2,
+          4
+        ],
+        "js_heap": {
+          "usedSize": 16321872,
+          "totalSize": 17891328,
+          "embedderHeapUsedSize": 1414848,
+          "backingStorageSize": 23242557
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 140873728
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35065856
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 343953408
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 274317312
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2763.10000000149
+      },
+      {
+        "tag": "switch-met_312624",
+        "pieces": 36,
+        "sample_count": 3,
+        "nodes_last": 1146,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 45462175,
+        "render_buffer_counter_max_bytes": 56448728,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 12.7,
+        "draw_calls_last": 167,
+        "fps_range": [
+          1,
+          1
+        ],
+        "js_heap": {
+          "usedSize": 17008088,
+          "totalSize": 18415616,
+          "embedderHeapUsedSize": 1591720,
+          "backingStorageSize": 24113027
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 142364672
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 346505216
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99069952
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 278228992
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": 2938.2999999970198
+      },
+      {
+        "tag": "eight-artwork-gallery",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1146,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 45462175,
+        "render_buffer_counter_max_bytes": 56940584,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 27.25,
+        "draw_calls_last": 210,
+        "fps_range": [
+          4,
+          9
+        ],
+        "js_heap": {
+          "usedSize": 17610780,
+          "totalSize": 21037056,
+          "embedderHeapUsedSize": 1736256,
+          "backingStorageSize": 24168834
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141389824
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 349179904
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95662080
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 279040000
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "repeated-gallery-game-gallery",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1155,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43043155,
+        "render_buffer_counter_max_bytes": 56807662,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 26.1,
+        "draw_calls_last": 206,
+        "fps_range": [
+          3,
+          10
+        ],
+        "js_heap": {
+          "usedSize": 17680004,
+          "totalSize": 21037056,
+          "embedderHeapUsedSize": 2177392,
+          "backingStorageSize": 25005116
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141430784
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 350990336
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 276512768
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63594496
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23760896
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "photo-game",
+        "pieces": 35,
+        "sample_count": 9,
+        "nodes_last": 1168,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 43098442,
+        "render_buffer_counter_max_bytes": 56317526,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 16.2,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          14
+        ],
+        "js_heap": {
+          "usedSize": 18871172,
+          "totalSize": 21299200,
+          "embedderHeapUsedSize": 2342032,
+          "backingStorageSize": 25787056
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141877248
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 352555008
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 275730432
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23756800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-photo-switch",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1173,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 43098442,
+        "render_buffer_counter_max_bytes": 56315806,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 27.700000000000003,
+        "draw_calls_last": 163,
+        "fps_range": [
+          1,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 19560992,
+          "totalSize": 21708800,
+          "embedderHeapUsedSize": 2471328,
+          "backingStorageSize": 25846932
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141246464
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 353628160
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 275750912
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23756800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "completion",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1168,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 45195590,
+        "render_buffer_counter_max_bytes": 56358406,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 26.849999999999998,
+        "draw_calls_last": 147,
+        "fps_range": [
+          1,
+          9
+        ],
+        "js_heap": {
+          "usedSize": 18301456,
+          "totalSize": 22290432,
+          "embedderHeapUsedSize": 987456,
+          "backingStorageSize": 25889669
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141729792
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 355373056
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 275931136
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23756800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "replay",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1343,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 45326662,
+        "render_buffer_counter_max_bytes": 60275432,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 19.8,
+        "draw_calls_last": 301,
+        "fps_range": [
+          4,
+          6
+        ],
+        "js_heap": {
+          "usedSize": 18372428,
+          "totalSize": 22290432,
+          "embedderHeapUsedSize": 1092976,
+          "backingStorageSize": 26092882
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141619200
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 355815424
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 277536768
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23756800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-replay",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1343,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 45326662,
+        "render_buffer_counter_max_bytes": 60270704,
+        "wasm_linear_max_bytes": 120586240,
+        "cpu_process_median_ms": 20.6,
+        "draw_calls_last": 147,
+        "fps_range": [
+          7,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 19205648,
+          "totalSize": 22552576,
+          "embedderHeapUsedSize": 1230144,
+          "backingStorageSize": 26320800
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 142061568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35069952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 356147200
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 95092736
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 277532672
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63590400
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23756800
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55320576
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "large-photo-met_898372",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1049,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 1,
+        "texture_counter_max_bytes": 45778409,
+        "render_buffer_counter_max_bytes": 55214208,
+        "wasm_linear_max_bytes": 83689472,
+        "cpu_process_median_ms": 18.55,
+        "draw_calls_last": 167,
+        "fps_range": [
+          3,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 12035856,
+          "totalSize": 15392768,
+          "embedderHeapUsedSize": 967456,
+          "backingStorageSize": 20998064
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 141414400
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35053568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 313597952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 110399488
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 243056640
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63455232
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23777280
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55296000
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "large-photo-met_54393",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1062,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 57657095,
+        "render_buffer_counter_max_bytes": 55218668,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 21.7,
+        "draw_calls_last": 167,
+        "fps_range": [
+          3,
+          12
+        ],
+        "js_heap": {
+          "usedSize": 14886696,
+          "totalSize": 17276928,
+          "embedderHeapUsedSize": 1077872,
+          "backingStorageSize": 26381750
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 147935232
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35053568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 325939200
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 110403584
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 256307200
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63459328
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23777280
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55296000
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "two-large-photos-gallery",
+        "pieces": 36,
+        "sample_count": 8,
+        "nodes_last": 1062,
+        "resource_count_last": 150,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 57657095,
+        "render_buffer_counter_max_bytes": 55696340,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 27.400000000000002,
+        "draw_calls_last": 212,
+        "fps_range": [
+          4,
+          9
+        ],
+        "js_heap": {
+          "usedSize": 15833916,
+          "totalSize": 20684800,
+          "embedderHeapUsedSize": 1161640,
+          "backingStorageSize": 26799464
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 148086784
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35053568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 330493952
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99086336
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 257347584
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63459328
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23777280
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55394304
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "after-two-large-photo-switch",
+        "pieces": 35,
+        "sample_count": 8,
+        "nodes_last": 1061,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 2,
+        "texture_counter_max_bytes": 66914771,
+        "render_buffer_counter_max_bytes": 55074734,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 16.35,
+        "draw_calls_last": 163,
+        "fps_range": [
+          4,
+          13
+        ],
+        "js_heap": {
+          "usedSize": 16851160,
+          "totalSize": 20684800,
+          "embedderHeapUsedSize": 1423920,
+          "backingStorageSize": 27377394
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 148566016
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35053568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 335597568
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 99086336
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 270098432
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63459328
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23777280
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55394304
+          }
+        ],
+        "start_observed_ms": null
+      },
+      {
+        "tag": "catalog-maximum-300",
+        "pieces": 300,
+        "sample_count": 9,
+        "nodes_last": 2625,
+        "resource_count_last": 151,
+        "builtin_cached_textures": 1,
+        "photo_cached_textures": 0,
+        "texture_counter_max_bytes": 43218825,
+        "render_buffer_counter_max_bytes": 89059468,
+        "wasm_linear_max_bytes": 100466688,
+        "cpu_process_median_ms": 43.1,
+        "draw_calls_last": 1226,
+        "fps_range": [
+          1,
+          3
+        ],
+        "js_heap": {
+          "usedSize": 12307768,
+          "totalSize": 18907136,
+          "embedderHeapUsedSize": 1442704,
+          "backingStorageSize": 19060817
+        },
+        "process_rss": [
+          {
+            "type": "browser",
+            "rss_bytes": 137224192
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 35033088
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 323768320
+          },
+          {
+            "type": "renderer",
+            "rss_bytes": 108580864
+          },
+          {
+            "type": "GPU",
+            "rss_bytes": 287293440
+          },
+          {
+            "type": "network.mojom.NetworkService",
+            "rss_bytes": 63365120
+          },
+          {
+            "type": "storage.mojom.StorageService",
+            "rss_bytes": 23777280
+          },
+          {
+            "type": "audio.mojom.AudioService",
+            "rss_bytes": 55263232
+          }
+        ],
+        "start_observed_ms": null
+      }
+    ],
+    "limits": "Local Chromium/SwiftShader, not Safari/mobile hardware. Godot static/texture monitors and JS heap are scoped counters, not whole-browser peak memory. Gzip transfer is measured on this local server, not a CDN.",
+    "orphan_counter": "Unavailable in release (DEBUG_ENABLED only); zero is not evidence of no orphan nodes. Native debug probe reports actual values."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "payloads": 392,
+  "byte_identical_payloads": 383,
+  "generated_metadata_changes": [
+    {
+      "path": ".godot/global_script_class_cache.cfg",
+      "reason": "Same class records, different ordering"
+    },
+    {
+      "path": ".godot/uid_cache.bin",
+      "reason": "Generated UID mappings/order; identical unique resource paths"
+    },
+    {
+      "path": "assets/demo_crane_pine_scroll.svg.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/demo_garden.svg.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/demo_twilight_lake.svg.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/ui/album-serif-italic.otf.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/ui/album-serif-regular.otf.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/ui/icon_atlas.svg.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    },
+    {
+      "path": "assets/ui/watercolor-gameplay-icons.svg.import",
+      "reason": "Only generated import UID; all paths/settings identical"
+    }
+  ],
+  "note": "This permits only validated UID/order changes. It is not byte-identical container reproducibility."
+}

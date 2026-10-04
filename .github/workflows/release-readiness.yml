@@ -2,7 +2,7 @@ name: Release Readiness Validation
 
 on:
   push:
-    branches: [main, hardening/release-readiness]
+    branches: [main, hardening/release-readiness, perf/web-startup-content-delivery]
   pull_request:
   workflow_dispatch:
 
@@ -35,9 +35,12 @@ jobs:
         run: |
           python3 tests/release_readiness_smoke.py
           python3 tests/content_ingestion_smoke.py
+          python3 tests/catalog_packaging_smoke.py
           python3 tools/release/check_repository.py
       - name: All accepted native regressions and release provider guard
-        run: python3 tools/release/run_native_regressions.py
+        run: |
+          python3 tools/release/run_native_regressions.py
+          "${GODOT_BIN}" --headless --path . --script tests/catalog_texture_lifecycle_smoke.gd
       - name: Production Web export and package inspection
         run: python3 tools/release/export_web.py
       - name: Same-input resource reproducibility and loader idempotency (report container bytes)

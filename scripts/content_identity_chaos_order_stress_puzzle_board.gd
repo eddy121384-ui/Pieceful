@@ -52,15 +52,5 @@ func content_identity_structurally_valid(candidate) -> bool:
 func _content_sha256() -> String:
 	if not _content_sha256_cache.is_empty():
 		return _content_sha256_cache
-	var file := FileAccess.open(CONTENT_SOURCE_PATH, FileAccess.READ)
-	if file == null:
-		return ""
-	var bytes := file.get_buffer(file.get_length())
-	file.close()
-	var hashing := HashingContext.new()
-	if hashing.start(HashingContext.HASH_SHA256) != OK:
-		return ""
-	if hashing.update(bytes) != OK:
-		return ""
-	_content_sha256_cache = hashing.finish().hex_encode()
+	_content_sha256_cache = preload("res://scripts/catalog_content_identity.gd").sha256_for(CONTENT_SOURCE_PATH)
 	return _content_sha256_cache

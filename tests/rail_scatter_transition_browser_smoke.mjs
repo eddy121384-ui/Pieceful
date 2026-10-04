@@ -97,7 +97,9 @@ try {
       }
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => window.__PIECEPACE_READY__ && window.__PIECEFUL_UX_STATE__?.gallery && !window.__PIECEFUL_UX_STATE__.bootstrapping, null, { timeout: 60000 });
+      await page.waitForFunction(() => typeof window.piecefulQaRequest === 'function' && window.__PIECEFUL_PERF_GALLERY_USABLE_MS__ > 0);
       await click('Artwork_garden');
+      await page.waitForFunction(() => window.__PIECEFUL_UX_STATE__?.setup);
       if (pieces === 286) {
         await click((await state()).piece_picker);
         const current = await state(), menu = current.menus[0];
