@@ -163,7 +163,7 @@ Validation performed:
 - Existing commercial browser flow: 38 journey assertions / 54 captures, no browser runtime errors. It includes real rendered input, multiple save slots, imported photo, reload/resume, completed history, portrait and short landscape.
 - Existing animated Rail/Scatter browser suite and new production storage/startup checks: final results recorded in evidence. Device emulation is not physical-device evidence.
 - Actual unsigned Android release APK/AAB, bundletool validate/protobuf manifest, packaged sources/notices, ABI, non-debuggable/backup/permission checks, ELF load alignment and APK ZIP alignment. No install, signing, Play upload, optional SDK build or emulator/device tests performed.
-- Workflow YAML parse and diff whitespace check. The new hosted workflow run status must be checked for the pushed SHA; presence of YAML alone is not a passed CI run.
+- Workflow YAML parse and diff whitespace check. Follow the [Release Readiness Validation workflow](https://github.com/eddy121384-ui/Pieceful/actions/workflows/release-readiness.yml) for the pushed SHA; presence of YAML alone is not a passed CI run. The initial Android job failed on its SDK-manager PATH assumption; the explicit-path correction passed that step in the next hosted run. The exact changed-file list is also in the evidence JSON.
 
 Reproduce on a clean validation checkout (Godot local SDK editor paths must be configured; Java/proxy/CA details are saved in the cloud environment setup notes):
 
