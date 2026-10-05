@@ -359,6 +359,17 @@ jobs:
           cp web/previews/space-drift/index.html build/web/space-drift/index.html
           test -s build/web/space-drift/index.html
 
+      - name: Include Space Drift Zero preview
+        if: github.ref_name == 'main'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/space-drift-zero
+          cp web/previews/space-drift-zero/index.html build/web/space-drift-zero/index.html
+          cp web/previews/space-drift-zero/game.js build/web/space-drift-zero/game.js
+          test -s build/web/space-drift-zero/index.html
+          test -s build/web/space-drift-zero/game.js
+
       - name: Sync chess previews from main on feature-branch deploys
         if: github.ref_name != 'main'
         shell: bash
