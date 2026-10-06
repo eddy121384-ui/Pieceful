@@ -1,0 +1,1784 @@
+{
+  "counts": {
+    "KEEP TRACKED": 201,
+    "EVIDENCE / DOCUMENTATION ONLY": 153
+  },
+  "files": [
+    {
+      "path": "addons/catalog_source_export/catalog_source_export.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "addons/catalog_source_export/plugin.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "assets/demo_crane_pine_scroll.svg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/demo_garden.svg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/demo_twilight_lake.svg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10181.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10181.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10189.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10189.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10996.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10996.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_11181.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_11181.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_12802.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_12802.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191566.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191566.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191567.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191567.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_202696.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_202696.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_21209.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_21209.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_215356.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_215356.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_221706.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_221706.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_226943.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_226943.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_228950.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_228950.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_286248.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_286248.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_312624.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_312624.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_335112.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_335112.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_340070.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_340070.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_359362.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_359362.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394043.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394043.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394310.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394310.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394709.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394709.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399347.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399347.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399581.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399581.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_436305.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_436305.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_438031.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_438031.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478425.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478425.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478746.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478746.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_505626.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_505626.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_5410.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_5410.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54333.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54333.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54393.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54393.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54988.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54988.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_728305.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_728305.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_764802.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_764802.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_898372.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_898372.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10181.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10181.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10189.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10189.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10996.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10996.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_11181.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_11181.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_12802.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_12802.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191566.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191566.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191567.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191567.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_202696.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_202696.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_21209.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_21209.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_215356.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_215356.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_221706.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_221706.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_226943.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_226943.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_228950.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_228950.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_286248.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_286248.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_312624.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_312624.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_335112.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_335112.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_340070.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_340070.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_359362.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_359362.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394043.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394043.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394310.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394310.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394709.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394709.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399347.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399347.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399581.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399581.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_436305.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_436305.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_438031.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_438031.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478425.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478425.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478746.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478746.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_505626.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_505626.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_5410.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_5410.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54333.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54333.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54393.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54393.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54988.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54988.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_728305.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_728305.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_764802.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_764802.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_898372.jpg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_898372.jpg.import",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/ALBUM-FONT-LICENSE.txt",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/CATALOG-INK-FONT-LICENSE.txt",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/CATALOG-INK-PROVENANCE.md",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/album-serif-italic.otf",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/album-serif-regular.otf",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/catalog-ink-fallback.tres",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/icon_atlas.svg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/watercolor-gameplay-icons.svg",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/watercolor-paper.gdshader",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/watercolor-paper.gdshader.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/watercolor-rule.gdshader",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "assets/ui/watercolor-rule.gdshader.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "authoring/die_preview_runtime_presets.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "content/catalog_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/catalog_assets_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/catalog_authoring_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/catalog_identity_lock_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/catalog_identity_manifest_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_curated_catalog_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_curator_sample_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_gold_set_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_puzzleability_report_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_puzzleability_review_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/met_runtime_candidates_v0.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/curation/run_request.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/runtime/met_v0_manifest.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/source_providers_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "content/tag_taxonomy_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "cut_patterns/Classic_012_A.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "cut_patterns/Classic_040_A.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "cut_patterns/Classic_150_A.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "cut_patterns/Classic_286_A.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "cut_patterns/schema_v1.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "docs/CATALOG_CONTENT_PIPELINE.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/COMMERCIAL_PUZZLE_UX_AUDIT.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/FINAL_PRODUCT_QA_CLEANUP.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/HANDOFF_V0_01_DIE_CUT_PIPELINE_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/HINT_PREVIEW_V01.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/MARKET_AND_COMPETITORS_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/MERGE_STACK_AUDIT.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/PRODUCT_DIRECTION_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/RAIL_SCATTER_TRANSITION_QA.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/RELEASE_READINESS_AUDIT.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ROTATION_UX_DECISION.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/SNAP_HIT_TEST_MATRIX.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/SORTING_WORKSPACE_FOUNDATION.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/V0_01_ARCHITECTURE.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/V0_01_IMPLEMENTATION_NOTES_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/V0_01_TEST_CHECKLIST_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/WATERCOLOR_GAMEPLAY_SYSTEM.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/WATERCOLOR_GAMEPLAY_UI.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/WATERCOLOR_UI_SURFACE_AUDIT.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/WEB_PERFORMANCE_CONTENT_AUDIT.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/WORKSPACE_REQUIREMENTS_ZH.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/content_library_architecture_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/content_metadata_completeness_contract_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/content_taxonomy_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/content_vision_tagging_v0_findings.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/die_lab_live_preview_performance.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/gallery_metadata_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/image_aware_difficulty_resolver_v0_2.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/puzzle_layout_resolver_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/architecture/puzzle_me_local_photo_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/catalog-pipeline-evidence/measurements.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/jigsaw_terminology.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/realistic_box_dump.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/runtime_relaxed_milestone_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/runtime_zoom_pan_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/transition_fairing_v0_1.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/design/v16_visual_baseline.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/browser-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/identity-before.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/narrow-expanded-tray.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/narrow-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/narrow-lines-on.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/narrow-settings.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/native-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/original-resumed.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/persisted-history.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/piece-in-tray.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/playable-tray.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/resume-before.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/resumed-after-completion.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/share-result.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/short-popup.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/short-trays.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/final-qa-evidence/three-real-snaps.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/handoffs/opus-5-5-paper-relief.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/merge-stack-evidence/diff-inventory.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/merge-stack-evidence/generated-files.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/merge-stack-evidence/lineage.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/merge-stack-evidence/validation.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/merge-stack-evidence/workflows.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/product/puzzle-piece-depth-commercial-research.md",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/286-landscape-capture.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/40-landscape-capture.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/browser-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/frame-audit.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/native-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/rail-scatter-evidence/portrait-animation-frame.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/release-readiness-evidence/production-asset-failure.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/release-readiness-evidence/production-landscape.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/release-readiness-evidence/production-portrait.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/release-readiness-evidence/production-storage-denied.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/release-readiness-evidence/results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/01-first-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/02-piece-count-choices.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/03-picture-setup.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/04-gameplay.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/05-first-piece-drag.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/06-saved-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/07-returning-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/08-picture-reference.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/09-hint-assist.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/10-trays.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/11-pieces-strip.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/12-more-tools.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/13-reshuffle-confirmation.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/14-favorites.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/15-my-photos-empty.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/16-photo-setup-safe.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/17-settings.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/18-search-results.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/19-theme-filter.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/20-for-you-filter.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/21-unfinished-puzzles.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/22-landscape-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/23-landscape-setup.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/24-landscape-gameplay.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/25-completion.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/26-replay.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/27-completed-history.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/28-completion-persisted-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/after/29-persisted-history.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/01-first-launch.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/02-more.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/03-unfinished.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/04-gallery.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/06-difficulty.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/09-reference.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/10-trays.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/11-pieces.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/before/12-history.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/browser-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/ux-evidence/regression-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/after-browser.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/after-inventory.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/after-native-memory.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/after-web-manifest.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/android-after.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/android-before.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/before-browser.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/before-inventory.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/before-native-memory.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/before-web-manifest.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/catalog-layouts.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/content-comparison.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/final-metadata-comparison.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/final-repeat-metadata-comparison.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/final-repeat-web-manifest.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/final-web-manifest.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/maximum-repeats.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/native-regressions.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/production-landscape.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/production-portrait.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/reproducibility.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/summary.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/test-results.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "docs/web-performance-evidence/upgrade.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "licenses/ANDROID-RUNTIME-INVENTORY.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "licenses/ASSET_MANIFEST.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "licenses/GODOT-LICENSE.txt",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "licenses/GODOT-THIRD-PARTY.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "licenses/LPPL-1.3c.txt",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "licenses/NOTICE.txt",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "release_toolchain.lock.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Approved source/legacy derivative, immutable geometry, authoritative metadata, reviewed generated projection or distributable notice/inventory; provenance is not legal clearance"
+    },
+    {
+      "path": "scripts/catalog_content_identity.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/commercial_product_ux_main.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/main.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/runtime_difficulty_catalog.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/runtime_puzzle_board.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/watercolor_gameplay_style.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "scripts/watercolor_sorting_workspace.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/catalog_layout_inventory.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/catalog_pipeline_runtime_smoke.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/catalog_texture_lifecycle_smoke.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/commercial_product_browser_fixture.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/commercial_product_navigation_smoke.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tests/fixtures/product-ux-photo.png",
+      "classification": "KEEP TRACKED",
+      "reason": "Nonshipping regression fixture"
+    },
+    {
+      "path": "tests/runtime_memory_probe.gd.uid",
+      "classification": "KEEP TRACKED",
+      "reason": "Godot resource IDs/import settings; preserve references and accepted quality"
+    },
+    {
+      "path": "tools/catalog_pipeline_examples/met_sample/.gdignore",
+      "classification": "KEEP TRACKED",
+      "reason": "Nonshipping documented authoring example, not automatically promoted content"
+    },
+    {
+      "path": "tools/catalog_pipeline_examples/met_sample/batch.json",
+      "classification": "KEEP TRACKED",
+      "reason": "Nonshipping documented authoring example, not automatically promoted content"
+    },
+    {
+      "path": "web/content-lab/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/die-simulator/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/.nojekyll",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/build-info.json",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.apple-touch-icon.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.audio.position.worklet.js",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.audio.worklet.js",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.icon.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.js",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.pck",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.png",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/game-preview/index.wasm",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/previews/ink-chess-round2/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/previews/ink-chess-save-resume/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/previews/watercolor-chess-save-resume/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "web/previews/watercolor-chess/index.html",
+      "classification": "EVIDENCE / DOCUMENTATION ONLY",
+      "reason": "Operational guidance, historical evidence, curator lab or independent standalone preview; excluded from Godot production packs"
+    },
+    {
+      "path": "res://content/catalog_identity_v1.json (virtual)",
+      "classification": "GENERATE IN CI ONLY",
+      "reason": "Export plugin derives compact runtime original-byte SHA mapping; not a tracked duplicate"
+    }
+  ],
+  "note": "Includes the audit report/evidence paths prepared for tracking. No local cache/build/private intake artifacts are tracked."
+}

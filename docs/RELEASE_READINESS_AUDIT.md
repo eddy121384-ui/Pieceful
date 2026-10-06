@@ -1,5 +1,13 @@
 # Pieceful release-readiness audit
 
+> Historical hardening-layer checkpoint (`2a0b75f`). Packaging sizes and the raw
+> catalog-byte identity mechanism below describe that checkpoint. The cumulative
+> candidate uses compact immutable hashes and the offline catalog pipeline;
+> consult [WEB_PERFORMANCE_CONTENT_AUDIT.md](WEB_PERFORMANCE_CONTENT_AUDIT.md),
+> [CATALOG_CONTENT_PIPELINE.md](CATALOG_CONTENT_PIPELINE.md) and
+> [MERGE_STACK_AUDIT.md](MERGE_STACK_AUDIT.md) for current integration evidence.
+> The unresolved platform/device/account/legal release gates still apply.
+
 Audit date: 2026-10-04 (UTC). Repository: `eddy121384-ui/Pieceful`.
 Branch: `hardening/release-readiness`, based on accepted UX/renderer commit `a66a851accb0b9198cff537263d69335816e4088`.
 

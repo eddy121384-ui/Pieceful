@@ -1,0 +1,596 @@
+{
+  "original_cumulative_inventory": [
+    {
+      "file": ".github/workflows/ai-curator-cloud.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "workflow_dispatch": {
+          "inputs": {
+            "max_items": {
+              "description": "How many source images to curate (0 = all)",
+              "required": false,
+              "default": "40"
+            },
+            "primary_model": {
+              "description": "Primary curator model",
+              "required": false,
+              "default": "gpt-5.6-luna"
+            },
+            "adjudicator_model": {
+              "description": "Second-pass adjudicator model",
+              "required": false,
+              "default": "gpt-5.6-sol"
+            }
+          }
+        },
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ],
+          "paths": [
+            ".github/workflows/ai-curator-cloud.yml",
+            "tools/content_tagging/curate_cloud.py",
+            "content/curation/met_curator_sample_v0.json",
+            "content/curation/met_gold_set_v0.json",
+            "content/tag_taxonomy_v1.json",
+            "content/curation/run_request.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "jobs": {
+        "validate": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 4
+        },
+        "curate": {
+          "needs": "validate",
+          "if": "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[curate')",
+          "runner": "ubuntu-latest",
+          "steps": 5
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/android-monetization-sandbox.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "feat/issue-7-android-release-aab"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "build-android": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 9
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/android-play-internal.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "feat/issue-7-android-release-aab"
+          ]
+        },
+        "workflow_dispatch": {
+          "inputs": {
+            "version_code": {
+              "description": "Monotonic Google Play version code",
+              "required": true,
+              "default": "1"
+            },
+            "version_name": {
+              "description": "User-visible version name",
+              "required": true,
+              "default": "0.1.0-internal"
+            }
+          }
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "validate-release-aab": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 12
+        },
+        "build-play-aab": {
+          "needs": "validate-release-aab",
+          "if": "github.event_name == 'workflow_dispatch'",
+          "runner": "ubuntu-latest",
+          "steps": 12
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/catalog-content-pipeline.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "main",
+            "tools/catalog-content-pipeline"
+          ],
+          "paths": [
+            "assets/**",
+            "content/**",
+            "licenses/ASSET_MANIFEST.json",
+            "tools/catalog_pipeline*",
+            "tools/catalog_pipeline_lib/**",
+            "tools/catalog_pipeline_examples/**",
+            "tools/content_ingestion/analyze_puzzleability.py",
+            "tests/catalog_pipeline_smoke.py",
+            ".github/workflows/catalog-content-pipeline.yml"
+          ]
+        },
+        "pull_request": {
+          "paths": [
+            "assets/**",
+            "content/**",
+            "licenses/ASSET_MANIFEST.json",
+            "tools/catalog_pipeline*",
+            "tools/catalog_pipeline_lib/**",
+            "tools/catalog_pipeline_examples/**",
+            "tools/content_ingestion/analyze_puzzleability.py",
+            "tests/catalog_pipeline_smoke.py",
+            ".github/workflows/catalog-content-pipeline.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "offline-catalog-integrity": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-24.04",
+          "steps": 5
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/catalog-promotion.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "workflow_dispatch": null,
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ],
+          "paths": [
+            ".github/workflows/catalog-promotion.yml",
+            "tools/content_ingestion/promote_curated_catalog.py",
+            "content/curation/met_curator_sample_v0.json",
+            "content/curation/met_gold_set_v0.json",
+            "content/tag_taxonomy_v1.json",
+            "content/source_providers_v1.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "jobs": {
+        "promote": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 7
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/commercial-product-ux-preview.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "spike/codex61-commercial-product-ux-pass"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read",
+        "pages": "write",
+        "id-token": "write"
+      },
+      "jobs": {
+        "build-web": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 12
+        },
+        "deploy-pages": {
+          "needs": "build-web",
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 3
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/content-ingestion-smoke.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ]
+        },
+        "pull_request": {
+          "paths": [
+            "tools/content_ingestion/**",
+            "tools/content_tagging/**",
+            "content/source_providers_v1.json",
+            "content/tag_taxonomy_v1.json",
+            "tests/content_ingestion_smoke.py",
+            "RUN_CONTENT_INGESTION.bat",
+            "RUN_VISION_TAGGING.bat",
+            ".github/workflows/content-ingestion-smoke.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "smoke": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 8
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/mobile-museum-preview.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "workflow_dispatch": null,
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ],
+          "paths": [
+            ".github/workflows/mobile-museum-preview.yml",
+            "content/catalog_v1.json",
+            "assets/museum/met_v0/**",
+            "scripts/gallery_image_aware_main.gd",
+            "scripts/gallery_puzzle_catalog_board.gd",
+            "tests/museum_runtime_flow_smoke.gd",
+            "export_presets.cfg",
+            "tools/content_ingestion/configure_museum_texture_imports.py"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "jobs": {
+        "build-preview": {
+          "needs": null,
+          "if": "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mobile-preview]')",
+          "runner": "ubuntu-latest",
+          "steps": 10
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/puzzle-piece-depth-smoke.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "push": {
+          "branches": [
+            "feat/issue-51-piece-depth",
+            "fix/issue-57-touch-zoom-recovery",
+            "fix/issue-59-touch-gesture-arbitration"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "depth-smoke": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 11
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/puzzleability-v0.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "workflow_dispatch": null,
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ],
+          "paths": [
+            ".github/workflows/puzzleability-v0.yml",
+            "tools/content_ingestion/analyze_puzzleability.py",
+            "content/curation/met_curated_catalog_v0.json",
+            "content/curation/met_puzzleability_review_v0.json",
+            "tools/content_ingestion/finalize_puzzleability.py"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "jobs": {
+        "analyze": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 11
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/release-readiness.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "main",
+            "hardening/release-readiness",
+            "perf/web-startup-content-delivery",
+            "tools/catalog-content-pipeline"
+          ]
+        },
+        "pull_request": null,
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "jobs": {
+        "web-and-regressions": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-24.04",
+          "steps": 14
+        },
+        "android-unsigned-validation": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-24.04",
+          "steps": 9
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/runtime-museum-assets-v0.yml",
+      "touched_by_stack": false,
+      "triggers": {
+        "workflow_dispatch": null,
+        "push": {
+          "branches": [
+            "feat/issue-9-content-ingestion-v0"
+          ],
+          "paths": [
+            ".github/workflows/runtime-museum-assets-v0.yml",
+            "tools/content_ingestion/materialize_runtime_assets.py",
+            "tools/content_ingestion/configure_museum_texture_imports.py",
+            "content/curation/met_runtime_candidates_v0.json",
+            "scripts/gallery_image_aware_main.gd",
+            "tests/gallery_flow_smoke.gd",
+            "tests/puzzle_selection_flow_smoke.gd",
+            "tests/museum_runtime_flow_smoke.gd"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "jobs": {
+        "materialize": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 16
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/watercolor-ui-preview.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "spike/codex61-watercolor-ui"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read",
+        "pages": "write",
+        "id-token": "write"
+      },
+      "jobs": {
+        "build-web": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 10
+        },
+        "deploy-pages": {
+          "needs": "build-web",
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 3
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/watercolor-ui-system-preview.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "spike/codex61-watercolor-ui-system-pass"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read",
+        "pages": "write",
+        "id-token": "write"
+      },
+      "jobs": {
+        "build-web": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 10
+        },
+        "deploy-pages": {
+          "needs": "build-web",
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 3
+        }
+      }
+    },
+    {
+      "file": ".github/workflows/web-mobile-preview.yml",
+      "touched_by_stack": true,
+      "triggers": {
+        "push": {
+          "branches": [
+            "main",
+            "feat/issue-51-piece-depth",
+            "fix/issue-57-touch-zoom-recovery",
+            "fix/issue-59-touch-gesture-arbitration",
+            "feat/commercial-gameplay-hud-album-desk",
+            "spike/gpt6-album-desk-polish"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "pages": "write",
+        "id-token": "write"
+      },
+      "jobs": {
+        "build-web": {
+          "needs": null,
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 45
+        },
+        "deploy-pages": {
+          "needs": "build-web",
+          "if": null,
+          "runner": "ubuntu-latest",
+          "steps": 3
+        }
+      }
+    }
+  ],
+  "corrected_triggers_and_guards": [
+    {
+      "file": ".github/workflows/catalog-content-pipeline.yml",
+      "triggers": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "assets/**",
+            "content/**",
+            "licenses/ASSET_MANIFEST.json",
+            "tools/catalog_pipeline*",
+            "tools/catalog_pipeline_lib/**",
+            "tools/catalog_pipeline_examples/**",
+            "tools/content_ingestion/analyze_puzzleability.py",
+            "tests/catalog_pipeline_smoke.py",
+            ".github/workflows/catalog-content-pipeline.yml"
+          ]
+        },
+        "pull_request": {
+          "paths": [
+            "assets/**",
+            "content/**",
+            "licenses/ASSET_MANIFEST.json",
+            "tools/catalog_pipeline*",
+            "tools/catalog_pipeline_lib/**",
+            "tools/catalog_pipeline_examples/**",
+            "tools/content_ingestion/analyze_puzzleability.py",
+            "tests/catalog_pipeline_smoke.py",
+            ".github/workflows/catalog-content-pipeline.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "job_guards": {
+        "offline-catalog-integrity": null
+      }
+    },
+    {
+      "file": ".github/workflows/release-readiness.yml",
+      "triggers": {
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "pull_request": null,
+        "workflow_dispatch": null
+      },
+      "job_guards": {
+        "web-and-regressions": null,
+        "android-unsigned-validation": null
+      }
+    },
+    {
+      "file": ".github/workflows/web-mobile-preview.yml",
+      "triggers": {
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "job_guards": {
+        "build-web": "github.ref_name == 'main'",
+        "deploy-pages": null
+      }
+    }
+  ],
+  "hosted_ci_run_this_audit": false
+}
