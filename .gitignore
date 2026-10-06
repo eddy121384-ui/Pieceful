@@ -28,3 +28,8 @@ android/plugins/
 !.env.example
 __pycache__/
 *.pyc
+
+# Operator intake is not a second shipped library or a contract archive.
+content-intake/*
+!content-intake/.gdignore
+!content-intake/README.md

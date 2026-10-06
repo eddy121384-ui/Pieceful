@@ -27,7 +27,7 @@ class CatalogPackagingSmoke(unittest.TestCase):
         return validate_catalog_identity(ROOT, set(self.payloads), self.payloads.__getitem__)
 
     def test_exact_original_byte_contract_all_catalog_entries(self):
-        self.assertEqual(self.validate()["original_byte_hashes_verified"], 38)
+        self.assertEqual(self.validate()["original_byte_hashes_verified"], len(self.catalog))
 
     def test_reject_changed_digest(self):
         manifest = json.loads(self.payloads[MANIFEST_PATH])

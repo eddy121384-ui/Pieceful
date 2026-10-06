@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pipeline_sample_met_10181",
+      "title": "Landscape (pipeline sample)",
+      "source_file": "met_10181.jpg",
+      "source_id": "example:met_10181",
+      "creator": "Ralph Albert Blakelock",
+      "provider": "met",
+      "source_url": "https://www.metmuseum.org/art/collection/search/10181",
+      "source_reference": "https://www.metmuseum.org/art/collection/search/10181",
+      "license": "cc0",
+      "license_url": "https://www.metmuseum.org/policies/image-resources",
+      "credit_line": "Gift of the nieces of Harmon W. Hendricks, 1929",
+      "attribution_required": false,
+      "provider_rights_signal": {
+        "field": "isPublicDomain",
+        "value": true
+      },
+      "rights": {
+        "kind": "CC0",
+        "status": "APPROVED",
+        "evidence_reference": "content/curation/met_runtime_candidates_v0.json#met_10181",
+        "review": {
+          "reviewer": "existing curator_reviewed_baseline record",
+          "decision_reference": "content/curation/met_runtime_candidates_v0.json#met_10181"
+        },
+        "commercial_use": true,
+        "redistribution": true,
+        "derivatives": true,
+        "basis": "Existing recorded isPublicDomain=true and CC0, not live reverification or new legal clearance"
+      },
+      "taxonomy": {
+        "category": "nature",
+        "subject": [
+          "landscape",
+          "trees"
+        ],
+        "region_culture": [
+          "american"
+        ],
+        "mood": [
+          "calm",
+          "contemplative"
+        ],
+        "visual": [
+          "clear_regions",
+          "detailed",
+          "muted",
+          "soft_gradients"
+        ],
+        "style": [
+          "painting",
+          "oil_painting"
+        ],
+        "scene": [
+          "outdoor",
+          "wilderness"
+        ],
+        "facet_status": {
+          "subject": "present",
+          "region_culture": "present",
+          "mood": "present",
+          "visual": "present",
+          "style": "present",
+          "scene": "present"
+        }
+      },
+      "puzzleability": {
+        "score": 0.7968,
+        "clear_regions": 0.7692,
+        "repetitive_texture": 0.2273,
+        "flat_area": 0.1374,
+        "landmark_density": 1.0,
+        "color_variety": 0.4739,
+        "edge_density": 0.2034,
+        "gradient_area": 0.6592
+      },
+      "puzzleability_review": {
+        "reviewer": "existing curator_reviewed_baseline record",
+        "rationale": "Existing curator-accepted Met image; duplicate alias is only an isolated pipeline demonstration, not additional production content."
+      },
+      "suggested_difficulty": "hard",
+      "tags": [
+        {
+          "id": "nature",
+          "weight": 1.0
+        },
+        {
+          "id": "landscape",
+          "weight": 1.0
+        },
+        {
+          "id": "trees",
+          "weight": 1.0
+        },
+        {
+          "id": "american",
+          "weight": 0.9
+        },
+        {
+          "id": "calm",
+          "weight": 0.7
+        },
+        {
+          "id": "contemplative",
+          "weight": 0.7
+        },
+        {
+          "id": "clear_regions",
+          "weight": 0.7
+        },
+        {
+          "id": "detailed",
+          "weight": 0.7
+        },
+        {
+          "id": "muted",
+          "weight": 0.7
+        },
+        {
+          "id": "soft_gradients",
+          "weight": 0.7
+        },
+        {
+          "id": "painting",
+          "weight": 0.8
+        },
+        {
+          "id": "oil_painting",
+          "weight": 0.8
+        },
+        {
+          "id": "outdoor",
+          "weight": 0.6
+        },
+        {
+          "id": "wilderness",
+          "weight": 0.6
+        }
+      ],
+      "date": null,
+      "expected_source_sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1",
+      "collection_id": "pipeline_examples",
+      "pack_id": "bundled_examples"
+    }
+  ]
+}

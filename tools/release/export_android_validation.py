@@ -6,6 +6,12 @@ from pathlib import Path
 import re
 import subprocess
 import zipfile
+import sys
+import atexit
+from contextlib import ExitStack
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from catalog_pipeline_lib.pipeline import run as validate_catalog, lock as catalog_lock
 
 ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser(description=__doc__)
@@ -14,6 +20,12 @@ parser.add_argument("--templates", type=Path, required=True)
 parser.add_argument("--output", type=Path, default=ROOT / "build/android-validation")
 parser.add_argument("--apk-only", action="store_true")
 args = parser.parse_args()
+catalog_guard = ExitStack()
+catalog_guard.enter_context(catalog_lock(ROOT))
+atexit.register(catalog_guard.close)
+catalog_check = validate_catalog(ROOT, "validate")
+if not catalog_check["ok"]:
+    raise SystemExit("Catalog pipeline validation failed: " + str(catalog_check["errors"]))
 args.output.mkdir(parents=True, exist_ok=True)
 args.output.joinpath(".gdignore").touch()
 presets = ROOT / "export_presets.cfg"

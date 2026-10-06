@@ -106,7 +106,7 @@ try {
   for(let i=0;i<60;i++){oldFiles=await files();if(find(oldFiles,'/pieceful_journal_v1.json')?.completions?.length)break;await page.waitForTimeout(500)}
   assert(find(oldFiles,'/pieceful_journal_v1.json')?.completions?.length);
   report.checks.push('Old build commits museum + photo progress and completed history');
-  await page.route('**/perf-before-qa/index.pck',route=>route.fulfill({path:`${root}/build/perf-after-qa/index.pck`,contentType:'application/octet-stream'}));
+  await page.route('**/perf-before-qa/index.pck',route=>route.fulfill({path:process.env.PIECEFUL_UPGRADE_AFTER_PACK ?? `${root}/build/perf-after-qa/index.pck`,contentType:'application/octet-stream'}));
   await page.reload({waitUntil:'domcontentloaded'});await ready();
   console.log('New fixture ready');
   assert((await state()).userfs_persistent);

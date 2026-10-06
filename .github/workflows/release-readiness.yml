@@ -2,7 +2,7 @@ name: Release Readiness Validation
 
 on:
   push:
-    branches: [main, hardening/release-readiness, perf/web-startup-content-delivery]
+    branches: [main, hardening/release-readiness, perf/web-startup-content-delivery, tools/catalog-content-pipeline]
   pull_request:
   workflow_dispatch:
 
@@ -29,6 +29,10 @@ jobs:
           key: pieceful-verified-toolchain-${{ runner.os }}-${{ hashFiles('release_toolchain.lock.json') }}
       - name: Verify and install locked editor/templates (including cache hits)
         run: python3 tools/release/install_godot.py
+      - name: Offline catalog tooling and authoritative-input validation
+        run: |
+          python3 -m pip install -r tools/catalog_pipeline_requirements.txt
+          python3 tools/catalog_pipeline.py validate --report build/catalog-pipeline/validation.json
       - name: Import accepted production project
         run: '"${GODOT_BIN}" --headless --path . --editor --quit'
       - name: Repository, content and release configuration regressions
@@ -43,6 +47,8 @@ jobs:
           "${GODOT_BIN}" --headless --path . --script tests/catalog_texture_lifecycle_smoke.gd
       - name: Production Web export and package inspection
         run: python3 tools/release/export_web.py
+      - name: Isolated end-to-end catalog sample (never shipping)
+        run: python3 tools/catalog_pipeline.py demo --output build/catalog-pipeline-demo --godot "${GODOT_BIN}"
       - name: Same-input resource reproducibility and loader idempotency (report container bytes)
         run: |
           python3 tools/release/export_web.py --output build/release-web-repeat/index.html
@@ -109,6 +115,10 @@ jobs:
           python3 tools/release/install_android_components.py
           "${GODOT_BIN}" --headless --path . --editor --quit
           python3 tools/release/configure_android_sdk.py
+      - name: Offline catalog tooling and authoritative-input validation
+        run: |
+          python3 -m pip install -r tools/catalog_pipeline_requirements.txt
+          python3 tools/catalog_pipeline.py validate
       - name: Base-game unsigned release APK and AAB (no keys or monetization SDKs)
         run: python3 tools/release/export_android_validation.py --templates "${GODOT_TEMPLATE_DIR}"
       - name: Inspect release manifest, asset boundaries, sources, notices and 16 KB alignment

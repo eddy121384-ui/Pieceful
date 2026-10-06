@@ -5,6 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from catalog_pipeline_lib.pipeline import run as validate_catalog
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -67,14 +71,18 @@ def check(root: Path = ROOT) -> dict:
             assert attribution["provider_rights_signal"] == {"field": "isPublicDomain", "value": True}
             assert attribution["source_url"].startswith("https://www.metmuseum.org/")
     runtime = json.loads((root / "content/runtime/met_v0_manifest.json").read_text())["entries"]
-    assert {entry["id"] for entry in runtime} == {entry["id"] for entry in catalog if entry["source_id"].startswith("met:")}
+    # The original Met manifest is a frozen provenance snapshot, not a second
+    # list to hand-edit every time the general pipeline adds an artwork.
+    assert {entry["id"] for entry in runtime} <= {entry["id"] for entry in catalog if entry["source_id"].startswith("met:")}
     for entry in runtime:
         for key in ["puzzle", "thumbnail"]:
             asset = entry[key]
             source = root / asset["path"]
             assert source.stat().st_size == asset["bytes"]
             assert hashlib.sha256(source.read_bytes()).hexdigest() == asset["sha256"]
-    return {"repository_checks": "passed", "export_presets": checked, "catalog_entries": len(catalog), "museum_assets_checked": len(runtime) * 2, "inventoried_source_assets": len(indexed), "android_dependency_coordinates": len(coordinates), "note": "This does not certify signing, ownership, platform integration, accessibility, or real-device readiness."}
+    pipeline = validate_catalog(root, "validate")
+    assert pipeline["ok"], pipeline["errors"]
+    return {"repository_checks": "passed", "export_presets": checked, "catalog_entries": len(catalog), "museum_assets_checked": len(runtime) * 2, "inventoried_source_assets": len(indexed), "android_dependency_coordinates": len(coordinates), "catalog_pipeline": "validated", "catalog_rights_pending": [r["id"] for r in pipeline["items"] if r["rights"]["status"] != "APPROVED"], "note": "This does not certify signing, ownership, platform integration, accessibility, or real-device readiness."}
 
 
 if __name__ == "__main__":

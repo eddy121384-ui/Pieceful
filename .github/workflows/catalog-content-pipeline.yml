@@ -1,0 +1,62 @@
+name: Offline Catalog Content Pipeline
+
+on:
+  push:
+    branches: [main, tools/catalog-content-pipeline]
+    paths:
+      - "assets/**"
+      - "content/**"
+      - "licenses/ASSET_MANIFEST.json"
+      - "tools/catalog_pipeline*"
+      - "tools/catalog_pipeline_lib/**"
+      - "tools/catalog_pipeline_examples/**"
+      - "tools/content_ingestion/analyze_puzzleability.py"
+      - "tests/catalog_pipeline_smoke.py"
+      - ".github/workflows/catalog-content-pipeline.yml"
+  pull_request:
+    paths:
+      - "assets/**"
+      - "content/**"
+      - "licenses/ASSET_MANIFEST.json"
+      - "tools/catalog_pipeline*"
+      - "tools/catalog_pipeline_lib/**"
+      - "tools/catalog_pipeline_examples/**"
+      - "tools/content_ingestion/analyze_puzzleability.py"
+      - "tests/catalog_pipeline_smoke.py"
+      - ".github/workflows/catalog-content-pipeline.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-catalog-integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      BASELINE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Install pinned authoring tooling (no museum retrieval)
+        run: python3 -m pip install -r tools/catalog_pipeline_requirements.txt
+      - name: Validate all existing entries and immutable baseline identities offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_REF="${BASELINE_SHA}"
+          if [[ -z "${BASE_REF}" || "${BASE_REF}" =~ ^0+$ ]]; then
+            BASE_REF="4ea7eca8644dfb105eefe7b2d782b9dd664dd614"
+          fi
+          python3 tools/catalog_pipeline.py validate --baseline-ref "${BASE_REF}" --report build/catalog-pipeline/validation.json
+          python3 tools/catalog_pipeline.py generate --dry-run --report build/catalog-pipeline/regeneration.json
+          git diff --exit-code
+      - name: Ingest, rights, determinism, 100-item batch and rollback regressions
+        run: python3 tests/catalog_pipeline_smoke.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: catalog-pipeline-${{ github.sha }}
+          path: build/catalog-pipeline/*.json
+          retention-days: 14

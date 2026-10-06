@@ -6,6 +6,12 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
+import atexit
+from contextlib import ExitStack
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from catalog_pipeline_lib.pipeline import run as validate_catalog, lock as catalog_lock
 
 from inspect_pack import inspect
 
@@ -14,6 +20,12 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--godot", default=os.environ.get("GODOT_BIN", "godot"))
 parser.add_argument("--output", type=Path, default=ROOT / "build/release-web/index.html")
 args = parser.parse_args()
+catalog_guard = ExitStack()
+catalog_guard.enter_context(catalog_lock(ROOT))
+atexit.register(catalog_guard.close)
+catalog_check = validate_catalog(ROOT, "validate")
+if not catalog_check["ok"]:
+    raise SystemExit("Catalog pipeline validation failed: " + str(catalog_check["errors"]))
 output = args.output.resolve()
 output.parent.mkdir(parents=True, exist_ok=True)
 (ROOT / "build").mkdir(exist_ok=True)

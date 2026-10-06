@@ -7,7 +7,7 @@ import struct
 
 from catalog_identity import validate_catalog_identity
 
-FORBIDDEN_ROOTS = ("tests/", "tools/", "web/", "build/", "authoring/", "docs/", "content/curation/", "android/", "ios/", "addons/catalog_source_export/")
+FORBIDDEN_ROOTS = ("tests/", "tools/", "web/", "build/", "authoring/", "docs/", "content/curation/", "content-intake/", "android/", "ios/", "addons/catalog_source_export/")
 REQUIRED_NOTICES = ("licenses/NOTICE.txt", "licenses/ASSET_MANIFEST.json", "licenses/ANDROID-RUNTIME-INVENTORY.json", "licenses/GODOT-LICENSE.txt", "licenses/GODOT-THIRD-PARTY.json", "licenses/LPPL-1.3c.txt", "assets/ui/ALBUM-FONT-LICENSE.txt", "assets/ui/CATALOG-INK-FONT-LICENSE.txt")
 
 

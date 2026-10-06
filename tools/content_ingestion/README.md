@@ -1,5 +1,12 @@
 # Pieceful Content Ingestion v0
 
+The shipping catalog is now managed by the offline
+[catalog content pipeline](../../docs/CATALOG_CONTENT_PIPELINE.md).
+Use `tools/catalog_pipeline.py ingest` for approved local source batches.
+These v0 tools remain historical provider/curation helpers; the network
+materializer refuses to overwrite a pipeline-managed shipping catalog.
+Provider candidate normalization is not production rights approval.
+
 Issue #9 production-tool checkpoint.
 
 This tool turns external museum records into **authoring candidates** for Pieceful. It is deliberately separate from the shipped runtime catalog: ingestion may contain unresolved taxonomy fields, while `content/catalog_v1.json` remains publication-ready and CI-validated.
