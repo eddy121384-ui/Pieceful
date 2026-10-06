@@ -252,7 +252,7 @@ jobs:
         run: |
           set -euxo pipefail
           python3 tools/instrument_web_loader.py build/web/index.html
-          grep -q "Downloading Godot" build/web/index.html
+          grep -q 'id="status-metrics"' build/web/index.html
 
       - name: Install browser smoke dependencies
         shell: bash
