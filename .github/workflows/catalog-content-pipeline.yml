@@ -2,7 +2,7 @@ name: Offline Catalog Content Pipeline
 
 on:
   push:
-    branches: [main, tools/catalog-content-pipeline]
+    branches: [main]
     paths:
       - "assets/**"
       - "content/**"

@@ -2,7 +2,7 @@ name: Release Readiness Validation
 
 on:
   push:
-    branches: [main, hardening/release-readiness, perf/web-startup-content-delivery, tools/catalog-content-pipeline]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 

@@ -225,6 +225,17 @@ class PipelineSmoke(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Baseline content identity'):
             baseline(ROOT,'4ea7eca8644dfb105eefe7b2d782b9dd664dd614',doc)
 
+    def test_pre_hardening_baseline_preserves_original_git_bytes(self):
+        from catalog_pipeline_lib.pipeline import baseline
+        # The merge target predates release inventory/locks. An absent
+        # inventory must neither break PR CI nor weaken identity protection.
+        ref='8f805080880e02f652a5d6954112616363402bf1'
+        doc=read_json(self.root / AUTHORING)
+        baseline(ROOT,ref,doc)
+        doc['records'][0]['source']['sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'Baseline content identity'):
+            baseline(ROOT,ref,doc)
+
     def test_renamed_source_keeps_identity_and_clean_outputs(self):
         item = metadata_for('renamed'); self.batch([item]); self.assertTrue(self.apply()['ok'])
         before = self.snapshot(); (self.intake / 'renamed.png').rename(self.intake / 'different_filename.png')

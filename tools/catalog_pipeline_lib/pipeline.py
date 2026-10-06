@@ -532,7 +532,16 @@ def baseline(root, ref, registry):
         result = subprocess.run(["git", "show", ref + ":" + path], cwd=root, capture_output=True, check=True)
         return json.loads(result.stdout)
     old_catalog = show(CATALOG)
-    old_inventory = {a["id"]: a for a in show(INVENTORY)["artworks"]}
+    inventory_exists = subprocess.check_output(["git", "ls-tree", "--name-only", ref, "--", INVENTORY], cwd=root, text=True).strip()
+    if inventory_exists:
+        old_inventory = {a["id"]: a for a in show(INVENTORY)["artworks"]}
+    else:
+        # A PR into the pre-hardening main predates the inventory. Compare
+        # against that commit's actual original bytes, never today's files or
+        # a guessed hash, and still fail if a baseline source is missing.
+        old_inventory = {e["id"]: {"sha256": sha(subprocess.check_output(
+            ["git", "show", ref + ":" + res_path(e["path"])], cwd=root))}
+            for e in old_catalog["contents"]}
     current = records_by_id(registry["records"])
     for entry in old_catalog["contents"]:
         record = current.get(entry["id"])
