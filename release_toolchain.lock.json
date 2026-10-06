@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "godot": {
+    "release": "4.7.2-stable",
+    "editor_archive": "Godot_v4.7.2-stable_linux.x86_64.zip",
+    "editor_sha512": "9aa00f7a605200940bce3027a567b782f49bd8e940dd06ae9e987bd65aee1b1467edd56ed84fcdcbdd44354bf613bdbb4e5d2913e925850368e150c59ed54c65",
+    "templates_archive": "Godot_v4.7.2-stable_export_templates.tpz",
+    "templates_sha512": "ca4d71c4d7b81dfc15d1a98baa07534aa95b03fdda78a0075b06672e1648d2e5f40980c9adc28d23e1b92e732ee7bf3461997aa804af74ec2fcd7a93ccb84079"
+  },
+  "android": {
+    "java_major": 17,
+    "compile_sdk": 36,
+    "target_sdk": 36,
+    "min_sdk": 24,
+    "build_tools": "36.1.0",
+    "gradle": "8.11.1",
+    "gradle_distribution_sha256": "f397b287023acdba1e9f6fc5ea72d22dd63669d59ed4a289a29b1a76eee151c6"
+  },
+  "bundletool": {
+    "version": "1.18.2",
+    "url": "https://github.com/google/bundletool/releases/download/1.18.2/bundletool-all-1.18.2.jar",
+    "sha256": "378b5434cd1378bef6b2bc527b8c7f0ff2584b273830335bce54d6d0813c8584"
+  },
+  "browser": {
+    "playwright": "1.55.0"
+  }
+}

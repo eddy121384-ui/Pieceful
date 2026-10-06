@@ -1,0 +1,122 @@
+{
+  "base": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+  "branch": "perf/web-startup-content-delivery",
+  "local_results": {
+    "accepted_native": {
+      "passed": 36,
+      "total": 36
+    },
+    "release_python": {
+      "passed": 7,
+      "total": 7
+    },
+    "content_ingestion": "passed",
+    "catalog_packaging": {
+      "passed": 4,
+      "total": 4
+    },
+    "catalog_texture_lifecycle": "passed",
+    "depth_benchmark_40_150_286": "passed",
+    "production_web_export_inspection": "passed",
+    "same_input_repeat": "passed",
+    "exact_art_geometry_renderer_comparison": "passed",
+    "production_browser_ready": "passed",
+    "production_browser_failure_cases": {
+      "passed": 4,
+      "total": 4
+    },
+    "commercial_web_journey": {
+      "assertions": 38,
+      "screenshots": 54,
+      "passed": true
+    },
+    "rail_scatter_final": {
+      "animated_transitions": 32,
+      "cases": 4,
+      "passed": true
+    },
+    "rail_scatter_candidate_focus": "8 transitions and real joined drag passed",
+    "rail_scatter_base_control": "8 transitions and real joined drag passed",
+    "old_export_save_upgrade": "passed",
+    "android_unsigned_apk_aab_export_and_inspection": "passed",
+    "runtime_memory_layout_probes": "completed; diagnostic limitations in audit",
+    "final_production_runtime_ready": "passed",
+    "final_strict_byte_comparison": "failed: 9 generated metadata payloads; semantic metadata and all other payloads verified",
+    "final_repeat_strict_byte_comparison": "failed: class/UID cache ordering only; all 390 other payloads exact",
+    "final_generated_metadata_comparison": "passed",
+    "new_branch_ci": "Triggered by push; not certified by local evidence"
+  },
+  "initial_failures": [
+    "Rail suite initial 40-portrait joined cluster moved but not stored; drop point was inside canvas; original cause unconfirmed.",
+    "Rail rerun initial setup lacked Start control; fixture/harness now waits usable Gallery and setup before clicking.",
+    "Strict normalized float comparison failed; same-base reload control proves existing float32 drift. Identity/geometry/discrete state still exact; pose tolerance 1e-6.",
+    "Generated Android build directory initially lacked .gdignore; recursive imports saw duplicated UIDs; guarded generated directory before repeated imports.",
+    "Final cleanup/reimport and repeat failed strict byte reproducibility; generated UID/class-cache metadata only, verified semantically. Raw delivery and all art/code/geometry/identity bytes unchanged; gzip differs by 125/317 bytes from profiled candidate."
+  ],
+  "unverified": [
+    "physical iPhone/Android/Safari performance",
+    "production CDN/Poki transfer/iframe",
+    "signed installed Android",
+    "iOS build/runtime",
+    "cross-host hermetic build",
+    "new hosted preview"
+  ],
+  "files_changed": [
+    ".github/workflows/release-readiness.yml",
+    "addons/catalog_source_export/catalog_source_export.gd",
+    "docs/WEB_PERFORMANCE_CONTENT_AUDIT.md",
+    "docs/web-performance-evidence/after-browser.json",
+    "docs/web-performance-evidence/after-inventory.json",
+    "docs/web-performance-evidence/after-native-memory.json",
+    "docs/web-performance-evidence/after-web-manifest.json",
+    "docs/web-performance-evidence/android-after.json",
+    "docs/web-performance-evidence/android-before.json",
+    "docs/web-performance-evidence/before-browser.json",
+    "docs/web-performance-evidence/before-inventory.json",
+    "docs/web-performance-evidence/before-native-memory.json",
+    "docs/web-performance-evidence/before-web-manifest.json",
+    "docs/web-performance-evidence/catalog-layouts.json",
+    "docs/web-performance-evidence/content-comparison.json",
+    "docs/web-performance-evidence/final-metadata-comparison.json",
+    "docs/web-performance-evidence/final-repeat-metadata-comparison.json",
+    "docs/web-performance-evidence/final-repeat-web-manifest.json",
+    "docs/web-performance-evidence/final-web-manifest.json",
+    "docs/web-performance-evidence/maximum-repeats.json",
+    "docs/web-performance-evidence/native-regressions.json",
+    "docs/web-performance-evidence/production-landscape.png",
+    "docs/web-performance-evidence/production-portrait.png",
+    "docs/web-performance-evidence/reproducibility.json",
+    "docs/web-performance-evidence/summary.json",
+    "docs/web-performance-evidence/test-results.json",
+    "docs/web-performance-evidence/upgrade.json",
+    "scripts/catalog_content_identity.gd",
+    "scripts/catalog_content_identity.gd.uid",
+    "scripts/content_identity_chaos_order_stress_puzzle_board.gd",
+    "scripts/gallery_puzzle_catalog_board.gd",
+    "scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gd",
+    "tests/catalog_export_upgrade_browser_smoke.mjs",
+    "tests/catalog_layout_inventory.gd",
+    "tests/catalog_layout_inventory.gd.uid",
+    "tests/catalog_packaging_smoke.py",
+    "tests/catalog_texture_lifecycle_smoke.gd",
+    "tests/catalog_texture_lifecycle_smoke.gd.uid",
+    "tests/commercial_product_browser_fixture.gd",
+    "tests/rail_scatter_transition_browser_smoke.mjs",
+    "tests/runtime_memory_probe.gd",
+    "tests/runtime_memory_probe.gd.uid",
+    "tests/web_performance_probe.mjs",
+    "tools/performance/compare_content.py",
+    "tools/performance/compare_generated_metadata.py",
+    "tools/performance/package_inventory.py",
+    "tools/performance/serve.py",
+    "tools/performance/summarize.py",
+    "tools/release/catalog_identity.py",
+    "tools/release/export_android_validation.py",
+    "tools/release/inspect_android.py",
+    "tools/release/inspect_pack.py"
+  ],
+  "preview": {
+    "deployed": false,
+    "reason": "No verified deployment path for this new branch; public Pages domain and GitHub API blocked by this environment."
+  }
+}

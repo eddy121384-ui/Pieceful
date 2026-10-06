@@ -1,0 +1,109 @@
+{
+  "observed_date": "2026-10-06 Asia/Taipei",
+  "original_remote_heads": [
+    {
+      "branch": "main",
+      "sha": "2d7784c55607bd33e40a8c82480fc6242913541a",
+      "commit": "2026-10-06T14:35:26+08:00 preview: enable Space Drift LAB stage-list scrolling"
+    },
+    {
+      "branch": "spike/codex61-commercial-product-ux-pass",
+      "sha": "a66a851accb0b9198cff537263d69335816e4088",
+      "commit": "2026-10-03T03:28:39Z Fix cardboard visuals during Rail and Scatter transitions",
+      "merge_base": "8f805080880e02f652a5d6954112616363402bf1",
+      "ahead_behind": "24\t23",
+      "parent_is_ancestor": false
+    },
+    {
+      "branch": "hardening/release-readiness",
+      "sha": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+      "commit": "2026-10-04T17:47:49Z Record audit file inventory and hosted validation evidence",
+      "merge_base": "a66a851accb0b9198cff537263d69335816e4088",
+      "ahead_behind": "0\t3",
+      "parent_is_ancestor": true
+    },
+    {
+      "branch": "perf/web-startup-content-delivery",
+      "sha": "4ea7eca8644dfb105eefe7b2d782b9dd664dd614",
+      "commit": "2026-10-04T22:19:32Z Record artifact provenance and exclude generated audit image sidecars",
+      "merge_base": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+      "ahead_behind": "0\t2",
+      "parent_is_ancestor": true
+    },
+    {
+      "branch": "tools/catalog-content-pipeline",
+      "sha": "e3db06363a8dc26ba3194d9f66cd7942fa62c13b",
+      "commit": "2026-10-06T03:39:14Z Add deterministic offline catalog ingestion with frozen identities and rights gates",
+      "merge_base": "4ea7eca8644dfb105eefe7b2d782b9dd664dd614",
+      "ahead_behind": "0\t1",
+      "parent_is_ancestor": true
+    }
+  ],
+  "commit_integrity": {
+    "stack_unique_commits": 29,
+    "all_commits_single_parent": true,
+    "duplicate_patch_id_groups": [],
+    "main_vs_stack_patch_equivalents": 0
+  },
+  "simulated_integration_after_config_fix": {
+    "main": "2d7784c55607bd33e40a8c82480fc6242913541a",
+    "cleanup": "22f156d64e973ebce9e76f3a5e350c40fb0f4155",
+    "exit_code": 0,
+    "tree": "52f0f674a056aa9824d0f8fcfd3198f3d0229a22",
+    "preserved_main_only_files": [
+      "web/previews/ink-chess-poki-rc/index.html",
+      "web/previews/space-drift-zero-lab/game.js",
+      "web/previews/space-drift-zero-lab/index.html",
+      "web/previews/space-drift-zero-lab/manifest.webmanifest",
+      "web/previews/space-drift-zero/game.js",
+      "web/previews/space-drift-zero/index.html",
+      "web/previews/space-drift/index.html",
+      "web/previews/ukiyoe-shogi/index.html",
+      "web/previews/watercolor-chess-poki-rc/index.html"
+    ],
+    "note": "git merge-tree simulation only; no branch merge or ref update"
+  },
+  "publisher_copy_validation": {
+    "passed": true,
+    "include_steps": 10,
+    "files": [
+      "ink-chess-poki-rc/index.html",
+      "ink-chess-round2/index.html",
+      "ink-chess-save-resume/index.html",
+      "space-drift-zero-lab/game.js",
+      "space-drift-zero-lab/index.html",
+      "space-drift-zero-lab/manifest.webmanifest",
+      "space-drift-zero/game.js",
+      "space-drift-zero/index.html",
+      "space-drift/index.html",
+      "ukiyoe-shogi/index.html",
+      "watercolor-chess-poki-rc/index.html",
+      "watercolor-chess-save-resume/index.html",
+      "watercolor-chess/index.html"
+    ],
+    "note": "Executed unchanged main-preview copy commands on files from simulated combined tree in an isolated directory; no publication"
+  },
+  "correction_commits": [
+    "22f156d64e973ebce9e76f3a5e350c40fb0f4155",
+    "a2b1a00734796072a6ab8df67fe7b3577a7ccf60"
+  ],
+  "no_merge_or_ref_integration_performed": true,
+  "simulated_integration_after_config_and_test_fixes": {
+    "main": "2d7784c55607bd33e40a8c82480fc6242913541a",
+    "cleanup": "a2b1a00734796072a6ab8df67fe7b3577a7ccf60",
+    "exit_code": 0,
+    "tree": "c72cb2e2993528eb0b719d47947ee5a1e5a0be46",
+    "preserved_main_only_files": [
+      "web/previews/ink-chess-poki-rc/index.html",
+      "web/previews/space-drift-zero-lab/game.js",
+      "web/previews/space-drift-zero-lab/index.html",
+      "web/previews/space-drift-zero-lab/manifest.webmanifest",
+      "web/previews/space-drift-zero/game.js",
+      "web/previews/space-drift-zero/index.html",
+      "web/previews/space-drift/index.html",
+      "web/previews/ukiyoe-shogi/index.html",
+      "web/previews/watercolor-chess-poki-rc/index.html"
+    ],
+    "note": "git merge-tree simulation only; no branch merge or ref update"
+  }
+}

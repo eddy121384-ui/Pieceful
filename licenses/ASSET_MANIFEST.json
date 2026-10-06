@@ -1,0 +1,1261 @@
+{
+  "schema_version": 1,
+  "status": "inventory_not_legal_clearance",
+  "engine": "GODOT-LICENSE.txt and GODOT-THIRD-PARTY.json extracted from the pinned 4.7.2 engine",
+  "fonts": [
+    {
+      "path": "assets/ui/album-serif-regular.otf",
+      "sha256": "1aa18cfefa58132c52ce5de70db1fd1154201c19cd2b2cdaffba4906a33e6852",
+      "license": "GUST Font License / LPPL-1.3c",
+      "notice": "assets/ui/ALBUM-FONT-LICENSE.txt + licenses/LPPL-1.3c.txt",
+      "copyright": "2003, 2009 B. Jackowski and J. M. Nowacki (on behalf of TeX users groups)",
+      "family": "LM Roman 10"
+    },
+    {
+      "path": "assets/ui/album-serif-italic.otf",
+      "sha256": "c1fce25075567bb8dbf2151658c3b442690041db17a2d49fc9e55905ea5b7169",
+      "license": "GUST Font License / LPPL-1.3c",
+      "notice": "assets/ui/ALBUM-FONT-LICENSE.txt + licenses/LPPL-1.3c.txt",
+      "copyright": "2003, 2009 B. Jackowski and J. M. Nowacki (on behalf of TeX users groups)",
+      "family": "LM Roman 10"
+    },
+    {
+      "path": "assets/ui/catalog-ink-fallback.tres",
+      "sha256": "8b4026323243035b78196e6f195822035db0d46b1ed91d808382f371edd2be60",
+      "license": "SIL OFL 1.1",
+      "notice": "assets/ui/CATALOG-INK-FONT-LICENSE.txt",
+      "copyright": "2014-2021 Adobe",
+      "family": "Pieceful Catalog Ink Regular (renamed subset of Noto Sans JP)"
+    }
+  ],
+  "artworks": [
+    {
+      "id": "garden",
+      "path": "assets/demo_garden.svg",
+      "sha256": "f3a7fcb976d663d3ac8366a7f477fb5acf540d14e232179982f7571389fcd49c",
+      "attribution": {
+        "creator": "Pieceful Demo Art",
+        "license": "project_fixture",
+        "source_url": "",
+        "attribution_required": false
+      }
+    },
+    {
+      "id": "twilight_lake",
+      "path": "assets/demo_twilight_lake.svg",
+      "sha256": "081b4d82bf44ebc9135fd4f7f1bb5d622c1dd3449fc19a550db56b49f32cfaac",
+      "attribution": {
+        "creator": "Pieceful Demo Art",
+        "license": "project_fixture",
+        "source_url": "",
+        "attribution_required": false
+      }
+    },
+    {
+      "id": "crane_pine_scroll",
+      "path": "assets/demo_crane_pine_scroll.svg",
+      "sha256": "9de05feb264e7be1ea1325aa13774e00b67f7abc80a3ec4c94ccf8a80ed992c4",
+      "attribution": {
+        "creator": "Pieceful Demo Art",
+        "license": "project_fixture",
+        "source_url": "",
+        "attribution_required": false
+      }
+    },
+    {
+      "id": "met_10181",
+      "path": "assets/museum/met_v0/puzzles/met_10181.jpg",
+      "sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1",
+      "attribution": {
+        "creator": "Ralph Albert Blakelock",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10181",
+        "credit_line": "Gift of the nieces of Harmon W. Hendricks, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_359362",
+      "path": "assets/museum/met_v0/puzzles/met_359362.jpg",
+      "sha256": "bc432477e887045db110d318d83d19cee990de254e7edb350df3d11137a23a73",
+      "attribution": {
+        "creator": "Edgar Degas",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/359362",
+        "credit_line": "Purchase, Mr. and Mrs. Richard J. Bernhard Gift, 1972",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_335112",
+      "path": "assets/museum/met_v0/puzzles/met_335112.jpg",
+      "sha256": "5b6c3305f6cc74a0cec7d572e0d304ce47fe4ea5ea3821f9c280e8a000482660",
+      "attribution": {
+        "creator": "Gillis van Coninxloo",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/335112",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_11181",
+      "path": "assets/museum/met_v0/puzzles/met_11181.jpg",
+      "sha256": "62a2b04baa4d2340013f31ce6af192d64f5828d6db46ad4217524dfecc77250d",
+      "attribution": {
+        "creator": "William Morris Hunt",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/11181",
+        "credit_line": "Rogers Fund, 1906",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_394043",
+      "path": "assets/museum/met_v0/puzzles/met_394043.jpg",
+      "sha256": "dc2d8fa662b31aa395373d2d2d6f2b0cb94592c1f6663f9ec7def64a1200e1a8",
+      "attribution": {
+        "creator": "Jean Pillement",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394043",
+        "credit_line": "The Lesley and Emma Sheafer Collection, Bequest of Emma A. Sheafer, 1973",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_438031",
+      "path": "assets/museum/met_v0/puzzles/met_438031.jpg",
+      "sha256": "c525273972f04d3c8545694f4d906afe7ad8a4b76b3c377727c972113c18b193",
+      "attribution": {
+        "creator": "Henri Fantin-Latour",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/438031",
+        "credit_line": "Gift of Susan S. Dillon, 1997",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_12802",
+      "path": "assets/museum/met_v0/puzzles/met_12802.jpg",
+      "sha256": "4d286f96d473c36d0005d828066a9bf9974533452befef3a19f31161d9735228",
+      "attribution": {
+        "creator": "Jerome B. Thompson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/12802",
+        "credit_line": "Gift of Madeleine T. Edmonds, 1984",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_312624",
+      "path": "assets/museum/met_v0/puzzles/met_312624.jpg",
+      "sha256": "5cad2f18fb6453f622830c779bd15aa372f35b1742408934901d1ee51d1777be",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/312624",
+        "credit_line": "The Michael C. Rockefeller Memorial Collection, Bequest of Nelson A. Rockefeller, 1979",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_478746",
+      "path": "assets/museum/met_v0/puzzles/met_478746.jpg",
+      "sha256": "ae3d97229b322f49a0883942227e4c741378c052b0a61202469f7b9c1528dfc5",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478746",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_478425",
+      "path": "assets/museum/met_v0/puzzles/met_478425.jpg",
+      "sha256": "b201adcf4ae714323289ac908beb3c3784b17914b1b4bcc25e8647f2a593b9d1",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478425",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_226943",
+      "path": "assets/museum/met_v0/puzzles/met_226943.jpg",
+      "sha256": "3a292aafd2ebac6cb8c5b58e4f33a42a053ee192ca624f8cfb420982d7b5899d",
+      "attribution": {
+        "creator": "A. Bois",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/226943",
+        "credit_line": "Rogers Fund, 1942",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_191566",
+      "path": "assets/museum/met_v0/puzzles/met_191566.jpg",
+      "sha256": "9c2dce24a6836aed2b627eae98ee3ba46da0e476707375d3808375ab8e33e303",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191566",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_191567",
+      "path": "assets/museum/met_v0/puzzles/met_191567.jpg",
+      "sha256": "0afc5c13cc0bc6b716620d575d599dc992a69da86024dc048be2d8f4e2ef0865",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191567",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_340070",
+      "path": "assets/museum/met_v0/puzzles/met_340070.jpg",
+      "sha256": "f390a4fa43808594aea59db484192ea2f3299a70fdaed2e50cf2f556a774200d",
+      "attribution": {
+        "creator": "Ercole Procaccini The Younger",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/340070",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_21209",
+      "path": "assets/museum/met_v0/puzzles/met_21209.jpg",
+      "sha256": "45fdb4ed94d69433cd9acbafa72fcb3f91c7138b909d7bc25cd90bdbd3072b3d",
+      "attribution": {
+        "creator": "Unknown Artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/21209",
+        "credit_line": "Dale T. Johnson Fund, 2014",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_399581",
+      "path": "assets/museum/met_v0/puzzles/met_399581.jpg",
+      "sha256": "2b59146f4a74e965464b11e34c4e6c26bb80fee31489b92a77bd3aaa7138145f",
+      "attribution": {
+        "creator": "Michelangelo Colonna",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399581",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_202696",
+      "path": "assets/museum/met_v0/puzzles/met_202696.jpg",
+      "sha256": "60745622169418b1f643dbceb237d97d9b73e4fa198ea58e64218a53ad982dea",
+      "attribution": {
+        "creator": "Clodion (Claude Michel)",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/202696",
+        "credit_line": "Gift of Mrs. Barbara Lowe Fallass, 1962",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_399347",
+      "path": "assets/museum/met_v0/puzzles/met_399347.jpg",
+      "sha256": "ee20af5081e002469aef1063c918ef33bd5685a50b63a06eec0419753c97d47c",
+      "attribution": {
+        "creator": "Etienne Delaune",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399347",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_394310",
+      "path": "assets/museum/met_v0/puzzles/met_394310.jpg",
+      "sha256": "222ac7f96f7cf10e7f03f8ec5a9595902b0165470d286c1c8c4094dd5ef115cf",
+      "attribution": {
+        "creator": "Johann Georg Hertel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394310",
+        "credit_line": "Gift of Harry G. Friedman, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_394709",
+      "path": "assets/museum/met_v0/puzzles/met_394709.jpg",
+      "sha256": "71cc38161c14ac8ff69fc86b3673f861f09a51c38dc420070a06ee9168dd7d7d",
+      "attribution": {
+        "creator": "Louis Félix de La Rue",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394709",
+        "credit_line": "Harris Brisbane Dick Fund, 1953",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_5410",
+      "path": "assets/museum/met_v0/puzzles/met_5410.jpg",
+      "sha256": "72e7f15464582cb05f0b1ab3fcafe7fc37f9b74609ee9b53c5ae38546bb28f6c",
+      "attribution": {
+        "creator": "Herter Brothers",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/5410",
+        "credit_line": "Gift of Paul Martini, 1969",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_221706",
+      "path": "assets/museum/met_v0/puzzles/met_221706.jpg",
+      "sha256": "d0ee3703bf12c29e594a67da46d0c56ca76dcc0976e8309c5a58468a315f0d44",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/221706",
+        "credit_line": "Rogers Fund, 1926",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_54393",
+      "path": "assets/museum/met_v0/puzzles/met_54393.jpg",
+      "sha256": "20c4760e82a00e808963efc2fd1c29287b878cede548aa5ba1518d10251d0bc7",
+      "attribution": {
+        "creator": "Yashima Gakutei",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54393",
+        "credit_line": "Rogers Fund, 1923",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_215356",
+      "path": "assets/museum/met_v0/puzzles/met_215356.jpg",
+      "sha256": "26a85faad4b9d29be35757611f5ab0c28f835c775b7180aa9e89e69c74e0209c",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/215356",
+        "credit_line": "Gift of the Family of Thomas Coutts, 1908",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_228950",
+      "path": "assets/museum/met_v0/puzzles/met_228950.jpg",
+      "sha256": "c730174d51fee9aa9079b36b4d4d5da4d86890d0b3657c44c539a2bfdbd08996",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/228950",
+        "credit_line": "Gift of Irwin Untermyer, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_505626",
+      "path": "assets/museum/met_v0/puzzles/met_505626.jpg",
+      "sha256": "87a8057ccc2f5baa88514781e29f3700e0fd4b2da4573672288bf43607fc7bb5",
+      "attribution": {
+        "creator": "Metalwork by Goto Teijo, 9th generation Goto master, Japan",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/505626",
+        "credit_line": "Purchase, Amati Gifts, 2007",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_728305",
+      "path": "assets/museum/met_v0/puzzles/met_728305.jpg",
+      "sha256": "fbc75f20a662a9683d95a90d262e667ec11e89c306848d21e48414c62dd3da01",
+      "attribution": {
+        "creator": "John Thomson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/728305",
+        "credit_line": "Gilman Collection, Purchase, Cynthia Hazen Polsky Gift, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_764802",
+      "path": "assets/museum/met_v0/puzzles/met_764802.jpg",
+      "sha256": "1b986ae8639e1cd460b3e91446a8dde92b144a85f2c57506db6e47bbc88dd55c",
+      "attribution": {
+        "creator": "Unknown",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/764802",
+        "credit_line": "The Horace W. Goldsmith Foundation Fund, through Joyce and Robert Menschel, 2017",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_10189",
+      "path": "assets/museum/met_v0/puzzles/met_10189.jpg",
+      "sha256": "1b9e252b35ff02252fab96b62d84d9d7781bfee9276b8ac816b5604847b41e51",
+      "attribution": {
+        "creator": "Robert Frederick Blum",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10189",
+        "credit_line": "Gift of William J. Baer, 1904",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_436305",
+      "path": "assets/museum/met_v0/puzzles/met_436305.jpg",
+      "sha256": "e4c4386a55e201b55389476d0a8d8c31c2f9c8784a05136c8cb0b8535149369e",
+      "attribution": {
+        "creator": "Georg Flegel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/436305",
+        "credit_line": "Gift of Dr. W. Bopp, 1921",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_10996",
+      "path": "assets/museum/met_v0/puzzles/met_10996.jpg",
+      "sha256": "9a5ec0407887e3a5176653c43b3ebc7abefe510f14d7b41392d133211d072489",
+      "attribution": {
+        "creator": "William Michael Harnett",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10996",
+        "credit_line": "Bequest of Susan Vanderpoel Clark, 1967",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_286248",
+      "path": "assets/museum/met_v0/puzzles/met_286248.jpg",
+      "sha256": "f67a325cd3feae2c8f010f9b6105ff60e4b8096a89deb448531f2b5000476f36",
+      "attribution": {
+        "creator": "Louis-Rémy Robert",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/286248",
+        "credit_line": "Gilman Collection, Purchase, Anonymous Gifts, by exchange, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_898372",
+      "path": "assets/museum/met_v0/puzzles/met_898372.jpg",
+      "sha256": "98dbb27595504e253958477763c657d88f71c141429f08878579b8740f1624bb",
+      "attribution": {
+        "creator": "Fidelia Bridges",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/898372",
+        "credit_line": "Purchase, John Osgood and Elizabeth Amis Cameron Blanchard Memorial Fund, 2023",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_54333",
+      "path": "assets/museum/met_v0/puzzles/met_54333.jpg",
+      "sha256": "f16a798f881d74218401e6cd85c3410ee802f057294839c23d0a72299b003a0a",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54333",
+        "credit_line": "Rogers Fund, 1919",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "met_54988",
+      "path": "assets/museum/met_v0/puzzles/met_54988.jpg",
+      "sha256": "c00d30e47a8d1f4bd290da37de537ed81130d044731f54565c54a6c1d5cc9ae9",
+      "attribution": {
+        "creator": "Kikuchi Yōsai",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54988",
+        "credit_line": "H. O. Havemeyer Collection, Bequest of Mrs. H. O. Havemeyer, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    }
+  ],
+  "unresolved": [
+    "Project code distribution license and ownership clearance are not established by this manifest.",
+    "Original project_fixture artwork/icon provenance needs owner confirmation.",
+    "Optional installed native SDKs require a separate dependency/license/privacy inventory.",
+    "Base Android Java dependency licensing/notice review remains open; see ANDROID-RUNTIME-INVENTORY.json."
+  ],
+  "other_bundled_source_assets": [
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10181.jpg",
+      "sha256": "8a4122f67245133addb2a7b13e804c1f7c6f1dbbe41582c79b5e67d911be7130",
+      "attribution": {
+        "creator": "Ralph Albert Blakelock",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10181",
+        "credit_line": "Gift of the nieces of Harmon W. Hendricks, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10189.jpg",
+      "sha256": "8767afada8665e80f8b3b1751ba6e61f1ee637e2f65efe494141b57f3f47ba44",
+      "attribution": {
+        "creator": "Robert Frederick Blum",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10189",
+        "credit_line": "Gift of William J. Baer, 1904",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10996.jpg",
+      "sha256": "05f1293f259d558556760776a7085524e30e9701fe788b4d18b0b59cb164b12a",
+      "attribution": {
+        "creator": "William Michael Harnett",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/10996",
+        "credit_line": "Bequest of Susan Vanderpoel Clark, 1967",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_11181.jpg",
+      "sha256": "d37405920ab18c13a0b779627a7f9f3b37a05e85176f61d4a5f082e61a3673fb",
+      "attribution": {
+        "creator": "William Morris Hunt",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/11181",
+        "credit_line": "Rogers Fund, 1906",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_12802.jpg",
+      "sha256": "741f37c926961870da7fc83d7f29286767cc54b8228dc8677b2085fc75ace616",
+      "attribution": {
+        "creator": "Jerome B. Thompson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/12802",
+        "credit_line": "Gift of Madeleine T. Edmonds, 1984",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191566.jpg",
+      "sha256": "bfb450f8353d45a70cebfe338aa2bfd1839a65604fcf3e7b630f657e5b89d6df",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191566",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191567.jpg",
+      "sha256": "010356c41c7fccf31f8ff8aeeeef2be0e5d7ae7081790339b3f14a465b11a75b",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/191567",
+        "credit_line": "Gift of Mrs. Russell Sage, 1909",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_202696.jpg",
+      "sha256": "958901a991130698dbd919341ceca1b3e397e2e9fd4b46d3c070d97d0aa5f56a",
+      "attribution": {
+        "creator": "Clodion (Claude Michel)",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/202696",
+        "credit_line": "Gift of Mrs. Barbara Lowe Fallass, 1962",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_21209.jpg",
+      "sha256": "545abafb57935b2e35dc0661a1c6ebad122c5d55c45fe73142b0504ecda1205c",
+      "attribution": {
+        "creator": "Unknown Artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/21209",
+        "credit_line": "Dale T. Johnson Fund, 2014",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_215356.jpg",
+      "sha256": "c2120bb27a9153a0359c8c55831ddadb6e4b72052b1e85ec738f62252fe0733b",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/215356",
+        "credit_line": "Gift of the Family of Thomas Coutts, 1908",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_221706.jpg",
+      "sha256": "bf3d85f9ffbe8d434122d7b572a4f6c7eb8dee1e6b8ca8a795dfa6eacf66cf5a",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/221706",
+        "credit_line": "Rogers Fund, 1926",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_226943.jpg",
+      "sha256": "2d687f4ab2959bb3c6cb6b2476ac06858b881de59148c7937ff409bfabffff66",
+      "attribution": {
+        "creator": "A. Bois",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/226943",
+        "credit_line": "Rogers Fund, 1942",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_228950.jpg",
+      "sha256": "6f2f17e59dfa3c4a9c7d539c068f910e5014114923e8e2db1466af7779376e4a",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/228950",
+        "credit_line": "Gift of Irwin Untermyer, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_286248.jpg",
+      "sha256": "d99642ba82ed69cc94ad440f942a35619d35eaf4cd435841794858b87b2e2e21",
+      "attribution": {
+        "creator": "Louis-Rémy Robert",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/286248",
+        "credit_line": "Gilman Collection, Purchase, Anonymous Gifts, by exchange, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_312624.jpg",
+      "sha256": "f83fcc27cbd8a113cd1bbf809fba96216aed83316824a95651af6c99593cea74",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/312624",
+        "credit_line": "The Michael C. Rockefeller Memorial Collection, Bequest of Nelson A. Rockefeller, 1979",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_335112.jpg",
+      "sha256": "7671c1763bc068312ae11ee4a800870f5b9d2080b921c335aeffe7bcb39f3b7b",
+      "attribution": {
+        "creator": "Gillis van Coninxloo",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/335112",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_340070.jpg",
+      "sha256": "bf5612ac726b348167ab9a80a8c75e4cc58b681f781a8a93b0e0329a03a5a0ec",
+      "attribution": {
+        "creator": "Ercole Procaccini The Younger",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/340070",
+        "credit_line": "Gift of Cornelius Vanderbilt, 1880",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_359362.jpg",
+      "sha256": "8d73234493435cb7e1ccf12ed8fd76be0a8b23527fa167d2607434d7a40691fb",
+      "attribution": {
+        "creator": "Edgar Degas",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/359362",
+        "credit_line": "Purchase, Mr. and Mrs. Richard J. Bernhard Gift, 1972",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394043.jpg",
+      "sha256": "798b48f825dcd5939a08a497889a445a6d0508be1b471651579f5abb32ec8abc",
+      "attribution": {
+        "creator": "Jean Pillement",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394043",
+        "credit_line": "The Lesley and Emma Sheafer Collection, Bequest of Emma A. Sheafer, 1973",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394310.jpg",
+      "sha256": "bd42abcb93b2b203190facbb2b6a45e817c3b6bcc3cccdbb544b52a0c0345265",
+      "attribution": {
+        "creator": "Johann Georg Hertel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394310",
+        "credit_line": "Gift of Harry G. Friedman, 1964",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394709.jpg",
+      "sha256": "fd29fbf10ce85ce7ae9aa2f17d2b2bef3777e840efe60a8ed275e2c1f38b8487",
+      "attribution": {
+        "creator": "Louis Félix de La Rue",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/394709",
+        "credit_line": "Harris Brisbane Dick Fund, 1953",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399347.jpg",
+      "sha256": "b014c53a3fd153d6f2c53783e53610fe1cf27fb46dbbaa622cf4be4d4c323745",
+      "attribution": {
+        "creator": "Etienne Delaune",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399347",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399581.jpg",
+      "sha256": "29b65d44620b39335edd81bb5eb68203946c169969cd9f6144f1218107c4a35c",
+      "attribution": {
+        "creator": "Michelangelo Colonna",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/399581",
+        "credit_line": "Bequest of Phyllis Massar, 2011",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_436305.jpg",
+      "sha256": "f0200ba3468aafae4041f32d11543e917d934bac04abd2cb00301191dbba50bf",
+      "attribution": {
+        "creator": "Georg Flegel",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/436305",
+        "credit_line": "Gift of Dr. W. Bopp, 1921",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_438031.jpg",
+      "sha256": "1506dab7409839d8530e9f9516a38a383b1f9709c3584ae8aa069febf63dd194",
+      "attribution": {
+        "creator": "Henri Fantin-Latour",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/438031",
+        "credit_line": "Gift of Susan S. Dillon, 1997",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478425.jpg",
+      "sha256": "06eed4ba1d6a1c0205862d8eeb94b1305aa22f1863589afdf54143b9f15e2b6a",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478425",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478746.jpg",
+      "sha256": "d38f07646e413dbc1ebebb3685d7aa6ca25b905bc904dabd0217da731ad172a0",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/478746",
+        "credit_line": "Rogers Fund, 1925",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_505626.jpg",
+      "sha256": "cf0f5b52a092fbfa628165d057299902b5e4f94a8ebcac6a79b0ded32ff51ea5",
+      "attribution": {
+        "creator": "Metalwork by Goto Teijo, 9th generation Goto master, Japan",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/505626",
+        "credit_line": "Purchase, Amati Gifts, 2007",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_5410.jpg",
+      "sha256": "952d1013aed04e12ce6f333f47d71d10764484fdf0ae53da39933e6b482ce469",
+      "attribution": {
+        "creator": "Herter Brothers",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/5410",
+        "credit_line": "Gift of Paul Martini, 1969",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54333.jpg",
+      "sha256": "a42f99ef5308302c60ffbb8026fcd44e69ffe7729c6f4292a0343b9b9acfa28c",
+      "attribution": {
+        "creator": "Unidentified artist",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54333",
+        "credit_line": "Rogers Fund, 1919",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54393.jpg",
+      "sha256": "7d7659bc0805122c637e20dac77da56c030afd235e684a74ee65c9a81eda9f8c",
+      "attribution": {
+        "creator": "Yashima Gakutei",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54393",
+        "credit_line": "Rogers Fund, 1923",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54988.jpg",
+      "sha256": "e565095dbdcb181d8b5548f5f5dbabec2a2067e32666e34f2ba9ea142abf60b6",
+      "attribution": {
+        "creator": "Kikuchi Yōsai",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/54988",
+        "credit_line": "H. O. Havemeyer Collection, Bequest of Mrs. H. O. Havemeyer, 1929",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_728305.jpg",
+      "sha256": "f15ec00a6e0fec6a2652629ea31bf61613733bfe800f5fcb94cf1aa26e6c3f3f",
+      "attribution": {
+        "creator": "John Thomson",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/728305",
+        "credit_line": "Gilman Collection, Purchase, Cynthia Hazen Polsky Gift, 2005",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_764802.jpg",
+      "sha256": "a7b8f275175488ae6f498e4c2132f63998d85a6a60c35ac5d0a26b0f2b21875a",
+      "attribution": {
+        "creator": "Unknown",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/764802",
+        "credit_line": "The Horace W. Goldsmith Foundation Fund, through Joyce and Robert Menschel, 2017",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_898372.jpg",
+      "sha256": "0dd2c73385951ce10fa55690ffdd8f4d8c625f6f4836e2e79a4d25b2d40f3b53",
+      "attribution": {
+        "creator": "Fidelia Bridges",
+        "license": "cc0",
+        "license_url": "https://www.metmuseum.org/policies/image-resources",
+        "source_url": "https://www.metmuseum.org/art/collection/search/898372",
+        "credit_line": "Purchase, John Osgood and Elizabeth Amis Cameron Blanchard Memorial Fund, 2023",
+        "attribution_required": false,
+        "provider_rights_signal": {
+          "field": "isPublicDomain",
+          "value": true
+        }
+      }
+    },
+    {
+      "path": "assets/ui/icon_atlas.svg",
+      "sha256": "03555f6c1c0db7dd6cedd627daab05df4ce103afb090e93f3626f1336dd58860",
+      "attribution": {
+        "license": "project_asset_owner_confirmation_required"
+      }
+    },
+    {
+      "path": "assets/ui/watercolor-gameplay-icons.svg",
+      "sha256": "cdc8131bd8866e075ad5cd3b9e8e2b304e4703e1f90ee57510df2f78f78748b2",
+      "attribution": {
+        "license": "project_asset_owner_confirmation_required"
+      }
+    },
+    {
+      "path": "assets/ui/watercolor-paper.gdshader",
+      "sha256": "0a6f5fea1951a7f4eaa83fa50763ccba4fbf06624c061ca4de012240ae86c9ae",
+      "attribution": {
+        "license": "project_asset_owner_confirmation_required"
+      }
+    },
+    {
+      "path": "assets/ui/watercolor-rule.gdshader",
+      "sha256": "50bc2c490e06ad106f252267a1f9bae6e5b0714d64434e14d7675467230d08c8",
+      "attribution": {
+        "license": "project_asset_owner_confirmation_required"
+      }
+    }
+  ],
+  "license_sources": {
+    "LPPL-1.3c.txt": "https://raw.githubusercontent.com/latex3/latex2e/main/base/lppl.txt",
+    "engine_notices": "Engine.get_license_text(), Engine.get_license_info(), Engine.get_copyright_info() from checksum-verified Godot 4.7.2"
+  }
+}

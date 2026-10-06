@@ -1,0 +1,77 @@
+{
+  "build": {
+    "ref": "perf/web-startup-content-delivery",
+    "sha": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+    "run": "local",
+    "tracked_source_dirty": false,
+    "engine": "4.7.2.stable.official.ed1daf0bf"
+  },
+  "production_pack": {
+    "file": "index.pck",
+    "bytes": 33816360,
+    "sha256": "cdb8c43b7ac52801443318f18ca88755d635b7dcbb4a9e6a647e0bb304216c56",
+    "entries": 427,
+    "forbidden_paths": [],
+    "missing_notices": [],
+    "missing_catalog_sources": [],
+    "source_byte_mismatches": []
+  },
+  "artifacts": [
+    {
+      "file": "index.apple-touch-icon.png",
+      "bytes": 11944,
+      "gzip_bytes": 11967,
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5"
+    },
+    {
+      "file": "index.audio.position.worklet.js",
+      "bytes": 2973,
+      "gzip_bytes": 1161,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    {
+      "file": "index.audio.worklet.js",
+      "bytes": 7298,
+      "gzip_bytes": 2194,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "file": "index.html",
+      "bytes": 7184,
+      "gzip_bytes": 2800,
+      "sha256": "4a9c35f75e5e6b4564d7ad7dc14912c102b674d2925f86c7c9d375364fa86d5d"
+    },
+    {
+      "file": "index.icon.png",
+      "bytes": 5700,
+      "gzip_bytes": 5723,
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5"
+    },
+    {
+      "file": "index.js",
+      "bytes": 279897,
+      "gzip_bytes": 68517,
+      "sha256": "767aeba047919b76bf311f390df4ef4dc49c8699718be192ef3cf035bb71e820"
+    },
+    {
+      "file": "index.pck",
+      "bytes": 33816360,
+      "gzip_bytes": 30448568,
+      "sha256": "cdb8c43b7ac52801443318f18ca88755d635b7dcbb4a9e6a647e0bb304216c56"
+    },
+    {
+      "file": "index.png",
+      "bytes": 21443,
+      "gzip_bytes": 19328,
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+    },
+    {
+      "file": "index.wasm",
+      "bytes": 39514754,
+      "gzip_bytes": 10054758,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    }
+  ],
+  "raw_bytes": 73667553,
+  "gzip_bytes": 40615016
+}

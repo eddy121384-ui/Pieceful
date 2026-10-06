@@ -47,9 +47,12 @@ func _run() -> void:
 		_fail("Puzzle Me import flow did not complete")
 		return
 
-	var content_id := str(first_board.active_content_id())
+	var content_id := str(first.pending_content_id)
 	if not content_id.begins_with("photo_"):
-		_fail("imported local photo did not become active content")
+		_fail("imported local photo did not become the selected setup candidate")
+		return
+	if str(first_board.active_content_id()) != "garden":
+		_fail("photo import replaced the current board before Start")
 		return
 	var metadata: Dictionary = first_board.content_metadata(content_id)
 	if str(metadata.get("source_kind", "")) != "local_photo":
@@ -69,6 +72,9 @@ func _run() -> void:
 
 	if str(first_board.active_difficulty_id()) != "standard":
 		_fail("Puzzle Me did not start Standard difficulty")
+		return
+	if str(first_board.active_content_id()) != content_id:
+		_fail("Start did not commit the selected photo to the runtime")
 		return
 	var grid = first_board.active_grid_resolution()
 	if not (grid is Dictionary) or int(grid.get("rows", 0)) <= int(grid.get("columns", 0)):

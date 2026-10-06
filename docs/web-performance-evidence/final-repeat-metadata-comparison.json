@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "payloads": 392,
+  "byte_identical_payloads": 390,
+  "generated_metadata_changes": [
+    {
+      "path": ".godot/global_script_class_cache.cfg",
+      "reason": "Same class records, different ordering"
+    },
+    {
+      "path": ".godot/uid_cache.bin",
+      "reason": "Generated UID mappings/order; identical unique resource paths"
+    }
+  ],
+  "note": "This permits only validated UID/order changes. It is not byte-identical container reproducibility."
+}

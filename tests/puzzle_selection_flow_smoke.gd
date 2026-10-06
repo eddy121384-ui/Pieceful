@@ -129,8 +129,13 @@ func _run() -> void:
 	if str(board.active_content_id()) != "twilight_lake":
 		_fail("relaunch resumed slot state onto the wrong artwork")
 		return
-	if main.puzzle_selection_overlay.visible:
-		_fail("existing unfinished game should resume directly instead of reopening gallery")
+	if not main.puzzle_selection_overlay.visible or main.product_resume_id != provisional_id:
+		_fail("returning player should see Gallery with Continue for the restored active game")
+		return
+	main._continue_product_session()
+	await process_frame
+	if main.puzzle_selection_overlay.visible or str(coordinator.active_game()) != provisional_id:
+		_fail("Continue did not reveal the restored active puzzle")
 		return
 	if coordinator.list_unfinished_games().size() != 2:
 		_fail("relaunch did not preserve both artwork saves")

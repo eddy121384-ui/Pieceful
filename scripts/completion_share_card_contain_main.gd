@@ -1,6 +1,8 @@
 class_name CompletionShareCardContainMain
 extends "res://scripts/completion_share_card_main.gd"
 
+const ResultPaper = preload("res://scripts/watercolor_gameplay_style.gd")
+
 const SHARE_ARTWORK_BOX := Rect2(24.0, 24.0, 888.0, 722.0)
 
 
@@ -40,13 +42,14 @@ func _render_share_card_png(record: Dictionary) -> PackedByteArray:
 	viewport.add_child(canvas)
 
 	var background := ColorRect.new()
-	background.color = Color("111419")
+	background.color = ResultPaper.PAPER
 	background.position = Vector2.ZERO
 	background.size = Vector2(SHARE_CARD_SIZE)
 	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(background)
 
-	var heading := _share_label(str(payload.get("title", "Puzzle complete")), 52, Color(1, 1, 1, 0.94))
+	var heading := _share_label(str(payload.get("title", "Puzzle complete")), 52, ResultPaper.INK)
+	heading.add_theme_font_override("font", ResultPaper.SERIF)
 	heading.position = Vector2(72, 54)
 	heading.size = Vector2(936, 68)
 	canvas.add_child(heading)
@@ -57,7 +60,7 @@ func _render_share_card_png(record: Dictionary) -> PackedByteArray:
 	artwork_panel.clip_contents = true
 	artwork_panel.add_theme_stylebox_override(
 		"panel",
-		_chrome_style(Color(1, 1, 1, 0.025), Color(1, 1, 1, 0.08), 24, 0)
+		ResultPaper.surface(true, 0)
 	)
 	canvas.add_child(artwork_panel)
 
@@ -75,27 +78,28 @@ func _render_share_card_png(record: Dictionary) -> PackedByteArray:
 	artwork_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	artwork_panel.add_child(artwork_rect)
 
-	var artwork_label := _share_label(str(payload.get("artwork_label", "Puzzle")), 38, Color(1, 1, 1, 0.94))
+	var artwork_label := _share_label(str(payload.get("artwork_label", "Puzzle")), 38, ResultPaper.INK)
+	artwork_label.add_theme_font_override("font", ResultPaper.SERIF)
 	artwork_label.position = Vector2(72, 950)
 	artwork_label.size = Vector2(936, 52)
 	canvas.add_child(artwork_label)
 
-	var primary := _share_label(str(payload.get("primary", "")), 30, Color(1, 1, 1, 0.82))
+	var primary := _share_label(str(payload.get("primary", "")), 30, ResultPaper.INK)
 	primary.position = Vector2(72, 1018)
 	primary.size = Vector2(936, 46)
 	canvas.add_child(primary)
 
-	var secondary := _share_label(str(payload.get("secondary", "")), 25, Color(1, 1, 1, 0.58))
+	var secondary := _share_label(str(payload.get("secondary", "")), 25, ResultPaper.SOFT)
 	secondary.position = Vector2(72, 1072)
 	secondary.size = Vector2(936, 40)
 	canvas.add_child(secondary)
 
-	var quiet_copy := _share_label("A quiet moment, finished.", 27, Color(1, 1, 1, 0.56))
+	var quiet_copy := _share_label("A quiet moment, finished.", 27, ResultPaper.SOFT)
 	quiet_copy.position = Vector2(72, 1160)
 	quiet_copy.size = Vector2(936, 44)
 	canvas.add_child(quiet_copy)
 
-	var signature := _share_label("Pieceful", 21, Color(1, 1, 1, 0.34))
+	var signature := _share_label("Pieceful", 21, ResultPaper.SOFT)
 	signature.position = Vector2(72, 1266)
 	signature.size = Vector2(936, 32)
 	canvas.add_child(signature)

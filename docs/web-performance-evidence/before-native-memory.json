@@ -1,0 +1,70 @@
+{
+	"debug_build": true,
+	"headless": true,
+	"samples": [
+		{
+			"nodes": 1.0,
+			"orphans": 0.0,
+			"resources": 112.0,
+			"static_bytes": 38831607.0,
+			"static_max_bytes": 72982283.0,
+			"tag": "before-main"
+		},
+		{
+			"nodes": 1064.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 108724569.0,
+			"static_max_bytes": 108913013.0,
+			"tag": "gallery"
+		},
+		{
+			"nodes": 1064.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 108872621.0,
+			"static_max_bytes": 113188999.0,
+			"tag": "relaxed"
+		},
+		{
+			"nodes": 1729.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 123194615.0,
+			"static_max_bytes": 127484613.0,
+			"tag": "standard"
+		},
+		{
+			"nodes": 2550.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 141515979.0,
+			"static_max_bytes": 158541877.0,
+			"tag": "hard"
+		},
+		{
+			"nodes": 2620.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 142989609.0,
+			"static_max_bytes": 158541877.0,
+			"tag": "after-12-transitions"
+		},
+		{
+			"nodes": 1184.0,
+			"orphans": 1.0,
+			"resources": 150.0,
+			"static_bytes": 113216589.0,
+			"static_max_bytes": 158541877.0,
+			"tag": "after-8-cycles"
+		},
+		{
+			"nodes": 1.0,
+			"orphans": 1.0,
+			"resources": 112.0,
+			"static_bytes": 74954495.0,
+			"static_max_bytes": 158541877.0,
+			"tag": "after-main-free"
+		}
+	]
+}

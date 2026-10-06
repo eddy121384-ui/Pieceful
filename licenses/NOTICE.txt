@@ -1,0 +1,31 @@
+Pieceful bundled dependency and asset inventory
+
+Godot 4.7.2: GODOT-LICENSE.txt contains the engine's license text.
+GODOT-THIRD-PARTY.json contains its embedded dependency copyright notices and
+complete license texts, extracted from the checksum-verified editor using
+Engine.get_copyright_info() and Engine.get_license_info(). This is the engine's
+inventory, not a complete inventory of Android Java dependencies or optional
+mobile advertising/billing SDKs. ANDROID-RUNTIME-INVENTORY.json records the
+resolved base Android dependency coordinates; their notice review remains open.
+
+LM Roman 10 regular and italic (version 2.004): Copyright 2003, 2009
+B. Jackowski and J. M. Nowacki, on behalf of TeX users groups. The bundled
+album-serif-regular.otf and album-serif-italic.otf identify this family in their
+embedded font metadata. See assets/ui/ALBUM-FONT-LICENSE.txt (GUST Font License)
+and LPPL-1.3c.txt (the complete referenced LaTeX Project Public License).
+
+Pieceful Catalog Ink Regular: subset of Noto Sans JP, renamed as documented in
+assets/ui/CATALOG-INK-PROVENANCE.md. Copyright 2014-2021 Adobe; SIL OFL 1.1.
+See assets/ui/CATALOG-INK-FONT-LICENSE.txt for the complete notice and license.
+
+ASSET_MANIFEST.json records the shipped source assets, hashes and existing
+catalog attribution. The 35 Metropolitan Museum records contain explicit
+isPublicDomain=true source signals and CC0 catalog metadata. Their source URLs,
+creators, credit lines and derived thumbnail associations are preserved.
+This records existing evidence; it is not a new rights clearance or live
+reverification of the source provider.
+
+No license for Pieceful's own code or project_fixture artwork is granted by
+this notice. Ownership/distribution clearance for original artwork, icons,
+shaders and other project assets remains the owner's responsibility. Optional
+native SDKs need their own license, privacy and distribution review.

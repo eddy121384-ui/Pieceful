@@ -492,6 +492,9 @@ def main() -> int:
         print(f"PASS runtime assets validate-only: {expected_count} museum assets")
         return 0
 
+    if (Path(args.catalog).parent / "curation/catalog_authoring_v1.json").exists():
+        raise SystemExit("The catalog is pipeline-managed. Use tools/catalog_pipeline.py ingest with approved local inputs; legacy network materialization must not overwrite it.")
+
     updated_catalog, manifest = materialize(
         candidates,
         catalog,

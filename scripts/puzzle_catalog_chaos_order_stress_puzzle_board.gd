@@ -88,9 +88,20 @@ func active_puzzle_texture() -> Texture2D:
 		return _texture_cache[path]
 	var texture = load(path)
 	if texture is Texture2D:
-		_texture_cache[path] = texture
+		_remember_catalog_texture(path, texture)
 		return texture
 	return DEMO_TEXTURE
+
+
+func _remember_catalog_texture(path: String, texture: Texture2D) -> void:
+	# Real pieces/reference UI own their texture for as long as they need it.
+	# Do not additionally retain every full artwork ever played in this session.
+	# Photo Gallery cards use runtime ImageTextures and a separate lifecycle;
+	# preserve those cache entries to avoid repeated photo decoding here.
+	for cached_path in _texture_cache.keys():
+		if str(cached_path).begins_with("res://") and str(cached_path) != path:
+			_texture_cache.erase(cached_path)
+	_texture_cache[path] = texture
 
 
 func active_content_identity() -> Dictionary:
@@ -122,17 +133,7 @@ func content_identity_matches(candidate) -> bool:
 func _content_sha256_for(path: String) -> String:
 	if _sha_cache.has(path):
 		return str(_sha_cache[path])
-	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		return ""
-	var bytes := file.get_buffer(file.get_length())
-	file.close()
-	var hashing := HashingContext.new()
-	if hashing.start(HashingContext.HASH_SHA256) != OK:
-		return ""
-	if hashing.update(bytes) != OK:
-		return ""
-	var digest := hashing.finish().hex_encode()
+	var digest: String = preload("res://scripts/catalog_content_identity.gd").sha256_for(path)
 	_sha_cache[path] = digest
 	return digest
 

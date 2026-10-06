@@ -1,0 +1,33 @@
+{
+  "journeys": [
+    "First launch resolves to Gallery",
+    "New player: picture opens piece-count setup",
+    "Start opens gameplay",
+    "First puzzle interaction drags a real loose piece",
+    "Placed cluster fixture creates real saved progress",
+    "Leave returns to Gallery with progress intact",
+    "Returning player continues exact saved progress",
+    "Hint assist toggles through its real control",
+    "Reshuffle shows a consequence-aware confirmation",
+    "Cancel preserves placed pieces",
+    "Photo picker imports a private setup candidate",
+    "Settings is reachable independently of discovery",
+    "Switching starts a separate puzzle",
+    "All unfinished puzzles is a direct discovery destination",
+    "Landscape discovery can reach artwork setup",
+    "Real solved-cluster completion enters result flow",
+    "Completed puzzle replay opens",
+    "Completion leads to discovery with no hidden preselection",
+    "History is reachable from discovery",
+    "Completion retirement, history and other progress persist through reload"
+  ],
+  "screenshots": 29,
+  "errors": [],
+  "final_state": {
+    "content": "garden",
+    "solved": 1,
+    "pieces": 40,
+    "history_count": 1,
+    "save_error": ""
+  }
+}

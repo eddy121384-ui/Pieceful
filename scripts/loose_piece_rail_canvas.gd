@@ -20,6 +20,8 @@ var board = null
 var member_indexes: Array = []
 var content_root: Node2D = null
 var empty_hint: Label = null
+# Optional surface supplied by the gameplay presentation adapter.
+var presentation_surface: StyleBox = null
 var positions: Dictionary = {}
 var visual_nodes: Dictionary = {}
 var piece_z: Dictionary = {}
@@ -80,6 +82,9 @@ func visual_scale() -> float:
 
 
 func _draw() -> void:
+	if presentation_surface != null:
+		presentation_surface.draw(get_canvas_item(), Rect2(Vector2.ZERO, size))
+		return
 	var rect := Rect2(Vector2.ZERO, size)
 	draw_rect(rect, Color(0.018, 0.021, 0.028, 0.30), true)
 	draw_rect(rect.grow(-1.0), Color(1.0, 1.0, 1.0, 0.10), false, 1.0)

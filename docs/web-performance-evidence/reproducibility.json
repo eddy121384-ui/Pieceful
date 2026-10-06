@@ -1,0 +1,8 @@
+{
+  "resource_content_identical": true,
+  "resources_compared": 392,
+  "non_pack_bytes_identical": true,
+  "loader_idempotent": true,
+  "pack_container_bytes_identical": true,
+  "note": "Godot PCK physical ordering/padding can differ even with identical resource bytes. This check does not certify byte-identical or cross-host builds."
+}

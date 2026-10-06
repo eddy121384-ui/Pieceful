@@ -1,0 +1,754 @@
+{
+  "audit_date": "2026-10-04",
+  "branch": "hardening/release-readiness",
+  "accepted_base_sha": "a66a851accb0b9198cff537263d69335816e4088",
+  "source_scope": "Local exports/tests of the hardening working tree before commit. Web build identity truthfully records tracked_source_dirty=true; not a deployment of the base SHA. Hosted artifacts will carry the pushed commit identity.",
+  "release_ready": {
+    "web_poki": false,
+    "android_google_play": false,
+    "ios_app_store": false
+  },
+  "repository_checks": {
+    "repository_checks": "passed",
+    "export_presets": [
+      "Web",
+      "Android Debug",
+      "Android Release AAB"
+    ],
+    "catalog_entries": 38,
+    "museum_assets_checked": 70,
+    "inventoried_source_assets": 80,
+    "android_dependency_coordinates": 38,
+    "note": "This does not certify signing, ownership, platform integration, accessibility, or real-device readiness."
+  },
+  "native_regressions": {
+    "suite_count": 36,
+    "passed": 36,
+    "tests": [
+      {
+        "test": "analytics_event_contract_smoke",
+        "passed": true,
+        "seconds": 0.4
+      },
+      {
+        "test": "analytics_integration_smoke",
+        "passed": true,
+        "seconds": 26.6
+      },
+      {
+        "test": "commercial_gameplay_hud_smoke",
+        "passed": true,
+        "seconds": 14.9
+      },
+      {
+        "test": "commercial_product_navigation_smoke",
+        "passed": true,
+        "seconds": 58.0
+      },
+      {
+        "test": "completion_event_contract_smoke",
+        "passed": true,
+        "seconds": 28.4
+      },
+      {
+        "test": "completion_presentation_smoke",
+        "passed": true,
+        "seconds": 22.2
+      },
+      {
+        "test": "completion_share_card_smoke",
+        "passed": true,
+        "seconds": 19.9
+      },
+      {
+        "test": "content_identity_save_smoke",
+        "passed": true,
+        "seconds": 41.3
+      },
+      {
+        "test": "content_taxonomy_smoke",
+        "passed": true,
+        "seconds": 0.4
+      },
+      {
+        "test": "gallery_flow_smoke",
+        "passed": true,
+        "seconds": 34.9
+      },
+      {
+        "test": "gallery_retina_portrait_smoke",
+        "passed": true,
+        "seconds": 12.2
+      },
+      {
+        "test": "image_aware_difficulty_resolver_smoke",
+        "passed": true,
+        "seconds": 17.1
+      },
+      {
+        "test": "local_recommendation_smoke",
+        "passed": true,
+        "seconds": 21.4
+      },
+      {
+        "test": "monetization_foundation_smoke",
+        "passed": true,
+        "seconds": 12.0
+      },
+      {
+        "test": "multi_slot_save_smoke",
+        "passed": true,
+        "seconds": 40.8
+      },
+      {
+        "test": "museum_runtime_flow_smoke",
+        "passed": true,
+        "seconds": 19.0
+      },
+      {
+        "test": "puzzle_journal_store_smoke",
+        "passed": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "puzzle_journal_ui_smoke",
+        "passed": true,
+        "seconds": 15.4
+      },
+      {
+        "test": "puzzle_me_flow_smoke",
+        "passed": true,
+        "seconds": 27.2
+      },
+      {
+        "test": "puzzle_me_store_smoke",
+        "passed": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "puzzle_piece_depth_smoke",
+        "passed": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "puzzle_piece_overlap_z_order_smoke",
+        "passed": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "puzzle_selection_flow_smoke",
+        "passed": true,
+        "seconds": 33.5
+      },
+      {
+        "test": "rail_layout_visibility_smoke",
+        "passed": true,
+        "seconds": 24.0
+      },
+      {
+        "test": "save_robustness_smoke",
+        "passed": true,
+        "seconds": 85.9
+      },
+      {
+        "test": "save_stable_snapshot_smoke",
+        "passed": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "startup_resume_presentation_smoke",
+        "passed": true,
+        "seconds": 29.6
+      },
+      {
+        "test": "timelapse_replay_smoke",
+        "passed": true,
+        "seconds": 13.6
+      },
+      {
+        "test": "timelapse_trace_smoke",
+        "passed": true,
+        "seconds": 28.4
+      },
+      {
+        "test": "timelapse_video_export_smoke",
+        "passed": true,
+        "seconds": 16.2
+      },
+      {
+        "test": "touch_gesture_arbitration_smoke",
+        "passed": true,
+        "seconds": 11.5
+      },
+      {
+        "test": "touch_piece_pinch_handoff_smoke",
+        "passed": true,
+        "seconds": 12.8
+      },
+      {
+        "test": "touch_zoom_recovery_smoke",
+        "passed": true,
+        "seconds": 11.4
+      },
+      {
+        "test": "watercolor_gameplay_system_smoke",
+        "passed": true,
+        "seconds": 27.5
+      },
+      {
+        "test": "watercolor_reachable_ui_smoke",
+        "passed": true,
+        "seconds": 27.9
+      },
+      {
+        "test": "release_runtime_smoke",
+        "passed": true,
+        "seconds": 12.3
+      }
+    ]
+  },
+  "targeted_python_tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "content_ingestion_smoke": "passed",
+  "web_runtime_ready_smoke": "passed",
+  "web_production_browser": {
+    "browser": "Chromium mobile emulation; not physical Safari/Android",
+    "findings": [
+      {
+        "check": "production portrait, landscape, online reload, no QA bridge/private diagnostics",
+        "passed": true
+      },
+      {
+        "check": "live offline tab remains loaded; offline reload is unsupported",
+        "passed": true,
+        "offlineReloadSupported": false
+      },
+      {
+        "check": "denied IndexedDB starts without persistence and discloses loss; release engine flags",
+        "passed": true
+      },
+      {
+        "check": "missing production pack produces visible startup failure",
+        "passed": true
+      }
+    ]
+  },
+  "commercial_browser_flow": {
+    "passed": true,
+    "journeys": [
+      "First launch resolves to Gallery",
+      "New player: picture opens piece-count setup",
+      "Start opens gameplay",
+      "First puzzle interaction drags a real loose piece",
+      "Several pieces snap through real drag input",
+      "Leave returns to Gallery with progress intact",
+      "Returning player continues exact saved progress",
+      "Hint assist toggles through its real control",
+      "Picture cycles back to hidden",
+      "Trays creates one named tray",
+      "Rename refreshes the tray name",
+      "Tray collapses",
+      "Real drag stores a piece in the named tray",
+      "Accepted Board Lines enable",
+      "Board Lines OFF removes the overlay completely",
+      "Changing piece count asks before starting another puzzle",
+      "Cancel piece-count change preserves exact puzzle state",
+      "Reshuffle shows a consequence-aware confirmation",
+      "Cancel preserves placed pieces",
+      "Photo picker imports a private setup candidate",
+      "Settings is reachable independently of discovery",
+      "In progress filter reflects actual unfinished content",
+      "New filter excludes unfinished content",
+      "Switching starts a separate puzzle",
+      "All unfinished puzzles is a direct discovery destination",
+      "Unfinished list restores the original puzzle after starting another",
+      "Unfinished list switches back to the separate newer puzzle",
+      "Landscape discovery can reach artwork setup",
+      "Board Lines enable in short landscape",
+      "Board Lines OFF removes them in short landscape",
+      "Short landscape piece-count confirmation is reachable",
+      "Real solved-cluster completion enters result flow",
+      "Share result downloads a valid PNG through the actual Web fallback",
+      "Completed puzzle replay opens",
+      "Completion leads to discovery with no hidden preselection",
+      "History is reachable from discovery",
+      "Completion can resume another unfinished puzzle immediately",
+      "Completion retirement, history and other progress persist through reload"
+    ],
+    "screenshots": 54,
+    "errors": []
+  },
+  "rail_scatter_browser": {
+    "passed": true,
+    "transition_count": 32,
+    "cases": [
+      {
+        "pieces": 40,
+        "orientation": "portrait",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "deviceScaleFactor": 3,
+        "transitions": [
+          {
+            "tag": "single-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "single-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "store-preparation-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "stored-joined-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": true
+          },
+          {
+            "tag": "repeat-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "repeat-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          }
+        ],
+        "postTransitionDrag": true
+      },
+      {
+        "pieces": 40,
+        "orientation": "landscape",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "deviceScaleFactor": 3,
+        "transitions": [
+          {
+            "tag": "single-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "single-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "store-preparation-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "stored-joined-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": true
+          },
+          {
+            "tag": "repeat-to-rail",
+            "mode": "rail",
+            "frames": 4,
+            "joinedSeen": false
+          },
+          {
+            "tag": "repeat-to-scatter",
+            "mode": "scatter",
+            "frames": 4,
+            "joinedSeen": false
+          }
+        ],
+        "postTransitionDrag": true
+      },
+      {
+        "pieces": 286,
+        "orientation": "portrait",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "deviceScaleFactor": 3,
+        "transitions": [
+          {
+            "tag": "single-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "single-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "store-preparation-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "stored-joined-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": true
+          },
+          {
+            "tag": "repeat-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "repeat-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          }
+        ],
+        "postTransitionDrag": true
+      },
+      {
+        "pieces": 286,
+        "orientation": "landscape",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "deviceScaleFactor": 3,
+        "transitions": [
+          {
+            "tag": "single-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "single-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "joined-table-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "store-preparation-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "stored-joined-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": true
+          },
+          {
+            "tag": "repeat-to-rail",
+            "mode": "rail",
+            "frames": 3,
+            "joinedSeen": false
+          },
+          {
+            "tag": "repeat-to-scatter",
+            "mode": "scatter",
+            "frames": 3,
+            "joinedSeen": false
+          }
+        ],
+        "postTransitionDrag": true
+      }
+    ]
+  },
+  "production_web_artifacts": {
+    "build": {
+      "ref": "hardening/release-readiness",
+      "sha": "a66a851accb0b9198cff537263d69335816e4088",
+      "run": "local",
+      "tracked_source_dirty": true,
+      "engine": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "production_pack": {
+      "file": "index.pck",
+      "bytes": 33816360,
+      "sha256": "89c7623de2096ba299f058e6b65d224f5dc3fda0370b81271c885f279fe1ef2a",
+      "entries": 427,
+      "forbidden_paths": [],
+      "missing_notices": [],
+      "missing_catalog_sources": [],
+      "source_byte_mismatches": []
+    },
+    "artifacts": [
+      {
+        "file": "index.apple-touch-icon.png",
+        "bytes": 11944,
+        "gzip_bytes": 11967,
+        "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5"
+      },
+      {
+        "file": "index.audio.position.worklet.js",
+        "bytes": 2973,
+        "gzip_bytes": 1161,
+        "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+      },
+      {
+        "file": "index.audio.worklet.js",
+        "bytes": 7298,
+        "gzip_bytes": 2194,
+        "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+      },
+      {
+        "file": "index.html",
+        "bytes": 7184,
+        "gzip_bytes": 2800,
+        "sha256": "4a9c35f75e5e6b4564d7ad7dc14912c102b674d2925f86c7c9d375364fa86d5d"
+      },
+      {
+        "file": "index.icon.png",
+        "bytes": 5700,
+        "gzip_bytes": 5723,
+        "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5"
+      },
+      {
+        "file": "index.js",
+        "bytes": 279897,
+        "gzip_bytes": 68517,
+        "sha256": "767aeba047919b76bf311f390df4ef4dc49c8699718be192ef3cf035bb71e820"
+      },
+      {
+        "file": "index.pck",
+        "bytes": 33816360,
+        "gzip_bytes": 30460891,
+        "sha256": "89c7623de2096ba299f058e6b65d224f5dc3fda0370b81271c885f279fe1ef2a"
+      },
+      {
+        "file": "index.png",
+        "bytes": 21443,
+        "gzip_bytes": 19328,
+        "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+      },
+      {
+        "file": "index.wasm",
+        "bytes": 39514754,
+        "gzip_bytes": 10054758,
+        "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+      }
+    ],
+    "raw_bytes": 73667553,
+    "gzip_bytes": 40627339
+  },
+  "same_input_web_reproducibility": {
+    "resource_content_identical": true,
+    "resources_compared": 427,
+    "non_pack_bytes_identical": true,
+    "loader_idempotent": true,
+    "pack_container_bytes_identical": true,
+    "note": "Godot PCK physical ordering/padding can differ even with identical resource bytes. This check does not certify byte-identical or cross-host builds."
+  },
+  "android_artifacts": {
+    "android_validation": [
+      {
+        "file": "pieceful-validation-unsigned.apk",
+        "bytes": 57050728,
+        "sha256": "267d48e6c4728c834b549203ba0e5e6aea802a3cf3af343233f1fea893201367",
+        "catalog_sources_checked": 38,
+        "notices_present": 8,
+        "native_load_alignments": {
+          "lib/arm64-v8a/libc++_shared.so": [
+            16384,
+            16384,
+            16384
+          ],
+          "lib/arm64-v8a/libgodot_android.so": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        "signed": false,
+        "profile": "base game without optional monetization SDKs",
+        "manifest_checked": "APK",
+        "package": "com.piecepace.puzzles",
+        "min_sdk": 24,
+        "target_sdk": 36,
+        "debuggable": false,
+        "allow_backup": false,
+        "permissions": [
+          "uses-permission: name='android.permission.ACCESS_NETWORK_STATE'",
+          "uses-permission: name='android.permission.INTERNET'"
+        ],
+        "zip_alignment_16kb": "passed"
+      },
+      {
+        "file": "pieceful-validation-unsigned.aab",
+        "bytes": 56981399,
+        "sha256": "14a63b86068692bfe4040964f56a7bafce965f7550506220b9b30cc222ae7acb",
+        "catalog_sources_checked": 38,
+        "notices_present": 8,
+        "native_load_alignments": {
+          "base/lib/arm64-v8a/libc++_shared.so": [
+            16384,
+            16384,
+            16384
+          ],
+          "base/lib/arm64-v8a/libgodot_android.so": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        "signed": false,
+        "profile": "base game without optional monetization SDKs",
+        "manifest_checked": "AAB protobuf via bundletool",
+        "bundletool_validate": "passed",
+        "package": "com.piecepace.puzzles",
+        "min_sdk": 24,
+        "target_sdk": 36,
+        "debuggable": false,
+        "allow_backup": false,
+        "orientation": "fullSensor",
+        "permissions": [
+          "android.permission.ACCESS_NETWORK_STATE",
+          "android.permission.INTERNET"
+        ]
+      }
+    ],
+    "note": "Unsigned base-game artifacts; signing, optional SDKs, Play ingestion and devices remain unverified."
+  },
+  "unperformed": [
+    "Physical iPhone/iPad/Android",
+    "Safari/WebKit",
+    "Poki integration/portal validation",
+    "Signed Android installation/Play upload",
+    "Optional monetization SDK artifact build",
+    "macOS/Xcode/iOS export/archive/TestFlight",
+    "Store purchases/restore/ads/consent",
+    "Full disk/quota/eviction/OOM/platform kill certification"
+  ],
+  "diagnostic_limits": [
+    "Expected malformed JSON fixture errors during save recovery tests",
+    "Existing native teardown CanvasItem/ObjectDB leak warnings",
+    "Chromium SwiftShader/WebGL driver warnings; not device performance evidence",
+    "Missing application icon diagnostic in successful unsigned Android export",
+    "Official Android template AGP warning about compileSdk 36"
+  ],
+  "hosted_ci": {
+    "workflow": ".github/workflows/release-readiness.yml",
+    "workflow_url": "https://github.com/eddy121384-ui/Pieceful/actions/workflows/release-readiness.yml",
+    "status": "Follow the current branch SHA on GitHub; run conclusions are not frozen into this local evidence file.",
+    "first_run": "https://github.com/eddy121384-ui/Pieceful/actions/runs/37221505732",
+    "first_run_android": "failed at SDK installation with exit 127: unqualified sdkmanager PATH assumption",
+    "correction_commit": "29703c84be241295d242c9f88bd15ddc0b852c64",
+    "correction_verified": "Local component installer passed; hosted run 37221691796 SDK installation/configuration step passed. Remaining steps/current SHA must pass before treating hosted CI as successful."
+  },
+  "files_changed": [
+    ".github/workflows/android-monetization-sandbox.yml",
+    ".github/workflows/android-play-internal.yml",
+    ".github/workflows/release-readiness.yml",
+    ".gitignore",
+    "docs/RELEASE_READINESS_AUDIT.md",
+    "docs/release-readiness-evidence/production-asset-failure.png",
+    "docs/release-readiness-evidence/production-landscape.png",
+    "docs/release-readiness-evidence/production-portrait.png",
+    "docs/release-readiness-evidence/production-storage-denied.png",
+    "docs/release-readiness-evidence/results.json",
+    "export_presets.cfg",
+    "licenses/ANDROID-RUNTIME-INVENTORY.json",
+    "licenses/ASSET_MANIFEST.json",
+    "licenses/GODOT-LICENSE.txt",
+    "licenses/GODOT-THIRD-PARTY.json",
+    "licenses/LPPL-1.3c.txt",
+    "licenses/NOTICE.txt",
+    "project.godot",
+    "release_toolchain.lock.json",
+    "scripts/commercial_product_ux_main.gd",
+    "scripts/native_mobile_monetization_provider.gd",
+    "tests/commercial_product_browser_fixture.gd",
+    "tests/release_readiness_smoke.py",
+    "tests/release_runtime_smoke.gd",
+    "tests/release_web_browser_smoke.mjs",
+    "tests/web_runtime_ready_smoke.mjs",
+    "tools/export_product_ux_qa.py",
+    "tools/instrument_web_loader.py",
+    "tools/mobile/install_monetization_plugins.py",
+    "tools/mobile/prepare_android_release.py",
+    "tools/release/check_repository.py",
+    "tools/release/collect_engine_licenses.gd",
+    "tools/release/compare_web_exports.py",
+    "tools/release/configure_android_sdk.py",
+    "tools/release/export_android_validation.py",
+    "tools/release/export_web.py",
+    "tools/release/inspect_android.py",
+    "tools/release/inspect_pack.py",
+    "tools/release/install_android_components.py",
+    "tools/release/install_bundletool.py",
+    "tools/release/install_godot.py",
+    "tools/release/run_native_regressions.py"
+  ]
+}

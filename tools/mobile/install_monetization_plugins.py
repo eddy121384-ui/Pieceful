@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import hashlib
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -125,28 +126,29 @@ att_text = ""
     (target / "ios_export.cfg").write_text(ios, encoding="utf-8")
 
 
+def merged_editor_plugins(text: str) -> str:
+    additions = ["res://addons/AdmobPlugin/plugin.cfg", "res://addons/GodotGooglePlayBilling/plugin.cfg"]
+    section = re.search(r"(?ms)^\[editor_plugins\]\s*\n(.*?)(?=^\[|\Z)", text)
+    plugins = []
+    enabled = None
+    if section:
+        enabled = re.search(r"(?m)^enabled=PackedStringArray\(([^\n]*)\)", section[0])
+        if enabled is None:
+            raise RuntimeError("Unsupported editor_plugins configuration; refusing to replace it")
+        plugins = re.findall(r'"([^"\n]+)"', enabled[1])
+    for path in additions:
+        if path not in plugins:
+            plugins.append(path)
+    value = "enabled=PackedStringArray(" + ", ".join(json.dumps(p) for p in plugins) + ")"
+    if section and enabled:
+        start, end = section.start() + enabled.start(), section.start() + enabled.end()
+        return text[:start] + value + text[end:]
+    return text.rstrip() + "\n\n[editor_plugins]\n\n" + value + "\n"
+
+
 def enable_editor_plugins() -> None:
     project_path = ROOT / "project.godot"
-    text = project_path.read_text(encoding="utf-8")
-    section = (
-        '[editor_plugins]\n\n'
-        'enabled=PackedStringArray("res://addons/AdmobPlugin/plugin.cfg", '
-        '"res://addons/GodotGooglePlayBilling/plugin.cfg")\n'
-    )
-    if "[editor_plugins]" in text:
-        start = text.index("[editor_plugins]")
-        next_section = text.find("\n[", start + 1)
-        if next_section < 0:
-            text = text[:start].rstrip() + "\n\n" + section
-        else:
-            text = text[:start].rstrip() + "\n\n" + section + "\n" + text[next_section + 1:]
-    else:
-        insert_at = text.find("\n[rendering]")
-        if insert_at < 0:
-            text = text.rstrip() + "\n\n" + section
-        else:
-            text = text[:insert_at].rstrip() + "\n\n" + section + "\n" + text[insert_at:]
-    project_path.write_text(text, encoding="utf-8")
+    project_path.write_text(merged_editor_plugins(project_path.read_text(encoding="utf-8")), encoding="utf-8")
 
 
 def verify() -> None:

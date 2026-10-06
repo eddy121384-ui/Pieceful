@@ -74,7 +74,7 @@ func _set_loose_layout_mode(mode: String) -> void:
 
 	# Dense mode still uses the optimized canonical switch, but no longer throws
 	# away the motion cue entirely. Instead of creating a ghost for all 286 loose
-	# groups, keep only a small representative sample. Eighteen lightweight face
+	# groups, keep only a small representative sample. Eighteen shared piece
 	# ghosts are enough for the eye to read "pieces flowing into/out of the Rail"
 	# while avoiding hundreds of Polygon2D/Line2D nodes and ~800 tweens.
 	if loose_layout_mode == LAYOUT_RAIL:
@@ -235,26 +235,18 @@ func _create_dense_sample_ghost(source: Dictionary) -> Node2D:
 	var anchor_index: int = int(source.get("anchor", -1))
 	if anchor_index < 0 or anchor_index >= board.pieces.size():
 		return null
-	var source_piece = board.pieces[anchor_index]
-	if not is_instance_valid(source_piece):
+	# Keep dense sampling/timing, but share the cardboard ghost renderer too.
+	var ghost := _create_layout_transition_ghost(
+		source.get("members", [anchor_index]),
+		anchor_index,
+		Vector2(source.get("start_position", Vector2.ZERO)),
+		maxf(float(source.get("start_scale", 1.0)), 0.01)
+	)
+	if ghost == null:
 		return null
-
-	var ghost := Node2D.new()
 	ghost.name = "DenseLayoutMotion_%03d" % anchor_index
-	ghost.position = Vector2(source.get("start_position", Vector2.ZERO))
-	var start_scale: float = maxf(float(source.get("start_scale", 1.0)), 0.01)
-	ghost.scale = Vector2(start_scale, start_scale)
-	layout_transition_root.add_child(ghost)
-
-	# Dense ghosts intentionally render only one representative face and no
-	# Line2D outline. The transition is a directional motion cue, not a second
-	# fully rendered Rail, and this keeps the temporary node count tiny.
-	var face := Polygon2D.new()
-	face.polygon = source_piece.polygon_points
-	face.uv = source_piece.uv_points
-	face.texture = source_piece.source_texture
-	face.modulate = Color(1.0, 1.0, 1.0, 0.92)
-	ghost.add_child(face)
+	for holder in ghost.get_children():
+		holder.get_node("Face").modulate = Color(1.0, 1.0, 1.0, 0.92)
 	return ghost
 
 

@@ -1,45 +1,135 @@
 class_name AppUiMetrics
 extends RefCounted
 
-const TOP_MARGIN := 12.0
-const SIDE_MARGIN := 16.0
-const TOP_BAR_HEIGHT := 56.0
-const DOCK_WIDTH := 540.0
-const DOCK_HEIGHT := 64.0
-const DOCK_BOTTOM_MARGIN := 18.0
-const DOCK_BUTTON_Y := 10.0
+const TOP_MARGIN := 22.0
+const SIDE_MARGIN := 18.0
+const TOP_BAR_HEIGHT := 100.0
+const TOP_BAR_MAX_WIDTH := 640.0
 
-const SLOT_SORT_X := 12.0
-const SLOT_LAYOUT_X := 64.0
-const SLOT_PREVIEW_X := 116.0
-const SLOT_HINT_X := 168.0
-const SLOT_LINES_X := 220.0
-const SLOT_FIT_X := 280.0
-const SLOT_ZOOM_OUT_X := 332.0
-const SLOT_ZOOM_LABEL_X := 380.0
-const SLOT_ZOOM_IN_X := 432.0
-const SLOT_RESHUFFLE_X := 484.0
+# Quiet printed controls on the page. The 96 logical-pixel targets remain
+# comfortable at 320 CSS px on the 720-wide portrait gameplay canvas.
+const DOCK_WIDTH := 600.0
+const DOCK_HEIGHT := 112.0
+const DOCK_BOTTOM_MARGIN := 24.0
+const DOCK_BUTTON_Y := 9.0
+const DOCK_BUTTON_WIDTH := 112.0
+const DOCK_BUTTON_HEIGHT := 96.0
+
+# Four open ink-and-wash actions. Values are left-edge offsets inside the dock.
+const SLOT_SORT_X := 22.0
+const SLOT_LAYOUT_X := 166.0
+const SLOT_PREVIEW_X := 310.0
+const SLOT_HINT_X := 454.0
+
+# Legacy slots stay defined because inherited presentation code still lays these
+# controls out before the commercial HUD hides them in the overflow hierarchy.
+const SLOT_LINES_X := 310.0
+const SLOT_FIT_X := 358.0
+const SLOT_ZOOM_OUT_X := 406.0
+const SLOT_ZOOM_LABEL_X := 454.0
+const SLOT_ZOOM_IN_X := 502.0
+const SLOT_RESHUFFLE_X := 550.0
+
+
+static func safe_area_insets(viewport_size: Vector2) -> Vector4:
+	# Web/Safari uses viewport-fit=cover, so read the real CSS safe-area values
+	# and convert them into Godot logical canvas units. Headless/native builds use
+	# the normal fixed margins below.
+	if not OS.has_feature("web"):
+		return Vector4.ZERO
+
+	var raw = JavaScriptBridge.eval(
+		"""(function(){
+			var id='pieceful-safe-area-probe';
+			var el=document.getElementById(id);
+			if(!el){
+				el=document.createElement('div');
+				el.id=id;
+				el.style.cssText='position:fixed;left:0;top:0;width:0;height:0;pointer-events:none;visibility:hidden;'
+					+'padding-top:env(safe-area-inset-top);padding-right:env(safe-area-inset-right);'
+					+'padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);';
+				document.body.appendChild(el);
+			}
+			var s=getComputedStyle(el);
+			return [
+				parseFloat(s.paddingLeft)||0,
+				parseFloat(s.paddingTop)||0,
+				parseFloat(s.paddingRight)||0,
+				parseFloat(s.paddingBottom)||0,
+				window.innerWidth||1,
+				window.innerHeight||1
+			].join(',');
+		})()""",
+		true
+	)
+	var parts := str(raw).split(",")
+	if parts.size() != 6:
+		return Vector4.ZERO
+
+	var css_width := maxf(float(parts[4]), 1.0)
+	var css_height := maxf(float(parts[5]), 1.0)
+	var scale_x := viewport_size.x / css_width
+	var scale_y := viewport_size.y / css_height
+	return Vector4(
+		float(parts[0]) * scale_x,
+		float(parts[1]) * scale_y,
+		float(parts[2]) * scale_x,
+		float(parts[3]) * scale_y
+	)
 
 
 static func top_bar_rect(viewport_size: Vector2) -> Rect2:
-	var width: float = maxf(viewport_size.x - SIDE_MARGIN * 2.0, 1.0)
+	var safe := safe_area_insets(viewport_size)
+	var available_width := maxf(
+		1.0,
+		viewport_size.x - SIDE_MARGIN * 2.0 - safe.x - safe.z
+	)
+	var width := minf(TOP_BAR_MAX_WIDTH, available_width)
 	return Rect2(
-		Vector2(SIDE_MARGIN, TOP_MARGIN),
+		Vector2(
+			safe.x + (viewport_size.x - safe.x - safe.z - width) * 0.5,
+			safe.y + TOP_MARGIN
+		),
 		Vector2(width, TOP_BAR_HEIGHT)
 	)
 
 
 static func dock_rect(viewport_size: Vector2) -> Rect2:
-	var width: float = minf(DOCK_WIDTH, maxf(1.0, viewport_size.x - SIDE_MARGIN * 2.0))
+	var safe := safe_area_insets(viewport_size)
+	var available_width := maxf(
+		1.0,
+		viewport_size.x - SIDE_MARGIN * 2.0 - safe.x - safe.z
+	)
+	var width := minf(DOCK_WIDTH, available_width)
 	return Rect2(
 		Vector2(
-			(viewport_size.x - width) * 0.5,
-			viewport_size.y - DOCK_BOTTOM_MARGIN - DOCK_HEIGHT
+			safe.x + (viewport_size.x - safe.x - safe.z - width) * 0.5,
+			viewport_size.y - safe.w - DOCK_BOTTOM_MARGIN - DOCK_HEIGHT
 		),
 		Vector2(width, DOCK_HEIGHT)
 	)
 
 
 static func dock_slot_position(viewport_size: Vector2, slot_x: float) -> Vector2:
-	var dock: Rect2 = dock_rect(viewport_size)
-	return dock.position + Vector2(slot_x, DOCK_BUTTON_Y)
+	var dock := dock_rect(viewport_size)
+	var index := -1
+	if is_equal_approx(slot_x, SLOT_SORT_X):
+		index = 0
+	elif is_equal_approx(slot_x, SLOT_LAYOUT_X):
+		index = 1
+	elif is_equal_approx(slot_x, SLOT_PREVIEW_X):
+		index = 2
+	elif is_equal_approx(slot_x, SLOT_HINT_X):
+		index = 3
+	if index < 0:
+		return dock.position + Vector2(slot_x, DOCK_BUTTON_Y)
+	var tab_width := dock_button_width(viewport_size)
+	var inset := minf(22.0, dock.size.x * 0.045)
+	var gap := maxf(0.0, (dock.size.x - inset * 2.0 - tab_width * 4.0) / 3.0)
+	return dock.position + Vector2(inset + index * (tab_width + gap), DOCK_BUTTON_Y)
+
+
+static func dock_button_width(viewport_size: Vector2) -> float:
+	var dock := dock_rect(viewport_size)
+	var inset := minf(22.0, dock.size.x * 0.045)
+	return minf(DOCK_BUTTON_WIDTH, maxf(44.0, (dock.size.x - inset * 2.0) / 4.0))

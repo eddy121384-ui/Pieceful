@@ -1,0 +1,80 @@
+{
+  "android_validation": [
+    {
+      "file": "pieceful-validation-unsigned.apk",
+      "bytes": 39047892,
+      "sha256": "7d9240ec3caac52c5e91ce7d279847355aa240934b369a568a51ecafd815f186",
+      "catalog_identity": {
+        "manifest_version": 1,
+        "original_byte_hashes_verified": 38,
+        "imported_artworks_verified": 38,
+        "duplicate_raw_sources": 0
+      },
+      "notices_present": 8,
+      "native_load_alignments": {
+        "lib/arm64-v8a/libc++_shared.so": [
+          16384,
+          16384,
+          16384
+        ],
+        "lib/arm64-v8a/libgodot_android.so": [
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "signed": false,
+      "profile": "base game without optional monetization SDKs",
+      "manifest_checked": "APK",
+      "package": "com.piecepace.puzzles",
+      "min_sdk": 24,
+      "target_sdk": 36,
+      "debuggable": false,
+      "allow_backup": false,
+      "permissions": [
+        "uses-permission: name='android.permission.ACCESS_NETWORK_STATE'",
+        "uses-permission: name='android.permission.INTERNET'"
+      ],
+      "zip_alignment_16kb": "passed"
+    },
+    {
+      "file": "pieceful-validation-unsigned.aab",
+      "bytes": 39036955,
+      "sha256": "3314136691ae388ab0aeade88560dd6615c9828d12cf2a8ef54db7d1f3d9c58b",
+      "catalog_identity": {
+        "manifest_version": 1,
+        "original_byte_hashes_verified": 38,
+        "imported_artworks_verified": 38,
+        "duplicate_raw_sources": 0
+      },
+      "notices_present": 8,
+      "native_load_alignments": {
+        "base/lib/arm64-v8a/libc++_shared.so": [
+          16384,
+          16384,
+          16384
+        ],
+        "base/lib/arm64-v8a/libgodot_android.so": [
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "signed": false,
+      "profile": "base game without optional monetization SDKs",
+      "manifest_checked": "AAB protobuf via bundletool",
+      "bundletool_validate": "passed",
+      "package": "com.piecepace.puzzles",
+      "min_sdk": 24,
+      "target_sdk": 36,
+      "debuggable": false,
+      "allow_backup": false,
+      "orientation": "fullSensor",
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.INTERNET"
+      ]
+    }
+  ],
+  "note": "Unsigned base-game artifacts; signing, optional SDKs, Play ingestion and devices remain unverified."
+}

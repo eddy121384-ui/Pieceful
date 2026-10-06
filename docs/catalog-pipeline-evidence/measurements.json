@@ -1,0 +1,514 @@
+{
+  "observed_date": "2026-10-06",
+  "timezone": "Asia/Taipei",
+  "base_sha": "4ea7eca8644dfb105eefe7b2d782b9dd664dd614",
+  "branch": "tools/catalog-content-pipeline",
+  "artifact_provenance": {
+    "before": {
+      "ref": "perf/web-startup-content-delivery",
+      "sha": "2a0b75f928f5a702185289f6fa6ac84484d9944b",
+      "run": "local",
+      "tracked_source_dirty": true,
+      "engine": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "after": {
+      "ref": "tools/catalog-content-pipeline",
+      "sha": "4ea7eca8644dfb105eefe7b2d782b9dd664dd614",
+      "run": "local",
+      "tracked_source_dirty": true,
+      "engine": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "note": "Implementation working-tree exports, not clean final-commit hosted CI certification. Final helper export repeats all 392 Web payloads and engine/bootstrap bytes exactly against the browser-tested implementation export."
+  },
+  "web_before": {
+    "raw_web_bytes": 55667593,
+    "calculated_gzip_web_bytes": 22680789,
+    "artifacts": {
+      "index.apple-touch-icon.png": {
+        "bytes": 11944,
+        "calculated_gzip_bytes": 11967
+      },
+      "index.audio.position.worklet.js": {
+        "bytes": 2973,
+        "calculated_gzip_bytes": 1161
+      },
+      "index.audio.worklet.js": {
+        "bytes": 7298,
+        "calculated_gzip_bytes": 2194
+      },
+      "index.html": {
+        "bytes": 7184,
+        "calculated_gzip_bytes": 2801
+      },
+      "index.icon.png": {
+        "bytes": 5700,
+        "calculated_gzip_bytes": 5723
+      },
+      "index.js": {
+        "bytes": 279897,
+        "calculated_gzip_bytes": 68517
+      },
+      "index.pck": {
+        "bytes": 15816400,
+        "calculated_gzip_bytes": 12514340
+      },
+      "index.png": {
+        "bytes": 21443,
+        "calculated_gzip_bytes": 19328
+      },
+      "index.wasm": {
+        "bytes": 39514754,
+        "calculated_gzip_bytes": 10054758
+      }
+    }
+  },
+  "web_after": {
+    "raw_web_bytes": 55667593,
+    "calculated_gzip_web_bytes": 22681965,
+    "artifacts": {
+      "index.apple-touch-icon.png": {
+        "bytes": 11944,
+        "calculated_gzip_bytes": 11967
+      },
+      "index.audio.position.worklet.js": {
+        "bytes": 2973,
+        "calculated_gzip_bytes": 1161
+      },
+      "index.audio.worklet.js": {
+        "bytes": 7298,
+        "calculated_gzip_bytes": 2194
+      },
+      "index.html": {
+        "bytes": 7184,
+        "calculated_gzip_bytes": 2801
+      },
+      "index.icon.png": {
+        "bytes": 5700,
+        "calculated_gzip_bytes": 5723
+      },
+      "index.js": {
+        "bytes": 279897,
+        "calculated_gzip_bytes": 68517
+      },
+      "index.pck": {
+        "bytes": 15816400,
+        "calculated_gzip_bytes": 12515516
+      },
+      "index.png": {
+        "bytes": 21443,
+        "calculated_gzip_bytes": 19328
+      },
+      "index.wasm": {
+        "bytes": 39514754,
+        "calculated_gzip_bytes": 10054758
+      }
+    }
+  },
+  "web_resource_comparison": {
+    "passed": true,
+    "payloads": 392,
+    "byte_identical_payloads": 390,
+    "generated_metadata_changes": [
+      {
+        "path": ".godot/global_script_class_cache.cfg",
+        "reason": "Same class records, different ordering"
+      },
+      {
+        "path": ".godot/uid_cache.bin",
+        "reason": "Generated UID mappings/order; identical unique resource paths"
+      }
+    ],
+    "note": "This permits only validated UID/order changes. It is not byte-identical container reproducibility."
+  },
+  "android": {
+    "android_validation": [
+      {
+        "file": "pieceful-validation-unsigned.apk",
+        "bytes": 39047912,
+        "sha256": "66b1d38b6cece4e9ced6e9a2d91ef2e8ac492d2a26307c9829146b3c16c05f04",
+        "catalog_identity": {
+          "manifest_version": 1,
+          "original_byte_hashes_verified": 38,
+          "imported_artworks_verified": 38,
+          "duplicate_raw_sources": 0
+        },
+        "notices_present": 8,
+        "native_load_alignments": {
+          "lib/arm64-v8a/libc++_shared.so": [
+            16384,
+            16384,
+            16384
+          ],
+          "lib/arm64-v8a/libgodot_android.so": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        "signed": false,
+        "profile": "base game without optional monetization SDKs",
+        "manifest_checked": "APK",
+        "package": "com.piecepace.puzzles",
+        "min_sdk": 24,
+        "target_sdk": 36,
+        "debuggable": false,
+        "allow_backup": false,
+        "permissions": [
+          "uses-permission: name='android.permission.ACCESS_NETWORK_STATE'",
+          "uses-permission: name='android.permission.INTERNET'"
+        ],
+        "zip_alignment_16kb": "passed"
+      },
+      {
+        "file": "pieceful-validation-unsigned.aab",
+        "bytes": 39037005,
+        "sha256": "0ad6a8f72fe9af4d2810eb7dcec9eae78155774f1f8adad51e3da6422c440e76",
+        "catalog_identity": {
+          "manifest_version": 1,
+          "original_byte_hashes_verified": 38,
+          "imported_artworks_verified": 38,
+          "duplicate_raw_sources": 0
+        },
+        "notices_present": 8,
+        "native_load_alignments": {
+          "base/lib/arm64-v8a/libc++_shared.so": [
+            16384,
+            16384,
+            16384
+          ],
+          "base/lib/arm64-v8a/libgodot_android.so": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        "signed": false,
+        "profile": "base game without optional monetization SDKs",
+        "manifest_checked": "AAB protobuf via bundletool",
+        "bundletool_validate": "passed",
+        "package": "com.piecepace.puzzles",
+        "min_sdk": 24,
+        "target_sdk": 36,
+        "debuggable": false,
+        "allow_backup": false,
+        "orientation": "fullSensor",
+        "permissions": [
+          "android.permission.ACCESS_NETWORK_STATE",
+          "android.permission.INTERNET"
+        ]
+      }
+    ],
+    "note": "Unsigned base-game artifacts; signing, optional SDKs, Play ingestion and devices remain unverified."
+  },
+  "android_resource_comparison": {
+    "apk": {
+      "old_bytes": 39047892,
+      "new_bytes": 39047912,
+      "added": [],
+      "removed": [],
+      "changed_uncompressed_payloads": [
+        "assets/.godot/global_script_class_cache.cfg",
+        "assets/.godot/uid_cache.bin",
+        "assets/assets.sparsepck",
+        "assets/assets/demo_crane_pine_scroll.svg.import",
+        "assets/assets/demo_garden.svg.import",
+        "assets/assets/demo_twilight_lake.svg.import",
+        "assets/assets/ui/album-serif-italic.otf.import",
+        "assets/assets/ui/album-serif-regular.otf.import",
+        "assets/assets/ui/icon_atlas.svg.import",
+        "assets/assets/ui/watercolor-gameplay-icons.svg.import"
+      ],
+      "validated_metadata_only": true,
+      "note": "Only import UID values, same class record ordering and unique UID mapping/order changed; sparse pack directory changes correspond exactly to those generated payloads. All other decompressed payloads identical."
+    },
+    "aab": {
+      "old_bytes": 39036955,
+      "new_bytes": 39037005,
+      "added": [],
+      "removed": [],
+      "changed_uncompressed_payloads": [
+        "assetPackInstallTime/assets/.godot/global_script_class_cache.cfg",
+        "assetPackInstallTime/assets/.godot/uid_cache.bin",
+        "assetPackInstallTime/assets/assets.sparsepck",
+        "assetPackInstallTime/assets/assets/demo_crane_pine_scroll.svg.import",
+        "assetPackInstallTime/assets/assets/demo_garden.svg.import",
+        "assetPackInstallTime/assets/assets/demo_twilight_lake.svg.import",
+        "assetPackInstallTime/assets/assets/ui/album-serif-italic.otf.import",
+        "assetPackInstallTime/assets/assets/ui/album-serif-regular.otf.import",
+        "assetPackInstallTime/assets/assets/ui/icon_atlas.svg.import",
+        "assetPackInstallTime/assets/assets/ui/watercolor-gameplay-icons.svg.import"
+      ],
+      "validated_metadata_only": true,
+      "note": "Only import UID values, same class record ordering and unique UID mapping/order changed; sparse pack directory changes correspond exactly to those generated payloads. All other decompressed payloads identical."
+    }
+  },
+  "validation": {
+    "original_catalog_entries": 38,
+    "migration_existing_catalog_and_license_inventory_byte_changes": 0,
+    "generate_second_run_changes": [],
+    "legacy_rights_pending": [
+      "garden",
+      "twilight_lake",
+      "crane_pine_scroll"
+    ],
+    "focused_pipeline_tests": {
+      "passed": 33,
+      "includes": "Valid single/100-item, duplicate IDs/hashes/source identities, changed original bytes, missing metadata/source, rights/provenance, corrupt/unsupported image, deterministic derivatives/manifests, paths/case/symlink/file/report collisions, malformed shapes, dry-run/idempotency/renamed file, item 47 of 50 failure, injected I/O rollback, interruption/recovery, baseline tampering, inherited public-domain evidence and export writer mutex"
+    },
+    "accepted_native_regressions": {
+      "suite_count": 36,
+      "passed": 36,
+      "tests": [
+        {
+          "test": "analytics_event_contract_smoke",
+          "passed": true,
+          "seconds": 0.3
+        },
+        {
+          "test": "analytics_integration_smoke",
+          "passed": true,
+          "seconds": 22.3
+        },
+        {
+          "test": "commercial_gameplay_hud_smoke",
+          "passed": true,
+          "seconds": 18.8
+        },
+        {
+          "test": "commercial_product_navigation_smoke",
+          "passed": true,
+          "seconds": 41.7
+        },
+        {
+          "test": "completion_event_contract_smoke",
+          "passed": true,
+          "seconds": 29.3
+        },
+        {
+          "test": "completion_presentation_smoke",
+          "passed": true,
+          "seconds": 22.0
+        },
+        {
+          "test": "completion_share_card_smoke",
+          "passed": true,
+          "seconds": 15.6
+        },
+        {
+          "test": "content_identity_save_smoke",
+          "passed": true,
+          "seconds": 53.2
+        },
+        {
+          "test": "content_taxonomy_smoke",
+          "passed": true,
+          "seconds": 0.4
+        },
+        {
+          "test": "gallery_flow_smoke",
+          "passed": true,
+          "seconds": 47.7
+        },
+        {
+          "test": "gallery_retina_portrait_smoke",
+          "passed": true,
+          "seconds": 20.4
+        },
+        {
+          "test": "image_aware_difficulty_resolver_smoke",
+          "passed": true,
+          "seconds": 29.4
+        },
+        {
+          "test": "local_recommendation_smoke",
+          "passed": true,
+          "seconds": 21.4
+        },
+        {
+          "test": "monetization_foundation_smoke",
+          "passed": true,
+          "seconds": 12.4
+        },
+        {
+          "test": "multi_slot_save_smoke",
+          "passed": true,
+          "seconds": 52.5
+        },
+        {
+          "test": "museum_runtime_flow_smoke",
+          "passed": true,
+          "seconds": 30.0
+        },
+        {
+          "test": "puzzle_journal_store_smoke",
+          "passed": true,
+          "seconds": 0.4
+        },
+        {
+          "test": "puzzle_journal_ui_smoke",
+          "passed": true,
+          "seconds": 21.8
+        },
+        {
+          "test": "puzzle_me_flow_smoke",
+          "passed": true,
+          "seconds": 33.3
+        },
+        {
+          "test": "puzzle_me_store_smoke",
+          "passed": true,
+          "seconds": 0.3
+        },
+        {
+          "test": "puzzle_piece_depth_smoke",
+          "passed": true,
+          "seconds": 0.3
+        },
+        {
+          "test": "puzzle_piece_overlap_z_order_smoke",
+          "passed": true,
+          "seconds": 0.7
+        },
+        {
+          "test": "puzzle_selection_flow_smoke",
+          "passed": true,
+          "seconds": 29.8
+        },
+        {
+          "test": "rail_layout_visibility_smoke",
+          "passed": true,
+          "seconds": 23.4
+        },
+        {
+          "test": "save_robustness_smoke",
+          "passed": true,
+          "seconds": 81.1
+        },
+        {
+          "test": "save_stable_snapshot_smoke",
+          "passed": true,
+          "seconds": 0.4
+        },
+        {
+          "test": "startup_resume_presentation_smoke",
+          "passed": true,
+          "seconds": 31.7
+        },
+        {
+          "test": "timelapse_replay_smoke",
+          "passed": true,
+          "seconds": 11.6
+        },
+        {
+          "test": "timelapse_trace_smoke",
+          "passed": true,
+          "seconds": 25.6
+        },
+        {
+          "test": "timelapse_video_export_smoke",
+          "passed": true,
+          "seconds": 13.0
+        },
+        {
+          "test": "touch_gesture_arbitration_smoke",
+          "passed": true,
+          "seconds": 29.5
+        },
+        {
+          "test": "touch_piece_pinch_handoff_smoke",
+          "passed": true,
+          "seconds": 29.5
+        },
+        {
+          "test": "touch_zoom_recovery_smoke",
+          "passed": true,
+          "seconds": 15.8
+        },
+        {
+          "test": "watercolor_gameplay_system_smoke",
+          "passed": true,
+          "seconds": 36.8
+        },
+        {
+          "test": "watercolor_reachable_ui_smoke",
+          "passed": true,
+          "seconds": 35.8
+        },
+        {
+          "test": "release_runtime_smoke",
+          "passed": true,
+          "seconds": 14.7
+        }
+      ]
+    },
+    "release_python_tests_passed": 7,
+    "catalog_packaging_tests_passed": 4,
+    "legacy_content_ingestion_smoke": "passed",
+    "isolated_generated_sample": "Native Godot import: actual Gallery card/thumbnail/full-art selection, immutable original SHA and playable puzzle; demo latest pipeline validate has zero changes",
+    "production_web_ready_smoke": "passed",
+    "production_browser": {
+      "browser": "Chromium mobile emulation; not physical Safari/Android",
+      "findings": [
+        {
+          "check": "production portrait, landscape, online reload, no QA bridge/private diagnostics",
+          "passed": true
+        },
+        {
+          "check": "live offline tab remains loaded; offline reload is unsupported",
+          "passed": true,
+          "offlineReloadSupported": false
+        },
+        {
+          "check": "denied IndexedDB starts without persistence and discloses loss; release engine flags",
+          "passed": true
+        },
+        {
+          "check": "missing production pack produces visible startup failure",
+          "passed": true
+        }
+      ]
+    },
+    "commercial_web_journey": {
+      "assertions_passed": 38,
+      "screenshots": 54,
+      "browser_runtime_errors": 0
+    },
+    "old_save_upgrade": {
+      "passed": true,
+      "oldSaves": [
+        {
+          "game": "game_1791257640_581004",
+          "content": "met_10181",
+          "sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1",
+          "pieces": 35,
+          "solved": 1,
+          "maxNormalizedPositionDrift": 8.477105006843288e-08
+        },
+        {
+          "game": "game_1791257667_395208",
+          "content": "photo_935a5d2b1303f1f1",
+          "sha256": "935a5d2b1303f1f15e403b39b85123510cfe66d0118fccb784a20000cc0bf05b",
+          "pieces": 35,
+          "solved": 1,
+          "maxNormalizedPositionDrift": 9.192041605654566e-08
+        }
+      ],
+      "checks": [
+        "Old export hashes all 38 original source files",
+        "Old build commits museum + photo progress and completed history",
+        "New export has no raw catalog files; all 38 runtime hashes equal old build",
+        "Both old slots resume exact identity/geometry/discrete state; normalized positions within 1e-6; history unchanged"
+      ],
+      "errors": [],
+      "oldBuildPhotoRoundTripMaxNormalizedDrift": 9.192041605654566e-08
+    }
+  },
+  "limits": [
+    "Chromium mobile emulation, not physical iPhone/Android",
+    "Unsigned base Android; no signing/store/device verification",
+    "Calculated gzip is not measured CDN transfer",
+    "Current catalog source/derivative identity and resource payloads unchanged; no startup improvement claimed",
+    "Three unchanged legacy fixtures still block strict production-rights gate",
+    "Existing headless teardown warnings remain"
+  ]
+}

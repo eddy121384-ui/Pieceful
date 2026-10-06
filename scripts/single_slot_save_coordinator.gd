@@ -314,6 +314,9 @@ func _restore_piece_runtime(board_state: Dictionary, workspace_state: Dictionary
 			highest_z = maxi(highest_z, z_value)
 			if solved:
 				piece.solved = true
+				# A warm rebuild in rail mode may have stashed this node before
+				# saved progress is applied. Anchored pieces belong on the board.
+				piece.visible = true
 				piece.dragging = false
 				piece.drag_pointer_id = -999
 				piece.set_process_input(false)

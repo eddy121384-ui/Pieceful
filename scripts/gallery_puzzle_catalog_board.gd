@@ -126,7 +126,7 @@ func active_puzzle_texture() -> Texture2D:
 		return _texture_cache[path]
 	var texture = load(path)
 	if texture is Texture2D:
-		_texture_cache[path] = texture
+		_remember_catalog_texture(path, texture)
 		return texture
 	return DEMO_TEXTURE
 

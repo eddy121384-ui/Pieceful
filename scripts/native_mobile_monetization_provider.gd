@@ -137,6 +137,15 @@ func restore_remove_ads() -> Dictionary:
 func _setup_admob() -> void:
 	if _host == null or not ResourceLoader.exists(ADMOB_SCRIPT):
 		return
+	var use_real := bool(ProjectSettings.get_setting(REAL_ADS_SETTING, false))
+	var app_setting := ANDROID_APP_ID_SETTING if OS.has_feature("android") else IOS_APP_ID_SETTING
+	var unit_setting := ANDROID_INTERSTITIAL_ID_SETTING if OS.has_feature("android") else IOS_INTERSTITIAL_ID_SETTING
+	if not ad_configuration_allows_initialization(
+		OS.is_debug_build(), use_real,
+		str(ProjectSettings.get_setting(app_setting, "")),
+		str(ProjectSettings.get_setting(unit_setting, ""))
+	):
+		return
 	var script = load(ADMOB_SCRIPT)
 	if script == null:
 		return
@@ -147,7 +156,6 @@ func _setup_admob() -> void:
 	_admob.name = "Admob"
 	_host.add_child(_admob)
 
-	var use_real := bool(ProjectSettings.get_setting(REAL_ADS_SETTING, false))
 	_admob.set("is_real", use_real)
 	_admob.set("android_debug_application_id", ANDROID_TEST_APP_ID)
 	_admob.set("ios_debug_application_id", IOS_TEST_APP_ID)
@@ -177,6 +185,19 @@ func _setup_admob() -> void:
 
 	if _admob.has_method("initialize"):
 		_admob.call("initialize")
+
+
+static func ad_configuration_allows_initialization(
+	debug_build: bool, use_real: bool, app_id: String, unit_id: String
+) -> bool:
+	# Test ads belong only to debug builds. Refuse this GDScript setup path in
+	# release; installed SDK native auto-init still needs a manifest/privacy review.
+	if not use_real:
+		return debug_build
+	for value in [app_id, unit_id]:
+		if value.strip_edges().is_empty() or value.begins_with("ca-app-pub-3940256099942544"):
+			return false
+	return true
 
 
 func _on_admob_initialized(_status_data = null) -> void:

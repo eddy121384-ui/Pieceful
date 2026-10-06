@@ -1,5 +1,7 @@
 extends "res://scripts/loose_piece_layout_workspace.gd"
 
+const TransitionPieceVisuals = preload("res://scripts/puzzle_piece_visual_factory.gd")
+
 const LayoutIcons = preload("res://scripts/ui_icon_catalog.gd")
 const LayoutMetrics = preload("res://scripts/app_ui_metrics.gd")
 const ScrollableRailCanvasScript = preload("res://scripts/scrollable_loose_piece_rail_canvas.gd")
@@ -340,21 +342,17 @@ func _create_layout_transition_ghost(
 		)
 		group.add_child(holder)
 
-		var face := Polygon2D.new()
-		face.polygon = source_piece.polygon_points
-		face.uv = source_piece.uv_points
-		face.texture = source_piece.source_texture
-		holder.add_child(face)
-
-		var outline := Line2D.new()
-		var outline_points: PackedVector2Array = source_piece.polygon_points.duplicate()
-		if not outline_points.is_empty():
-			outline_points.append(outline_points[0])
-		outline.points = outline_points
-		outline.width = 1.0
-		outline.default_color = Color(1.0, 1.0, 1.0, 0.60)
-		outline.antialiased = true
-		holder.add_child(outline)
+		# Use the same cardboard stack and shared relief materials as real pieces.
+		# The group transform already supplies the existing transition scale.
+		TransitionPieceVisuals.piece_extent(source_piece)
+		TransitionPieceVisuals.add_piece_visuals(
+			holder,
+			source_piece.polygon_points,
+			source_piece.uv_points,
+			source_piece.source_texture
+		)
+		if members.size() > 1:
+			TransitionPieceVisuals.apply_joined_state(holder)
 	return group
 
 
@@ -523,6 +521,11 @@ func _layout_loose_piece_rail() -> void:
 	_configure_rail_scrolling()
 
 
+# Presentation allowances; the watercolor adapter measures its paper/header.
+var rail_header_extent := 48.0
+var rail_side_extent := 20.0
+
+
 func _configure_rail_scrolling() -> void:
 	if (
 		rail_scroll == null
@@ -544,10 +547,10 @@ func _configure_rail_scrolling() -> void:
 	if portrait:
 		rail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 		rail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-		var visible_height: float = maxf(88.0, rail_panel.size.y - 48.0)
+		var visible_height: float = maxf(88.0, rail_panel.size.y - rail_header_extent)
 		rail_canvas.set_scroll_layout(true, visible_height)
 	else:
 		rail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		rail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-		var visible_width: float = maxf(120.0, rail_panel.size.x - 20.0)
+		var visible_width: float = maxf(120.0, rail_panel.size.x - rail_side_extent)
 		rail_canvas.set_scroll_layout(false, visible_width)

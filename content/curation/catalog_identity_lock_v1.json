@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "records": {
+    "garden": {
+      "path": "assets/demo_garden.svg",
+      "source_id": "builtin:demo_garden",
+      "sha256": "f3a7fcb976d663d3ac8366a7f477fb5acf540d14e232179982f7571389fcd49c",
+      "legacy_svg": true
+    },
+    "twilight_lake": {
+      "path": "assets/demo_twilight_lake.svg",
+      "source_id": "builtin:demo_twilight_lake",
+      "sha256": "081b4d82bf44ebc9135fd4f7f1bb5d622c1dd3449fc19a550db56b49f32cfaac",
+      "legacy_svg": true
+    },
+    "crane_pine_scroll": {
+      "path": "assets/demo_crane_pine_scroll.svg",
+      "source_id": "builtin:demo_crane_pine_scroll",
+      "sha256": "9de05feb264e7be1ea1325aa13774e00b67f7abc80a3ec4c94ccf8a80ed992c4",
+      "legacy_svg": true
+    },
+    "met_10181": {
+      "path": "assets/museum/met_v0/puzzles/met_10181.jpg",
+      "source_id": "met:10181",
+      "sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10181.jpg",
+        "sha256": "8a4122f67245133addb2a7b13e804c1f7c6f1dbbe41582c79b5e67d911be7130"
+      }
+    },
+    "met_359362": {
+      "path": "assets/museum/met_v0/puzzles/met_359362.jpg",
+      "source_id": "met:359362",
+      "sha256": "bc432477e887045db110d318d83d19cee990de254e7edb350df3d11137a23a73",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_359362.jpg",
+        "sha256": "8d73234493435cb7e1ccf12ed8fd76be0a8b23527fa167d2607434d7a40691fb"
+      }
+    },
+    "met_335112": {
+      "path": "assets/museum/met_v0/puzzles/met_335112.jpg",
+      "source_id": "met:335112",
+      "sha256": "5b6c3305f6cc74a0cec7d572e0d304ce47fe4ea5ea3821f9c280e8a000482660",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_335112.jpg",
+        "sha256": "7671c1763bc068312ae11ee4a800870f5b9d2080b921c335aeffe7bcb39f3b7b"
+      }
+    },
+    "met_11181": {
+      "path": "assets/museum/met_v0/puzzles/met_11181.jpg",
+      "source_id": "met:11181",
+      "sha256": "62a2b04baa4d2340013f31ce6af192d64f5828d6db46ad4217524dfecc77250d",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_11181.jpg",
+        "sha256": "d37405920ab18c13a0b779627a7f9f3b37a05e85176f61d4a5f082e61a3673fb"
+      }
+    },
+    "met_394043": {
+      "path": "assets/museum/met_v0/puzzles/met_394043.jpg",
+      "source_id": "met:394043",
+      "sha256": "dc2d8fa662b31aa395373d2d2d6f2b0cb94592c1f6663f9ec7def64a1200e1a8",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394043.jpg",
+        "sha256": "798b48f825dcd5939a08a497889a445a6d0508be1b471651579f5abb32ec8abc"
+      }
+    },
+    "met_438031": {
+      "path": "assets/museum/met_v0/puzzles/met_438031.jpg",
+      "source_id": "met:438031",
+      "sha256": "c525273972f04d3c8545694f4d906afe7ad8a4b76b3c377727c972113c18b193",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_438031.jpg",
+        "sha256": "1506dab7409839d8530e9f9516a38a383b1f9709c3584ae8aa069febf63dd194"
+      }
+    },
+    "met_12802": {
+      "path": "assets/museum/met_v0/puzzles/met_12802.jpg",
+      "source_id": "met:12802",
+      "sha256": "4d286f96d473c36d0005d828066a9bf9974533452befef3a19f31161d9735228",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_12802.jpg",
+        "sha256": "741f37c926961870da7fc83d7f29286767cc54b8228dc8677b2085fc75ace616"
+      }
+    },
+    "met_312624": {
+      "path": "assets/museum/met_v0/puzzles/met_312624.jpg",
+      "source_id": "met:312624",
+      "sha256": "5cad2f18fb6453f622830c779bd15aa372f35b1742408934901d1ee51d1777be",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_312624.jpg",
+        "sha256": "f83fcc27cbd8a113cd1bbf809fba96216aed83316824a95651af6c99593cea74"
+      }
+    },
+    "met_478746": {
+      "path": "assets/museum/met_v0/puzzles/met_478746.jpg",
+      "source_id": "met:478746",
+      "sha256": "ae3d97229b322f49a0883942227e4c741378c052b0a61202469f7b9c1528dfc5",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_478746.jpg",
+        "sha256": "d38f07646e413dbc1ebebb3685d7aa6ca25b905bc904dabd0217da731ad172a0"
+      }
+    },
+    "met_478425": {
+      "path": "assets/museum/met_v0/puzzles/met_478425.jpg",
+      "source_id": "met:478425",
+      "sha256": "b201adcf4ae714323289ac908beb3c3784b17914b1b4bcc25e8647f2a593b9d1",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_478425.jpg",
+        "sha256": "06eed4ba1d6a1c0205862d8eeb94b1305aa22f1863589afdf54143b9f15e2b6a"
+      }
+    },
+    "met_226943": {
+      "path": "assets/museum/met_v0/puzzles/met_226943.jpg",
+      "source_id": "met:226943",
+      "sha256": "3a292aafd2ebac6cb8c5b58e4f33a42a053ee192ca624f8cfb420982d7b5899d",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_226943.jpg",
+        "sha256": "2d687f4ab2959bb3c6cb6b2476ac06858b881de59148c7937ff409bfabffff66"
+      }
+    },
+    "met_191566": {
+      "path": "assets/museum/met_v0/puzzles/met_191566.jpg",
+      "source_id": "met:191566",
+      "sha256": "9c2dce24a6836aed2b627eae98ee3ba46da0e476707375d3808375ab8e33e303",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_191566.jpg",
+        "sha256": "bfb450f8353d45a70cebfe338aa2bfd1839a65604fcf3e7b630f657e5b89d6df"
+      }
+    },
+    "met_191567": {
+      "path": "assets/museum/met_v0/puzzles/met_191567.jpg",
+      "source_id": "met:191567",
+      "sha256": "0afc5c13cc0bc6b716620d575d599dc992a69da86024dc048be2d8f4e2ef0865",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_191567.jpg",
+        "sha256": "010356c41c7fccf31f8ff8aeeeef2be0e5d7ae7081790339b3f14a465b11a75b"
+      }
+    },
+    "met_340070": {
+      "path": "assets/museum/met_v0/puzzles/met_340070.jpg",
+      "source_id": "met:340070",
+      "sha256": "f390a4fa43808594aea59db484192ea2f3299a70fdaed2e50cf2f556a774200d",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_340070.jpg",
+        "sha256": "bf5612ac726b348167ab9a80a8c75e4cc58b681f781a8a93b0e0329a03a5a0ec"
+      }
+    },
+    "met_21209": {
+      "path": "assets/museum/met_v0/puzzles/met_21209.jpg",
+      "source_id": "met:21209",
+      "sha256": "45fdb4ed94d69433cd9acbafa72fcb3f91c7138b909d7bc25cd90bdbd3072b3d",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_21209.jpg",
+        "sha256": "545abafb57935b2e35dc0661a1c6ebad122c5d55c45fe73142b0504ecda1205c"
+      }
+    },
+    "met_399581": {
+      "path": "assets/museum/met_v0/puzzles/met_399581.jpg",
+      "source_id": "met:399581",
+      "sha256": "2b59146f4a74e965464b11e34c4e6c26bb80fee31489b92a77bd3aaa7138145f",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_399581.jpg",
+        "sha256": "29b65d44620b39335edd81bb5eb68203946c169969cd9f6144f1218107c4a35c"
+      }
+    },
+    "met_202696": {
+      "path": "assets/museum/met_v0/puzzles/met_202696.jpg",
+      "source_id": "met:202696",
+      "sha256": "60745622169418b1f643dbceb237d97d9b73e4fa198ea58e64218a53ad982dea",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_202696.jpg",
+        "sha256": "958901a991130698dbd919341ceca1b3e397e2e9fd4b46d3c070d97d0aa5f56a"
+      }
+    },
+    "met_399347": {
+      "path": "assets/museum/met_v0/puzzles/met_399347.jpg",
+      "source_id": "met:399347",
+      "sha256": "ee20af5081e002469aef1063c918ef33bd5685a50b63a06eec0419753c97d47c",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_399347.jpg",
+        "sha256": "b014c53a3fd153d6f2c53783e53610fe1cf27fb46dbbaa622cf4be4d4c323745"
+      }
+    },
+    "met_394310": {
+      "path": "assets/museum/met_v0/puzzles/met_394310.jpg",
+      "source_id": "met:394310",
+      "sha256": "222ac7f96f7cf10e7f03f8ec5a9595902b0165470d286c1c8c4094dd5ef115cf",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394310.jpg",
+        "sha256": "bd42abcb93b2b203190facbb2b6a45e817c3b6bcc3cccdbb544b52a0c0345265"
+      }
+    },
+    "met_394709": {
+      "path": "assets/museum/met_v0/puzzles/met_394709.jpg",
+      "source_id": "met:394709",
+      "sha256": "71cc38161c14ac8ff69fc86b3673f861f09a51c38dc420070a06ee9168dd7d7d",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_394709.jpg",
+        "sha256": "fd29fbf10ce85ce7ae9aa2f17d2b2bef3777e840efe60a8ed275e2c1f38b8487"
+      }
+    },
+    "met_5410": {
+      "path": "assets/museum/met_v0/puzzles/met_5410.jpg",
+      "source_id": "met:5410",
+      "sha256": "72e7f15464582cb05f0b1ab3fcafe7fc37f9b74609ee9b53c5ae38546bb28f6c",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_5410.jpg",
+        "sha256": "952d1013aed04e12ce6f333f47d71d10764484fdf0ae53da39933e6b482ce469"
+      }
+    },
+    "met_221706": {
+      "path": "assets/museum/met_v0/puzzles/met_221706.jpg",
+      "source_id": "met:221706",
+      "sha256": "d0ee3703bf12c29e594a67da46d0c56ca76dcc0976e8309c5a58468a315f0d44",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_221706.jpg",
+        "sha256": "bf3d85f9ffbe8d434122d7b572a4f6c7eb8dee1e6b8ca8a795dfa6eacf66cf5a"
+      }
+    },
+    "met_54393": {
+      "path": "assets/museum/met_v0/puzzles/met_54393.jpg",
+      "source_id": "met:54393",
+      "sha256": "20c4760e82a00e808963efc2fd1c29287b878cede548aa5ba1518d10251d0bc7",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54393.jpg",
+        "sha256": "7d7659bc0805122c637e20dac77da56c030afd235e684a74ee65c9a81eda9f8c"
+      }
+    },
+    "met_215356": {
+      "path": "assets/museum/met_v0/puzzles/met_215356.jpg",
+      "source_id": "met:215356",
+      "sha256": "26a85faad4b9d29be35757611f5ab0c28f835c775b7180aa9e89e69c74e0209c",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_215356.jpg",
+        "sha256": "c2120bb27a9153a0359c8c55831ddadb6e4b72052b1e85ec738f62252fe0733b"
+      }
+    },
+    "met_228950": {
+      "path": "assets/museum/met_v0/puzzles/met_228950.jpg",
+      "source_id": "met:228950",
+      "sha256": "c730174d51fee9aa9079b36b4d4d5da4d86890d0b3657c44c539a2bfdbd08996",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_228950.jpg",
+        "sha256": "6f2f17e59dfa3c4a9c7d539c068f910e5014114923e8e2db1466af7779376e4a"
+      }
+    },
+    "met_505626": {
+      "path": "assets/museum/met_v0/puzzles/met_505626.jpg",
+      "source_id": "met:505626",
+      "sha256": "87a8057ccc2f5baa88514781e29f3700e0fd4b2da4573672288bf43607fc7bb5",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_505626.jpg",
+        "sha256": "cf0f5b52a092fbfa628165d057299902b5e4f94a8ebcac6a79b0ded32ff51ea5"
+      }
+    },
+    "met_728305": {
+      "path": "assets/museum/met_v0/puzzles/met_728305.jpg",
+      "source_id": "met:728305",
+      "sha256": "fbc75f20a662a9683d95a90d262e667ec11e89c306848d21e48414c62dd3da01",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_728305.jpg",
+        "sha256": "f15ec00a6e0fec6a2652629ea31bf61613733bfe800f5fcb94cf1aa26e6c3f3f"
+      }
+    },
+    "met_764802": {
+      "path": "assets/museum/met_v0/puzzles/met_764802.jpg",
+      "source_id": "met:764802",
+      "sha256": "1b986ae8639e1cd460b3e91446a8dde92b144a85f2c57506db6e47bbc88dd55c",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_764802.jpg",
+        "sha256": "a7b8f275175488ae6f498e4c2132f63998d85a6a60c35ac5d0a26b0f2b21875a"
+      }
+    },
+    "met_10189": {
+      "path": "assets/museum/met_v0/puzzles/met_10189.jpg",
+      "source_id": "met:10189",
+      "sha256": "1b9e252b35ff02252fab96b62d84d9d7781bfee9276b8ac816b5604847b41e51",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10189.jpg",
+        "sha256": "8767afada8665e80f8b3b1751ba6e61f1ee637e2f65efe494141b57f3f47ba44"
+      }
+    },
+    "met_436305": {
+      "path": "assets/museum/met_v0/puzzles/met_436305.jpg",
+      "source_id": "met:436305",
+      "sha256": "e4c4386a55e201b55389476d0a8d8c31c2f9c8784a05136c8cb0b8535149369e",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_436305.jpg",
+        "sha256": "f0200ba3468aafae4041f32d11543e917d934bac04abd2cb00301191dbba50bf"
+      }
+    },
+    "met_10996": {
+      "path": "assets/museum/met_v0/puzzles/met_10996.jpg",
+      "source_id": "met:10996",
+      "sha256": "9a5ec0407887e3a5176653c43b3ebc7abefe510f14d7b41392d133211d072489",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_10996.jpg",
+        "sha256": "05f1293f259d558556760776a7085524e30e9701fe788b4d18b0b59cb164b12a"
+      }
+    },
+    "met_286248": {
+      "path": "assets/museum/met_v0/puzzles/met_286248.jpg",
+      "source_id": "met:286248",
+      "sha256": "f67a325cd3feae2c8f010f9b6105ff60e4b8096a89deb448531f2b5000476f36",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_286248.jpg",
+        "sha256": "d99642ba82ed69cc94ad440f942a35619d35eaf4cd435841794858b87b2e2e21"
+      }
+    },
+    "met_898372": {
+      "path": "assets/museum/met_v0/puzzles/met_898372.jpg",
+      "source_id": "met:898372",
+      "sha256": "98dbb27595504e253958477763c657d88f71c141429f08878579b8740f1624bb",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_898372.jpg",
+        "sha256": "0dd2c73385951ce10fa55690ffdd8f4d8c625f6f4836e2e79a4d25b2d40f3b53"
+      }
+    },
+    "met_54333": {
+      "path": "assets/museum/met_v0/puzzles/met_54333.jpg",
+      "source_id": "met:54333",
+      "sha256": "f16a798f881d74218401e6cd85c3410ee802f057294839c23d0a72299b003a0a",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54333.jpg",
+        "sha256": "a42f99ef5308302c60ffbb8026fcd44e69ffe7729c6f4292a0343b9b9acfa28c"
+      }
+    },
+    "met_54988": {
+      "path": "assets/museum/met_v0/puzzles/met_54988.jpg",
+      "source_id": "met:54988",
+      "sha256": "c00d30e47a8d1f4bd290da37de537ed81130d044731f54565c54a6c1d5cc9ae9",
+      "legacy_thumbnail": {
+        "path": "assets/museum/met_v0/thumbs/met_54988.jpg",
+        "sha256": "e565095dbdcb181d8b5548f5f5dbabec2a2067e32666e34f2ba9ea142abf60b6"
+      }
+    }
+  },
+  "legacy_review_exceptions": {
+    "garden": "b1fedfc62d0d00dd574bd79701b5c64d274068cd1a5666e1041d65a9d27c0e3c",
+    "twilight_lake": "740c591e6cf2c1a9c2b71ff50920a780303b885fb431d0f40b7e78d3b8fb5050",
+    "crane_pine_scroll": "07b81be2acec21e39668d809d2d2e86d11b45133bc570906f257c51f61d1fc30"
+  }
+}

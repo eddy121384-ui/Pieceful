@@ -8,6 +8,7 @@ const INDEX_VERSION := 1
 var active_game_id := ""
 var games_index: Dictionary = {}
 var runtime_completed := false
+var resume_in_progress := false
 
 
 func _bootstrap() -> void:
@@ -54,6 +55,10 @@ func _capture_snapshot() -> Dictionary:
 
 
 func _write_stable_snapshot(stable_snapshot: Dictionary, force_write: bool) -> bool:
+	# Content selection and board restoration yield across frames. Timer and
+	# lifecycle saves must not write that transitional board into the old slot.
+	if resume_in_progress:
+		return true
 	# Completion retires the unfinished slot. The autosave timer keeps running,
 	# so explicitly suppress writes until a new runtime/slot is created; otherwise
 	# the next 2.5-second tick would resurrect the completed puzzle as unfinished.
@@ -117,6 +122,8 @@ func list_unfinished_games() -> Array:
 
 
 func resume_game(game_id: String) -> bool:
+	if resume_in_progress:
+		return false
 	if game_id.is_empty() or game_id == active_game_id:
 		return not game_id.is_empty()
 	if not _metadata_exists(game_id):
@@ -127,13 +134,16 @@ func resume_game(game_id: String) -> bool:
 	if not previous_game_id.is_empty() and not save_now(true):
 		return false
 
+	resume_in_progress = true
 	if await _resume_game_from_disk(game_id):
+		resume_in_progress = false
 		return true
 
 	# Best-effort rollback if the target slot could not be restored after the
 	# current slot had already been preserved.
 	if not previous_game_id.is_empty() and previous_game_id != game_id:
 		await _resume_game_from_disk(previous_game_id)
+	resume_in_progress = false
 	return false
 
 

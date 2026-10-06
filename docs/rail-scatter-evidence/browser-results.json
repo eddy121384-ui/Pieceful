@@ -1,0 +1,245 @@
+{
+  "results": [
+    {
+      "pieces": 40,
+      "orientation": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 40,
+      "orientation": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 286,
+      "orientation": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 286,
+      "orientation": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    }
+  ],
+  "errors": []
+}

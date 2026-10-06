@@ -13,3 +13,23 @@ build/
 Thumbs.db
 *.tmp
 *.swp
+
+# Machine-local SDK/template output and signing material (never release assets).
+android/build/
+android/.build_version
+android/plugins/
+*.jks
+*.keystore
+*.p12
+*.p8
+*.mobileprovision
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+
+# Operator intake is not a second shipped library or a contract archive.
+content-intake/*
+!content-intake/.gdignore
+!content-intake/README.md
