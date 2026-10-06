@@ -369,6 +369,19 @@ jobs:
           test -s build/web/space-drift-zero-lab/game.js
           test -s build/web/space-drift-zero-lab/manifest.webmanifest
 
+      - name: Include Space Drift Helios preview
+        if: github.ref_name == 'main'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/space-drift-helios
+          cp web/previews/space-drift-helios/index.html build/web/space-drift-helios/index.html
+          cp web/previews/space-drift-helios/game.js build/web/space-drift-helios/game.js
+          cp web/previews/space-drift-helios/manifest.webmanifest build/web/space-drift-helios/manifest.webmanifest
+          test -s build/web/space-drift-helios/index.html
+          test -s build/web/space-drift-helios/game.js
+          test -s build/web/space-drift-helios/manifest.webmanifest
+
       - name: Sync chess previews from main on feature-branch deploys
         if: github.ref_name != 'main'
         shell: bash
@@ -383,6 +396,7 @@ jobs:
           mkdir -p build/web/watercolor-chess-poki-rc
           mkdir -p build/web/ukiyoe-shogi
           mkdir -p build/web/space-drift-zero-lab
+          mkdir -p build/web/space-drift-helios
           git show origin/main:web/previews/watercolor-chess/index.html > build/web/watercolor-chess/index.html
           git show origin/main:web/previews/watercolor-chess-save-resume/index.html > build/web/watercolor-chess-save-resume/index.html
           git show origin/main:web/previews/ink-chess-round2/index.html > build/web/ink-chess-round2/index.html
