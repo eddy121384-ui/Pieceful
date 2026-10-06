@@ -370,6 +370,17 @@ jobs:
           test -s build/web/space-drift-zero/index.html
           test -s build/web/space-drift-zero/game.js
 
+      - name: Include Space Drift Zero LAB preview
+        if: github.ref_name == 'main'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p build/web/space-drift-zero-lab
+          cp web/previews/space-drift-zero-lab/index.html build/web/space-drift-zero-lab/index.html
+          cp web/previews/space-drift-zero-lab/game.js build/web/space-drift-zero-lab/game.js
+          test -s build/web/space-drift-zero-lab/index.html
+          test -s build/web/space-drift-zero-lab/game.js
+
       - name: Sync chess previews from main on feature-branch deploys
         if: github.ref_name != 'main'
         shell: bash
@@ -383,6 +394,7 @@ jobs:
           mkdir -p build/web/ink-chess-poki-rc
           mkdir -p build/web/watercolor-chess-poki-rc
           mkdir -p build/web/ukiyoe-shogi
+          mkdir -p build/web/space-drift-zero-lab
           git show origin/main:web/previews/watercolor-chess/index.html > build/web/watercolor-chess/index.html
           git show origin/main:web/previews/watercolor-chess-save-resume/index.html > build/web/watercolor-chess-save-resume/index.html
           git show origin/main:web/previews/ink-chess-round2/index.html > build/web/ink-chess-round2/index.html
@@ -391,6 +403,8 @@ jobs:
           git show origin/main:web/previews/watercolor-chess-poki-rc/index.html > build/web/watercolor-chess-poki-rc/index.html
           git show origin/main:web/previews/ukiyoe-shogi/index.html > build/web/ukiyoe-shogi/index.html
           git show origin/main:web/previews/space-drift/index.html > build/web/space-drift/index.html
+          git show origin/main:web/previews/space-drift-zero-lab/index.html > build/web/space-drift-zero-lab/index.html
+          git show origin/main:web/previews/space-drift-zero-lab/game.js > build/web/space-drift-zero-lab/game.js
           test -s build/web/watercolor-chess/index.html
           test -s build/web/watercolor-chess-save-resume/index.html
           test -s build/web/ink-chess-round2/index.html
@@ -399,6 +413,8 @@ jobs:
           test -s build/web/watercolor-chess-poki-rc/index.html
           test -s build/web/ukiyoe-shogi/index.html
           test -s build/web/space-drift/index.html
+          test -s build/web/space-drift-zero-lab/index.html
+          test -s build/web/space-drift-zero-lab/game.js
 
       - name: Upload Web build artifact
         uses: actions/upload-artifact@v4
