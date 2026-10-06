@@ -1,0 +1,14 @@
+{
+  "name": "Space Drift LAB",
+  "short_name": "Space Drift",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "orientation": "landscape",
+  "background_color": "#03060d",
+  "theme_color": "#03060d"
+}
