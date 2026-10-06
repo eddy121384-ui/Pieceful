@@ -126,8 +126,16 @@ try {
       // Actually drag the connected island into Rail, then animate it back out.
       const stored = await state();
       await drag(stored.piece_points.find(p => p.index === anchor).point, stored.rail_drop_point);
+      // CDP mouse-up acknowledges browser delivery, not the next Godot input
+      // frame or the fixture's 200 ms state publication. Require the actual
+      // release effect; never retry the drag or manufacture a stored cluster.
+      const immediatePickable = (await state()).piece_points.find(p => p.index === anchor).pickable;
+      const releaseWaitStarted = Date.now();
+      await page.waitForFunction(index => window.__PIECEFUL_UX_STATE__?.piece_points
+        .find(p => p.index === index)?.pickable === false, anchor, { timeout: 5000 });
       const dropped = await state();
-      await fs.writeFile(`${output}/${label}-rail-drop.json`, JSON.stringify({ before: stored, after: dropped }, null, 2));
+      await fs.writeFile(`${output}/${label}-rail-drop.json`, JSON.stringify({ before: stored, after: dropped,
+        immediatePickable, releaseStateWaitMs: Date.now() - releaseWaitStarted }, null, 2));
       assert.equal(dropped.piece_points.find(p => p.index === anchor).pickable, false, 'Real drag stored joined island in Rail');
       await toggle('stored-joined-to-scatter', true);
       const restored = await state(), p0 = restored.piece_points.find(p => p.index === anchor), p1 = restored.piece_points.find(p => p.index === anchor + 1);
