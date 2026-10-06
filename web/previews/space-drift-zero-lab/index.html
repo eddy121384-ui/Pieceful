@@ -66,6 +66,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #hint { position: absolute; left: 50%; top: 11%; transform: translateX(-50%); font-size: 13px; letter-spacing: .28em; color: var(--ink); text-shadow: 0 0 12px rgba(0,0,0,.9); opacity: 0; transition: opacity .35s; white-space: nowrap; }
 #hint.on { opacity: .92; }
 #hint.warn { color: var(--amber); }
+/* Helios: flare telegraph and exposure chip */
+#flare { position: absolute; left: 50%; top: 17%; transform: translateX(-50%); text-align: center; font-weight: 700; font-size: 22px; letter-spacing: .42em; color: #fff1d0; padding: 8px 18px 8px 26px; background: rgba(8,10,20,.55); border: 1px solid rgba(255,190,90,.5); border-radius: 4px; text-shadow: 0 0 14px rgba(255,140,40,.9); opacity: 0; transition: opacity .15s; white-space: nowrap; pointer-events: none; }
+#flare small { display: block; margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: .32em; }
+#flare.on { opacity: 1; }
+#flare.safe small { color: #8fd8ff; text-shadow: 0 0 10px rgba(40,120,255,.9); }
+#flare.bad small { color: #ff7050; }
+.sun-row { display: none; }
+.sun-row.on { display: grid; }
+.sun-chip { display: none; justify-self: start; grid-column: 2; font-family: var(--mono); font-size: 11px; letter-spacing: .22em; padding: 3px 8px; border: 1px solid; border-radius: 3px; }
+.sun-chip.on { display: inline-block; }
+.sun-chip.lit { color: #ffcf7a; border-color: rgba(255,190,90,.7); background: rgba(255,150,40,.16); }
+.sun-chip.dark { color: #8fc4ff; border-color: rgba(110,160,255,.55); background: rgba(20,50,120,.25); }
 
 #brief { position: absolute; left: 50%; top: 27%; transform: translate(-50%, -50%); text-align: center; transition: opacity .6s, transform .6s; }
 #brief .num { font-family: var(--mono); color: var(--dim); letter-spacing: .3em; font-size: 12px; }
@@ -157,7 +169,9 @@ body.touch .gauge { grid-template-columns: 18px 90px 56px; font-size: 12px; }
   <div class="gauges">
     <div class="gauge"><svg viewBox="0 0 24 24"><path d="M3 15c3-1 5-4 7-7m0 0l-1 4m1-4l-4 1M12 17l9-9m0 0v5m0-5h-5"/></svg><div class="bar" id="spdBar"><i id="spdFill"></i><span class="limit" id="spdLimit"></span></div><span class="val" id="spdVal">0.0 m/s</span></div>
     <div class="gauge"><svg viewBox="0 0 24 24"><rect x="7" y="4" width="10" height="17" rx="2"/><path d="M10 4V2h4v2M10 9h4"/></svg><div class="bar" id="fuelBar"><i id="fuelFill"></i></div><span class="val" id="fuelVal">100%</span></div>
+    <div class="gauge sun-row" id="sunRow"><span class="sun-chip" id="sunChip">SHADE</span></div>
   </div>
+  <div id="flare">FLARE<small></small></div>
   <div class="compass"><div class="arrow" id="cmpArrow"></div><span class="dist" id="cmpDist">—</span></div>
   <div id="goalTag">AIRLOCK<small>≤ 1.5 m/s</small></div>
   <div id="edge"></div>
