@@ -378,8 +378,10 @@ jobs:
           mkdir -p build/web/space-drift-zero-lab
           cp web/previews/space-drift-zero-lab/index.html build/web/space-drift-zero-lab/index.html
           cp web/previews/space-drift-zero-lab/game.js build/web/space-drift-zero-lab/game.js
+          cp web/previews/space-drift-zero-lab/manifest.webmanifest build/web/space-drift-zero-lab/manifest.webmanifest
           test -s build/web/space-drift-zero-lab/index.html
           test -s build/web/space-drift-zero-lab/game.js
+          test -s build/web/space-drift-zero-lab/manifest.webmanifest
 
       - name: Sync chess previews from main on feature-branch deploys
         if: github.ref_name != 'main'
