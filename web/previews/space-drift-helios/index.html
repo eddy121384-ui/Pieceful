@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#03060d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Space Drift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wght@200;300;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the world fills the glass; HUD hugs the corners like a suit visor readout. Single dark look by design. */
+:root {
+  color-scheme: dark;
+  --ink: #e6eef8; --dim: #8fa3bb; --faint: rgba(170, 200, 230, 0.35);
+  --cyan: #5fe0ff; --amber: #ffab45; --red: #ff4d3d; --green: #5dffa0;
+  --panel: rgba(6, 12, 22, 0.72); --line: rgba(140, 190, 230, 0.22);
+  --font: "Saira", "Segoe UI", "Helvetica Neue", Roboto, system-ui, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", "Cascadia Mono", Consolas, monospace;
+  --bg: #03060d;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; width: 100%; height: 100%; min-height: 100%; background: var(--bg); overflow: hidden; color: var(--ink); font-family: var(--font); user-select: none; -webkit-user-select: none; touch-action: none; }
+canvas#gl { position: fixed; inset: 0; width: 100vw; width: 100dvw; height: 100vh; height: 100dvh; display: block; }
+@supports (height: 100dvh) { html, body { width: 100dvw; height: 100dvh; } .layer { width: 100dvw; height: 100dvh; } }
+.layer { position: fixed; inset: 0; pointer-events: none; }
+.hide { display: none !important; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* HUD — keep the world in charge */
+#hud { opacity: 0; transition: opacity .4s; }
+#hud.on { opacity: 1; }
+.tl { position: absolute; left: max(18px, env(safe-area-inset-left)); top: 14px; letter-spacing: .18em; font-size: 11px; color: var(--dim); }
+.tl b { color: var(--ink); font-weight: 600; margin-left: .6em; }
+.tl .time { display: block; margin-top: 4px; font-family: var(--mono); font-size: 13px; letter-spacing: .05em; color: var(--ink); opacity: .85; }
+.tr { position: absolute; right: max(14px, env(safe-area-inset-right)); top: 10px; display: flex; gap: 8px; pointer-events: auto; }
+.icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: rgba(6,12,22,.45); display: grid; place-items: center; font-size: 15px; color: var(--dim); }
+.icon-btn:hover { color: var(--ink); border-color: var(--faint); }
+
+.gauges { position: absolute; left: max(22px, env(safe-area-inset-left)); bottom: 22px; display: grid; gap: 12px; }
+.gauge { display: grid; grid-template-columns: 22px 150px 64px; align-items: center; gap: 10px; font-family: var(--mono); font-size: 13px; color: var(--ink); }
+.gauge svg { width: 20px; height: 20px; stroke: var(--dim); fill: none; stroke-width: 1.6; }
+.bar { position: relative; height: 6px; border-radius: 3px; border: 1px solid rgba(170,210,240,.4); overflow: visible; }
+.bar i { position: absolute; left: 1px; top: 1px; bottom: 1px; border-radius: 2px; background: #cfeaff; box-shadow: 0 0 8px rgba(120,210,255,.6); transition: background .2s; }
+.bar .limit { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--green); box-shadow: 0 0 6px var(--green); display: none; }
+.bar.over i { background: var(--red); box-shadow: 0 0 10px var(--red); }
+.bar.under i { background: var(--green); box-shadow: 0 0 10px var(--green); }
+.bar.low i { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.gauge .val { opacity: .9; }
+.gauge .val.over { color: var(--red); } .gauge .val.under { color: var(--green); }
+
+.compass { position: absolute; right: max(28px, env(safe-area-inset-right)); bottom: 26px; width: 110px; height: 110px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; }
+.compass .arrow { width: 54px; height: 2px; background: var(--ink); position: relative; transform-origin: 50% 50%; opacity: .85; }
+.compass .arrow::after { content: ""; position: absolute; right: -2px; top: -6px; border-left: 12px solid var(--ink); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.compass .dist { position: absolute; bottom: -20px; font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .1em; }
+
+#goalTag { position: absolute; transform: translate(-50%, -100%); font-size: 11px; letter-spacing: .2em; white-space: nowrap; text-align: center; color: var(--cyan); text-shadow: 0 0 8px rgba(0,0,0,.8); }
+#goalTag small { display: block; font-family: var(--mono); letter-spacing: .06em; font-size: 12px; margin-top: 2px; color: var(--ink); }
+#goalTag.over { color: var(--red); } #goalTag.under { color: var(--green); }
+#edge { position: absolute; width: 0; height: 0; border-left: 14px solid var(--cyan); border-top: 8px solid transparent; border-bottom: 8px solid transparent; filter: drop-shadow(0 0 6px rgba(95,224,255,.7)); }
+
+#hint { position: absolute; left: 50%; top: 11%; transform: translateX(-50%); font-size: 13px; letter-spacing: .28em; color: var(--ink); text-shadow: 0 0 12px rgba(0,0,0,.9); opacity: 0; transition: opacity .35s; white-space: nowrap; }
+#hint.on { opacity: .92; }
+#hint.warn { color: var(--amber); }
+/* Helios: flare telegraph and exposure chip */
+#flare { position: absolute; left: 50%; top: 17%; transform: translateX(-50%); text-align: center; font-weight: 700; font-size: 22px; letter-spacing: .42em; color: #fff1d0; padding: 8px 18px 8px 26px; background: rgba(8,10,20,.55); border: 1px solid rgba(255,190,90,.5); border-radius: 4px; text-shadow: 0 0 14px rgba(255,140,40,.9); opacity: 0; transition: opacity .15s; white-space: nowrap; pointer-events: none; }
+#flare small { display: block; margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: .32em; }
+#flare.on { opacity: 1; }
+#flare.safe small { color: #8fd8ff; text-shadow: 0 0 10px rgba(40,120,255,.9); }
+#flare.bad small { color: #ff7050; }
+.sun-row { display: none; }
+.sun-row.on { display: grid; }
+.sun-chip { display: none; justify-self: start; grid-column: 2; font-family: var(--mono); font-size: 11px; letter-spacing: .22em; padding: 3px 8px; border: 1px solid; border-radius: 3px; }
+.sun-chip.on { display: inline-block; }
+.sun-chip.lit { color: #ffcf7a; border-color: rgba(255,190,90,.7); background: rgba(255,150,40,.16); }
+.sun-chip.dark { color: #8fc4ff; border-color: rgba(110,160,255,.55); background: rgba(20,50,120,.25); }
+
+#brief { position: absolute; left: 50%; top: 27%; transform: translate(-50%, -50%); text-align: center; transition: opacity .6s, transform .6s; }
+#brief .num { font-family: var(--mono); color: var(--dim); letter-spacing: .3em; font-size: 12px; }
+#brief h2 { margin: 6px 0 8px; font-weight: 300; letter-spacing: .32em; font-size: clamp(26px, 4.4vw, 46px); }
+#brief p { margin: 0; color: var(--dim); letter-spacing: .08em; font-size: 14px; }
+#brief.out { opacity: 0; transform: translate(-50%, -60%); }
+
+/* cards */
+.card { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); min-width: min(420px, 90vw); max-width: 92vw; padding: 26px 30px 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events: auto; text-align: center; }
+.card h1 { margin: 0; font-weight: 300; letter-spacing: .3em; font-size: clamp(24px, 3.6vw, 38px); }
+.card .sub { margin: 10px 0 0; color: var(--dim); font-size: 15px; letter-spacing: .02em; }
+.card .detail { margin: 14px 0 0; font-family: var(--mono); font-size: 13px; color: var(--ink); opacity: .85; }
+.card.fail h1 { color: var(--red); }
+.card.win h1 { color: var(--green); }
+.stars { margin: 14px 0 2px; display: flex; justify-content: center; gap: 18px; font-size: 12px; color: var(--dim); letter-spacing: .08em; }
+.stars span { display: grid; gap: 4px; justify-items: center; }
+.stars em { font-style: normal; font-size: 22px; color: #2c3a4a; }
+.stars .got em { color: var(--amber); text-shadow: 0 0 10px rgba(255,171,69,.7); }
+.row { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+.btn { padding: 11px 20px; border: 1px solid var(--line); background: rgba(20,32,50,.6); border-radius: 3px; letter-spacing: .2em; font-size: 12px; min-width: 120px; }
+.btn.primary { border-color: rgba(95,224,255,.6); color: #fff; background: rgba(30,80,110,.55); }
+.btn:hover { border-color: var(--cyan); }
+.btn kbd { font-family: var(--mono); color: var(--dim); margin-left: 8px; font-size: 11px; }
+.attempt { margin-top: 12px; color: var(--dim); font-size: 11px; letter-spacing: .2em; }
+
+/* title */
+#title { pointer-events: auto; display: grid; place-items: center; background: linear-gradient(90deg, rgba(3,6,13,.82) 0%, rgba(3,6,13,.55) 32%, rgba(3,6,13,0) 62%); }
+#title .inner { position: absolute; left: max(6vw, 24px); top: 50%; transform: translateY(-50%); }
+#title h1 { margin: 0; font-weight: 200; letter-spacing: .42em; font-size: clamp(38px, 7.5vw, 92px); line-height: 1; }
+#title .tag { margin: 18px 0 28px; color: var(--dim); letter-spacing: .14em; font-size: clamp(12px, 1.4vw, 15px); max-width: 32em; line-height: 1.6; }
+#title .row { justify-content: flex-start; }
+#title .keys { margin-top: 28px; display: grid; grid-template-columns: auto auto; gap: 6px 16px; font-size: 12px; color: var(--dim); letter-spacing: .1em; }
+#title .keys kbd { font-family: var(--mono); color: var(--ink); }
+
+#select { pointer-events: auto; background: rgba(3,6,13,.6); display: grid; place-items: start center; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+#select .wrap { width: min(980px, 94vw); padding: max(20px, env(safe-area-inset-top)) 0 max(28px, env(safe-area-inset-bottom)); margin: auto 0; }
+#select h2 { font-weight: 300; letter-spacing: .3em; font-size: 20px; margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.stage-card { text-align: left; padding: 14px 16px; border: 1px solid var(--line); background: rgba(8,16,28,.75); border-radius: 3px; }
+.stage-card:hover { border-color: var(--cyan); }
+.stage-card .n { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .2em; }
+.stage-card .nm { display: block; margin: 6px 0; letter-spacing: .22em; font-size: 15px; }
+.stage-card .ch { font-size: 10px; letter-spacing: .2em; color: var(--dim); }
+.stage-card .st { float: right; color: var(--amber); letter-spacing: .1em; }
+.stage-card .st i { color: #2c3a4a; font-style: normal; }
+.lab-h { font-weight: 300; letter-spacing: .24em; font-size: 12px; color: var(--dim); margin: 22px 0 10px; }
+.stage-card.lab { border-style: dashed; }
+.stage-card .bt { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; color: var(--dim); }
+
+/* touch controls */
+#touch { pointer-events: auto; display: none; }
+body.touch.playing #touch { display: block; }
+body.touch .compass { display: none; }
+body.touch .gauges { left: max(18px, env(safe-area-inset-left)); bottom: auto; top: 54px; }
+body.touch .gauge { grid-template-columns: 18px 90px 56px; font-size: 12px; }
+.pad { position: absolute; border-radius: 50%; border: 1.5px solid rgba(170,210,240,.35); background: rgba(10,20,34,.35); display: grid; place-items: center; color: rgba(220,235,250,.75); font-size: 12px; letter-spacing: .14em; }
+.pad.on { background: rgba(95,224,255,.22); border-color: var(--cyan); color: #fff; }
+.pad svg { width: 30px; height: 30px; fill: currentColor; }
+[data-pad=left] { left: max(20px, env(safe-area-inset-left)); bottom: 26px; width: 84px; height: 84px; }
+[data-pad=right] { left: calc(max(20px, env(safe-area-inset-left)) + 100px); bottom: 26px; width: 84px; height: 84px; }
+[data-pad=thrust] { right: max(22px, env(safe-area-inset-right)); bottom: 30px; width: 104px; height: 104px; }
+[data-pad=brake] { right: calc(max(22px, env(safe-area-inset-right)) + 118px); bottom: 22px; width: 76px; height: 76px; }
+
+#rotate { pointer-events: auto; background: #03060d; display: none; place-items: center; text-align: center; color: var(--dim); letter-spacing: .2em; font-size: 13px; }
+@media (orientation: portrait) and (pointer: coarse) { #rotate { display: grid; } }
+#rotate b { display: block; color: var(--ink); font-weight: 300; font-size: 22px; letter-spacing: .3em; margin-bottom: 10px; }
+
+#flash { background: #fff; opacity: 0; transition: opacity .5s; }
+#vignette { background: radial-gradient(ellipse at center, transparent 55%, rgba(255,40,30,.35) 100%); opacity: 0; transition: opacity .2s; }
+#crack { opacity: 0; }
+
+@media (max-height: 460px) {
+  .card { padding: 16px 20px 14px; }
+  .card .sub { font-size: 13px; }
+  #title .keys { display: none; }
+}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+
+<div id="vignette" class="layer"></div>
+<svg id="crack" class="layer" viewBox="0 0 100 56.25" preserveAspectRatio="xMidYMid slice"><g stroke="rgba(220,240,255,.55)" stroke-width=".12" fill="none"><path d="M62 20 L58 14 L55 9 M62 20 L69 15 L74 8 M62 20 L68 26 L75 30 L82 33 M62 20 L57 27 L54 35 M62 20 L60 31 L63 40 M58 14 L52 15 M69 15 L71 21 M57 27 L50 28 M68 26 L66 33"/><circle cx="62" cy="20" r=".9"/></g></svg>
+<div id="flash" class="layer"></div>
+
+<div id="hud" class="layer">
+  <div class="tl"><span id="stNum">01</span><b id="stName">FIRST DRIFT</b><span class="time" id="time">00:00.0</span></div>
+  <div class="tr"><button class="icon-btn" id="btnRetry" title="Restart (R)">↻</button><button class="icon-btn" id="btnPause" title="Pause (Esc)">❚❚</button></div>
+  <div class="gauges">
+    <div class="gauge"><svg viewBox="0 0 24 24"><path d="M3 15c3-1 5-4 7-7m0 0l-1 4m1-4l-4 1M12 17l9-9m0 0v5m0-5h-5"/></svg><div class="bar" id="spdBar"><i id="spdFill"></i><span class="limit" id="spdLimit"></span></div><span class="val" id="spdVal">0.0 m/s</span></div>
+    <div class="gauge"><svg viewBox="0 0 24 24"><rect x="7" y="4" width="10" height="17" rx="2"/><path d="M10 4V2h4v2M10 9h4"/></svg><div class="bar" id="fuelBar"><i id="fuelFill"></i></div><span class="val" id="fuelVal">100%</span></div>
+    <div class="gauge sun-row" id="sunRow"><span class="sun-chip" id="sunChip">SHADE</span></div>
+  </div>
+  <div id="flare">FLARE<small></small></div>
+  <div class="compass"><div class="arrow" id="cmpArrow"></div><span class="dist" id="cmpDist">—</span></div>
+  <div id="goalTag">AIRLOCK<small>≤ 1.5 m/s</small></div>
+  <div id="edge"></div>
+  <div id="hint"></div>
+  <div id="brief"><div class="num" id="brNum">STAGE 01 · OUTER TRUSS</div><h2 id="brName">FIRST DRIFT</h2><p id="brText"></p></div>
+</div>
+
+<div id="touch" class="layer">
+  <div class="pad" data-pad="left"><svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8h-2.2A5.8 5.8 0 1 1 12 6.2V9l4-4-4-4z" transform="scale(-1,1) translate(-24,0)"/></svg></div>
+  <div class="pad" data-pad="right"><svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8h-2.2A5.8 5.8 0 1 1 12 6.2V9l4-4-4-4z"/></svg></div>
+  <div class="pad" data-pad="brake">BRAKE</div>
+  <div class="pad" data-pad="thrust">THRUST</div>
+</div>
+
+<div id="result" class="layer hide"><div class="card" id="card"></div></div>
+
+<div id="pause" class="layer hide"><div class="card">
+  <h1>PAUSED</h1>
+  <div class="row">
+    <button class="btn primary" data-act="resume">RESUME<kbd>ESC</kbd></button>
+    <button class="btn" data-act="retry">RESTART<kbd>R</kbd></button>
+    <button class="btn" data-act="stages">STAGES</button>
+    <button class="btn" data-act="mute" id="muteBtn">SOUND: ON</button>
+  </div>
+</div></div>
+
+<div id="title" class="layer">
+  <div class="inner">
+    <h1>SPACE<br>DRIFT</h1>
+    <p class="tag">A zero-g obstacle course on a station the size of a city.<br>Thrust is free. Stopping costs you.</p>
+    <div class="row">
+      <button class="btn primary" data-act="play" id="playBtn">BEGIN EVA<kbd>⏎</kbd></button>
+      <button class="btn" data-act="stages">STAGES</button>
+    </div>
+    <div class="keys">
+      <kbd>A / D · ← →</kbd><span>rotate</span>
+      <kbd>W · ↑ · SPACE</kbd><span>thrust where you face</span>
+      <kbd>S · ↓ · SHIFT</kbd><span>brake against your drift</span>
+      <kbd>R</kbd><span>instant retry</span>
+    </div>
+  </div>
+</div>
+
+<div id="select" class="layer hide"><div class="wrap">
+  <h2>STAGES</h2>
+  <div class="grid" id="grid"></div>
+  <h3 class="lab-h">LAB · authoring experiments — outside the campaign</h3>
+  <div class="grid" id="labGrid"></div>
+  <div class="row"><button class="btn" data-act="back">BACK<kbd>ESC</kbd></button></div>
+</div></div>
+
+<div id="rotate" class="layer"><div><b>ROTATE</b>Space Drift plays in landscape</div></div>
+
+<script src="game.js?v=d3d6cf3-helios"></script>
+</body>
+</html>
