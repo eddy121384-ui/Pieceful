@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "profile": "pieceful_poki_rc1",
+  "minimum_distinct_artworks": 30,
+  "featured_content_id": "met_10181",
+  "artwork_ids": [
+    "met_10181",
+    "met_359362",
+    "met_335112",
+    "met_11181",
+    "met_394043",
+    "met_438031",
+    "met_12802",
+    "met_312624",
+    "met_478746",
+    "met_478425",
+    "met_226943",
+    "met_191566",
+    "met_191567",
+    "met_340070",
+    "met_21209",
+    "met_399581",
+    "met_202696",
+    "met_399347",
+    "met_394310",
+    "met_394709",
+    "met_5410",
+    "met_221706",
+    "met_54393",
+    "met_215356",
+    "met_228950",
+    "met_505626",
+    "met_728305",
+    "met_764802",
+    "met_10189",
+    "met_436305",
+    "met_10996",
+    "met_286248",
+    "met_898372",
+    "met_54333",
+    "met_54988"
+  ],
+  "save_namespace": "Pieceful-Poki-RC1",
+  "themes": [
+    {
+      "id": "nature",
+      "label": "Nature & Landscapes",
+      "field": "subject",
+      "values": [
+        "landscape",
+        "trees",
+        "hills",
+        "mountains",
+        "rural_landscape"
+      ]
+    },
+    {
+      "id": "animals",
+      "label": "Animals",
+      "field": "subject",
+      "values": [
+        "animal",
+        "animal_figure"
+      ]
+    },
+    {
+      "id": "flowers",
+      "label": "Flowers & Gardens",
+      "field": "subject",
+      "values": [
+        "flowers",
+        "botanical",
+        "bouquet",
+        "cherry_blossoms"
+      ]
+    },
+    {
+      "id": "architecture",
+      "label": "Cities & Architecture",
+      "field": "subject",
+      "values": [
+        "architecture",
+        "architecture_allegory",
+        "temple",
+        "street_scene",
+        "architectural_ornament"
+      ]
+    },
+    {
+      "id": "portraits",
+      "label": "Portraits & People",
+      "field": "subject",
+      "values": [
+        "portrait",
+        "people",
+        "self_portrait",
+        "woman",
+        "women",
+        "man",
+        "soldiers"
+      ]
+    },
+    {
+      "id": "objects",
+      "label": "Objects & Still Life",
+      "field": "subject",
+      "values": [
+        "still_life",
+        "decorative_arts",
+        "nightcap",
+        "night_table",
+        "musical_instrument"
+      ]
+    },
+    {
+      "id": "calm",
+      "label": "Calm & Atmospheric",
+      "field": "mood",
+      "values": [
+        "calm",
+        "contemplative",
+        "serene",
+        "quiet"
+      ]
+    }
+  ]
+}

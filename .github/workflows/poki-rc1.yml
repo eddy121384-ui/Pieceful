@@ -1,0 +1,68 @@
+name: Pieceful Poki RC1 validation (no deployment)
+on:
+  push:
+    branches: [release/pieceful-poki-rc1]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: poki-rc1-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  GODOT_BIN: ${{ github.workspace }}/.godot-ci/Godot_v4.7.2-stable_linux.x86_64
+jobs:
+  isolated-profile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Locked catalog dependencies and editor/templates
+        run: |
+          python3 -m pip install -r tools/catalog_pipeline_requirements.txt
+          python3 tools/release/install_godot.py
+      - name: Frozen catalog and SDK bridge regressions
+        run: |
+          python3 tests/poki_catalog_smoke.py
+          node --test tests/poki_sdk_bridge_smoke.mjs
+          python3 tools/release/check_repository.py
+      - name: Production bundle, then explicit QA bundle (shared build mutex)
+        run: |
+          python3 tools/poki/build.py
+          python3 tools/poki/build.py --qa
+      - name: Profile native behavior and save availability
+        run: |
+          python3 - <<'PY'
+          import os, subprocess
+          result = subprocess.run([os.environ['GODOT_BIN'], '--headless', '--path', 'build/poki-rc1/project-qa', '--script', 'poki_runtime_smoke.gd'], capture_output=True, text=True, timeout=180)
+          print(result.stdout + result.stderr)
+          assert result.returncode == 0 and 'PASS poki_runtime_smoke' in result.stdout
+          assert 'SCRIPT ERROR' not in result.stdout + result.stderr
+          PY
+      - name: Browser dependencies
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Exported Web navigation, touch, saves and ad safety
+        env:
+          PIECEFUL_REPO_ROOT: ${{ github.workspace }}
+          PIECEFUL_POKI_EVIDENCE: ${{ github.workspace }}/build/poki-browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/poki-http
+          ln -s "${GITHUB_WORKSPACE}/build/poki-rc1/qa" build/poki-http/qa
+          python3 tools/poki/serve.py --root build/poki-http > /tmp/poki-http.log 2>&1 &
+          POKI_SERVER_PID=$!
+          trap 'kill "${POKI_SERVER_PID}" || true' EXIT
+          for attempt in {1..30}; do curl -fsS http://127.0.0.1:4294/qa/ > /dev/null && break || sleep 1; done
+          node tests/poki_browser_smoke.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: pieceful-poki-rc1-${{ github.sha }}
+          path: |
+            build/poki-rc1/PIECEFUL_POKI_RC1.zip
+            build/poki-rc1/production-metrics.json
+            build/poki-rc1/pack-inspection.json
+            build/poki-browser/
+          retention-days: 14
