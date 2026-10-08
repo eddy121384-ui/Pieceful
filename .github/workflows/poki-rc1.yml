@@ -46,16 +46,19 @@ jobs:
         env:
           PIECEFUL_REPO_ROOT: ${{ github.workspace }}
           PIECEFUL_POKI_EVIDENCE: ${{ github.workspace }}/build/poki-browser
+          PIECEFUL_POKI_PRODUCTION_OUTPUT: ${{ github.workspace }}/build/poki-browser/production.json
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build/poki-http
           ln -s "${GITHUB_WORKSPACE}/build/poki-rc1/qa" build/poki-http/qa
+          ln -s "${GITHUB_WORKSPACE}/build/poki-rc1/production" build/poki-http/poki
           python3 tools/poki/serve.py --root build/poki-http > /tmp/poki-http.log 2>&1 &
           POKI_SERVER_PID=$!
           trap 'kill "${POKI_SERVER_PID}" || true' EXIT
           for attempt in {1..30}; do curl -fsS http://127.0.0.1:4294/qa/ > /dev/null && break || sleep 1; done
           node tests/poki_browser_smoke.mjs
+          node tests/poki_production_browser_smoke.mjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

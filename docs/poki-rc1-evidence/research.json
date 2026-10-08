@@ -1,0 +1,159 @@
+{
+  "sources": [
+    {
+      "url": "https://developers.poki.com/guide/adding-your-game",
+      "date_utc": "2026-10-08",
+      "bytes": 140919,
+      "sha256": "10f2722f28c4bbd88c5e8c456f882e32c9bd034ff73c8b779a1ba04ed8dde51c",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/content-player-safety",
+      "date_utc": "2026-10-08",
+      "bytes": 177950,
+      "sha256": "fe1d67323d75485ffdbbb127889ac1c6b964aa8018771600c940612d9010cf2b",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/easy-access",
+      "date_utc": "2026-10-08",
+      "bytes": 143774,
+      "sha256": "fdc9ce5fe19a1ba378cb7858334f0d59f19fbdc00670cabfb758597c23c94a4a",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/external-resources-policy",
+      "date_utc": "2026-10-08",
+      "bytes": 144221,
+      "sha256": "ae445c880296d81d77efea17618b3b5e70315fb7883ee0d74dba0f3de1345f55",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/game-events",
+      "date_utc": "2026-10-08",
+      "bytes": 223726,
+      "sha256": "33409bb870cd9826c13183e5aaac9f2a3cdcb34bfdde4aa46875e94465e2e2b3",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://poki.com/en/g/jigsaw-gems",
+      "date_utc": "2026-10-08",
+      "bytes": 338858,
+      "sha256": "1f060e8bd8f999a792524735be9f4c6c7dcb5e5043574e8669d21e6feb3ede22",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://poki.com/en/g/jigsaw-surprise",
+      "date_utc": "2026-10-08",
+      "bytes": 340787,
+      "sha256": "6fa1fd19c867b55ee3203793e2a9f497d05f8dda21fd320ac126f60a9f1ee364",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/monetization",
+      "date_utc": "2026-10-08",
+      "bytes": 146632,
+      "sha256": "a4c17339faedc76365518e46650a08d3b2b1eee9c3edd3ca30282a226e8e5c75",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://poki.com/en/g/photo-puzzle-jigsaw-edition",
+      "date_utc": "2026-10-08",
+      "bytes": 344819,
+      "sha256": "c1ba52d96594216f6fcf44606509861e220bbc3d11613568566afdf8866d4335",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/player-device-report",
+      "date_utc": "2026-10-08",
+      "bytes": 136589,
+      "sha256": "e59f2f83cff14bd64089301cfd907dbb52c73a3d6755f0e36145b80052b5ed05",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/playtesting",
+      "date_utc": "2026-10-08",
+      "bytes": 154392,
+      "sha256": "b29ff2b033c64c901bb551b553c1cd40792139d8c3c77a3dc26b0395bca6216f",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/poki-github",
+      "date_utc": "2026-10-08",
+      "bytes": 268739,
+      "sha256": "971083b76d7359e401fa563cb739a6f887b88183e8749ccf4085fc7415557beb",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/poki-repositories",
+      "date_utc": "2026-10-08",
+      "bytes": 268744,
+      "sha256": "6efc805462ba38ac1ed6892340529c1861148798eb3e21910d03e2cd306c60d6",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/requirements-quality",
+      "date_utc": "2026-10-08",
+      "bytes": 172727,
+      "sha256": "9e099b5581af6f2a2f8282ce9d6fea3121853b2daa39590166a6e883d62e2a46",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/sdk-godot",
+      "date_utc": "2026-10-08",
+      "bytes": 185902,
+      "sha256": "79c4ee4bd11378c3165dc83b54536b5dd233326de75f9186df8e21683e4f6bc1",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/sdk-html5",
+      "date_utc": "2026-10-08",
+      "bytes": 190541,
+      "sha256": "d5f292acbbacb28fa0edf055114059d56097f852764a4927c5759b1692af211d",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/sdk-overview",
+      "date_utc": "2026-10-08",
+      "bytes": 150246,
+      "sha256": "3eea3f9f3202a8cdddbd062d12663ac9ba96182c202e87f34c48c6385ff91105",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/web-engine",
+      "date_utc": "2026-10-08",
+      "bytes": 434268,
+      "sha256": "61ab9c6aa0530b82a58241186e2c3a5b2bb7d22653a3846402ac7c4ac1ec7ee3",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/web-fit-test",
+      "date_utc": "2026-10-08",
+      "bytes": 151040,
+      "sha256": "7e7414a9ea1fb43efb7e3b70e25ab6ca33a9c9197521557ee2b4cd71ba67787b",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://developers.poki.com/guide/working-with-poki",
+      "date_utc": "2026-10-08",
+      "bytes": 142042,
+      "sha256": "d0ae6f2c0b41be70e4e805af36493fff89ee5ab40c6bdbef5fb1868f77ff913a",
+      "scope": "Live public HTML; no embedded-game or acceptance claim"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/SConstruct",
+      "date_utc": "2026-10-08",
+      "bytes": 53054,
+      "sha256": "b67bd31bf2d3bc1d91d4a1c5b2e4117c3d2dbd9c066ba3bb040cdd61226845f7"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/detect.py",
+      "date_utc": "2026-10-08",
+      "bytes": 14068,
+      "sha256": "9b3ead90fddaab15f2ce647db54421e647553887d023b1842365dbb7863d08e6"
+    }
+  ],
+  "initial_access": "Some CONNECT requests initially failed; subsequent ordinary managed-proxy HTTPS succeeded. No TLS/proxy bypass.",
+  "inspector": "Public page/source fetched; upload endpoint would create hosted build, not authorized/performed.",
+  "npm_sdk_head": "50ab81c8e144b57b628bdd2614207d79e65745af"
+}

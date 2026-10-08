@@ -1,0 +1,462 @@
+{
+  "phases": [
+    {
+      "phase": "browser-final",
+      "scope": "Five viewport coverage",
+      "checks": [
+        "portrait: featured first actionable setup",
+        "portrait: setup does not emit gameplayStart",
+        "Four player difficulty choices, no stress tiers",
+        "portrait: Quick uses exact existing 12-piece pattern",
+        "portrait: real touch drag works",
+        "portrait: SDK starts on actual puzzle manipulation",
+        "Portrait: real two-finger pinch increases camera zoom",
+        "Portrait: two-finger camera pan",
+        "portrait-scatter-rail: actual transition frames",
+        "portrait-scatter-rail: shared cardboard layers and z-order, no white outline",
+        "portrait-rail-scatter: actual transition frames",
+        "portrait-rail-scatter: shared cardboard layers and z-order, no white outline",
+        "joined-table-to-rail: actual transition frames",
+        "joined-table-to-rail: shared cardboard layers and z-order, no white outline",
+        "Joined loose cluster stores via real Rail drag",
+        "joined-rail-to-scatter: actual transition frames",
+        "joined-rail-to-scatter: shared cardboard layers and z-order, no white outline",
+        "Joined cluster remains joined and draggable after handoff",
+        "portrait: accessible picture reference",
+        "portrait: pause stops gameplay lifecycle",
+        "portrait: app-only actions hidden",
+        "portrait: Gallery stops gameplay",
+        "portrait: bounded lazy thumbnails",
+        "landscape: featured first actionable setup",
+        "landscape: setup does not emit gameplayStart",
+        "Four player difficulty choices, no stress tiers",
+        "landscape: Quick uses exact existing 12-piece pattern",
+        "landscape: real touch drag works",
+        "landscape: SDK starts on actual puzzle manipulation",
+        "landscape-scatter-rail: actual transition frames",
+        "landscape-scatter-rail: shared cardboard layers and z-order, no white outline",
+        "landscape-rail-scatter: actual transition frames",
+        "landscape-rail-scatter: shared cardboard layers and z-order, no white outline",
+        "landscape: accessible picture reference",
+        "landscape: pause stops gameplay lifecycle",
+        "landscape: app-only actions hidden",
+        "landscape: Gallery stops gameplay",
+        "landscape: bounded lazy thumbnails",
+        "desktop: featured first actionable setup",
+        "desktop: setup does not emit gameplayStart",
+        "Four player difficulty choices, no stress tiers",
+        "desktop: Quick uses exact existing 12-piece pattern",
+        "desktop: real mouse drag works",
+        "desktop: SDK starts on actual puzzle manipulation",
+        "desktop-scatter-rail: actual transition frames",
+        "desktop-scatter-rail: shared cardboard layers and z-order, no white outline",
+        "desktop-rail-scatter: actual transition frames",
+        "desktop-rail-scatter: shared cardboard layers and z-order, no white outline",
+        "desktop: accessible picture reference",
+        "desktop: pause stops gameplay lifecycle",
+        "desktop: app-only actions hidden",
+        "desktop: Gallery stops gameplay",
+        "desktop: bounded lazy thumbnails",
+        "tablet-portrait: featured first actionable setup",
+        "tablet-portrait: setup does not emit gameplayStart",
+        "Four player difficulty choices, no stress tiers",
+        "tablet-portrait: Quick uses exact existing 12-piece pattern",
+        "tablet-portrait: real touch drag works",
+        "tablet-portrait: SDK starts on actual puzzle manipulation",
+        "tablet-portrait-scatter-rail: actual transition frames",
+        "tablet-portrait-scatter-rail: shared cardboard layers and z-order, no white outline",
+        "tablet-portrait-rail-scatter: actual transition frames",
+        "tablet-portrait-rail-scatter: shared cardboard layers and z-order, no white outline",
+        "tablet-portrait: accessible picture reference",
+        "tablet-portrait: pause stops gameplay lifecycle",
+        "tablet-portrait: app-only actions hidden",
+        "tablet-portrait: Gallery stops gameplay",
+        "tablet-portrait: bounded lazy thumbnails",
+        "tablet-landscape: featured first actionable setup",
+        "tablet-landscape: setup does not emit gameplayStart",
+        "Four player difficulty choices, no stress tiers",
+        "tablet-landscape: Quick uses exact existing 12-piece pattern",
+        "tablet-landscape: real touch drag works",
+        "tablet-landscape: SDK starts on actual puzzle manipulation",
+        "tablet-landscape-scatter-rail: actual transition frames",
+        "tablet-landscape-scatter-rail: shared cardboard layers and z-order, no white outline",
+        "tablet-landscape-rail-scatter: actual transition frames",
+        "tablet-landscape-rail-scatter: shared cardboard layers and z-order, no white outline",
+        "tablet-landscape: accessible picture reference",
+        "tablet-landscape: pause stops gameplay lifecycle",
+        "tablet-landscape: app-only actions hidden",
+        "tablet-landscape: Gallery stops gameplay",
+        "tablet-landscape: bounded lazy thumbnails",
+        "Complete 35-artwork catalog is browsable"
+      ],
+      "views": [
+        {
+          "name": "portrait-featured",
+          "viewport": [
+            720,
+            1558
+          ],
+          "pieces": 40,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "portrait-playing",
+          "viewport": [
+            720,
+            1558
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "portrait-gallery",
+          "viewport": [
+            720,
+            1558
+          ],
+          "pieces": 12,
+          "thumbnail_count": 4,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "landscape-featured",
+          "viewport": [
+            1558,
+            720
+          ],
+          "pieces": 40,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "landscape-playing",
+          "viewport": [
+            1558,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "landscape-gallery",
+          "viewport": [
+            1558,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "desktop-featured",
+          "viewport": [
+            1280,
+            720
+          ],
+          "pieces": 40,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "desktop-playing",
+          "viewport": [
+            1280,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "desktop-gallery",
+          "viewport": [
+            1280,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-portrait-featured",
+          "viewport": [
+            720,
+            960
+          ],
+          "pieces": 40,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-portrait-playing",
+          "viewport": [
+            720,
+            960
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-portrait-gallery",
+          "viewport": [
+            720,
+            960
+          ],
+          "pieces": 12,
+          "thumbnail_count": 2,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-landscape-featured",
+          "viewport": [
+            960,
+            720
+          ],
+          "pieces": 40,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-landscape-playing",
+          "viewport": [
+            960,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        },
+        {
+          "name": "tablet-landscape-gallery",
+          "viewport": [
+            960,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 1,
+          "full_art_cache_count": 1
+        }
+      ],
+      "errors": [],
+      "whole_phase_passed": false,
+      "execution_note": "Later content-phase harness failure after all five viewport checks; not a complete suite pass."
+    },
+    {
+      "phase": "browser-content-verified",
+      "scope": "All 35 actual artwork selections plus 40/150/286 and repeated transitions",
+      "checks": [
+        "Complete 35-artwork catalog is browsable",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_10181",
+        "Canonical source identity met_10181",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_359362",
+        "Canonical source identity met_359362",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_335112",
+        "Canonical source identity met_335112",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_11181",
+        "Canonical source identity met_11181",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_394043",
+        "Canonical source identity met_394043",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_438031",
+        "Canonical source identity met_438031",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_12802",
+        "Canonical source identity met_12802",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_312624",
+        "Canonical source identity met_312624",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_478746",
+        "Canonical source identity met_478746",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_478425",
+        "Canonical source identity met_478425",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_226943",
+        "Canonical source identity met_226943",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_191566",
+        "Canonical source identity met_191566",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_191567",
+        "Canonical source identity met_191567",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_340070",
+        "Canonical source identity met_340070",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_21209",
+        "Canonical source identity met_21209",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_399581",
+        "Canonical source identity met_399581",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_202696",
+        "Canonical source identity met_202696",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_399347",
+        "Canonical source identity met_399347",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_394310",
+        "Canonical source identity met_394310",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_394709",
+        "Canonical source identity met_394709",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_5410",
+        "Canonical source identity met_5410",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_221706",
+        "Canonical source identity met_221706",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_54393",
+        "Canonical source identity met_54393",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_215356",
+        "Canonical source identity met_215356",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_228950",
+        "Canonical source identity met_228950",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_505626",
+        "Canonical source identity met_505626",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_728305",
+        "Canonical source identity met_728305",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_764802",
+        "Canonical source identity met_764802",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_10189",
+        "Canonical source identity met_10189",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_436305",
+        "Canonical source identity met_436305",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_10996",
+        "Canonical source identity met_10996",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_286248",
+        "Canonical source identity met_286248",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_898372",
+        "Canonical source identity met_898372",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_54333",
+        "Canonical source identity met_54333",
+        "Four player difficulty choices, no stress tiers",
+        "Playable immutable artwork met_54988",
+        "Canonical source identity met_54988",
+        "Four player difficulty choices, no stress tiers",
+        "Existing native-aspect 40-piece gameplay",
+        "Four player difficulty choices, no stress tiers",
+        "Existing native-aspect 150-piece gameplay",
+        "Four player difficulty choices, no stress tiers",
+        "Existing native-aspect 286-piece gameplay",
+        "286-repeat-0: actual transition frames",
+        "286-repeat-0: shared cardboard layers and z-order, no white outline",
+        "286-repeat-1: actual transition frames",
+        "286-repeat-1: shared cardboard layers and z-order, no white outline",
+        "286-repeat-2: actual transition frames",
+        "286-repeat-2: shared cardboard layers and z-order, no white outline",
+        "286-repeat-3: actual transition frames",
+        "286-repeat-3: shared cardboard layers and z-order, no white outline",
+        "286-repeat-4: actual transition frames",
+        "286-repeat-4: shared cardboard layers and z-order, no white outline",
+        "286-repeat-5: actual transition frames",
+        "286-repeat-5: shared cardboard layers and z-order, no white outline",
+        "Four player difficulty choices, no stress tiers",
+        "Real drag-to-target snapping and progress",
+        "Same-origin reload restores exact active slot and solved count"
+      ],
+      "views": [],
+      "errors": [],
+      "whole_phase_passed": false,
+      "execution_note": "Later callback installation wait failed after content checks; callback wait fixed in final source."
+    },
+    {
+      "phase": "browser-ads-final",
+      "scope": "Focused persistence, completion, ads, unavailable SDK, denied storage",
+      "checks": [
+        "Complete 35-artwork catalog is browsable",
+        "Four player difficulty choices, no stress tiers",
+        "Real drag-to-target snapping and progress",
+        "Same-origin reload restores exact active slot and solved count",
+        "Accepted completion history still persists",
+        "Completion-to-library has no commercial break",
+        "Completion does not start ad during active drag",
+        "Completion does not start ad during layout animation",
+        "Ad owns pause and audio mute",
+        "Overlapping ad is rejected",
+        "Ad preserves previously muted audio",
+        "Ad resolves into actual next-puzzle gameplay",
+        "Four player difficulty choices, no stress tiers",
+        "adReject: audio restored",
+        "adReject: no hung input/ad lock",
+        "Rejected commercial break remains observable",
+        "Four player difficulty choices, no stress tiers",
+        "noFill: audio restored",
+        "noFill: no hung input/ad lock",
+        "No-fill resolves without inventing ad display",
+        "Four player difficulty choices, no stress tiers",
+        "initReject: audio restored",
+        "initReject: no hung input/ad lock",
+        "initReject: unavailable SDK is not reported as successful",
+        "Four player difficulty choices, no stress tiers",
+        "missing: audio restored",
+        "missing: no hung input/ad lock",
+        "missing: unavailable SDK is not reported as successful",
+        "Denied storage discloses loss",
+        "Four player difficulty choices, no stress tiers",
+        "Denied IndexedDB remains playable with honest persistence state",
+        "No unexpected browser errors ()"
+      ],
+      "views": [
+        {
+          "name": "commercial-pending",
+          "viewport": [
+            1280,
+            720
+          ],
+          "pieces": 12,
+          "thumbnail_count": 5,
+          "full_art_cache_count": 1
+        }
+      ],
+      "errors": [],
+      "whole_phase_passed": true,
+      "execution_note": "Complete focused phase passed after polling actual IndexedDB commit."
+    }
+  ],
+  "namespace_iframe": {
+    "checks": [
+      "Poki has explicit app_userdata namespace",
+      "Full App save is outside Poki namespace",
+      "Poki puzzle switching leaves Full-App save bytes unchanged",
+      "Poki unfinished list does not expose Full-App slots",
+      "Full App resumes its own unchanged progress after Poki",
+      "Full-App play leaves Poki save bytes unchanged",
+      "Poki reload restores isolated Quick slot, identity and progress",
+      "Real 1031×580 iframe reaches usable screen",
+      "Actual iframe focus loss pauses input/audio and stops lifecycle",
+      "Actual iframe focus regain restores pause/audio ownership",
+      "Canvas wheel and arrow input do not scroll parent page",
+      "No namespace/iframe page errors"
+    ],
+    "errors": [],
+    "passed": true,
+    "namespaces": {
+      "full": "/userfs/godot/app_userdata/Piecepace- Jigsaw Puzzles",
+      "poki": "/userfs/godot/app_userdata/Pieceful-Poki-RC1"
+    }
+  },
+  "limits": "Chromium iframe/focus/storage, not cross-site Safari storage certification."
+}

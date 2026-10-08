@@ -1,0 +1,710 @@
+{
+  "scope": "Full-App explicit QA, raw loopback, fresh Chromium/SwiftShader at 390x844 DPR1. Not shipping-probe timing or physical-device peak.",
+  "runtime": [
+    {
+      "tag": "initial-gallery",
+      "samples": [
+        {
+          "ux": {
+            "draw_calls": 228,
+            "engine_ticks_ms": 19447,
+            "fps": 7,
+            "nodes": 1065,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0004,
+            "process_seconds": 0.0289,
+            "render_buffer_bytes": 56114584,
+            "resources": 150,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 33523335,
+            "texture_cache": [
+              {
+                "height": 600,
+                "path": "res://assets/demo_garden.svg",
+                "width": 960
+              }
+            ]
+          },
+          "wasm": 69730304,
+          "content": "garden",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 228,
+            "engine_ticks_ms": 19732,
+            "fps": 7,
+            "nodes": 1065,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0004,
+            "process_seconds": 0.0289,
+            "render_buffer_bytes": 56114584,
+            "resources": 150,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 33523335,
+            "texture_cache": [
+              {
+                "height": 600,
+                "path": "res://assets/demo_garden.svg",
+                "width": 960
+              }
+            ]
+          },
+          "wasm": 69730304,
+          "content": "garden",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 228,
+            "engine_ticks_ms": 20428,
+            "fps": 6,
+            "nodes": 1065,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0007,
+            "process_seconds": 0.0238,
+            "render_buffer_bytes": 56114584,
+            "resources": 150,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 33523335,
+            "texture_cache": [
+              {
+                "height": 600,
+                "path": "res://assets/demo_garden.svg",
+                "width": 960
+              }
+            ]
+          },
+          "wasm": 69730304,
+          "content": "garden",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 228,
+            "engine_ticks_ms": 20795,
+            "fps": 6,
+            "nodes": 1065,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0007,
+            "process_seconds": 0.0238,
+            "render_buffer_bytes": 56114584,
+            "resources": 150,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 33523335,
+            "texture_cache": [
+              {
+                "height": 600,
+                "path": "res://assets/demo_garden.svg",
+                "width": 960
+              }
+            ]
+          },
+          "wasm": 69730304,
+          "content": "garden",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 228,
+            "engine_ticks_ms": 21143,
+            "fps": 5,
+            "nodes": 1065,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0226,
+            "render_buffer_bytes": 56114584,
+            "resources": 150,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 33523335,
+            "texture_cache": [
+              {
+                "height": 600,
+                "path": "res://assets/demo_garden.svg",
+                "width": 960
+              }
+            ]
+          },
+          "wasm": 69730304,
+          "content": "garden",
+          "pieces": 40
+        }
+      ]
+    },
+    {
+      "tag": "first-met_10181-35",
+      "samples": [
+        {
+          "ux": {
+            "draw_calls": 163,
+            "engine_ticks_ms": 34608,
+            "fps": 1,
+            "nodes": 1035,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0134,
+            "render_buffer_bytes": 104111750,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42912083,
+            "texture_cache": [
+              {
+                "height": 1286,
+                "path": "res://assets/museum/met_v0/puzzles/met_10181.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_10181",
+          "pieces": 35
+        },
+        {
+          "ux": {
+            "draw_calls": 163,
+            "engine_ticks_ms": 35070,
+            "fps": 1,
+            "nodes": 1035,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0134,
+            "render_buffer_bytes": 104111750,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42912083,
+            "texture_cache": [
+              {
+                "height": 1286,
+                "path": "res://assets/museum/met_v0/puzzles/met_10181.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_10181",
+          "pieces": 35
+        },
+        {
+          "ux": {
+            "draw_calls": 163,
+            "engine_ticks_ms": 35579,
+            "fps": 7,
+            "nodes": 1035,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0003,
+            "process_seconds": 0.0263,
+            "render_buffer_bytes": 104111750,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42912083,
+            "texture_cache": [
+              {
+                "height": 1286,
+                "path": "res://assets/museum/met_v0/puzzles/met_10181.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_10181",
+          "pieces": 35
+        },
+        {
+          "ux": {
+            "draw_calls": 163,
+            "engine_ticks_ms": 36079,
+            "fps": 7,
+            "nodes": 1035,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0003,
+            "process_seconds": 0.0263,
+            "render_buffer_bytes": 104111750,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42912083,
+            "texture_cache": [
+              {
+                "height": 1286,
+                "path": "res://assets/museum/met_v0/puzzles/met_10181.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_10181",
+          "pieces": 35
+        },
+        {
+          "ux": {
+            "draw_calls": 163,
+            "engine_ticks_ms": 36597,
+            "fps": 8,
+            "nodes": 1035,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0022,
+            "process_seconds": 0.031,
+            "render_buffer_bytes": 104111750,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42912083,
+            "texture_cache": [
+              {
+                "height": 1286,
+                "path": "res://assets/museum/met_v0/puzzles/met_10181.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_10181",
+          "pieces": 35
+        }
+      ]
+    },
+    {
+      "tag": "40-pieces",
+      "samples": [
+        {
+          "ux": {
+            "draw_calls": 183,
+            "engine_ticks_ms": 42491,
+            "fps": 1,
+            "nodes": 1070,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0001,
+            "process_seconds": 0.0254,
+            "render_buffer_bytes": 104675852,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_12802",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 183,
+            "engine_ticks_ms": 42991,
+            "fps": 1,
+            "nodes": 1070,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0001,
+            "process_seconds": 0.0254,
+            "render_buffer_bytes": 104675852,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_12802",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 183,
+            "engine_ticks_ms": 43211,
+            "fps": 7,
+            "nodes": 1070,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0006,
+            "process_seconds": 0.0239,
+            "render_buffer_bytes": 104675852,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_12802",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 183,
+            "engine_ticks_ms": 43867,
+            "fps": 7,
+            "nodes": 1070,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0006,
+            "process_seconds": 0.0239,
+            "render_buffer_bytes": 104675852,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_12802",
+          "pieces": 40
+        },
+        {
+          "ux": {
+            "draw_calls": 183,
+            "engine_ticks_ms": 44555,
+            "fps": 4,
+            "nodes": 1070,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0009,
+            "process_seconds": 0.0869,
+            "render_buffer_bytes": 104675852,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_12802",
+          "pieces": 40
+        }
+      ]
+    },
+    {
+      "tag": "150-pieces",
+      "samples": [
+        {
+          "ux": {
+            "draw_calls": 623,
+            "engine_ticks_ms": 55183,
+            "fps": 1,
+            "nodes": 1735,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0402,
+            "render_buffer_bytes": 118664444,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42097478,
+            "texture_cache": [
+              {
+                "height": 1173,
+                "path": "res://assets/museum/met_v0/puzzles/met_335112.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_335112",
+          "pieces": 150
+        },
+        {
+          "ux": {
+            "draw_calls": 623,
+            "engine_ticks_ms": 56933,
+            "fps": 1,
+            "nodes": 1735,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.005,
+            "process_seconds": 0.046,
+            "render_buffer_bytes": 118664444,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42097478,
+            "texture_cache": [
+              {
+                "height": 1173,
+                "path": "res://assets/museum/met_v0/puzzles/met_335112.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_335112",
+          "pieces": 150
+        },
+        {
+          "ux": {
+            "draw_calls": 623,
+            "engine_ticks_ms": 56933,
+            "fps": 1,
+            "nodes": 1735,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.005,
+            "process_seconds": 0.046,
+            "render_buffer_bytes": 118664444,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42097478,
+            "texture_cache": [
+              {
+                "height": 1173,
+                "path": "res://assets/museum/met_v0/puzzles/met_335112.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_335112",
+          "pieces": 150
+        },
+        {
+          "ux": {
+            "draw_calls": 623,
+            "engine_ticks_ms": 58902,
+            "fps": 2,
+            "nodes": 1735,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0615,
+            "render_buffer_bytes": 118664444,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42097478,
+            "texture_cache": [
+              {
+                "height": 1173,
+                "path": "res://assets/museum/met_v0/puzzles/met_335112.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_335112",
+          "pieces": 150
+        },
+        {
+          "ux": {
+            "draw_calls": 623,
+            "engine_ticks_ms": 58902,
+            "fps": 2,
+            "nodes": 1735,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0615,
+            "render_buffer_bytes": 118664444,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 42097478,
+            "texture_cache": [
+              {
+                "height": 1173,
+                "path": "res://assets/museum/met_v0/puzzles/met_335112.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 83689472,
+          "content": "met_335112",
+          "pieces": 150
+        }
+      ]
+    },
+    {
+      "tag": "286-pieces",
+      "samples": [
+        {
+          "ux": {
+            "draw_calls": 1170,
+            "engine_ticks_ms": 77179,
+            "fps": 1,
+            "nodes": 2556,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0004,
+            "process_seconds": 0.0422,
+            "render_buffer_bytes": 136192748,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 100466688,
+          "content": "met_12802",
+          "pieces": 286
+        },
+        {
+          "ux": {
+            "draw_calls": 1170,
+            "engine_ticks_ms": 77179,
+            "fps": 1,
+            "nodes": 2556,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0004,
+            "process_seconds": 0.0422,
+            "render_buffer_bytes": 136192748,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 100466688,
+          "content": "met_12802",
+          "pieces": 286
+        },
+        {
+          "ux": {
+            "draw_calls": 1170,
+            "engine_ticks_ms": 78849,
+            "fps": 1,
+            "nodes": 2556,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0001,
+            "process_seconds": 0.0447,
+            "render_buffer_bytes": 136192748,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 100466688,
+          "content": "met_12802",
+          "pieces": 286
+        },
+        {
+          "ux": {
+            "draw_calls": 1170,
+            "engine_ticks_ms": 78849,
+            "fps": 1,
+            "nodes": 2556,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0001,
+            "process_seconds": 0.0447,
+            "render_buffer_bytes": 136192748,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 100466688,
+          "content": "met_12802",
+          "pieces": 286
+        },
+        {
+          "ux": {
+            "draw_calls": 1170,
+            "engine_ticks_ms": 80717,
+            "fps": 2,
+            "nodes": 2556,
+            "orphans": 0,
+            "orphans_available": false,
+            "physics_seconds": 0.0002,
+            "process_seconds": 0.0569,
+            "render_buffer_bytes": 136192748,
+            "resources": 151,
+            "static_bytes": 0,
+            "static_max_bytes": 0,
+            "texture_bytes": 41650172,
+            "texture_cache": [
+              {
+                "height": 1111,
+                "path": "res://assets/museum/met_v0/puzzles/met_12802.jpg",
+                "width": 1800
+              }
+            ]
+          },
+          "wasm": 100466688,
+          "content": "met_12802",
+          "pieces": 286
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "galleryUsableQaMs": 18839,
+  "firstPlayableQaMs": 38344.40000000596,
+  "startClickToObservedMs": 2258.4000000059605,
+  "passed": true
+}

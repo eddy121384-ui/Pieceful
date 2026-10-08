@@ -1,0 +1,279 @@
+{
+  "accepted_journey": {
+    "assertions": 38,
+    "screenshots": 54,
+    "passed": true,
+    "page_errors": []
+  },
+  "transitions": [
+    {
+      "pieces": 40,
+      "orientation": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 40,
+      "orientation": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 4,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 4,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 286,
+      "orientation": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    },
+    {
+      "pieces": 286,
+      "orientation": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "deviceScaleFactor": 3,
+      "transitions": [
+        {
+          "tag": "single-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "single-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "joined-table-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "store-preparation-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "stored-joined-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": true
+        },
+        {
+          "tag": "repeat-to-rail",
+          "mode": "rail",
+          "frames": 3,
+          "joinedSeen": false
+        },
+        {
+          "tag": "repeat-to-scatter",
+          "mode": "scatter",
+          "frames": 3,
+          "joinedSeen": false
+        }
+      ],
+      "postTransitionDrag": true
+    }
+  ],
+  "transition_count": 32,
+  "production_failure_checks": {
+    "browser": "Chromium mobile emulation; not physical Safari/Android",
+    "findings": [
+      {
+        "check": "production portrait, landscape, online reload, no QA bridge/private diagnostics",
+        "passed": true
+      },
+      {
+        "check": "live offline tab remains loaded; offline reload is unsupported",
+        "passed": true,
+        "offlineReloadSupported": false
+      },
+      {
+        "check": "denied IndexedDB starts without persistence and discloses loss; release engine flags",
+        "passed": true
+      },
+      {
+        "check": "missing production pack produces visible startup failure",
+        "passed": true
+      }
+    ]
+  },
+  "old_save_upgrade_passed": true,
+  "failed_attempts": [
+    "Missing PLAYWRIGHT_BROWSERS_PATH for ffmpeg, corrected environment.",
+    "QA callback startup timeouts when browser jobs competed; unchanged assertions pass in isolated runs."
+  ],
+  "hosted_ci": "not yet observed"
+}

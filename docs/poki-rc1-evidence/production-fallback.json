@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "Production contains no QA callback or success stub",
+    "Unavailable SDK remains failed at usable first screen",
+    "Actual production portrait, landscape and online reload reach usable screen",
+    "Loaded production remains initialized when offline",
+    "Offline reload honestly unsupported without a service worker",
+    "No private development diagnostics in production",
+    "Shipping build reaches usable screen with denied IndexedDB",
+    "Missing PCK gives visible failure and no false engine ready",
+    "No uncaught application errors with SDK unavailable"
+  ],
+  "errors": [],
+  "scope": "Shipping export, SDK script request explicitly aborted; no fake init/ad success. Live SDK downstream failures are reported separately.",
+  "passed": true
+}

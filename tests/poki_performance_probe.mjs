@@ -9,7 +9,7 @@ const trials=Number(process.env.PIECEFUL_POKI_PERF_TRIALS ?? 3);
 const browser=await chromium.launch({headless:true,executablePath:process.env.PIECEFUL_CHROMIUM_EXECUTABLE,
  args:['--enable-webgl','--ignore-gpu-blocklist','--enable-unsafe-swiftshader']});
 const report={browser:browser.version(),viewport:{width:390,height:844},dpr:1,startup:[],runtime:[],errors:[],
- limits:'Loopback HTTP gzip transfer, CDP 20 Mbps/40 ms. Not Poki CDN. Chromium/SwiftShader, not iPhone. Sampled WASM/Godot/JS/process counters are separate scopes, not mobile peak memory. Production SDK URL deliberately aborted because policy blocks it; observable init failure, no success stub.'};
+ limits:'Loopback HTTP gzip transfer, CDP 20 Mbps/40 ms. Not Poki CDN. Chromium/SwiftShader, not iPhone. Sampled WASM/Godot/JS/process counters are separate scopes, not mobile peak memory. Official SDK request deliberately aborted to isolate bundle transfer; live downstream initialization was unavailable. Observable failure, no success stub.'};
 async function instrument(context){await context.addInitScript(()=>{
  window.__POKI_PERF__={};
  for(const name of ['compile','compileStreaming','instantiate','instantiateStreaming']){
@@ -39,19 +39,23 @@ async function capture(p,tag,duration=1800){
 async function start(p,id,diff){await p.evaluate(a=>window.piecefulQaRequest('perf_start',...a),[id,diff]);await p.waitForFunction(a=>{const s=window.__PIECEFUL_UX_STATE__;return s?.content===a[0]&&s.difficulty===a[1]&&!s.gallery&&!s.resume_pending},[id,diff],{timeout:90000})}
 try{
  if(!process.env.PIECEFUL_POKI_PERF_RUNTIME_ONLY){
- for(const profile of ['baseline','poki'])for(const delivery of ['raw','gzip'])for(let trial=0;trial<trials;trial++){
+ for(const delivery of ['raw','gzip'])for(let trial=0;trial<trials;trial++)for(const profile of (trial%2?['poki','baseline']:['baseline','poki'])){
   const ctx=await browser.newContext({viewport:report.viewport});await instrument(ctx);
-  await ctx.route('https://game-cdn.poki.com/**',route=>route.abort('blockedbyclient'));
   const p=await ctx.newPage();p.on('pageerror',e=>report.errors.push(e.message));
-  const cdp=await ctx.newCDPSession(p);await cdp.send('Network.enable');let transferred=[];const requests={};
-  cdp.on('Network.requestWillBeSent',e=>requests[e.requestId]=e.request.url);cdp.on('Network.loadingFinished',e=>transferred.push({url:requests[e.requestId],encodedBytes:e.encodedDataLength}));
+  const cdp=await ctx.newCDPSession(p);await cdp.send('Network.enable');
+  // Playwright routing disables HTTP cache, invalidating warm-cache timing.
+  // CDP URL blocking preserves cache without substituting SDK responses.
+  await cdp.send('Network.setBlockedURLs',{urls:['https://game-cdn.poki.com/*']});
+  await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});let transferred=[];const requests={},cacheHits=new Set();
+  cdp.on('Network.requestServedFromCache',e=>cacheHits.add(e.requestId));
+  cdp.on('Network.requestWillBeSent',e=>requests[e.requestId]=e.request.url);cdp.on('Network.loadingFinished',e=>transferred.push({url:requests[e.requestId],encodedBytes:e.encodedDataLength,servedFromCache:cacheHits.has(e.requestId)}));
   if(delivery==='gzip')await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:40,downloadThroughput:2500000,uploadThroughput:1250000});
   await p.goto(`${origin}/${delivery==='gzip'?'gzip/':''}${profile}/`,{waitUntil:'domcontentloaded',timeout:150000});await ready(p,profile);
   report.startup.push({profile,delivery,trial,cache:'cold',measuredNetwork:transferred,...await timing(p)});
   if(trial===0)await p.screenshot({path:out.replace(/\.json$/,`-${profile}-${delivery}.png`)});
   // Same context and HTTP cache; Godot still reinitializes and saved state may
   // change the first screen. State explicitly recorded, not a cold-client win.
-  transferred=[];await p.reload({waitUntil:'domcontentloaded',timeout:150000});await ready(p,profile);
+  transferred=[];cacheHits.clear();await p.reload({waitUntil:'domcontentloaded',timeout:150000});await ready(p,profile);
   report.startup.push({profile,delivery,trial,cache:'warm',measuredNetwork:transferred,...await timing(p)});
   console.log('STARTUP',profile,delivery,trial,JSON.stringify(report.startup.slice(-2).map(x=>x.marks)));
   await ctx.close();

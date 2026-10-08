@@ -1,0 +1,14 @@
+{
+  "file": "index.pck",
+  "bytes": 15797028,
+  "sha256": "685ade5c80bb3de91df6115367e4679dcec80ffde0ac4c5a172953f3572b6154",
+  "entries": 397,
+  "forbidden_paths": [],
+  "missing_notices": [],
+  "catalog_identity": {
+    "manifest_version": 1,
+    "original_byte_hashes_verified": 35,
+    "imported_artworks_verified": 35,
+    "duplicate_raw_sources": 0
+  }
+}

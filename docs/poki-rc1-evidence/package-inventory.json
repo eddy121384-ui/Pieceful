@@ -1,0 +1,4028 @@
+{
+  "pack_bytes": 15797028,
+  "groups": {
+    "scripts / scenes / remaps": {
+      "resources": 219,
+      "raw_payload_bytes": 654020,
+      "calculated_individual_gzip_bytes": 654217
+    },
+    "Godot generated metadata": {
+      "resources": 3,
+      "raw_payload_bytes": 30285,
+      "calculated_individual_gzip_bytes": 7473
+    },
+    "fonts": {
+      "resources": 2,
+      "raw_payload_bytes": 138991,
+      "calculated_individual_gzip_bytes": 138995
+    },
+    "UI / plain-paper fallback": {
+      "resources": 10,
+      "raw_payload_bytes": 23872,
+      "calculated_individual_gzip_bytes": 20651
+    },
+    "thumbnails (35 imported resources)": {
+      "resources": 70,
+      "raw_payload_bytes": 501958,
+      "calculated_individual_gzip_bytes": 502200
+    },
+    "full artwork (35 imported resources)": {
+      "resources": 70,
+      "raw_payload_bytes": 9772686,
+      "calculated_individual_gzip_bytes": 9773611
+    },
+    "shaders": {
+      "resources": 3,
+      "raw_payload_bytes": 4916,
+      "calculated_individual_gzip_bytes": 2482
+    },
+    "metadata / notices": {
+      "resources": 14,
+      "raw_payload_bytes": 389101,
+      "calculated_individual_gzip_bytes": 73793
+    },
+    "cut patterns": {
+      "resources": 5,
+      "raw_payload_bytes": 4241512,
+      "calculated_individual_gzip_bytes": 1272429
+    },
+    "other / project binary": {
+      "resources": 1,
+      "raw_payload_bytes": 1518,
+      "calculated_individual_gzip_bytes": 638
+    }
+  },
+  "ranked": [
+    {
+      "path": "cut_patterns/Classic_286_A.json",
+      "offset": 12317264,
+      "bytes": 2582371,
+      "md5": "ced35d841826f4fd446475b5fcf2a1db",
+      "flags": 0,
+      "source": "cut_patterns/Classic_286_A.json",
+      "category": "cut patterns",
+      "calculated_gzip_bytes": 769733
+    },
+    {
+      "path": "cut_patterns/Classic_150_A.json",
+      "offset": 10992752,
+      "bytes": 1324509,
+      "md5": "71f56409c95e515ea0ea29853f7608d8",
+      "flags": 0,
+      "source": "cut_patterns/Classic_150_A.json",
+      "category": "cut patterns",
+      "calculated_gzip_bytes": 399011
+    },
+    {
+      "path": ".godot/imported/met_438031.jpg-d6a58a6dbfd9bcf0308d03950f7bc4ad.ctex",
+      "offset": 8007072,
+      "bytes": 671910,
+      "md5": "3c98e162290f903ec71f6e53dcf3f874",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_438031.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 672133
+    },
+    {
+      "path": ".godot/imported/met_226943.jpg-3cd5645b37ef5759a584264317d06662.ctex",
+      "offset": 4051264,
+      "bytes": 613366,
+      "md5": "e681f61925e27003fe7e09df0bd7f423",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_226943.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 613485
+    },
+    {
+      "path": ".godot/imported/met_399347.jpg-72862799b18b97b2993014488d2833aa.ctex",
+      "offset": 6902224,
+      "bytes": 606830,
+      "md5": "73ee2cc1c2e4266d98c95e08103892a7",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_399347.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 607038
+    },
+    {
+      "path": ".godot/imported/met_10996.jpg-cda5eae3dece545ca3e1fe6a5402440a.ctex",
+      "offset": 1026672,
+      "bytes": 536060,
+      "md5": "268d04dff6b48ac4c5b7ad3a084e6659",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10996.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 536243
+    },
+    {
+      "path": ".godot/imported/met_10189.jpg-7c0fb32f441126b79911a6a14baf3f2b.ctex",
+      "offset": 554928,
+      "bytes": 471524,
+      "md5": "f8be3f9fd92770e565d72fc55ea18e2f",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10189.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 471687
+    },
+    {
+      "path": ".godot/imported/met_10181.jpg-c1994f7b58b9de2b0ef3cb6a7c0e8fd0.ctex",
+      "offset": 108672,
+      "bytes": 446040,
+      "md5": "fa5d8ceebe86abc9376aba6c4f03386d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10181.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 446198
+    },
+    {
+      "path": ".godot/imported/met_394310.jpg-55bef1966bee6abbabce08c029228f36.ctex",
+      "offset": 6050784,
+      "bytes": 442814,
+      "md5": "c7ab787b9ee703323a9e50a50314e01b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394310.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 442972
+    },
+    {
+      "path": ".godot/imported/met_54393.jpg-14bf59ccca298e816ebf775a8590bc0c.ctex",
+      "offset": 2434336,
+      "bytes": 438746,
+      "md5": "5f6f739915c1f55986d4c47992c79265",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54393.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 438899
+    },
+    {
+      "path": ".godot/imported/met_54333.jpg-679a12ea785607a217f7b83e91b4ed91.ctex",
+      "offset": 2014672,
+      "bytes": 419444,
+      "md5": "0fa0c43345833972fbc37c1f4c1be80d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54333.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 419592
+    },
+    {
+      "path": ".godot/imported/met_394709.jpg-325499ad015cc59db0d9117ad4f5b477.ctex",
+      "offset": 6493808,
+      "bytes": 408208,
+      "md5": "f1faa8d2e6b123b712965c7d0c939de2",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394709.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 408231
+    },
+    {
+      "path": ".godot/imported/met_898372.jpg-4ccdcbc585b2f61bfd59a724286f107e.ctex",
+      "offset": 9459120,
+      "bytes": 332782,
+      "md5": "8d003721074f98febe2fcef9c0c14ee2",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_898372.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 332234
+    },
+    {
+      "path": ".godot/imported/met_215356.jpg-ed66c58f81cf5398dd6ccf49baf8b5fa.ctex",
+      "offset": 3402176,
+      "bytes": 328326,
+      "md5": "c849e0b196524275d3918da81b069f98",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_215356.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 328337
+    },
+    {
+      "path": "cut_patterns/Classic_040_A.json",
+      "offset": 10667408,
+      "bytes": 325343,
+      "md5": "1df9ef707fdc3fd929641fc182078a2b",
+      "flags": 0,
+      "source": "cut_patterns/Classic_040_A.json",
+      "category": "cut patterns",
+      "calculated_gzip_bytes": 100119
+    },
+    {
+      "path": ".godot/imported/met_359362.jpg-95a9a39d21fd1c99b550f63d07241ebf.ctex",
+      "offset": 5655808,
+      "bytes": 324846,
+      "md5": "eb996ae505719e8eb6f5e385fe93825b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_359362.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 324964
+    },
+    {
+      "path": ".godot/imported/met_221706.jpg-8bd104c57331d146c952e192fc569c51.ctex",
+      "offset": 3730720,
+      "bytes": 320334,
+      "md5": "c7ca51db8969e5e78a1310e48286ea41",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_221706.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 320452
+    },
+    {
+      "path": ".godot/imported/met_335112.jpg-b7864b2b177d01c3436b72d79de327c8.ctex",
+      "offset": 5059840,
+      "bytes": 318428,
+      "md5": "341ca1fd3b9afbf38799949c6aa11ead",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_335112.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 318546
+    },
+    {
+      "path": ".godot/imported/met_399581.jpg-7e0b9d96a073aac9d35738ea801ef51c.ctex",
+      "offset": 7509264,
+      "bytes": 298762,
+      "md5": "9ac743187b92c2f64500738c7769e691",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_399581.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 298875
+    },
+    {
+      "path": ".godot/imported/met_12802.jpg-0a2126e0ddd87c9725a27b660b4307c2.ctex",
+      "offset": 1635616,
+      "bytes": 283254,
+      "md5": "2db2f04cebc4af0cbc0a575bf43086ed",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_12802.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 283207
+    },
+    {
+      "path": ".godot/imported/met_340070.jpg-99562ae0975c030a0ccf0c040d9088f8.ctex",
+      "offset": 5378480,
+      "bytes": 277112,
+      "md5": "491cde0f64cd57702684a1121b6c073c",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_340070.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 277215
+    },
+    {
+      "path": ".godot/imported/met_764802.jpg-886d0e12958c68f4fde31293be5fae8f.ctex",
+      "offset": 9234944,
+      "bytes": 223954,
+      "md5": "891e21475fe6d14d9bc55f8498c8ba21",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_764802.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 224033
+    },
+    {
+      "path": ".godot/imported/met_54988.jpg-6e5548e03304d1e6eedfc8f6a191f52d.ctex",
+      "offset": 2873296,
+      "bytes": 208054,
+      "md5": "6b9333012710759143e3ce2e21d95317",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54988.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 208027
+    },
+    {
+      "path": ".godot/imported/met_228950.jpg-803b4a57fa33348a93f86c7aee74dcca.ctex",
+      "offset": 4664848,
+      "bytes": 204850,
+      "md5": "89a4962c46557a01335c22b3c473291f",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_228950.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 204933
+    },
+    {
+      "path": ".godot/imported/met_436305.jpg-c3995789fa0a02c76b4a498ca7da3a94.ctex",
+      "offset": 7808240,
+      "bytes": 198620,
+      "md5": "1ff2deb6df99e56971690fb138a63b2c",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_436305.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 198221
+    },
+    {
+      "path": ".godot/imported/met_202696.jpg-89cfc657d339774546f49106a7418342.ctex",
+      "offset": 3239360,
+      "bytes": 162594,
+      "md5": "566c6e2290a78a368b536ee02a3a13e3",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_202696.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 162606
+    },
+    {
+      "path": ".godot/imported/met_478746.jpg-a771b17202fcf0e10b9450937b43fc72.ctex",
+      "offset": 8768352,
+      "bytes": 157996,
+      "md5": "6629aa0c5a00b5ec4852f42df14e6ce8",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_478746.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 158028
+    },
+    {
+      "path": ".godot/imported/met_728305.jpg-15cec7078f5758afe096d9a99ef3d0e7.ctex",
+      "offset": 9079104,
+      "bytes": 155618,
+      "md5": "220307da9a6d85b605ce9ed56e11882d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_728305.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 155624
+    },
+    {
+      "path": ".godot/imported/met_505626.jpg-927dd3f2dd3d0103eed90c6814680b64.ctex",
+      "offset": 8926560,
+      "bytes": 152330,
+      "md5": "20a02ec83685b16d72a42fc5caf58920",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_505626.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 152379
+    },
+    {
+      "path": "content/catalog_v1.json",
+      "offset": 10543824,
+      "bytes": 109297,
+      "md5": "197cc12842af7117789e7eb5bb8a98e9",
+      "flags": 0,
+      "source": "content/catalog_v1.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 11182
+    },
+    {
+      "path": "licenses/GODOT-THIRD-PARTY.json",
+      "offset": 14952016,
+      "bytes": 108159,
+      "md5": "9b5cb72495581a5bfbcd6858d8d25b09",
+      "flags": 0,
+      "source": "licenses/GODOT-THIRD-PARTY.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 28919
+    },
+    {
+      "path": ".godot/imported/met_286248.jpg-d456353d9c1794c4a64e85c5a472eb01.ctex",
+      "offset": 4869920,
+      "bytes": 104372,
+      "md5": "95cc381e452ef3bf4f732c08c5ab15cc",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_286248.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 104211
+    },
+    {
+      "path": ".godot/imported/met_21209.jpg-b072651954d8fec0494328049ae73600.ctex",
+      "offset": 1919088,
+      "bytes": 95364,
+      "md5": "1bf5f09aeea7d0430c80a43c7319651f",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_21209.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 95409
+    },
+    {
+      "path": ".godot/imported/met_5410.jpg-d3f7254b40e65edd99edadfba82c9311.ctex",
+      "offset": 18832,
+      "bytes": 89632,
+      "md5": "cba8b76d21567228acaaefbbe970d845",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_5410.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 89680
+    },
+    {
+      "path": ".godot/imported/met_478425.jpg-e44fe8d17badf54e9b7d374fa6c391e7.ctex",
+      "offset": 8679200,
+      "bytes": 88932,
+      "md5": "2ee79bc4b957dda2e7b0407e5e3183df",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_478425.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 88980
+    },
+    {
+      "path": ".godot/imported/met_312624.jpg-fe92df81e5a3c2e1273e1242fb6a90df.ctex",
+      "offset": 4974512,
+      "bytes": 85110,
+      "md5": "1b026d59d98fb34098e1acf0d1d6af8c",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_312624.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 85134
+    },
+    {
+      "path": ".godot/imported/met_191567.jpg-007ddabeb82de5f5f8fc42d40841ba35.ctex",
+      "offset": 3157104,
+      "bytes": 82040,
+      "md5": "97824f00a9806451e75e7bc186241b7d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_191567.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 82083
+    },
+    {
+      "path": ".godot/imported/met_191566.jpg-9628c7c76a922dea74d7e146eca65682.ctex",
+      "offset": 3081568,
+      "bytes": 75328,
+      "md5": "d0444315f7dc2fd4e18547da2989e672",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_191566.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 75371
+    },
+    {
+      "path": ".godot/imported/met_11181.jpg-33ec713a4d36aa600363d6466765211a.ctex",
+      "offset": 1562944,
+      "bytes": 72462,
+      "md5": "dd35275c952de1bae9fd00d92fbbc3eb",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_11181.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 72505
+    },
+    {
+      "path": ".godot/imported/album-serif-italic.otf-ae9fdb886cfce356302eeaa723c9386a.fontdata",
+      "offset": 10294656,
+      "bytes": 71168,
+      "md5": "c550a7690a5c0f182e5c441cc89ad56c",
+      "flags": 0,
+      "source": "assets/ui/album-serif-italic.otf",
+      "category": "fonts",
+      "calculated_gzip_bytes": 71158
+    },
+    {
+      "path": ".godot/imported/met_394043.jpg-76ba4b804c2c45b63f445bc435e216a9.ctex",
+      "offset": 5980864,
+      "bytes": 69698,
+      "md5": "bd08a671ea93c9785b3d85d8a696c45e",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394043.jpg",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 69741
+    },
+    {
+      "path": ".godot/imported/album-serif-regular.otf-b595e1de6f393825e95e851d172218c7.fontdata",
+      "offset": 10366000,
+      "bytes": 67823,
+      "md5": "208714ce53ca05b37dab4ebfc20d9f1b",
+      "flags": 0,
+      "source": "assets/ui/album-serif-regular.otf",
+      "category": "fonts",
+      "calculated_gzip_bytes": 67837
+    },
+    {
+      "path": "poki/artwork_manifest.json",
+      "offset": 15076256,
+      "bytes": 58815,
+      "md5": "d9345901bc51fa84eb54917169e11c45",
+      "flags": 0,
+      "source": "poki/artwork_manifest.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 7533
+    },
+    {
+      "path": "licenses/ASSET_MANIFEST.json",
+      "offset": 14904256,
+      "bytes": 47749,
+      "md5": "095ad4c2a7772f5cc48b4e473687c399",
+      "flags": 0,
+      "source": "licenses/ASSET_MANIFEST.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 6704
+    },
+    {
+      "path": "scripts/commercial_gameplay_hud_main.gdc",
+      "offset": 15214768,
+      "bytes": 31624,
+      "md5": "fe00921e667250254758699ee903af97",
+      "flags": 0,
+      "source": "scripts/commercial_gameplay_hud_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 31299
+    },
+    {
+      "path": ".godot/imported/met_10189.jpg-7b45f31898208cd0083fbeff5fb7e6d7.ctex",
+      "offset": 9826912,
+      "bytes": 27514,
+      "md5": "55f786139cf65566db76ab8e243e2985",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10189.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 27542
+    },
+    {
+      "path": ".godot/imported/met_399347.jpg-cd451b4b0336901c2d33234e49049644.ctex",
+      "offset": 10159840,
+      "bytes": 26540,
+      "md5": "f601aa97f469164a834e1a0151e45873",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_399347.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 26568
+    },
+    {
+      "path": ".godot/imported/met_54393.jpg-4ee5e611aa9bc4f67296e3f672ffe048.ctex",
+      "offset": 9923024,
+      "bytes": 25564,
+      "md5": "04425361af8a97857caed7ded152a668",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54393.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 25592
+    },
+    {
+      "path": ".godot/imported/met_10181.jpg-07afbfd11096134ff69af50f6bed6a3b.ctex",
+      "offset": 9801168,
+      "bytes": 25522,
+      "md5": "1a93aea9382d35be69f6b096ca17d9e7",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10181.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 25550
+    },
+    {
+      "path": ".godot/imported/met_226943.jpg-011522a88642d02ee76ad632fd0dfa9e.ctex",
+      "offset": 10018848,
+      "bytes": 25438,
+      "md5": "5550a761321a028049721da8a741c145",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_226943.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 25466
+    },
+    {
+      "path": "content/runtime/met_v0_manifest.json",
+      "offset": 10518768,
+      "bytes": 25045,
+      "md5": "171137ef0cf290f9006098840ee2663d",
+      "flags": 0,
+      "source": "content/runtime/met_v0_manifest.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 5164
+    },
+    {
+      "path": ".godot/imported/met_11181.jpg-eb859328ce44394807affa65bb371c8c.ctex",
+      "offset": 9871184,
+      "bytes": 22944,
+      "md5": "f94a93897f7e059b3892875cefb3e325",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_11181.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 22972
+    },
+    {
+      "path": ".godot/imported/met_438031.jpg-771d4776142ade7fd931a0bb2654b905.ctex",
+      "offset": 10212144,
+      "bytes": 22350,
+      "md5": "5a93edabb1769df0502dd4cae99bb1d9",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_438031.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 22378
+    },
+    {
+      "path": "scripts/commercial_product_ux_main.gdc",
+      "offset": 15246400,
+      "bytes": 22261,
+      "md5": "4ee91e07ebbdf632cc9a9f65007f9d69",
+      "flags": 0,
+      "source": "scripts/commercial_product_ux_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 22120
+    },
+    {
+      "path": ".godot/imported/met_394043.jpg-cbca3abbe9eb352119c8a668d4e49b44.ctex",
+      "offset": 10104992,
+      "bytes": 21298,
+      "md5": "bb7081a834abbcfce65ac188ffe89f88",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394043.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 21326
+    },
+    {
+      "path": "licenses/LPPL-1.3c.txt",
+      "offset": 10481104,
+      "bytes": 19040,
+      "md5": "ee2c12c4910ce3c2804483e4b98fc1db",
+      "flags": 0,
+      "source": "licenses/LPPL-1.3c.txt",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 6409
+    },
+    {
+      "path": ".godot/imported/met_394709.jpg-b5e667fdc52e655a629314daa290e54f.ctex",
+      "offset": 10142064,
+      "bytes": 17564,
+      "md5": "acd55780757d51d871b5dd8a91e06463",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394709.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 17592
+    },
+    {
+      "path": "scripts/sorting_workspace_controller.gdc",
+      "offset": 15642544,
+      "bytes": 17000,
+      "md5": "ab61b03861f544da04bee49e2adb22bd",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_controller.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 16866
+    },
+    {
+      "path": "scripts/gallery_image_aware_main.gdc",
+      "offset": 15360848,
+      "bytes": 16818,
+      "md5": "2a740a37457b18b3cb34f6fa5c8fa17b",
+      "flags": 0,
+      "source": "scripts/gallery_image_aware_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 16690
+    },
+    {
+      "path": ".godot/imported/met_10996.jpg-348dcebd1cecacd1958208066299273a.ctex",
+      "offset": 9854640,
+      "bytes": 16324,
+      "md5": "b996e488c22f26fb1a348f0addcb6dac",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10996.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 16347
+    },
+    {
+      "path": "scripts/cut_pattern_generator.gdc",
+      "offset": 15312368,
+      "bytes": 16212,
+      "md5": "de10de67b09b87125d75ee29ba838c0e",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 16088
+    },
+    {
+      "path": ".godot/imported/met_399581.jpg-2ea1f5f1ccd2d611a02281b7bca45c55.ctex",
+      "offset": 10186592,
+      "bytes": 15536,
+      "md5": "7a7ee99b1975134b93cad8a0dc668240",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_399581.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 15559
+    },
+    {
+      "path": ".godot/imported/met_394310.jpg-b19a7aa7b43a5c2e2e53069cab10c678.ctex",
+      "offset": 10126512,
+      "bytes": 15344,
+      "md5": "009af1494bdbc65c42b1b35dd1efd39c",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394310.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 15367
+    },
+    {
+      "path": ".godot/imported/met_221706.jpg-be63da885639127b2ef365faf7e9462b.ctex",
+      "offset": 10003520,
+      "bytes": 15112,
+      "md5": "11b34d24de498b4609f3a3f37776b808",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_221706.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 15135
+    },
+    {
+      "path": ".godot/global_script_class_cache.cfg",
+      "offset": 15734928,
+      "bytes": 15007,
+      "md5": "cc8592582795adebf230af4e1e014682",
+      "flags": 0,
+      "source": ".godot/global_script_class_cache.cfg",
+      "category": "Godot generated metadata",
+      "calculated_gzip_bytes": 1578
+    },
+    {
+      "path": ".godot/imported/met_215356.jpg-fb5fd0ddb8e5af2f428aea777b10fad9.ctex",
+      "offset": 9988912,
+      "bytes": 14394,
+      "md5": "28a11a01c197113e1b9af1312995bba2",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_215356.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 14417
+    },
+    {
+      "path": "scripts/main.gdc",
+      "offset": 15444976,
+      "bytes": 13457,
+      "md5": "f68b17396368c8ef3560095d2bfd56eb",
+      "flags": 0,
+      "source": "scripts/main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 13242
+    },
+    {
+      "path": ".godot/imported/met_202696.jpg-ee10f098b40413fc4b908291a735e6f6.ctex",
+      "offset": 9975312,
+      "bytes": 13384,
+      "md5": "eb2bcd90d71130818043d9b658bdd990",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_202696.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 13407
+    },
+    {
+      "path": "scripts/timelapse_video_export_main.gdc",
+      "offset": 15709312,
+      "bytes": 13026,
+      "md5": "80b6c27035703e1d2a3c7c06fa7bfbf1",
+      "flags": 0,
+      "source": "scripts/timelapse_video_export_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12923
+    },
+    {
+      "path": "scripts/sorting_workspace_management_ui.gdc",
+      "offset": 15670784,
+      "bytes": 12882,
+      "md5": "b1a2ddbe66383199741e5780d0f8b9bd",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_management_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12841
+    },
+    {
+      "path": "scripts/tray_play_canvas.gdc",
+      "offset": 4320,
+      "bytes": 12840,
+      "md5": "d1ad7a639ea5aa0fc7a2d1aecba025a9",
+      "flags": 0,
+      "source": "scripts/tray_play_canvas.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12803
+    },
+    {
+      "path": ".godot/imported/met_54333.jpg-c803978785fdd4c3da116410a1e1d80f.ctex",
+      "offset": 9910048,
+      "bytes": 12754,
+      "md5": "2911db50f5a8bd7c240f9eebb06e172d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54333.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 12777
+    },
+    {
+      "path": "poki/runtime/poki_main.gdc",
+      "offset": 15062464,
+      "bytes": 12662,
+      "md5": "3d54668d96a58b2ee4f3639b93e3c53f",
+      "flags": 0,
+      "source": "poki/runtime/poki_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12626
+    },
+    {
+      "path": "scripts/loose_piece_layout_dock_ui.gdc",
+      "offset": 15410096,
+      "bytes": 12579,
+      "md5": "60c84160dac25b9d2e82172a0f908093",
+      "flags": 0,
+      "source": "scripts/loose_piece_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12547
+    },
+    {
+      "path": ".godot/imported/met_764802.jpg-ed41ecc08adf674c49dd40a255a02b8a.ctex",
+      "offset": 10272400,
+      "bytes": 12578,
+      "md5": "079143dd881dd3421d2ce7ae43d28ced",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_764802.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 12601
+    },
+    {
+      "path": "scripts/timelapse_replay_main.gdc",
+      "offset": 15691200,
+      "bytes": 12443,
+      "md5": "e4705a2b80a6db0095336234c825e578",
+      "flags": 0,
+      "source": "scripts/timelapse_replay_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 12347
+    },
+    {
+      "path": ".godot/imported/met_359362.jpg-e4295927ee34605c79c500fbafe4528c.ctex",
+      "offset": 10092400,
+      "bytes": 12378,
+      "md5": "50009cef58a48956c50d065f189ea3f4",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_359362.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 12401
+    },
+    {
+      "path": "scripts/loose_piece_layout_workspace.gdc",
+      "offset": 15422688,
+      "bytes": 11836,
+      "md5": "097183523d55a7657c866699122224f0",
+      "flags": 0,
+      "source": "scripts/loose_piece_layout_workspace.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 11775
+    },
+    {
+      "path": ".godot/imported/met_505626.jpg-e0c19f9b07cb043a269828dc9774204b.ctex",
+      "offset": 10249488,
+      "bytes": 11738,
+      "md5": "53a96c66ab7df30e50f5302ca356e595",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_505626.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 11761
+    },
+    {
+      "path": ".godot/imported/met_340070.jpg-e08cd101e2938ebe2ab0f660c913b7e9.ctex",
+      "offset": 10080880,
+      "bytes": 11298,
+      "md5": "364f2fbc14e21ab5ba5bb364799045fd",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_340070.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 11321
+    },
+    {
+      "path": "scripts/single_slot_save_coordinator.gdc",
+      "offset": 15631440,
+      "bytes": 11093,
+      "md5": "82132ffa1c0d4df9de06ad98973b8ece",
+      "flags": 0,
+      "source": "scripts/single_slot_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 11093
+    },
+    {
+      "path": "scripts/analytics_main.gdc",
+      "offset": 15144288,
+      "bytes": 11059,
+      "md5": "805385db16a71ea7645ef55f82edb158",
+      "flags": 0,
+      "source": "scripts/analytics_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10953
+    },
+    {
+      "path": ".godot/imported/met_728305.jpg-5f8f5916cf1731fc90b28499ce1e9da2.ctex",
+      "offset": 10261440,
+      "bytes": 10738,
+      "md5": "f9def82b1cc8b3c75f5874845b51effd",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_728305.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 10761
+    },
+    {
+      "path": "scripts/multi_slot_save_coordinator.gdc",
+      "offset": 15485776,
+      "bytes": 10655,
+      "md5": "68ae849d3d8c3cbcc3d276c0686423a2",
+      "flags": 0,
+      "source": "scripts/multi_slot_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10662
+    },
+    {
+      "path": ".godot/uid_cache.bin",
+      "offset": 15749936,
+      "bytes": 10590,
+      "md5": "e95a912c853002989539bf905d998884",
+      "flags": 0,
+      "source": ".godot/uid_cache.bin",
+      "category": "Godot generated metadata",
+      "calculated_gzip_bytes": 3399
+    },
+    {
+      "path": "scripts/completion_summary_main.gdc",
+      "offset": 15293408,
+      "bytes": 10582,
+      "md5": "1df63b5c3c2316c8d6b1b58a3a833fc8",
+      "flags": 0,
+      "source": "scripts/completion_summary_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10535
+    },
+    {
+      "path": ".godot/imported/met_335112.jpg-6e7c64c0cce7b7d7ab719aa3461796e5.ctex",
+      "offset": 10070096,
+      "bytes": 10570,
+      "md5": "7eb9692719618f811974117cc03d8f72",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_335112.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 10593
+    },
+    {
+      "path": "scripts/puzzle_selection_multi_slot_main.gdc",
+      "offset": 15585488,
+      "bytes": 10541,
+      "md5": "0ebb74b015f16f918fda7f5e269d8608",
+      "flags": 0,
+      "source": "scripts/puzzle_selection_multi_slot_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10539
+    },
+    {
+      "path": ".godot/imported/met_228950.jpg-d5c8e15269c9ebb03aaf99c132f8c442.ctex",
+      "offset": 10044496,
+      "bytes": 10500,
+      "md5": "db974b4dc99c0225847debc5dea3dbe5",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_228950.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 10523
+    },
+    {
+      "path": "scripts/loose_piece_rail_canvas.gdc",
+      "offset": 15434528,
+      "bytes": 10446,
+      "md5": "6e762ace3608c8f6bf1ee7f92a62863f",
+      "flags": 0,
+      "source": "scripts/loose_piece_rail_canvas.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10444
+    },
+    {
+      "path": "scripts/local_recommendation_store.gdc",
+      "offset": 15399824,
+      "bytes": 10269,
+      "md5": "80f840f359909a419742a4788fa7b756",
+      "flags": 0,
+      "source": "scripts/local_recommendation_store.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10177
+    },
+    {
+      "path": "scripts/watercolor_reachable_surfaces.gdc",
+      "offset": 10464720,
+      "bytes": 10183,
+      "md5": "1642155c6e0437a6d63fdb849e0eafa0",
+      "flags": 0,
+      "source": "scripts/watercolor_reachable_surfaces.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 10137
+    },
+    {
+      "path": "scripts/puzzle_board.gdc",
+      "offset": 15507728,
+      "bytes": 9934,
+      "md5": "ea88292f66c149fe4f0ebcba7087aefc",
+      "flags": 0,
+      "source": "scripts/puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 9885
+    },
+    {
+      "path": ".godot/imported/icon_atlas.svg-75d0da60a66187b3b9b2877b16341e14.ctex",
+      "offset": 10438688,
+      "bytes": 9820,
+      "md5": "75105ac0a1adf471325b562be95769b4",
+      "flags": 0,
+      "source": "assets/ui/icon_atlas.svg",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 9786
+    },
+    {
+      "path": ".godot/imported/met_436305.jpg-bf875bcbe552b97b704ab0c1ba336ceb.ctex",
+      "offset": 10202336,
+      "bytes": 9594,
+      "md5": "d181e9c711b2cdc5b7ac5d1508885019",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_436305.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 9617
+    },
+    {
+      "path": "scripts/runtime_puzzle_board.gdc",
+      "offset": 15608400,
+      "bytes": 9562,
+      "md5": "7de718759db3c374180766af7cc9b6b3",
+      "flags": 0,
+      "source": "scripts/runtime_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 9553
+    },
+    {
+      "path": "scripts/chaos_order_main.gdc",
+      "offset": 15172416,
+      "bytes": 9462,
+      "md5": "428f5de5d3aa74248a5fd276f998f380",
+      "flags": 0,
+      "source": "scripts/chaos_order_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 9460
+    },
+    {
+      "path": ".godot/imported/met_12802.jpg-af7e5a7a4dcb2c82e273023662db45b2.ctex",
+      "offset": 9894336,
+      "bytes": 9406,
+      "md5": "d75002fa9809d6c95b380e78551f80a6",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_12802.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 9429
+    },
+    {
+      "path": "scripts/chaos_order_optimized_rail_canvas.gdc",
+      "offset": 15181888,
+      "bytes": 9245,
+      "md5": "35de27f64a3513d32401341bcbaf61b2",
+      "flags": 0,
+      "source": "scripts/chaos_order_optimized_rail_canvas.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 9242
+    },
+    {
+      "path": ".godot/imported/met_898372.jpg-057674501bc2e1b48321933f09aeebde.ctex",
+      "offset": 10285200,
+      "bytes": 9238,
+      "md5": "352d8c4081f7b36d493dd7038d8fa471",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_898372.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 9261
+    },
+    {
+      "path": "scripts/puzzle_journal_main.gdc",
+      "offset": 15533232,
+      "bytes": 9176,
+      "md5": "1b9e2a3903823a0fca0dca80ab281315",
+      "flags": 0,
+      "source": "scripts/puzzle_journal_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 9121
+    },
+    {
+      "path": ".godot/imported/met_54988.jpg-7f293a6d4d8c24744231c66f1c2dabd5.ctex",
+      "offset": 9948800,
+      "bytes": 8982,
+      "md5": "e52ae51cd878e3bebf971dce2ef8b19a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54988.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 9005
+    },
+    {
+      "path": ".godot/imported/met_5410.jpg-16d90f370d9debfd98ec6c913cadaccf.ctex",
+      "offset": 9792112,
+      "bytes": 8846,
+      "md5": "3a72262df77526f91d4f2ab0f329788e",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_5410.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 8869
+    },
+    {
+      "path": "scripts/completion_share_card_main.gdc",
+      "offset": 15284576,
+      "bytes": 8832,
+      "md5": "41e291e57810f220bd771bcc2bac92b7",
+      "flags": 0,
+      "source": "scripts/completion_share_card_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8789
+    },
+    {
+      "path": "scripts/native_mobile_monetization_provider.gdc",
+      "offset": 15496432,
+      "bytes": 8806,
+      "md5": "6f5e6a16cfec92ca7f4645385555826a",
+      "flags": 0,
+      "source": "scripts/native_mobile_monetization_provider.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8748
+    },
+    {
+      "path": ".godot/imported/met_191567.jpg-9c82f1d08a955b7580f6ebe988cae9cf.ctex",
+      "offset": 9966304,
+      "bytes": 8788,
+      "md5": "5a7497698e0c5dd679c6e8a34af00f5d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_191567.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 8811
+    },
+    {
+      "path": "scripts/image_aware_puzzle_catalog_board.gdc",
+      "offset": 15386304,
+      "bytes": 8786,
+      "md5": "0051c1667d1549298846f5c3ac8fef18",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_catalog_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8765
+    },
+    {
+      "path": ".godot/imported/met_312624.jpg-0de83fb01a0296bdd02971427580c83c.ctex",
+      "offset": 10061296,
+      "bytes": 8588,
+      "md5": "8bffcc11837260877c1b4e95d19b1711",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_312624.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 8611
+    },
+    {
+      "path": "scripts/scrollable_loose_piece_rail_canvas.gdc",
+      "offset": 15623008,
+      "bytes": 8432,
+      "md5": "d7074ab924a307e06af8051725d4f9db",
+      "flags": 0,
+      "source": "scripts/scrollable_loose_piece_rail_canvas.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8431
+    },
+    {
+      "path": ".godot/imported/met_478746.jpg-338d12f2fbca1797ae9251bbe3bf4c19.ctex",
+      "offset": 10240864,
+      "bytes": 8410,
+      "md5": "fa11978e482859f992a281fa654c6c09",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_478746.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 8433
+    },
+    {
+      "path": "scripts/cut_pattern_validator.gdc",
+      "offset": 15348432,
+      "bytes": 8200,
+      "md5": "91bb12033d1fad56d2a6c1b5e9d29d05",
+      "flags": 0,
+      "source": "scripts/cut_pattern_validator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8097
+    },
+    {
+      "path": ".godot/imported/met_191566.jpg-e974facb1fa7b850d0ba5afec6f5cc77.ctex",
+      "offset": 9958000,
+      "bytes": 8086,
+      "md5": "f62af9f9bcabaada8a6a83cce3e86858",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_191566.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 8109
+    },
+    {
+      "path": "scripts/multi_slot_chaos_order_spatial_main.gdc",
+      "offset": 15477760,
+      "bytes": 8003,
+      "md5": "a7ce9a8f1331225da447d618880ca1f6",
+      "flags": 0,
+      "source": "scripts/multi_slot_chaos_order_spatial_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 7935
+    },
+    {
+      "path": "scripts/chaos_order_layout_dock_ui.gdc",
+      "offset": 15164416,
+      "bytes": 7999,
+      "md5": "8e865d2b03ab92f9af5127488bb73bb1",
+      "flags": 0,
+      "source": "scripts/chaos_order_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 8022
+    },
+    {
+      "path": "scripts/robust_multi_slot_save_coordinator.gdc",
+      "offset": 15599040,
+      "bytes": 7798,
+      "md5": "bf4adb2c724b182cb6bf2b8c26cfbbdd",
+      "flags": 0,
+      "source": "scripts/robust_multi_slot_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 7804
+    },
+    {
+      "path": "cut_patterns/Classic_012_A.json",
+      "offset": 10659968,
+      "bytes": 7432,
+      "md5": "f44f133651e391bdeacb7f5737bdb39c",
+      "flags": 0,
+      "source": "cut_patterns/Classic_012_A.json",
+      "category": "cut patterns",
+      "calculated_gzip_bytes": 2979
+    },
+    {
+      "path": "scripts/completion_event_save_coordinator.gdc",
+      "offset": 15271808,
+      "bytes": 7311,
+      "md5": "0ded573900947337b67543dca6a467bd",
+      "flags": 0,
+      "source": "scripts/completion_event_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 7334
+    },
+    {
+      "path": ".godot/imported/watercolor-gameplay-icons.svg-6a73a01b25caebcfce4e57b312d29197.ctex",
+      "offset": 10448720,
+      "bytes": 7200,
+      "md5": "595d7dcdc9d49d30f455cb8025013150",
+      "flags": 0,
+      "source": "assets/ui/watercolor-gameplay-icons.svg",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 7223
+    },
+    {
+      "path": "scripts/cut_pattern_asset.gdc",
+      "offset": 15305552,
+      "bytes": 6812,
+      "md5": "b22be0da3f0df4d8acd10550663779da",
+      "flags": 0,
+      "source": "scripts/cut_pattern_asset.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6788
+    },
+    {
+      "path": "scripts/watercolor_gameplay_style.gdc",
+      "offset": 10457984,
+      "bytes": 6728,
+      "md5": "b7faf8add580cc329ae861c5c7deb73f",
+      "flags": 0,
+      "source": "scripts/watercolor_gameplay_style.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6713
+    },
+    {
+      "path": "scripts/puzzle_journal_store.gdc",
+      "offset": 15542416,
+      "bytes": 6658,
+      "md5": "40f188051ec36ce399a6b812b843ca7a",
+      "flags": 0,
+      "source": "scripts/puzzle_journal_store.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6681
+    },
+    {
+      "path": "scripts/watercolor_sorting_workspace.gdc",
+      "offset": 10509856,
+      "bytes": 6540,
+      "md5": "01823f98c1949c0f4a2337f2277a813a",
+      "flags": 0,
+      "source": "scripts/watercolor_sorting_workspace.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6509
+    },
+    {
+      "path": "scripts/chaos_order_pile_policy.gdc",
+      "offset": 15191136,
+      "bytes": 6509,
+      "md5": "529fbf6e6da896050d923dd42425c0df",
+      "flags": 0,
+      "source": "scripts/chaos_order_pile_policy.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6532
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v16.gdc",
+      "offset": 15342112,
+      "bytes": 6309,
+      "md5": "7f9a08742e60c708b9e236ef7a754ae4",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v16.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6216
+    },
+    {
+      "path": "scripts/monetization_main.gdc",
+      "offset": 15464656,
+      "bytes": 6299,
+      "md5": "5b0ace536615397dbb5434c797cd7726",
+      "flags": 0,
+      "source": "scripts/monetization_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6320
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v14.gdc",
+      "offset": 15328592,
+      "bytes": 6296,
+      "md5": "8c342b50ad4f5315cc06b66376eb7a77",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v14.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6282
+    },
+    {
+      "path": "scripts/puzzle_camera_controller.gdc",
+      "offset": 15517664,
+      "bytes": 6294,
+      "md5": "c5aa55291398e883d44b19d0479ab132",
+      "flags": 0,
+      "source": "scripts/puzzle_camera_controller.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6305
+    },
+    {
+      "path": "scripts/puzzle_me_main.gdc",
+      "offset": 15558560,
+      "bytes": 6229,
+      "md5": "3ac777728ccb2c62678cd4721c97f026",
+      "flags": 0,
+      "source": "scripts/puzzle_me_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6252
+    },
+    {
+      "path": "scripts/main_icon_ui.gdc",
+      "offset": 15458448,
+      "bytes": 6198,
+      "md5": "82c3a322fed8a89d87bc15c03a29a146",
+      "flags": 0,
+      "source": "scripts/main_icon_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6198
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v15.gdc",
+      "offset": 15335904,
+      "bytes": 6197,
+      "md5": "925a840ce74ab9102bd5926456b4ac43",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v15.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 6156
+    },
+    {
+      "path": ".godot/imported/met_478425.jpg-05648beeecaab88a4dc9106b6b88249a.ctex",
+      "offset": 10234704,
+      "bytes": 5944,
+      "md5": "f81ca298e2218e26c977d5c32930003d",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_478425.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 5967
+    },
+    {
+      "path": ".godot/imported/met_21209.jpg-ae151eac24fe1413f137b89da45da11d.ctex",
+      "offset": 9903952,
+      "bytes": 5882,
+      "md5": "c88b86c2688d4c010d3cdffd0b956d9f",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_21209.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 5905
+    },
+    {
+      "path": ".godot/imported/met_286248.jpg-9b7c7b8db9eff615baad6fefd3425ceb.ctex",
+      "offset": 10055216,
+      "bytes": 5866,
+      "md5": "717d03c21a06ba43a941a7f7753428b6",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_286248.jpg",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 5889
+    },
+    {
+      "path": "scripts/puzzle_me_store.gdc",
+      "offset": 15566592,
+      "bytes": 5849,
+      "md5": "00ea6efbbc15bf251f20c60bb528eb00",
+      "flags": 0,
+      "source": "scripts/puzzle_me_store.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5863
+    },
+    {
+      "path": "scripts/monetization_service.gdc",
+      "offset": 15471920,
+      "bytes": 5828,
+      "md5": "8c0458203e48a3006bdbeb92d5c5cb0c",
+      "flags": 0,
+      "source": "scripts/monetization_service.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5803
+    },
+    {
+      "path": "scripts/puzzle_me_gallery_board.gdc",
+      "offset": 15553088,
+      "bytes": 5461,
+      "md5": "bd232098c1cad2467f457d1d275cc97b",
+      "flags": 0,
+      "source": "scripts/puzzle_me_gallery_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5470
+    },
+    {
+      "path": "scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gdc",
+      "offset": 15523968,
+      "bytes": 5445,
+      "md5": "b7494bf807cb8f4f4290ada1a6dd4ca6",
+      "flags": 0,
+      "source": "scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5462
+    },
+    {
+      "path": "scripts/gallery_puzzle_catalog_board.gdc",
+      "offset": 15377680,
+      "bytes": 5382,
+      "md5": "b8b13c64031736f6b323042f5151da24",
+      "flags": 0,
+      "source": "scripts/gallery_puzzle_catalog_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5344
+    },
+    {
+      "path": "scripts/puzzle_piece_visual_factory.gdc",
+      "offset": 15580416,
+      "bytes": 5069,
+      "md5": "82289260204dbb17b6d9dd75e78efe6e",
+      "flags": 0,
+      "source": "scripts/puzzle_piece_visual_factory.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5086
+    },
+    {
+      "path": "scripts/chaos_order_spatial_puzzle_board.gdc",
+      "offset": 15203680,
+      "bytes": 5056,
+      "md5": "6a667c52c359a4b0606fe1fe834b408d",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 5033
+    },
+    {
+      "path": "scripts/sorting_workspace_icon_ui.gdc",
+      "offset": 15664416,
+      "bytes": 4887,
+      "md5": "d287f27f126ff395a43534331b31c2d0",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_icon_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4904
+    },
+    {
+      "path": "scripts/sorting_workspace_floating_manager_ui.gdc",
+      "offset": 15659552,
+      "bytes": 4851,
+      "md5": "5f38a791c9717ef34153ef6157d81020",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_floating_manager_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4842
+    },
+    {
+      "path": ".godot/exported/133200997/export-ce24188ce3fe0fa29235db430553f9f1-catalog-ink-fallback.res",
+      "offset": 10434000,
+      "bytes": 4688,
+      "md5": "c826412ccb570b96b232271ebd5e6b0e",
+      "flags": 0,
+      "source": ".godot/exported/133200997/export-ce24188ce3fe0fa29235db430553f9f1-catalog-ink-fallback.res",
+      "category": "Godot generated metadata",
+      "calculated_gzip_bytes": 2496
+    },
+    {
+      "path": "content/tag_taxonomy_v1.json",
+      "offset": 10655312,
+      "bytes": 4644,
+      "md5": "27b9dbf30c25136d111655628c7d56f0",
+      "flags": 0,
+      "source": "content/tag_taxonomy_v1.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 1501
+    },
+    {
+      "path": "scripts/puzzle_piece.gdc",
+      "offset": 15572448,
+      "bytes": 4529,
+      "md5": "37000002628aa7fa9b66b2ee3853078b",
+      "flags": 0,
+      "source": "scripts/puzzle_piece.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4552
+    },
+    {
+      "path": "scripts/chaos_order_prewarm_layout_dock_ui.gdc",
+      "offset": 15197648,
+      "bytes": 4430,
+      "md5": "408eb2210bfb42b51ce25530d9920cb8",
+      "flags": 0,
+      "source": "scripts/chaos_order_prewarm_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4453
+    },
+    {
+      "path": "assets/ui/CATALOG-INK-FONT-LICENSE.txt",
+      "offset": 10500144,
+      "bytes": 4388,
+      "md5": "9e6561baca2756628871baf0c1e23539",
+      "flags": 0,
+      "source": "assets/ui/CATALOG-INK-FONT-LICENSE.txt",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 1958
+    },
+    {
+      "path": "scripts/tray_reflow_play_canvas.gdc",
+      "offset": 10476832,
+      "bytes": 4258,
+      "md5": "610b1c63e112f9f23bf3ce7c7bd3f440",
+      "flags": 0,
+      "source": "scripts/tray_reflow_play_canvas.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4281
+    },
+    {
+      "path": "content/catalog_identity_v1.json",
+      "offset": 112,
+      "bytes": 4194,
+      "md5": "6f5bff31e34134b57611e31a3103713c",
+      "flags": 0,
+      "source": "content/catalog_identity_v1.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 1646
+    },
+    {
+      "path": "scripts/puzzle_layout_resolver.gdc",
+      "offset": 15549088,
+      "bytes": 3998,
+      "md5": "2d1f4cdf73551c9b592b9d24247f6dd2",
+      "flags": 0,
+      "source": "scripts/puzzle_layout_resolver.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 4021
+    },
+    {
+      "path": "scripts/completion_share_card_contain_main.gdc",
+      "offset": 15281008,
+      "bytes": 3568,
+      "md5": "d192b3041413f35b1b8847b29ec2f1a9",
+      "flags": 0,
+      "source": "scripts/completion_share_card_contain_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3591
+    },
+    {
+      "path": "scripts/analytics_event_contract.gdc",
+      "offset": 15140720,
+      "bytes": 3555,
+      "md5": "fb6ebd592cdcedf1877baf3080c08b23",
+      "flags": 0,
+      "source": "scripts/analytics_event_contract.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3578
+    },
+    {
+      "path": "scripts/puzzle_piece_edge_relief.gdshader",
+      "offset": 15576992,
+      "bytes": 3423,
+      "md5": "a89d4afefacf12f3d14e3b3567939aba",
+      "flags": 0,
+      "source": "scripts/puzzle_piece_edge_relief.gdshader",
+      "category": "shaders",
+      "calculated_gzip_bytes": 1607
+    },
+    {
+      "path": "scripts/sorting_workspace_state.gdc",
+      "offset": 15683680,
+      "bytes": 3387,
+      "md5": "51051f058ef5d6eb3c3d5a388fd7e030",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_state.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3410
+    },
+    {
+      "path": "scripts/gallery_state_store.gdc",
+      "offset": 15383072,
+      "bytes": 3227,
+      "md5": "15414eef4b2e725488bc68e36dee7975",
+      "flags": 0,
+      "source": "scripts/gallery_state_store.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3250
+    },
+    {
+      "path": "scripts/cluster_safe_chaos_order_spatial_layout_dock_ui.gdc",
+      "offset": 15211584,
+      "bytes": 3179,
+      "md5": "0f7ab12b342ceba9320678600441ea00",
+      "flags": 0,
+      "source": "scripts/cluster_safe_chaos_order_spatial_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3202
+    },
+    {
+      "path": "scripts/runtime_puzzle_board_multiselect.gdc",
+      "offset": 15617968,
+      "bytes": 3172,
+      "md5": "157671d2c7a1bf6cd525ef4317ad4154",
+      "flags": 0,
+      "source": "scripts/runtime_puzzle_board_multiselect.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3195
+    },
+    {
+      "path": "scripts/app_ui_metrics.gdc",
+      "offset": 15158944,
+      "bytes": 3147,
+      "md5": "20a02e796cf42efe79035ff6dd508f0e",
+      "flags": 0,
+      "source": "scripts/app_ui_metrics.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 3170
+    },
+    {
+      "path": "scripts/chaos_order_stress_puzzle_board.gdc",
+      "offset": 15208736,
+      "bytes": 2847,
+      "md5": "03669db1663821a0d220dc34c120565c",
+      "flags": 0,
+      "source": "scripts/chaos_order_stress_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2870
+    },
+    {
+      "path": "scripts/tray_reflow_single_slot_save_coordinator.gdc",
+      "offset": 10505936,
+      "bytes": 2767,
+      "md5": "330ba55741b97e2004fc36369c9dd31a",
+      "flags": 0,
+      "source": "scripts/tray_reflow_single_slot_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2790
+    },
+    {
+      "path": "scripts/startup_gated_gallery_main.gdc",
+      "offset": 15687072,
+      "bytes": 2753,
+      "md5": "8c5dd3c918b12f5e0196470b43c349cb",
+      "flags": 0,
+      "source": "scripts/startup_gated_gallery_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2776
+    },
+    {
+      "path": "licenses/ANDROID-RUNTIME-INVENTORY.json",
+      "offset": 14901520,
+      "bytes": 2725,
+      "md5": "2825e91a7a8c50b14f9045ab546fd5d5",
+      "flags": 0,
+      "source": "licenses/ANDROID-RUNTIME-INVENTORY.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 974
+    },
+    {
+      "path": "scripts/durable_content_save_coordinator.gdc",
+      "offset": 15358160,
+      "bytes": 2679,
+      "md5": "8cde2bab2f9f78dd5f580f9d6e4cde0b",
+      "flags": 0,
+      "source": "scripts/durable_content_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2702
+    },
+    {
+      "path": "scripts/orientation_safe_single_slot_save_coordinator.gdc",
+      "offset": 15505248,
+      "bytes": 2475,
+      "md5": "d8ccfc3cd2f7a64a1a07954c6586508f",
+      "flags": 0,
+      "source": "scripts/orientation_safe_single_slot_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2498
+    },
+    {
+      "path": "scripts/touch_priority_puzzle_camera_controller.gdc",
+      "offset": 15722352,
+      "bytes": 2468,
+      "md5": "100b7ee551a69f2cd7eb11b230b119f6",
+      "flags": 0,
+      "source": "scripts/touch_priority_puzzle_camera_controller.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2491
+    },
+    {
+      "path": "scripts/touch_priority_puzzle_me_gallery_board.gdc",
+      "offset": 15724832,
+      "bytes": 2432,
+      "md5": "3b91cbd4356df8f73636563c2092a9b8",
+      "flags": 0,
+      "source": "scripts/touch_priority_puzzle_me_gallery_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2455
+    },
+    {
+      "path": "scripts/image_aware_puzzle_catalog_save_coordinator.gdc",
+      "offset": 15395104,
+      "bytes": 2393,
+      "md5": "c4c561142d06d01980b4ae532359c709",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_catalog_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2416
+    },
+    {
+      "path": "poki/profile.json",
+      "offset": 15136496,
+      "bytes": 2391,
+      "md5": "c9cd8e0f9cba848925956d8e30868dbb",
+      "flags": 0,
+      "source": "poki/profile.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 729
+    },
+    {
+      "path": "scripts/ui_icon_catalog.gdc",
+      "offset": 10516400,
+      "bytes": 2357,
+      "md5": "3627a8e062140d644e6da3c11d930d40",
+      "flags": 0,
+      "source": "scripts/ui_icon_catalog.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2380
+    },
+    {
+      "path": "scripts/image_aware_puzzle_selection_main.gdc",
+      "offset": 15397504,
+      "bytes": 2318,
+      "md5": "348f6d2ea7667a2c6ad1897b45d90896",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_selection_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2341
+    },
+    {
+      "path": "content/source_providers_v1.json",
+      "offset": 10653136,
+      "bytes": 2166,
+      "md5": "07275e1d9ab1ebf6d28f325a5e93dde9",
+      "flags": 0,
+      "source": "content/source_providers_v1.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 865
+    },
+    {
+      "path": "scripts/timelapse_trace_v1.gdc",
+      "offset": 15707168,
+      "bytes": 2144,
+      "md5": "38d5a5a6fc873a229cd4856679120bb6",
+      "flags": 0,
+      "source": "scripts/timelapse_trace_v1.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2167
+    },
+    {
+      "path": "scripts/completion_event_puzzle_board.gdc",
+      "offset": 15269712,
+      "bytes": 2094,
+      "md5": "e2f3dd744684f94a4635f423c86b5552",
+      "flags": 0,
+      "source": "scripts/completion_event_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 2117
+    },
+    {
+      "path": "licenses/NOTICE.txt",
+      "offset": 10474912,
+      "bytes": 1912,
+      "md5": "c7eed31bc876b7ed9403dca82670a40e",
+      "flags": 0,
+      "source": "licenses/NOTICE.txt",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 1042
+    },
+    {
+      "path": "scripts/puzzle_definition.gdc",
+      "offset": 15531312,
+      "bytes": 1908,
+      "md5": "71d810079d7282025dd5d1e81103cb9e",
+      "flags": 0,
+      "source": "scripts/puzzle_definition.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1931
+    },
+    {
+      "path": "scripts/puzzle_catalog_save_coordinator.gdc",
+      "offset": 15529424,
+      "bytes": 1884,
+      "md5": "5e360230054a98e231eff1baf343c452",
+      "flags": 0,
+      "source": "scripts/puzzle_catalog_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1907
+    },
+    {
+      "path": "scripts/completion_record_v1.gdc",
+      "offset": 15279120,
+      "bytes": 1875,
+      "md5": "899b5157da40e0f89cd6335e567dcf1c",
+      "flags": 0,
+      "source": "scripts/completion_record_v1.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1898
+    },
+    {
+      "path": "cut_patterns/schema_v1.json",
+      "offset": 14899648,
+      "bytes": 1857,
+      "md5": "cd38e69fcd9343825385a05b150b00e7",
+      "flags": 0,
+      "source": "cut_patterns/schema_v1.json",
+      "category": "cut patterns",
+      "calculated_gzip_bytes": 587
+    },
+    {
+      "path": "poki/themes.json",
+      "offset": 15138896,
+      "bytes": 1815,
+      "md5": "3a1325e4e95e582e864a49a089bfe667",
+      "flags": 0,
+      "source": "poki/themes.json",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 425
+    },
+    {
+      "path": "scripts/puzzle_me_responsive_main.gdc",
+      "offset": 15564800,
+      "bytes": 1788,
+      "md5": "65a8de9fb4c5748c6c5e31ebb1adb0c5",
+      "flags": 0,
+      "source": "scripts/puzzle_me_responsive_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1811
+    },
+    {
+      "path": "poki/runtime/poki_board.gdc",
+      "offset": 15060176,
+      "bytes": 1778,
+      "md5": "4350c0eebc52fe2d7de95b93511d86e3",
+      "flags": 0,
+      "source": "poki/runtime/poki_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1801
+    },
+    {
+      "path": "scripts/analytics_service.gdc",
+      "offset": 15155904,
+      "bytes": 1756,
+      "md5": "c5d39d1a792bd780f7f6b4aef3ae25eb",
+      "flags": 0,
+      "source": "scripts/analytics_service.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1779
+    },
+    {
+      "path": "scripts/timelapse_replay_plan.gdc",
+      "offset": 15703648,
+      "bytes": 1755,
+      "md5": "a89a33975e3ad25214c0cc0a64a9ad57",
+      "flags": 0,
+      "source": "scripts/timelapse_replay_plan.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1778
+    },
+    {
+      "path": "scripts/timelapse_sorting_workspace.gdc",
+      "offset": 15705408,
+      "bytes": 1754,
+      "md5": "0fdb7e1d798fbc8c585ac5867eedafee",
+      "flags": 0,
+      "source": "scripts/timelapse_sorting_workspace.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1777
+    },
+    {
+      "path": "scripts/responsive_workspace_layout.gdc",
+      "offset": 15596032,
+      "bytes": 1660,
+      "md5": "909fd0d622cf53df35e605f339a5c307",
+      "flags": 0,
+      "source": "scripts/responsive_workspace_layout.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1683
+    },
+    {
+      "path": "scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gdc",
+      "offset": 17168,
+      "bytes": 1657,
+      "md5": "00c0cd3ab93dcda5857838c7ad4b5a54",
+      "flags": 0,
+      "source": "scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1680
+    },
+    {
+      "path": "scripts/content_identity_chaos_order_stress_puzzle_board.gdc",
+      "offset": 15304000,
+      "bytes": 1541,
+      "md5": "14550ccbc8017a9e532071f276fbb851",
+      "flags": 0,
+      "source": "scripts/content_identity_chaos_order_stress_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1564
+    },
+    {
+      "path": "scripts/runtime_difficulty_catalog.gdc",
+      "offset": 15606848,
+      "bytes": 1541,
+      "md5": "a5ee0420713caa0730d4b9e5d9155055",
+      "flags": 0,
+      "source": "scripts/runtime_difficulty_catalog.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1564
+    },
+    {
+      "path": "scripts/draggable_reference_panel.gdc",
+      "offset": 15356640,
+      "bytes": 1520,
+      "md5": "fd9681f12d6476e517ec262abf52d633",
+      "flags": 0,
+      "source": "scripts/draggable_reference_panel.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1543
+    },
+    {
+      "path": "project.binary",
+      "offset": 15760528,
+      "bytes": 1518,
+      "md5": "f6301fe9554d81564aea5540a26bc069",
+      "flags": 0,
+      "source": "project.binary",
+      "category": "other / project binary",
+      "calculated_gzip_bytes": 638
+    },
+    {
+      "path": "scripts/sorting_workspace_management_state.gdc",
+      "offset": 15669312,
+      "bytes": 1458,
+      "md5": "1bea232a9465455ab2c42a40b00fe26f",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_management_state.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1481
+    },
+    {
+      "path": ".godot/exported/133200997/export-78baabed7df3093f207154ef40e3e72f-main.scn",
+      "offset": 15135072,
+      "bytes": 1420,
+      "md5": "5a4240fa1a1c7a92779a40b97f30484f",
+      "flags": 0,
+      "source": ".godot/exported/133200997/export-78baabed7df3093f207154ef40e3e72f-main.scn",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 648
+    },
+    {
+      "path": "assets/ui/ALBUM-FONT-LICENSE.txt",
+      "offset": 10504544,
+      "bytes": 1377,
+      "md5": "17fe9736932bce1bde9c05df6a0d0b93",
+      "flags": 0,
+      "source": "assets/ui/ALBUM-FONT-LICENSE.txt",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 688
+    },
+    {
+      "path": "scripts/timelapse_completion_event_save_coordinator.gdc",
+      "offset": 15689840,
+      "bytes": 1352,
+      "md5": "829ad7c7745a6778f41b1cca0ee5634e",
+      "flags": 0,
+      "source": "scripts/timelapse_completion_event_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1375
+    },
+    {
+      "path": "scripts/resume_reuse_gallery_puzzle_board.gdc",
+      "offset": 15597696,
+      "bytes": 1344,
+      "md5": "45da03e4a1baed4e7fbdb941b095d174",
+      "flags": 0,
+      "source": "scripts/resume_reuse_gallery_puzzle_board.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1367
+    },
+    {
+      "path": "scripts/board_cut_lines_overlay.gdc",
+      "offset": 15162096,
+      "bytes": 1295,
+      "md5": "41a0568ddf9aaaf8405521267e8fdcb6",
+      "flags": 0,
+      "source": "scripts/board_cut_lines_overlay.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1318
+    },
+    {
+      "path": "scripts/analytics_sorting_workspace.gdc",
+      "offset": 15157664,
+      "bytes": 1271,
+      "md5": "39aabc0a9461628a97ebb548089668f5",
+      "flags": 0,
+      "source": "scripts/analytics_sorting_workspace.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1294
+    },
+    {
+      "path": "licenses/GODOT-LICENSE.txt",
+      "offset": 10508704,
+      "bytes": 1149,
+      "md5": "429628d6598a258acb0c2524e08a3036",
+      "flags": 0,
+      "source": "licenses/GODOT-LICENSE.txt",
+      "category": "metadata / notices",
+      "calculated_gzip_bytes": 700
+    },
+    {
+      "path": "poki/runtime/poki_save_coordinator.gdc",
+      "offset": 15075136,
+      "bytes": 1108,
+      "md5": "83b686bdfd74c7609154da0b0862119b",
+      "flags": 0,
+      "source": "poki/runtime/poki_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1131
+    },
+    {
+      "path": "scripts/runtime_snap_policy.gdc",
+      "offset": 15621904,
+      "bytes": 1095,
+      "md5": "d5a736ff811e03bc5e1c461038f1ff4b",
+      "flags": 0,
+      "source": "scripts/runtime_snap_policy.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1118
+    },
+    {
+      "path": "assets/ui/watercolor-paper.gdshader",
+      "offset": 10456144,
+      "bytes": 1086,
+      "md5": "777b820a804df2c17a550ae5d1dc5c49",
+      "flags": 0,
+      "source": "assets/ui/watercolor-paper.gdshader",
+      "category": "shaders",
+      "calculated_gzip_bytes": 573
+    },
+    {
+      "path": "scripts/completion_event_main.gdc",
+      "offset": 15268672,
+      "bytes": 1025,
+      "md5": "7ce2664ab540bc94e972c2dfa5061d19",
+      "flags": 0,
+      "source": "scripts/completion_event_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1048
+    },
+    {
+      "path": "scripts/catalog_content_identity.gdc",
+      "offset": 15163392,
+      "bytes": 1014,
+      "md5": "20a82502b18267b8f2a1a8b21f07864d",
+      "flags": 0,
+      "source": "scripts/catalog_content_identity.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1037
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v14_cached.gdc",
+      "offset": 15334896,
+      "bytes": 1002,
+      "md5": "972a067bad30cd8f5afc8fc9a4d84a4e",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v14_cached.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 1025
+    },
+    {
+      "path": "scripts/monetization_provider.gdc",
+      "offset": 15470960,
+      "bytes": 951,
+      "md5": "dc5f0cf541ba9cb2c66af72a20e4f0e4",
+      "flags": 0,
+      "source": "scripts/monetization_provider.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 974
+    },
+    {
+      "path": "scripts/chaos_order_spatial_layout_dock_ui.gdc",
+      "offset": 15202080,
+      "bytes": 803,
+      "md5": "059675a816a9f965bbbe88a73410ae06",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_layout_dock_ui.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 826
+    },
+    {
+      "path": "scripts/chaos_order_spatial_main.gdc",
+      "offset": 15202896,
+      "bytes": 783,
+      "md5": "d2517c021aeb486779f5294b2d5dc7f4",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_main.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 806
+    },
+    {
+      "path": "scripts/runtime_reshuffle_policy.gdc",
+      "offset": 15621152,
+      "bytes": 740,
+      "md5": "b37ad208b571026f516ef9f7a91bf65e",
+      "flags": 0,
+      "source": "scripts/runtime_reshuffle_policy.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 763
+    },
+    {
+      "path": "scripts/analytics_save_coordinator.gdc",
+      "offset": 15155360,
+      "bytes": 536,
+      "md5": "6d8c8c102cca443336dde9d7c47967f4",
+      "flags": 0,
+      "source": "scripts/analytics_save_coordinator.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 559
+    },
+    {
+      "path": "poki/runtime/poki_difficulty_catalog.gdc",
+      "offset": 15061968,
+      "bytes": 491,
+      "md5": "8482e729323ea4457b56aa4be70e0549",
+      "flags": 0,
+      "source": "poki/runtime/poki_difficulty_catalog.gdc",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 514
+    },
+    {
+      "path": "assets/ui/watercolor-rule.gdshader",
+      "offset": 10457232,
+      "bytes": 407,
+      "md5": "9b50fe08f393f408d4dd9035d9a6ee74",
+      "flags": 0,
+      "source": "assets/ui/watercolor-rule.gdshader",
+      "category": "shaders",
+      "calculated_gzip_bytes": 302
+    },
+    {
+      "path": "assets/ui/watercolor-gameplay-icons.svg.import",
+      "offset": 10455920,
+      "bytes": 214,
+      "md5": "71386a79e3dd5d13cb07bafe2ba85408",
+      "flags": 0,
+      "source": "assets/ui/watercolor-gameplay-icons.svg.import",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 195
+    },
+    {
+      "path": "assets/demo_garden.svg.import",
+      "offset": 10457776,
+      "bytes": 199,
+      "md5": "5bd8aa3a3f3ba15b5d889e2ea2453d83",
+      "flags": 0,
+      "source": "assets/demo_garden.svg.import",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191566.jpg.import",
+      "offset": 3156896,
+      "bytes": 199,
+      "md5": "ee928e5b83f185d6bd64c86326cce7fa",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_191566.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_191567.jpg.import",
+      "offset": 3239152,
+      "bytes": 199,
+      "md5": "b39bb330d8d09c3cb7b5d3d8ee36d524",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_191567.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_202696.jpg.import",
+      "offset": 3401968,
+      "bytes": 199,
+      "md5": "bd84f0850477470e80ce86032c7caf32",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_202696.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_215356.jpg.import",
+      "offset": 3730512,
+      "bytes": 199,
+      "md5": "e360a88c4850b8145ce4245593c4425a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_215356.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 184
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_221706.jpg.import",
+      "offset": 4051056,
+      "bytes": 199,
+      "md5": "d0b942c73d062197199bf5bd663eaff3",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_221706.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 183
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_226943.jpg.import",
+      "offset": 4664640,
+      "bytes": 199,
+      "md5": "0284670bbed33064340adf4ccf97e09e",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_226943.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 183
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_228950.jpg.import",
+      "offset": 4869712,
+      "bytes": 199,
+      "md5": "497a6fe42a532ec84a2acb1f5712bbdf",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_228950.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_286248.jpg.import",
+      "offset": 4974304,
+      "bytes": 199,
+      "md5": "b76f4ea4c7cfcd790a0245a53076898e",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_286248.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 183
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_312624.jpg.import",
+      "offset": 5059632,
+      "bytes": 199,
+      "md5": "d241c9af8c160a3308fb5f7c515582f0",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_312624.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_359362.jpg.import",
+      "offset": 5980656,
+      "bytes": 199,
+      "md5": "0099b6dfed0de504166f63988fd0d449",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_359362.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394310.jpg.import",
+      "offset": 6493600,
+      "bytes": 199,
+      "md5": "e7ee641321ca6f9ff117562bf8af53ea",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394310.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394709.jpg.import",
+      "offset": 6902016,
+      "bytes": 199,
+      "md5": "8c8ad66723d61844876e459a86f64c0a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394709.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399347.jpg.import",
+      "offset": 7509056,
+      "bytes": 199,
+      "md5": "1e7aa6720cd774adce6f8bd201a169ee",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_399347.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_399581.jpg.import",
+      "offset": 7808032,
+      "bytes": 199,
+      "md5": "301a42c788943b9a9eec535de2666b90",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_399581.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_436305.jpg.import",
+      "offset": 8006864,
+      "bytes": 199,
+      "md5": "f759ca62de15ce973ce990a9edd742e2",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_436305.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_438031.jpg.import",
+      "offset": 8678992,
+      "bytes": 199,
+      "md5": "4cf732c582ce7b1e2dd402a7491db547",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_438031.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478425.jpg.import",
+      "offset": 8768144,
+      "bytes": 199,
+      "md5": "7d149a02625911c0757ed16b0161497b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_478425.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_478746.jpg.import",
+      "offset": 8926352,
+      "bytes": 199,
+      "md5": "e6dfb5a3e25cd4c3b34f08ea3fbb330b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_478746.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 183
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_505626.jpg.import",
+      "offset": 9078896,
+      "bytes": 199,
+      "md5": "f44c460126e32a45e9d2955c5ab27a45",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_505626.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_764802.jpg.import",
+      "offset": 9458912,
+      "bytes": 199,
+      "md5": "3bdb8d1a33b78ebb7a809ef6dd71bd03",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_764802.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191566.jpg.import",
+      "offset": 9966096,
+      "bytes": 199,
+      "md5": "51f97ad8ae10ac07555c991090cc43eb",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_191566.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_215356.jpg.import",
+      "offset": 10003312,
+      "bytes": 199,
+      "md5": "2db69c65b8bbe471d7fafd8adddb6f48",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_215356.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_221706.jpg.import",
+      "offset": 10018640,
+      "bytes": 199,
+      "md5": "0c1f3050bcd7a7ff24859afd5cf8e613",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_221706.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_226943.jpg.import",
+      "offset": 10044288,
+      "bytes": 199,
+      "md5": "8584edb17f26753ab8898fd44b1be4a6",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_226943.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_286248.jpg.import",
+      "offset": 10061088,
+      "bytes": 199,
+      "md5": "aa84a8763120d05f5099afae11048974",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_286248.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_312624.jpg.import",
+      "offset": 10069888,
+      "bytes": 199,
+      "md5": "7b4360116b94ac8d098714fd2b222b14",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_312624.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_340070.jpg.import",
+      "offset": 10092192,
+      "bytes": 199,
+      "md5": "58fc1721d488e058a813d2acc53d0d37",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_340070.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_359362.jpg.import",
+      "offset": 10104784,
+      "bytes": 199,
+      "md5": "7ae8dd8048ef24f10cda89fab04a96be",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_359362.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394043.jpg.import",
+      "offset": 10126304,
+      "bytes": 199,
+      "md5": "403883075cba4642ce0a87ab05c660db",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394043.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394310.jpg.import",
+      "offset": 10141856,
+      "bytes": 199,
+      "md5": "76072e5099bf140133bf70a3091bbe1a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394310.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_394709.jpg.import",
+      "offset": 10159632,
+      "bytes": 199,
+      "md5": "64f72b000b518b79c7cfaa29256686e8",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_394709.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399581.jpg.import",
+      "offset": 10202128,
+      "bytes": 199,
+      "md5": "b847b032760ac0725f0e46c2d2916a07",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_399581.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_436305.jpg.import",
+      "offset": 10211936,
+      "bytes": 199,
+      "md5": "074be4678ac9a863ea1d44da11349038",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_436305.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_438031.jpg.import",
+      "offset": 10234496,
+      "bytes": 199,
+      "md5": "b57421dea21ecb6fb8bfc590919c58a5",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_438031.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478425.jpg.import",
+      "offset": 10240656,
+      "bytes": 199,
+      "md5": "e517c8dbfb3c1d85630a623f176bd8f0",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_478425.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_478746.jpg.import",
+      "offset": 10249280,
+      "bytes": 199,
+      "md5": "360b526f2b6930e6881a9c9420e5abd1",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_478746.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_505626.jpg.import",
+      "offset": 10261232,
+      "bytes": 199,
+      "md5": "022869e7de7efaafeca5448276af46eb",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_505626.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_728305.jpg.import",
+      "offset": 10272192,
+      "bytes": 199,
+      "md5": "76fd7fb018201affc1dcafb1fbb17dd3",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_728305.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 183
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_764802.jpg.import",
+      "offset": 10284992,
+      "bytes": 199,
+      "md5": "708d81da66d2eb00a6beda690e1af438",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_764802.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_898372.jpg.import",
+      "offset": 10294448,
+      "bytes": 199,
+      "md5": "70d9822dd11c3a1a5ebf0f567ac105c1",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_898372.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/ui/icon_atlas.svg.import",
+      "offset": 10448512,
+      "bytes": 199,
+      "md5": "7d531cc3819f93ccfd5a1911f0093669",
+      "flags": 0,
+      "source": "assets/ui/icon_atlas.svg.import",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10181.jpg.import",
+      "offset": 554720,
+      "bytes": 198,
+      "md5": "3210acdc635f6665eb56cb8d3c95920b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10181.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10189.jpg.import",
+      "offset": 1026464,
+      "bytes": 198,
+      "md5": "b0d7527932e0caf867d8b84307cfa857",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10189.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_10996.jpg.import",
+      "offset": 1562736,
+      "bytes": 198,
+      "md5": "c28443a974ccff8b48d8bd0ff02f0336",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_10996.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_21209.jpg.import",
+      "offset": 2014464,
+      "bytes": 198,
+      "md5": "bac6ac302ee946aac7e62164f8546d94",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_21209.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_335112.jpg.import",
+      "offset": 5378272,
+      "bytes": 198,
+      "md5": "1e722698aaaa5f204a6191701d35e75f",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_335112.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_340070.jpg.import",
+      "offset": 5655600,
+      "bytes": 198,
+      "md5": "317167dccdce685ac07a1ce35c6b83ff",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_340070.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_394043.jpg.import",
+      "offset": 6050576,
+      "bytes": 198,
+      "md5": "c70239956bc539d2dc4f9550fd73c01a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_394043.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54333.jpg.import",
+      "offset": 2434128,
+      "bytes": 198,
+      "md5": "51a197186c165c03639810d7263da623",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54333.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54988.jpg.import",
+      "offset": 3081360,
+      "bytes": 198,
+      "md5": "c2abaff867f308f8b925ff01b1402470",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54988.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_728305.jpg.import",
+      "offset": 9234736,
+      "bytes": 198,
+      "md5": "3628bd107e3721a7ca745d038d56f7c7",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_728305.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_898372.jpg.import",
+      "offset": 9791904,
+      "bytes": 198,
+      "md5": "3ee98cc7f887da097020efca3a227fcd",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_898372.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10181.jpg.import",
+      "offset": 9826704,
+      "bytes": 198,
+      "md5": "d640c5f75a2b3991c44d0fc5271829a4",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10181.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10189.jpg.import",
+      "offset": 9854432,
+      "bytes": 198,
+      "md5": "3b3933a7860f9904cad776c9611d7bdd",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10189.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_10996.jpg.import",
+      "offset": 9870976,
+      "bytes": 198,
+      "md5": "c9331b4ebb72666d1bc7f98187c2c8ce",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_10996.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_12802.jpg.import",
+      "offset": 9903744,
+      "bytes": 198,
+      "md5": "fcf010a251e5b8656732b5c5eef95e71",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_12802.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_191567.jpg.import",
+      "offset": 9975104,
+      "bytes": 198,
+      "md5": "3882908539c328ff9c8a478ad9ddfbda",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_191567.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_202696.jpg.import",
+      "offset": 9988704,
+      "bytes": 198,
+      "md5": "429982835ad197b9432c2f3f4188ed97",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_202696.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_21209.jpg.import",
+      "offset": 9909840,
+      "bytes": 198,
+      "md5": "deb205f0c0c64c8fdcc5e0b063594caf",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_21209.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_228950.jpg.import",
+      "offset": 10055008,
+      "bytes": 198,
+      "md5": "bc84185ef41ce3e138b1b3fd28c7c098",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_228950.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_335112.jpg.import",
+      "offset": 10080672,
+      "bytes": 198,
+      "md5": "d158e695fd4313906d66a8ed8196a2ec",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_335112.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_399347.jpg.import",
+      "offset": 10186384,
+      "bytes": 198,
+      "md5": "3a42c782dbb20c1fa14ae07f316c644b",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_399347.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 181
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54333.jpg.import",
+      "offset": 9922816,
+      "bytes": 198,
+      "md5": "2db3c56bc6103075523762d75f99cca9",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54333.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54988.jpg.import",
+      "offset": 9957792,
+      "bytes": 198,
+      "md5": "7dc7c5bc251ba9ef6e782e175e691510",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54988.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 184
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_11181.jpg.import",
+      "offset": 1635408,
+      "bytes": 197,
+      "md5": "21a914ee1a3e722a2c69df2627d42c68",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_11181.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_12802.jpg.import",
+      "offset": 1918880,
+      "bytes": 197,
+      "md5": "129ee7656992983845650eadd06843ae",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_12802.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_5410.jpg.import",
+      "offset": 108464,
+      "bytes": 197,
+      "md5": "5ce7ef45db1de8162d409740f9d1bb88",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_5410.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/puzzles/met_54393.jpg.import",
+      "offset": 2873088,
+      "bytes": 197,
+      "md5": "2507d5c586aa990b61dd9a2c9e223806",
+      "flags": 0,
+      "source": "assets/museum/met_v0/puzzles/met_54393.jpg.import",
+      "category": "full artwork (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_11181.jpg.import",
+      "offset": 9894128,
+      "bytes": 197,
+      "md5": "ed04cc6e407def48e1f7b3a5a830bce7",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_11181.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 182
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_54393.jpg.import",
+      "offset": 9948592,
+      "bytes": 197,
+      "md5": "12baf61d79fdff5e9f437767a25fb2b8",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_54393.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 179
+    },
+    {
+      "path": "assets/museum/met_v0/thumbs/met_5410.jpg.import",
+      "offset": 9800960,
+      "bytes": 196,
+      "md5": "e741544c9d61fe3236a546baa3a88a1a",
+      "flags": 0,
+      "source": "assets/museum/met_v0/thumbs/met_5410.jpg.import",
+      "category": "thumbnails (35 imported resources)",
+      "calculated_gzip_bytes": 180
+    },
+    {
+      "path": "assets/ui/album-serif-regular.otf.import",
+      "offset": 10433824,
+      "bytes": 176,
+      "md5": "b8f1207381b2c42f7d09a70517e5d2b1",
+      "flags": 0,
+      "source": "assets/ui/album-serif-regular.otf.import",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 166
+    },
+    {
+      "path": "assets/ui/album-serif-italic.otf.import",
+      "offset": 10365824,
+      "bytes": 175,
+      "md5": "1d3f438332246a59ee1be6b99dbc9f55",
+      "flags": 0,
+      "source": "assets/ui/album-serif-italic.otf.import",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 164
+    },
+    {
+      "path": ".godot/imported/demo_garden.svg-102b516b9209dc5c3a22ba9ff6cc9ad4.ctex",
+      "offset": 10457648,
+      "bytes": 124,
+      "md5": "2a8c90183989c101d6bd94a7e914e2c0",
+      "flags": 0,
+      "source": "assets/demo_garden.svg",
+      "category": "UI / plain-paper fallback",
+      "calculated_gzip_bytes": 110
+    },
+    {
+      "path": "assets/ui/catalog-ink-fallback.tres.remap",
+      "offset": 15727424,
+      "bytes": 113,
+      "md5": "660ccc64fc184039991102e60f3f2e86",
+      "flags": 0,
+      "source": "assets/ui/catalog-ink-fallback.tres.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 121
+    },
+    {
+      "path": "poki/main.tscn.remap",
+      "offset": 15728208,
+      "bytes": 97,
+      "md5": "f17f54fe20d6d9fbbcda5c4d40eb6502",
+      "flags": 0,
+      "source": "poki/main.tscn.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 107
+    },
+    {
+      "path": "scripts/content_identity_chaos_order_stress_puzzle_board.gd.remap",
+      "offset": 15730192,
+      "bytes": 83,
+      "md5": "73e434f49cdef8cabf7adbfbee5a7b66",
+      "flags": 0,
+      "source": "scripts/content_identity_chaos_order_stress_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 97
+    },
+    {
+      "path": "scripts/cluster_safe_chaos_order_spatial_layout_dock_ui.gd.remap",
+      "offset": 15729488,
+      "bytes": 82,
+      "md5": "1691d6e6268fc77a4a5fb82ba41246ea",
+      "flags": 0,
+      "source": "scripts/cluster_safe_chaos_order_spatial_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 95
+    },
+    {
+      "path": "scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gd.remap",
+      "offset": 15732288,
+      "bytes": 81,
+      "md5": "8a5403c7fff6f64f3f0340a532e2a469",
+      "flags": 0,
+      "source": "scripts/puzzle_catalog_chaos_order_stress_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 93
+    },
+    {
+      "path": "scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gd.remap",
+      "offset": 15727328,
+      "bytes": 81,
+      "md5": "16b908b5d598457d9796e0601d545179",
+      "flags": 0,
+      "source": "scripts/tray_reflow_chaos_order_spatial_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 95
+    },
+    {
+      "path": "scripts/orientation_safe_single_slot_save_coordinator.gd.remap",
+      "offset": 15732096,
+      "bytes": 80,
+      "md5": "0cd3e33135099cebebed82f68af56c94",
+      "flags": 0,
+      "source": "scripts/orientation_safe_single_slot_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 93
+    },
+    {
+      "path": "scripts/image_aware_puzzle_catalog_save_coordinator.gd.remap",
+      "offset": 15731168,
+      "bytes": 78,
+      "md5": "68f351ed9b7cee1d14a4bfc9e70f987b",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_catalog_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 94
+    },
+    {
+      "path": "scripts/timelapse_completion_event_save_coordinator.gd.remap",
+      "offset": 15734368,
+      "bytes": 78,
+      "md5": "4ecbce76a604190fe8cd374aeb72b07f",
+      "flags": 0,
+      "source": "scripts/timelapse_completion_event_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 92
+    },
+    {
+      "path": "scripts/tray_reflow_single_slot_save_coordinator.gd.remap",
+      "offset": 15727744,
+      "bytes": 75,
+      "md5": "7f34fd333183479cd2c57c2851e50092",
+      "flags": 0,
+      "source": "scripts/tray_reflow_single_slot_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 91
+    },
+    {
+      "path": "scripts/touch_priority_puzzle_camera_controller.gd.remap",
+      "offset": 15734768,
+      "bytes": 74,
+      "md5": "d347b4711f2d06584e61937dfb1fdc2f",
+      "flags": 0,
+      "source": "scripts/touch_priority_puzzle_camera_controller.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 91
+    },
+    {
+      "path": "scripts/touch_priority_puzzle_me_gallery_board.gd.remap",
+      "offset": 15734848,
+      "bytes": 73,
+      "md5": "4120e23f5efd2c00706b4706cb3d3e21",
+      "flags": 0,
+      "source": "scripts/touch_priority_puzzle_me_gallery_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 90
+    },
+    {
+      "path": "scripts/sorting_workspace_floating_manager_ui.gd.remap",
+      "offset": 15733936,
+      "bytes": 72,
+      "md5": "0303702d4ff45be2414543c9e7d27121",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_floating_manager_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 89
+    },
+    {
+      "path": "scripts/multi_slot_chaos_order_spatial_main.gd.remap",
+      "offset": 15731872,
+      "bytes": 70,
+      "md5": "7ea5e117bb9fe02fc71ad988694597a0",
+      "flags": 0,
+      "source": "scripts/multi_slot_chaos_order_spatial_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 87
+    },
+    {
+      "path": "scripts/native_mobile_monetization_provider.gd.remap",
+      "offset": 15732016,
+      "bytes": 70,
+      "md5": "c8ad8632217a41839537dffc289dd813",
+      "flags": 0,
+      "source": "scripts/native_mobile_monetization_provider.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/chaos_order_prewarm_layout_dock_ui.gd.remap",
+      "offset": 15729104,
+      "bytes": 69,
+      "md5": "60d9c7da3e90ba99360e309eb28e0ed3",
+      "flags": 0,
+      "source": "scripts/chaos_order_prewarm_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 87
+    },
+    {
+      "path": "scripts/chaos_order_spatial_layout_dock_ui.gd.remap",
+      "offset": 15729184,
+      "bytes": 69,
+      "md5": "81164f571215c31be32f6ddbe58f3bfa",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 88
+    },
+    {
+      "path": "scripts/completion_share_card_contain_main.gd.remap",
+      "offset": 15729984,
+      "bytes": 69,
+      "md5": "ecf2a58e85347e27b712be55bd3f4399",
+      "flags": 0,
+      "source": "scripts/completion_share_card_contain_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/robust_multi_slot_save_coordinator.gd.remap",
+      "offset": 15733312,
+      "bytes": 69,
+      "md5": "aedccea2e9e75cf780bd53a9aa718ba0",
+      "flags": 0,
+      "source": "scripts/robust_multi_slot_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/scrollable_loose_piece_rail_canvas.gd.remap",
+      "offset": 15733728,
+      "bytes": 69,
+      "md5": "eb934290df292a5f358942f7b369f405",
+      "flags": 0,
+      "source": "scripts/scrollable_loose_piece_rail_canvas.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 85
+    },
+    {
+      "path": "scripts/sorting_workspace_management_state.gd.remap",
+      "offset": 15734080,
+      "bytes": 69,
+      "md5": "5b75ca5f7dfa957c16b18692e2a83d76",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_management_state.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/chaos_order_optimized_rail_canvas.gd.remap",
+      "offset": 15728960,
+      "bytes": 68,
+      "md5": "3902df54c5100ba2a570ba566e1546d6",
+      "flags": 0,
+      "source": "scripts/chaos_order_optimized_rail_canvas.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/completion_event_save_coordinator.gd.remap",
+      "offset": 15729840,
+      "bytes": 68,
+      "md5": "d2af04d490ccf7e150b7abdcf553261c",
+      "flags": 0,
+      "source": "scripts/completion_event_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 85
+    },
+    {
+      "path": "scripts/image_aware_puzzle_selection_main.gd.remap",
+      "offset": 15731248,
+      "bytes": 68,
+      "md5": "52a81cdddaaef8a3a636beef8334ff06",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_selection_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 87
+    },
+    {
+      "path": "scripts/resume_reuse_gallery_puzzle_board.gd.remap",
+      "offset": 15733232,
+      "bytes": 68,
+      "md5": "69b973778bc595999fce68c26b2ffd85",
+      "flags": 0,
+      "source": "scripts/resume_reuse_gallery_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/chaos_order_spatial_puzzle_board.gd.remap",
+      "offset": 15729328,
+      "bytes": 67,
+      "md5": "5150552378688a61ca8842d29e3c1fb4",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v14_cached.gd.remap",
+      "offset": 15730480,
+      "bytes": 67,
+      "md5": "6521582abebee22039c66f59aaf94496",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v14_cached.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/durable_content_save_coordinator.gd.remap",
+      "offset": 15730816,
+      "bytes": 67,
+      "md5": "793f00d649aca3ba2a7db8405b3805f0",
+      "flags": 0,
+      "source": "scripts/durable_content_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 84
+    },
+    {
+      "path": "scripts/image_aware_puzzle_catalog_board.gd.remap",
+      "offset": 15731088,
+      "bytes": 67,
+      "md5": "c6d433e106b08108761dbf58e820b04d",
+      "flags": 0,
+      "source": "scripts/image_aware_puzzle_catalog_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 87
+    },
+    {
+      "path": "scripts/puzzle_selection_multi_slot_main.gd.remap",
+      "offset": 15733088,
+      "bytes": 67,
+      "md5": "306a7abf5e72ea81fcc7a84084423673",
+      "flags": 0,
+      "source": "scripts/puzzle_selection_multi_slot_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 86
+    },
+    {
+      "path": "scripts/runtime_puzzle_board_multiselect.gd.remap",
+      "offset": 15733520,
+      "bytes": 67,
+      "md5": "416c135c3bd47c74781db96dcc81d42c",
+      "flags": 0,
+      "source": "scripts/runtime_puzzle_board_multiselect.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 87
+    },
+    {
+      "path": "scripts/chaos_order_stress_puzzle_board.gd.remap",
+      "offset": 15729408,
+      "bytes": 66,
+      "md5": "5be8534883be8100ac65c8b70008faec",
+      "flags": 0,
+      "source": "scripts/chaos_order_stress_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 85
+    },
+    {
+      "path": "scripts/puzzle_catalog_save_coordinator.gd.remap",
+      "offset": 15732384,
+      "bytes": 66,
+      "md5": "fd6efed790ccb6b2a970dfdc5b769110",
+      "flags": 0,
+      "source": "scripts/puzzle_catalog_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 84
+    },
+    {
+      "path": "scripts/sorting_workspace_management_ui.gd.remap",
+      "offset": 15734160,
+      "bytes": 66,
+      "md5": "7e9b0b9539ce8fbf02d5ee466c8437cb",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_management_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 85
+    },
+    {
+      "path": "scripts/completion_event_puzzle_board.gd.remap",
+      "offset": 15729776,
+      "bytes": 64,
+      "md5": "4ba6dbb1a4aff27de7d7d2d500b75a3d",
+      "flags": 0,
+      "source": "scripts/completion_event_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 84
+    },
+    {
+      "path": "scripts/watercolor_reachable_surfaces.gd.remap",
+      "offset": 15727616,
+      "bytes": 64,
+      "md5": "9db53663b8744d7e1d33b40ce9d77641",
+      "flags": 0,
+      "source": "scripts/watercolor_reachable_surfaces.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "poki/runtime/poki_difficulty_catalog.gd.remap",
+      "offset": 15728016,
+      "bytes": 63,
+      "md5": "7bac8d2bec2c073281e003c633d137f7",
+      "flags": 0,
+      "source": "poki/runtime/poki_difficulty_catalog.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/commercial_gameplay_hud_main.gd.remap",
+      "offset": 15729584,
+      "bytes": 63,
+      "md5": "79bc431d88f685dc9c21418e189a6722",
+      "flags": 0,
+      "source": "scripts/commercial_gameplay_hud_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "scripts/gallery_puzzle_catalog_board.gd.remap",
+      "offset": 15730960,
+      "bytes": 63,
+      "md5": "cee08d2066b80a4bde81ed07377ff24d",
+      "flags": 0,
+      "source": "scripts/gallery_puzzle_catalog_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "scripts/loose_piece_layout_workspace.gd.remap",
+      "offset": 15731456,
+      "bytes": 63,
+      "md5": "c093b0906353ee3238f13c23e985144b",
+      "flags": 0,
+      "source": "scripts/loose_piece_layout_workspace.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "scripts/single_slot_save_coordinator.gd.remap",
+      "offset": 15733808,
+      "bytes": 63,
+      "md5": "237a6f93758f47efc75d6cf1926320eb",
+      "flags": 0,
+      "source": "scripts/single_slot_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "scripts/sorting_workspace_controller.gd.remap",
+      "offset": 15733872,
+      "bytes": 63,
+      "md5": "b920b2f671f5392c6be37f95f0f1391d",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_controller.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "scripts/watercolor_sorting_workspace.gd.remap",
+      "offset": 15727824,
+      "bytes": 63,
+      "md5": "59d39ec65ff044fecdfc13471665b8c9",
+      "flags": 0,
+      "source": "scripts/watercolor_sorting_workspace.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 83
+    },
+    {
+      "path": "scripts/analytics_sorting_workspace.gd.remap",
+      "offset": 15728576,
+      "bytes": 62,
+      "md5": "a615d5a1f52d0a02d60478b9358e8c7d",
+      "flags": 0,
+      "source": "scripts/analytics_sorting_workspace.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "scripts/multi_slot_save_coordinator.gd.remap",
+      "offset": 15731952,
+      "bytes": 62,
+      "md5": "2d935f33070a6a736ae6f79d7d743089",
+      "flags": 0,
+      "source": "scripts/multi_slot_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "scripts/puzzle_piece_visual_factory.gd.remap",
+      "offset": 15733024,
+      "bytes": 62,
+      "md5": "c812684a352a9af74c851247d179ac25",
+      "flags": 0,
+      "source": "scripts/puzzle_piece_visual_factory.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "scripts/responsive_workspace_layout.gd.remap",
+      "offset": 15733168,
+      "bytes": 62,
+      "md5": "e4ff78047601b731317d4b82d5b0ec36",
+      "flags": 0,
+      "source": "scripts/responsive_workspace_layout.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/timelapse_sorting_workspace.gd.remap",
+      "offset": 15734576,
+      "bytes": 62,
+      "md5": "d0719a5e3689fd426b6187fb73cc1f7f",
+      "flags": 0,
+      "source": "scripts/timelapse_sorting_workspace.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "scripts/timelapse_video_export_main.gd.remap",
+      "offset": 15734704,
+      "bytes": 62,
+      "md5": "c6882d393d10c6cfe9f3831ad4f1a2d7",
+      "flags": 0,
+      "source": "scripts/timelapse_video_export_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 82
+    },
+    {
+      "path": "poki/runtime/poki_save_coordinator.gd.remap",
+      "offset": 15728144,
+      "bytes": 61,
+      "md5": "9009727cca4f5bd931d65e617367a628",
+      "flags": 0,
+      "source": "poki/runtime/poki_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 77
+    },
+    {
+      "path": "scripts/analytics_save_coordinator.gd.remap",
+      "offset": 15728448,
+      "bytes": 61,
+      "md5": "972a4770574d5238c68eb98e9618fb1b",
+      "flags": 0,
+      "source": "scripts/analytics_save_coordinator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 81
+    },
+    {
+      "path": "scripts/chaos_order_layout_dock_ui.gd.remap",
+      "offset": 15728832,
+      "bytes": 61,
+      "md5": "85020850553347b617c66325a4fbe74c",
+      "flags": 0,
+      "source": "scripts/chaos_order_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 81
+    },
+    {
+      "path": "scripts/commercial_product_ux_main.gd.remap",
+      "offset": 15729648,
+      "bytes": 61,
+      "md5": "746e6f68a863efccfc131485b5a4a9ee",
+      "flags": 0,
+      "source": "scripts/commercial_product_ux_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 81
+    },
+    {
+      "path": "scripts/completion_share_card_main.gd.remap",
+      "offset": 15730064,
+      "bytes": 61,
+      "md5": "c06470c50953268f53fa6e5ba3e8c0a8",
+      "flags": 0,
+      "source": "scripts/completion_share_card_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/local_recommendation_store.gd.remap",
+      "offset": 15731328,
+      "bytes": 61,
+      "md5": "a95026c7315a8796e028c39735e524a2",
+      "flags": 0,
+      "source": "scripts/local_recommendation_store.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/loose_piece_layout_dock_ui.gd.remap",
+      "offset": 15731392,
+      "bytes": 61,
+      "md5": "76f28a1add5cc709d3df82087b9c6325",
+      "flags": 0,
+      "source": "scripts/loose_piece_layout_dock_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 81
+    },
+    {
+      "path": "scripts/runtime_difficulty_catalog.gd.remap",
+      "offset": 15733392,
+      "bytes": 61,
+      "md5": "8b8b2f54e72903445b3abefef5c8924f",
+      "flags": 0,
+      "source": "scripts/runtime_difficulty_catalog.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 81
+    },
+    {
+      "path": "scripts/startup_gated_gallery_main.gd.remap",
+      "offset": 15734304,
+      "bytes": 61,
+      "md5": "a4def67d1c382b4d0c3bdb88b69e92c9",
+      "flags": 0,
+      "source": "scripts/startup_gated_gallery_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v14.gd.remap",
+      "offset": 15730416,
+      "bytes": 60,
+      "md5": "d8d2507c2a8a085c5f302477ae0ee2d2",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v14.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v15.gd.remap",
+      "offset": 15730560,
+      "bytes": 60,
+      "md5": "9955c6765e97e5d701cec5ad3df6b6e1",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v15.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/cut_pattern_generator_v16.gd.remap",
+      "offset": 15730624,
+      "bytes": 60,
+      "md5": "459d21cab968738ff7494fc968e3207a",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator_v16.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/draggable_reference_panel.gd.remap",
+      "offset": 15730752,
+      "bytes": 60,
+      "md5": "2b0ad80dce262ce29d59fcea1585cbe5",
+      "flags": 0,
+      "source": "scripts/draggable_reference_panel.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/puzzle_me_responsive_main.gd.remap",
+      "offset": 15732848,
+      "bytes": 60,
+      "md5": "39ea82400329b8e52ca63ed56a24b5b8",
+      "flags": 0,
+      "source": "scripts/puzzle_me_responsive_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 77
+    },
+    {
+      "path": "scripts/sorting_workspace_icon_ui.gd.remap",
+      "offset": 15734016,
+      "bytes": 60,
+      "md5": "cabcf89a3ddef44e4cd65d0369b201e7",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_icon_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/watercolor_gameplay_style.gd.remap",
+      "offset": 15727552,
+      "bytes": 60,
+      "md5": "1ce079c9dbf396f32dfc88b99a778c86",
+      "flags": 0,
+      "source": "scripts/watercolor_gameplay_style.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 80
+    },
+    {
+      "path": "scripts/analytics_event_contract.gd.remap",
+      "offset": 15728320,
+      "bytes": 59,
+      "md5": "0e0d8c8131295d98fc55d964f7c79b68",
+      "flags": 0,
+      "source": "scripts/analytics_event_contract.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/catalog_content_identity.gd.remap",
+      "offset": 15728768,
+      "bytes": 59,
+      "md5": "77e12942f5b6ed432b54159e7432cc71",
+      "flags": 0,
+      "source": "scripts/catalog_content_identity.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 77
+    },
+    {
+      "path": "scripts/chaos_order_spatial_main.gd.remap",
+      "offset": 15729264,
+      "bytes": 59,
+      "md5": "e6d64e741afbd8785e956b5dd03ccc5f",
+      "flags": 0,
+      "source": "scripts/chaos_order_spatial_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/gallery_image_aware_main.gd.remap",
+      "offset": 15730896,
+      "bytes": 59,
+      "md5": "57bdafd543b1a1322aeeeb42adb39ac8",
+      "flags": 0,
+      "source": "scripts/gallery_image_aware_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/puzzle_camera_controller.gd.remap",
+      "offset": 15732224,
+      "bytes": 59,
+      "md5": "fba7f1ad3312e9d29d1ae61d8290faeb",
+      "flags": 0,
+      "source": "scripts/puzzle_camera_controller.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 79
+    },
+    {
+      "path": "scripts/runtime_reshuffle_policy.gd.remap",
+      "offset": 15733600,
+      "bytes": 59,
+      "md5": "508f2c047425b9b6381320442cb01287",
+      "flags": 0,
+      "source": "scripts/runtime_reshuffle_policy.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/board_cut_lines_overlay.gd.remap",
+      "offset": 15728704,
+      "bytes": 58,
+      "md5": "44bafe3f4b57405d4fc0970fab43763f",
+      "flags": 0,
+      "source": "scripts/board_cut_lines_overlay.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/chaos_order_pile_policy.gd.remap",
+      "offset": 15729040,
+      "bytes": 58,
+      "md5": "562ca354667b90034cbf34fa3bbae03c",
+      "flags": 0,
+      "source": "scripts/chaos_order_pile_policy.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/completion_summary_main.gd.remap",
+      "offset": 15730128,
+      "bytes": 58,
+      "md5": "7d9863827c5466ac491bd2e84238e835",
+      "flags": 0,
+      "source": "scripts/completion_summary_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/loose_piece_rail_canvas.gd.remap",
+      "offset": 15731520,
+      "bytes": 58,
+      "md5": "04faed10d794fedf1abaefaf61e7e363",
+      "flags": 0,
+      "source": "scripts/loose_piece_rail_canvas.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/puzzle_me_gallery_board.gd.remap",
+      "offset": 15732720,
+      "bytes": 58,
+      "md5": "d999d862fe3b30f81742ae7c1fe47788",
+      "flags": 0,
+      "source": "scripts/puzzle_me_gallery_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/sorting_workspace_state.gd.remap",
+      "offset": 15734240,
+      "bytes": 58,
+      "md5": "4c5518ccbc7538de12d3e5de11065078",
+      "flags": 0,
+      "source": "scripts/sorting_workspace_state.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 78
+    },
+    {
+      "path": "scripts/tray_reflow_play_canvas.gd.remap",
+      "offset": 15727680,
+      "bytes": 58,
+      "md5": "ceec44765458a7172f2212feab614507",
+      "flags": 0,
+      "source": "scripts/tray_reflow_play_canvas.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 76
+    },
+    {
+      "path": "scripts/puzzle_layout_resolver.gd.remap",
+      "offset": 15732656,
+      "bytes": 57,
+      "md5": "99a42edcdb05f2393970c16e6c8398a3",
+      "flags": 0,
+      "source": "scripts/puzzle_layout_resolver.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 76
+    },
+    {
+      "path": "scripts/completion_event_main.gd.remap",
+      "offset": 15729712,
+      "bytes": 56,
+      "md5": "63c027ea32286712b701830c4593b5db",
+      "flags": 0,
+      "source": "scripts/completion_event_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 76
+    },
+    {
+      "path": "scripts/cut_pattern_generator.gd.remap",
+      "offset": 15730352,
+      "bytes": 56,
+      "md5": "7fb86eef11d3ae7878ebdc1cd8732c85",
+      "flags": 0,
+      "source": "scripts/cut_pattern_generator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/cut_pattern_validator.gd.remap",
+      "offset": 15730688,
+      "bytes": 56,
+      "md5": "48fe37ae7bbffb59086ed012faad7dc1",
+      "flags": 0,
+      "source": "scripts/cut_pattern_validator.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/monetization_provider.gd.remap",
+      "offset": 15731744,
+      "bytes": 56,
+      "md5": "5e6a233d97a213b2bdc197e9dd21976f",
+      "flags": 0,
+      "source": "scripts/monetization_provider.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 76
+    },
+    {
+      "path": "scripts/timelapse_replay_main.gd.remap",
+      "offset": 15734448,
+      "bytes": 56,
+      "md5": "c7129fa8eaba47f9567ce87f69bd5755",
+      "flags": 0,
+      "source": "scripts/timelapse_replay_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 76
+    },
+    {
+      "path": "scripts/timelapse_replay_plan.gd.remap",
+      "offset": 15734512,
+      "bytes": 56,
+      "md5": "275d28cc1478098312b2ecd12893f27e",
+      "flags": 0,
+      "source": "scripts/timelapse_replay_plan.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 74
+    },
+    {
+      "path": "scripts/completion_record_v1.gd.remap",
+      "offset": 15729920,
+      "bytes": 55,
+      "md5": "e016152a9edfe3ea06c786a89094c84b",
+      "flags": 0,
+      "source": "scripts/completion_record_v1.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/monetization_service.gd.remap",
+      "offset": 15731808,
+      "bytes": 55,
+      "md5": "e91e236d7e3966aa5d9d63b87d53070f",
+      "flags": 0,
+      "source": "scripts/monetization_service.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/puzzle_journal_store.gd.remap",
+      "offset": 15732592,
+      "bytes": 55,
+      "md5": "39206f0471b0f858128ef36910bfdce5",
+      "flags": 0,
+      "source": "scripts/puzzle_journal_store.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/runtime_puzzle_board.gd.remap",
+      "offset": 15733456,
+      "bytes": 55,
+      "md5": "aae4194b4833f0e07f3296d1f1837edc",
+      "flags": 0,
+      "source": "scripts/runtime_puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 75
+    },
+    {
+      "path": "scripts/gallery_state_store.gd.remap",
+      "offset": 15731024,
+      "bytes": 54,
+      "md5": "acda7e570d78e608973b9766d1676009",
+      "flags": 0,
+      "source": "scripts/gallery_state_store.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 72
+    },
+    {
+      "path": "scripts/puzzle_journal_main.gd.remap",
+      "offset": 15732528,
+      "bytes": 54,
+      "md5": "61ad351061d599bc6874bc476ad464a6",
+      "flags": 0,
+      "source": "scripts/puzzle_journal_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 74
+    },
+    {
+      "path": "scripts/runtime_snap_policy.gd.remap",
+      "offset": 15733664,
+      "bytes": 54,
+      "md5": "e7a7b0d163b5c06538682b6a8e4622e2",
+      "flags": 0,
+      "source": "scripts/runtime_snap_policy.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 74
+    },
+    {
+      "path": "scripts/timelapse_trace_v1.gd.remap",
+      "offset": 15734640,
+      "bytes": 53,
+      "md5": "69fee90453a5157f7a011c463b92ccf6",
+      "flags": 0,
+      "source": "scripts/timelapse_trace_v1.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 73
+    },
+    {
+      "path": "scripts/analytics_service.gd.remap",
+      "offset": 15728512,
+      "bytes": 52,
+      "md5": "735692eaa0f3d679abb3a34fd7148f12",
+      "flags": 0,
+      "source": "scripts/analytics_service.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 72
+    },
+    {
+      "path": "scripts/cut_pattern_asset.gd.remap",
+      "offset": 15730288,
+      "bytes": 52,
+      "md5": "78e2fa30bf0419d31a691a428578c75a",
+      "flags": 0,
+      "source": "scripts/cut_pattern_asset.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 71
+    },
+    {
+      "path": "scripts/monetization_main.gd.remap",
+      "offset": 15731680,
+      "bytes": 52,
+      "md5": "c9d7c13813b7d0ee892c595657fdce36",
+      "flags": 0,
+      "source": "scripts/monetization_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 72
+    },
+    {
+      "path": "scripts/puzzle_definition.gd.remap",
+      "offset": 15732464,
+      "bytes": 52,
+      "md5": "2cb79f6acba5e0493d76c8adec6911ef",
+      "flags": 0,
+      "source": "scripts/puzzle_definition.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 72
+    },
+    {
+      "path": "scripts/chaos_order_main.gd.remap",
+      "offset": 15728896,
+      "bytes": 51,
+      "md5": "c993469e822b90e753f69ba31706d03b",
+      "flags": 0,
+      "source": "scripts/chaos_order_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 71
+    },
+    {
+      "path": "scripts/tray_play_canvas.gd.remap",
+      "offset": 15727264,
+      "bytes": 51,
+      "md5": "b872a298b07ae790670dcb301ea54dff",
+      "flags": 0,
+      "source": "scripts/tray_play_canvas.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 69
+    },
+    {
+      "path": "poki/runtime/poki_board.gd.remap",
+      "offset": 15727952,
+      "bytes": 50,
+      "md5": "642ec2438889d4b2fb588dd4a986d10b",
+      "flags": 0,
+      "source": "poki/runtime/poki_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 66
+    },
+    {
+      "path": "scripts/puzzle_me_store.gd.remap",
+      "offset": 15732912,
+      "bytes": 50,
+      "md5": "c423dd314445d8d00f933ae4dbb2b3dc",
+      "flags": 0,
+      "source": "scripts/puzzle_me_store.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 70
+    },
+    {
+      "path": "scripts/ui_icon_catalog.gd.remap",
+      "offset": 15727888,
+      "bytes": 50,
+      "md5": "7f9d449973e57cf8cab90cd145ce2375",
+      "flags": 0,
+      "source": "scripts/ui_icon_catalog.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 70
+    },
+    {
+      "path": "poki/runtime/poki_main.gd.remap",
+      "offset": 15728080,
+      "bytes": 49,
+      "md5": "966627d48f972b71cf59e51897a13a4d",
+      "flags": 0,
+      "source": "poki/runtime/poki_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 65
+    },
+    {
+      "path": "scripts/analytics_main.gd.remap",
+      "offset": 15728384,
+      "bytes": 49,
+      "md5": "f2fc6bc8caf2f859f1ffdabeea18d5c7",
+      "flags": 0,
+      "source": "scripts/analytics_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 69
+    },
+    {
+      "path": "scripts/app_ui_metrics.gd.remap",
+      "offset": 15728640,
+      "bytes": 49,
+      "md5": "6f11c196cacd83ad7f7bc3d34c448f2f",
+      "flags": 0,
+      "source": "scripts/app_ui_metrics.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 69
+    },
+    {
+      "path": "scripts/puzzle_me_main.gd.remap",
+      "offset": 15732784,
+      "bytes": 49,
+      "md5": "c0768c7826eb882b0fc3a372877e3622",
+      "flags": 0,
+      "source": "scripts/puzzle_me_main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 67
+    },
+    {
+      "path": "scripts/main_icon_ui.gd.remap",
+      "offset": 15731632,
+      "bytes": 47,
+      "md5": "48c86f620a33dd0e83cf5d9f7c40ac9b",
+      "flags": 0,
+      "source": "scripts/main_icon_ui.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 67
+    },
+    {
+      "path": "scripts/puzzle_board.gd.remap",
+      "offset": 15732176,
+      "bytes": 47,
+      "md5": "01d7a29f94e3cd06fbae90ddae6a1139",
+      "flags": 0,
+      "source": "scripts/puzzle_board.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 67
+    },
+    {
+      "path": "scripts/puzzle_piece.gd.remap",
+      "offset": 15732976,
+      "bytes": 47,
+      "md5": "fdcccbfb464c77d496ea1d15901010ec",
+      "flags": 0,
+      "source": "scripts/puzzle_piece.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 67
+    },
+    {
+      "path": "scripts/main.gd.remap",
+      "offset": 15731584,
+      "bytes": 39,
+      "md5": "2b5c3955728b84207f9ad8272930fb6a",
+      "flags": 0,
+      "source": "scripts/main.gd.remap",
+      "category": "scripts / scenes / remaps",
+      "calculated_gzip_bytes": 59
+    }
+  ],
+  "note": "Payload sums exclude PCK directory/alignment. Individually gzipped payloads do not sum to whole-PCK gzip. No CDN transfer claim."
+}

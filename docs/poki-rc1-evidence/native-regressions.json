@@ -1,0 +1,186 @@
+{
+  "suite_count": 36,
+  "passed": 36,
+  "tests": [
+    {
+      "test": "analytics_event_contract_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "analytics_integration_smoke",
+      "passed": true,
+      "seconds": 21.0
+    },
+    {
+      "test": "commercial_gameplay_hud_smoke",
+      "passed": true,
+      "seconds": 13.9
+    },
+    {
+      "test": "commercial_product_navigation_smoke",
+      "passed": true,
+      "seconds": 49.7
+    },
+    {
+      "test": "completion_event_contract_smoke",
+      "passed": true,
+      "seconds": 29.2
+    },
+    {
+      "test": "completion_presentation_smoke",
+      "passed": true,
+      "seconds": 23.8
+    },
+    {
+      "test": "completion_share_card_smoke",
+      "passed": true,
+      "seconds": 17.1
+    },
+    {
+      "test": "content_identity_save_smoke",
+      "passed": true,
+      "seconds": 37.5
+    },
+    {
+      "test": "content_taxonomy_smoke",
+      "passed": true,
+      "seconds": 0.4
+    },
+    {
+      "test": "gallery_flow_smoke",
+      "passed": true,
+      "seconds": 37.1
+    },
+    {
+      "test": "gallery_retina_portrait_smoke",
+      "passed": true,
+      "seconds": 18.3
+    },
+    {
+      "test": "image_aware_difficulty_resolver_smoke",
+      "passed": true,
+      "seconds": 22.5
+    },
+    {
+      "test": "local_recommendation_smoke",
+      "passed": true,
+      "seconds": 19.1
+    },
+    {
+      "test": "monetization_foundation_smoke",
+      "passed": true,
+      "seconds": 15.9
+    },
+    {
+      "test": "multi_slot_save_smoke",
+      "passed": true,
+      "seconds": 47.6
+    },
+    {
+      "test": "museum_runtime_flow_smoke",
+      "passed": true,
+      "seconds": 23.9
+    },
+    {
+      "test": "puzzle_journal_store_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "puzzle_journal_ui_smoke",
+      "passed": true,
+      "seconds": 17.3
+    },
+    {
+      "test": "puzzle_me_flow_smoke",
+      "passed": true,
+      "seconds": 31.6
+    },
+    {
+      "test": "puzzle_me_store_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "puzzle_piece_depth_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "puzzle_piece_overlap_z_order_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "puzzle_selection_flow_smoke",
+      "passed": true,
+      "seconds": 30.8
+    },
+    {
+      "test": "rail_layout_visibility_smoke",
+      "passed": true,
+      "seconds": 23.3
+    },
+    {
+      "test": "save_robustness_smoke",
+      "passed": true,
+      "seconds": 102.8
+    },
+    {
+      "test": "save_stable_snapshot_smoke",
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "startup_resume_presentation_smoke",
+      "passed": true,
+      "seconds": 34.2
+    },
+    {
+      "test": "timelapse_replay_smoke",
+      "passed": true,
+      "seconds": 14.4
+    },
+    {
+      "test": "timelapse_trace_smoke",
+      "passed": true,
+      "seconds": 46.6
+    },
+    {
+      "test": "timelapse_video_export_smoke",
+      "passed": true,
+      "seconds": 19.0
+    },
+    {
+      "test": "touch_gesture_arbitration_smoke",
+      "passed": true,
+      "seconds": 18.0
+    },
+    {
+      "test": "touch_piece_pinch_handoff_smoke",
+      "passed": true,
+      "seconds": 20.1
+    },
+    {
+      "test": "touch_zoom_recovery_smoke",
+      "passed": true,
+      "seconds": 18.6
+    },
+    {
+      "test": "watercolor_gameplay_system_smoke",
+      "passed": true,
+      "seconds": 29.7
+    },
+    {
+      "test": "watercolor_reachable_ui_smoke",
+      "passed": true,
+      "seconds": 42.6
+    },
+    {
+      "test": "release_runtime_smoke",
+      "passed": true,
+      "seconds": 24.7
+    }
+  ]
+}

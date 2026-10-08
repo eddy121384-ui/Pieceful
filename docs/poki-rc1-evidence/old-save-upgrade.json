@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "oldSaves": [
+    {
+      "game": "game_1791459293_949462",
+      "content": "met_10181",
+      "sha256": "04801cd56e23594e2ec51c2fb6a80d86f608c47fcf6f122e61d7e90cd6dcf6e1",
+      "pieces": 35,
+      "solved": 1,
+      "maxNormalizedPositionDrift": 9.192041594552336e-08
+    },
+    {
+      "game": "game_1791459333_461288",
+      "content": "photo_935a5d2b1303f1f1",
+      "sha256": "935a5d2b1303f1f15e403b39b85123510cfe66d0118fccb784a20000cc0bf05b",
+      "pieces": 35,
+      "solved": 1,
+      "maxNormalizedPositionDrift": 1.3788062402930734e-07
+    }
+  ],
+  "checks": [
+    "Old export hashes all 38 original source files",
+    "Old build commits museum + photo progress and completed history",
+    "New export has no raw catalog files; all 38 runtime hashes equal old build",
+    "Both old slots resume exact identity/geometry/discrete state; normalized positions within 1e-6; history unchanged"
+  ],
+  "errors": [],
+  "oldBuildPhotoRoundTripMaxNormalizedDrift": 9.192041605654566e-08
+}

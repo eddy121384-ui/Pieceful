@@ -1,0 +1,42 @@
+{
+  "android_validation": [
+    {
+      "file": "pieceful-validation-unsigned.apk",
+      "bytes": 39047884,
+      "sha256": "2ca8088000c7d038c17b0f62ee2780b4e26a3f3a3f2147a367a8b17b60fd4491",
+      "catalog_identity": {
+        "manifest_version": 1,
+        "original_byte_hashes_verified": 38,
+        "imported_artworks_verified": 38,
+        "duplicate_raw_sources": 0
+      },
+      "notices_present": 8,
+      "native_load_alignments": {
+        "lib/arm64-v8a/libc++_shared.so": [
+          16384,
+          16384,
+          16384
+        ],
+        "lib/arm64-v8a/libgodot_android.so": [
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "signed": false,
+      "profile": "base game without optional monetization SDKs",
+      "manifest_checked": "APK",
+      "package": "com.piecepace.puzzles",
+      "min_sdk": 24,
+      "target_sdk": 36,
+      "debuggable": false,
+      "allow_backup": false,
+      "permissions": [
+        "uses-permission: name='android.permission.ACCESS_NETWORK_STATE'",
+        "uses-permission: name='android.permission.INTERNET'"
+      ],
+      "zip_alignment_16kb": "passed"
+    }
+  ],
+  "note": "Unsigned base-game artifacts; signing, optional SDKs, Play ingestion and devices remain unverified."
+}

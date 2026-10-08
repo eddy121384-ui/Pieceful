@@ -1,0 +1,93 @@
+{
+  "build": {
+    "profile": "pieceful_poki_rc1",
+    "source_sha": "f4eb7f9a30aaffc4286dc346b8234053f302e9e7",
+    "source_dirty": false,
+    "qa": false,
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "official_sdk_url": "https://game-cdn.poki.com/scripts/v2/poki-sdk.js",
+    "save_namespace": "Pieceful-Poki-RC1"
+  },
+  "files": [
+    {
+      "path": "artwork-manifest.json",
+      "bytes": 58815,
+      "sha256": "3dd3730e9269125e20333a5ee7fdedbc91f2e5d9de4d11932587ec040b868a8f",
+      "calculated_gzip_bytes": 7533
+    },
+    {
+      "path": "index.apple-touch-icon.png",
+      "bytes": 11944,
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "calculated_gzip_bytes": 11967
+    },
+    {
+      "path": "index.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "calculated_gzip_bytes": 1161
+    },
+    {
+      "path": "index.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "calculated_gzip_bytes": 2194
+    },
+    {
+      "path": "index.html",
+      "bytes": 7279,
+      "sha256": "ad04691036ba0331058d454382999e9f0684bf4bcffaa6913c4184ac059dae7b",
+      "calculated_gzip_bytes": 2851
+    },
+    {
+      "path": "index.icon.png",
+      "bytes": 5700,
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "calculated_gzip_bytes": 5723
+    },
+    {
+      "path": "index.js",
+      "bytes": 279897,
+      "sha256": "767aeba047919b76bf311f390df4ef4dc49c8699718be192ef3cf035bb71e820",
+      "calculated_gzip_bytes": 68517
+    },
+    {
+      "path": "index.pck",
+      "bytes": 15797028,
+      "sha256": "685ade5c80bb3de91df6115367e4679dcec80ffde0ac4c5a172953f3572b6154",
+      "calculated_gzip_bytes": 12446213
+    },
+    {
+      "path": "index.png",
+      "bytes": 21443,
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "calculated_gzip_bytes": 19328
+    },
+    {
+      "path": "index.wasm",
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "calculated_gzip_bytes": 10054758
+    },
+    {
+      "path": "poki_bridge.js",
+      "bytes": 4065,
+      "sha256": "948ab0f3381b0290dcc53f45609cd8bb0e074dd4a7f54695b6a5c086150a2ce7",
+      "calculated_gzip_bytes": 1434
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 299,
+      "sha256": "159e26ef9ac15348f0c340cafaa8e13d2fa7fcf0a94512d9bb0a598e42958793",
+      "calculated_gzip_bytes": 227
+    },
+    {
+      "path": "hash-manifest.json",
+      "bytes": 2413,
+      "sha256": "80d0cafe8f5eebf8670f0733f3fefd744acc07e708ca3d1e51b07e435423b65e",
+      "calculated_gzip_bytes": 912
+    }
+  ],
+  "raw_bytes": 55713908,
+  "calculated_gzip_bytes": 22622818
+}

@@ -1,0 +1,378 @@
+{
+  "explicit_qa": true,
+  "scenarios": [
+    {
+      "scenario": "success",
+      "sdk": {
+        "status": "ready",
+        "usable": true,
+        "loaded": true,
+        "desired": true,
+        "playing": true,
+        "hidden": false,
+        "focused": true,
+        "adPending": false,
+        "adResult": "resolved",
+        "error": "",
+        "events": [
+          {
+            "event": "initRequested",
+            "detail": "",
+            "time": 386.2000000178814
+          },
+          {
+            "event": "init",
+            "detail": "",
+            "time": 386.5
+          },
+          {
+            "event": "usable",
+            "detail": "",
+            "time": 13832.300000011921
+          },
+          {
+            "event": "gameLoadingFinished",
+            "detail": "",
+            "time": 13832.300000011921
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 20719.90000000596
+          },
+          {
+            "event": "gameplayStop",
+            "detail": "",
+            "time": 21734.40000000596
+          },
+          {
+            "event": "commercialRequested",
+            "detail": "",
+            "time": 46075.70000001788
+          },
+          {
+            "event": "commercialStarted",
+            "detail": "",
+            "time": 46075.90000000596
+          },
+          {
+            "event": "commercialResolved",
+            "detail": "",
+            "time": 51144.90000000596
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 51821.30000001192
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "adReject",
+      "sdk": {
+        "status": "ready",
+        "usable": true,
+        "loaded": true,
+        "desired": true,
+        "playing": true,
+        "hidden": false,
+        "focused": true,
+        "adPending": false,
+        "adResult": "rejected",
+        "error": "commercialBreak: Explicit QA ad rejection",
+        "events": [
+          {
+            "event": "initRequested",
+            "detail": "",
+            "time": 54.80000001192093
+          },
+          {
+            "event": "init",
+            "detail": "",
+            "time": 55
+          },
+          {
+            "event": "usable",
+            "detail": "",
+            "time": 15269.5
+          },
+          {
+            "event": "gameLoadingFinished",
+            "detail": "",
+            "time": 15269.700000017881
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 29494.59999999404
+          },
+          {
+            "event": "gameplayStop",
+            "detail": "",
+            "time": 30615.90000000596
+          },
+          {
+            "event": "commercialRequested",
+            "detail": "",
+            "time": 45994.70000001788
+          },
+          {
+            "event": "failure",
+            "detail": "commercialBreak: Explicit QA ad rejection",
+            "time": 45995.80000001192
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 46633.59999999404
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "noFill",
+      "sdk": {
+        "status": "ready",
+        "usable": true,
+        "loaded": true,
+        "desired": true,
+        "playing": true,
+        "hidden": false,
+        "focused": true,
+        "adPending": false,
+        "adResult": "resolved",
+        "error": "",
+        "events": [
+          {
+            "event": "initRequested",
+            "detail": "",
+            "time": 57.39999997615814
+          },
+          {
+            "event": "init",
+            "detail": "",
+            "time": 59.89999997615814
+          },
+          {
+            "event": "usable",
+            "detail": "",
+            "time": 13511.09999999404
+          },
+          {
+            "event": "gameLoadingFinished",
+            "detail": "",
+            "time": 13511.299999982119
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 34694.69999998808
+          },
+          {
+            "event": "gameplayStop",
+            "detail": "",
+            "time": 35922.39999997616
+          },
+          {
+            "event": "commercialRequested",
+            "detail": "",
+            "time": 60660.09999999404
+          },
+          {
+            "event": "commercialResolved",
+            "detail": "",
+            "time": 60660.29999998212
+          },
+          {
+            "event": "gameplayStart",
+            "detail": "",
+            "time": 61281.59999999404
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "initReject",
+      "sdk": {
+        "status": "failed",
+        "usable": true,
+        "loaded": false,
+        "desired": true,
+        "playing": false,
+        "hidden": false,
+        "focused": true,
+        "adPending": false,
+        "adResult": "idle",
+        "error": "init: Explicit QA init rejection",
+        "events": [
+          {
+            "event": "initRequested",
+            "detail": "",
+            "time": 116.30000001192093
+          },
+          {
+            "event": "failure",
+            "detail": "init: Explicit QA init rejection",
+            "time": 117.40000000596046
+          },
+          {
+            "event": "usable",
+            "detail": "",
+            "time": 14525.40000000596
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "missing",
+      "sdk": {
+        "status": "failed",
+        "usable": true,
+        "loaded": false,
+        "desired": true,
+        "playing": false,
+        "hidden": false,
+        "focused": true,
+        "adPending": false,
+        "adResult": "idle",
+        "error": "init: Official Poki SDK did not load",
+        "events": [
+          {
+            "event": "failure",
+            "detail": "init: Official Poki SDK did not load",
+            "time": 71.59999999403954
+          },
+          {
+            "event": "usable",
+            "detail": "",
+            "time": 11604.5
+          }
+        ]
+      }
+    }
+  ],
+  "checks": [
+    "Complete 35-artwork catalog is browsable",
+    "Four player difficulty choices, no stress tiers",
+    "Real drag-to-target snapping and progress",
+    "Same-origin reload restores exact active slot and solved count",
+    "Accepted completion history still persists",
+    "Completion-to-library has no commercial break",
+    "Completion does not start ad during active drag",
+    "Completion does not start ad during layout animation",
+    "Ad owns pause and audio mute",
+    "Overlapping ad is rejected",
+    "Ad preserves previously muted audio",
+    "Ad resolves into actual next-puzzle gameplay",
+    "Four player difficulty choices, no stress tiers",
+    "adReject: audio restored",
+    "adReject: no hung input/ad lock",
+    "Rejected commercial break remains observable",
+    "Four player difficulty choices, no stress tiers",
+    "noFill: audio restored",
+    "noFill: no hung input/ad lock",
+    "No-fill resolves without inventing ad display",
+    "Four player difficulty choices, no stress tiers",
+    "initReject: audio restored",
+    "initReject: no hung input/ad lock",
+    "initReject: unavailable SDK is not reported as successful",
+    "Four player difficulty choices, no stress tiers",
+    "missing: audio restored",
+    "missing: no hung input/ad lock",
+    "missing: unavailable SDK is not reported as successful",
+    "Denied storage discloses loss",
+    "Four player difficulty choices, no stress tiers",
+    "Denied IndexedDB remains playable with honest persistence state",
+    "No unexpected browser errors ()"
+  ],
+  "production_live": {
+    "status": "UNVERIFIED / init timed out in restricted downstream network",
+    "sdk": {
+      "status": "failed",
+      "usable": true,
+      "loaded": false,
+      "desired": false,
+      "playing": false,
+      "hidden": false,
+      "focused": true,
+      "adPending": false,
+      "adResult": "idle",
+      "error": "init: SDK initialization timed out",
+      "events": [
+        {
+          "event": "initRequested",
+          "detail": "",
+          "time": 289.2000000178814
+        },
+        {
+          "event": "failure",
+          "detail": "init: SDK initialization timed out",
+          "time": 17383.70000001788
+        },
+        {
+          "event": "usable",
+          "detail": "",
+          "time": 17391
+        }
+      ]
+    },
+    "network_failures": [
+      {
+        "url_without_query": "https://a.poki-cdn.com/sdk/hourglass-icons-v2.svg",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://a.poki-cdn.com/sdk/error-icons-v2.svg",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://geo.poki.io/",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://ads.poki.com/ads/settings",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://securepubads.g.doubleclick.net/tag/js/gpt.js",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://imasdk.googleapis.com/js/sdkloader/ima3.js",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://a.poki-cdn.com/prebid/prebid_1782721530.js",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      },
+      {
+        "url_without_query": "https://c.amazon-adsystem.com/aax2/apstag.js",
+        "error": {
+          "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+        }
+      }
+    ],
+    "unfiltered_production_browser_failure": [
+      "Failed to fetch",
+      "Failed to fetch",
+      "Failed to fetch",
+      "Failed to fetch"
+    ],
+    "no_submission": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "baseline_sha": "e04f0305fb54e3f30ee3b766a89d3105f1986daf",
+  "candidate_source_sha": "f4eb7f9a30aaffc4286dc346b8234053f302e9e7",
+  "shared_paths": 384,
+  "unchanged_payloads": 376,
+  "changed_paths": [
+    ".godot/global_script_class_cache.cfg",
+    ".godot/imported/demo_garden.svg-102b516b9209dc5c3a22ba9ff6cc9ad4.ctex",
+    ".godot/uid_cache.bin",
+    "assets/demo_garden.svg.import",
+    "content/catalog_identity_v1.json",
+    "content/catalog_v1.json",
+    "licenses/ASSET_MANIFEST.json",
+    "project.binary"
+  ],
+  "note": "PCK directory MD5 comparisons; shared accepted scripts, shaders, cuts, fonts and museum imported payloads remain byte-identical. Stage changes are profile configuration/catalog/manifests and generated blank fallback."
+}
